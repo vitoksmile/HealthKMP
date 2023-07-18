@@ -4,10 +4,12 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-    id("org.jetbrains.compose")
 }
 
+@OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
+    targetHierarchy.default()
+
     android()
 
     iosX64()
@@ -16,48 +18,35 @@ kotlin {
 
     cocoapods {
         version = "0.0.1"
-        summary = "Wrapper for HealthKit on iOS and Google Fit and Health Connect on Android."
+        summary = "Shared Koin module for wrapper for HealthKit on iOS and Google Fit and Health Connect on Android."
         homepage = "https://github.com/vitoksmile/HealthKMM"
         ios.deploymentTarget = "14.1"
         podfile = project.file("../iosApp/Podfile")
         framework {
-            baseName = "shared"
+            baseName = "koin"
             isStatic = true
         }
-        extraSpecAttributes["resources"] =
-            "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
-
+    
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material)
-                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                implementation(compose.components.resources)
+                implementation(project(":shared"))
 
-                // Fix ios build
-                implementation("org.jetbrains.kotlinx:atomicfu:0.18.5")
+                api("io.insert-koin:koin-core:3.4.0")
             }
         }
 
         val androidMain by getting {
             dependencies {
-                api("androidx.activity:activity-compose:1.7.2")
-                api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.10.1")
-
-                implementation("androidx.startup:startup-runtime:1.1.1")
-
-                implementation("androidx.health.connect:connect-client:1.1.0-alpha02")
+                api("io.insert-koin:koin-android:3.3.3")
             }
         }
 
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
-        val iosMain by creating {
+        val iosMain by getting {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
@@ -68,11 +57,9 @@ kotlin {
 
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "com.vitoksmile.kmm.health"
+    namespace = "com.vitoksmile.kmm.health.koin"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
         minSdk = (findProperty("android.minSdk") as String).toInt()

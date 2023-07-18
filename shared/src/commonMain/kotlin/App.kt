@@ -5,13 +5,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.vitoksmile.kmm.health.rememberHealthManager
+import com.vitoksmile.kmm.health.HealthManagerFactory
 
 @Composable
 fun App() {
-    val healthManager = rememberHealthManager()
+    val healthManager = remember {
+        HealthManagerFactory().createManager()
+    }
 
     MaterialTheme {
         Column(

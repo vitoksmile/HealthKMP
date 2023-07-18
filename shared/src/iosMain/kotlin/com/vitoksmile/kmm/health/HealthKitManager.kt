@@ -2,13 +2,9 @@
 
 package com.vitoksmile.kmm.health
 
-class iOSHealthManager : HealthManager {
+class HealthKitManager : HealthManager {
 
     override fun isAvailable(): Result<Boolean> = runCatching {
         throw NotImplementedError("HealthKit is not implemented yet")
     }
-}
-
-actual class HealthManagerFactory {
-    actual fun createManager(): HealthManager = iOSHealthManager()
 }

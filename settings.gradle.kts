@@ -2,6 +2,7 @@ rootProject.name = "HealthKMM"
 
 include(":androidApp")
 include(":shared")
+include(":koin")
 
 pluginManagement {
     repositories {

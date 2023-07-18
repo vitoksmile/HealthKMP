@@ -3,7 +3,7 @@ package com.vitoksmile.kmm.health
 import android.content.Context
 import androidx.health.connect.client.HealthConnectClient
 
-class AndroidHealthManager(
+class HealthConnectManager(
     private val context: Context,
 ) : HealthManager {
 
@@ -11,8 +11,4 @@ class AndroidHealthManager(
         val status = HealthConnectClient.getSdkStatus(context)
         status == HealthConnectClient.SDK_AVAILABLE
     }
-}
-
-actual class HealthManagerFactory(private val context: Context) {
-    actual fun createManager(): HealthManager = AndroidHealthManager(context)
 }

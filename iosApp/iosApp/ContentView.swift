@@ -1,11 +1,12 @@
 import UIKit
 import SwiftUI
 import shared
+import koin
 
 struct ComposeView: UIViewControllerRepresentable {
 
     init() {
-        Main_iosKt.InitKoin()
+        Health_kmm_koinKt.start()
     }
 
     func makeUIViewController(context: Context) -> UIViewController {
