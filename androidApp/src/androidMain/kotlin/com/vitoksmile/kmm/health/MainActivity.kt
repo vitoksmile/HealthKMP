@@ -1,4 +1,4 @@
-package com.myapplication
+package com.vitoksmile.kmm.health
 
 import MainView
 import android.os.Bundle
