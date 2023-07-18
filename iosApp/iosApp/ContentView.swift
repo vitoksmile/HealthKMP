@@ -3,6 +3,11 @@ import SwiftUI
 import shared
 
 struct ComposeView: UIViewControllerRepresentable {
+
+    init() {
+        Main_iosKt.InitKoin()
+    }
+
     func makeUIViewController(context: Context) -> UIViewController {
         Main_iosKt.MainViewController()
     }
