@@ -19,6 +19,10 @@
     </queries>
 
     <application>
+        <activity
+            android:name=".HealthConnectPermissionActivity"
+            android:theme="@style/HealthConnectPermissionTheme" />
+
         <!-- Initializer for ApplicationContextHolder -->
         <provider
             android:name="androidx.startup.InitializationProvider"
