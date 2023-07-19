@@ -2,9 +2,11 @@
 
 package com.vitoksmile.kmm.health
 
+import platform.HealthKit.HKHealthStore
+
 class HealthKitManager : HealthManager {
 
     override fun isAvailable(): Result<Boolean> = runCatching {
-        throw NotImplementedError("HealthKit is not implemented yet")
+        HKHealthStore.isHealthDataAvailable()
     }
 }
