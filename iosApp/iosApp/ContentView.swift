@@ -1,6 +1,6 @@
 import UIKit
 import SwiftUI
-import shared
+import core
 import koin
 
 struct ComposeView: UIViewControllerRepresentable {

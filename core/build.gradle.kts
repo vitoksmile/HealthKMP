@@ -21,11 +21,9 @@ kotlin {
         ios.deploymentTarget = "14.1"
         podfile = project.file("../iosApp/Podfile")
         framework {
-            baseName = "shared"
+            baseName = "core"
             isStatic = true
         }
-        extraSpecAttributes["resources"] =
-            "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
 
     sourceSets {
@@ -72,7 +70,6 @@ android {
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
         minSdk = (findProperty("android.minSdk") as String).toInt()

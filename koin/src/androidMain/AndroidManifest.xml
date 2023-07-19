@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application>
-        <!-- Remove ApplicationContextHolderInitializer added by :shared module -->
+        <!-- Remove ApplicationContextHolderInitializer added by :core module -->
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
