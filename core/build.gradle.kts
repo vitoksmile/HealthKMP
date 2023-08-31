@@ -8,7 +8,7 @@ plugins {
 }
 
 kotlin {
-    android()
+    androidTarget()
 
     iosX64()
     iosArm64()
@@ -36,7 +36,7 @@ kotlin {
                 implementation(compose.components.resources)
 
                 // Fix ios build
-                implementation("org.jetbrains.kotlinx:atomicfu:0.18.5")
+                implementation("org.jetbrains.kotlinx:atomicfu:0.21.0")
             }
         }
 
@@ -48,7 +48,7 @@ kotlin {
 
                 implementation("androidx.startup:startup-runtime:1.1.1")
 
-                implementation("androidx.health.connect:connect-client:1.1.0-alpha02")
+                implementation("androidx.health.connect:connect-client:1.1.0-alpha03")
             }
         }
 
@@ -76,10 +76,10 @@ android {
         targetSdk = (findProperty("android.targetSdk") as String).toInt()
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlin {
-        jvmToolchain(11)
+        jvmToolchain(17)
     }
 }
