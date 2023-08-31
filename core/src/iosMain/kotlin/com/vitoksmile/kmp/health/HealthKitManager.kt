@@ -1,6 +1,6 @@
 @file:Suppress("ClassName")
 
-package com.vitoksmile.kmm.health
+package com.vitoksmile.kmp.health
 
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException

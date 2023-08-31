@@ -1,4 +1,4 @@
-rootProject.name = "HealthKMM"
+rootProject.name = "HealthKMP"
 
 include(":androidApp")
 include(":core")

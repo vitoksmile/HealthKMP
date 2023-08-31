@@ -1,10 +1,10 @@
-package com.vitoksmile.kmm.health.koin
+package com.vitoksmile.kmp.health.koin
 
 import android.app.Application
-import com.vitoksmile.kmm.health.ApplicationContextHolder
+import com.vitoksmile.kmp.health.ApplicationContextHolder
 import org.koin.core.KoinApplication
 
-fun KoinApplication.attachHealthKMM(
+fun KoinApplication.attachHealthKMP(
     application: Application,
 ) {
     ApplicationContextHolder.applicationContext = application

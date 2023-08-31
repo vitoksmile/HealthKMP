@@ -1,4 +1,4 @@
-package com.vitoksmile.kmm.health
+package com.vitoksmile.kmp.health
 
 import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.StepsRecord

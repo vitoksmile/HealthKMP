@@ -6,7 +6,7 @@ import koin
 struct ComposeView: UIViewControllerRepresentable {
 
     init() {
-        Health_kmm_koinKt.start()
+        Health_kmp_koinKt.start()
     }
 
     func makeUIViewController(context: Context) -> UIViewController {

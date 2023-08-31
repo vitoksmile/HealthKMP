@@ -15,13 +15,14 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
+        name = "HealthKMP"
         version = "0.0.1"
         summary = "Wrapper for HealthKit on iOS and Google Fit and Health Connect on Android."
-        homepage = "https://github.com/vitoksmile/HealthKMM"
+        homepage = "https://github.com/vitoksmile/HealthKMP"
         ios.deploymentTarget = "14.1"
         podfile = project.file("../iosApp/Podfile")
         framework {
-            baseName = "core"
+            baseName = "HealthKMP"
             isStatic = true
         }
     }
@@ -66,7 +67,7 @@ kotlin {
 
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "com.vitoksmile.kmm.health"
+    namespace = "com.vitoksmile.kmp.health"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")

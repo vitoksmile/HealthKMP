@@ -1,4 +1,4 @@
-package com.vitoksmile.kmm.health
+package com.vitoksmile.kmp.health
 
 enum class HealthDataType {
     STEPS,

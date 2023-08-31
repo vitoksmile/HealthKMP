@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.vitoksmile.kmm.health
+package com.vitoksmile.kmp.health
 
 import android.content.Context
 import androidx.startup.Initializer

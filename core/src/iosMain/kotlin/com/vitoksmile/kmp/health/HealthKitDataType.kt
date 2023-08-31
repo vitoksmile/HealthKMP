@@ -1,4 +1,4 @@
-package com.vitoksmile.kmm.health
+package com.vitoksmile.kmp.health
 
 import platform.HealthKit.HKQuantityType
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass

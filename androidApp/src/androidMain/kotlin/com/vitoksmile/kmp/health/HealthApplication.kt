@@ -1,7 +1,7 @@
-package com.vitoksmile.kmm.health
+package com.vitoksmile.kmp.health
 
 import android.app.Application
-import com.vitoksmile.kmm.health.koin.attachHealthKMM
+import com.vitoksmile.kmp.health.koin.attachHealthKMP
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -14,7 +14,7 @@ class HealthApplication : Application() {
         startKoin {
             androidContext(this@HealthApplication)
             androidLogger()
-            attachHealthKMM(this@HealthApplication)
+            attachHealthKMP(this@HealthApplication)
         }
     }
 }

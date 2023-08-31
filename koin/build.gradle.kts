@@ -17,13 +17,14 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
+        name = "HealthKMPKoin"
         version = "0.0.1"
         summary = "Shared Koin module for wrapper for HealthKit on iOS and Google Fit and Health Connect on Android."
-        homepage = "https://github.com/vitoksmile/HealthKMM"
+        homepage = "https://github.com/vitoksmile/HealthKMP"
         ios.deploymentTarget = "14.1"
         podfile = project.file("../iosApp/Podfile")
         framework {
-            baseName = "koin"
+            baseName = "HealthKMPKoin"
             isStatic = true
         }
     }
@@ -57,7 +58,7 @@ kotlin {
 
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "com.vitoksmile.kmm.health.koin"
+    namespace = "com.vitoksmile.kmp.health.koin"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 

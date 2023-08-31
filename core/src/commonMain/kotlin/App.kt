@@ -16,8 +16,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.vitoksmile.kmm.health.HealthDataType
-import com.vitoksmile.kmm.health.HealthManagerFactory
+import com.vitoksmile.kmp.health.HealthDataType
+import com.vitoksmile.kmp.health.HealthManagerFactory
 import kotlinx.coroutines.launch
 
 @Composable
@@ -49,7 +49,7 @@ fun App() {
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text("Hello, this is HealthKMM for ${getPlatformName()}")
+            Text("Hello, this is HealthKMP for ${getPlatformName()}")
 
             isAvailableResult
                 .onSuccess { isAvailable ->

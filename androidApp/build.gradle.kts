@@ -18,7 +18,7 @@ kotlin {
 
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "com.vitoksmile.kmm.health"
+    namespace = "com.vitoksmile.kmp.health"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 

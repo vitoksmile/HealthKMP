@@ -1,6 +1,6 @@
 target 'iosApp' do
   use_frameworks!
   platform :ios, '14.1'
-  pod 'core', :path => '../core'
-  pod 'koin', :path => '../koin'
+  pod 'HealthKMP', :path => '../core'
+  pod 'HealthKMPKoin', :path => '../koin'
 end

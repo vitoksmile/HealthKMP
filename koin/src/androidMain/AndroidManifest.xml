@@ -10,7 +10,7 @@
             android:exported="false"
             tools:node="remove">
             <meta-data
-                android:name="com.vitoksmile.kmm.health.ApplicationContextHolderInitializer"
+                android:name="com.vitoksmile.kmp.health.ApplicationContextHolderInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>
