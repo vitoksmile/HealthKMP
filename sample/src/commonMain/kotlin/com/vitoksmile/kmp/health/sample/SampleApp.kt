@@ -1,3 +1,5 @@
+package com.vitoksmile.kmp.health.sample
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,7 +23,7 @@ import com.vitoksmile.kmp.health.HealthManagerFactory
 import kotlinx.coroutines.launch
 
 @Composable
-fun App() {
+fun SampleApp() {
     val coroutineScope = rememberCoroutineScope()
     val healthManager = remember { HealthManagerFactory().createManager() }
 

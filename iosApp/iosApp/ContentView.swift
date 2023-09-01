@@ -1,16 +1,17 @@
 import UIKit
 import SwiftUI
-import core
-import koin
+import HealthKMP
+import HealthKMPKoin
+import HealthKMPSample
 
 struct ComposeView: UIViewControllerRepresentable {
 
     init() {
-        Health_kmp_koinKt.start()
+        HealthKMPKoin().start()
     }
 
     func makeUIViewController(context: Context) -> UIViewController {
-        Main_iosKt.MainViewController()
+        HealthKMPSample().MainViewController()
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}

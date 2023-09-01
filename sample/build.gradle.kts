@@ -1,55 +1,28 @@
-@file:Suppress("UNUSED_VARIABLE", "PropertyName")
-
-import java.util.Properties
+@file:Suppress("UNUSED_VARIABLE")
 
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-    id("maven-publish")
+    id("org.jetbrains.compose")
 }
 
-group = "com.vitoksmile.health-kmp"
-version = "0.0.1"
-
-publishing {
-    repositories {
-        maven {
-            url = uri("https://maven.pkg.github.com/vitoksmile/HealthKMP")
-            name = "GitHubPackages"
-            credentials {
-                val properties = Properties()
-                properties.load(project.rootProject.file("local.properties").inputStream())
-                username = properties["GITHUB_USERNAME"].toString()
-                password = properties["GITHUB_TOKEN"].toString()
-            }
-        }
-    }
-}
-
-@OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    targetHierarchy.default()
-
-    androidTarget {
-        publishLibraryVariants("release", "debug")
-        publishLibraryVariantsGroupedByFlavor = true
-    }
+    androidTarget()
 
     iosX64()
     iosArm64()
     iosSimulatorArm64()
 
     cocoapods {
-        name = "HealthKMPKoin"
+        name = "HealthKMPSample"
         version = "0.0.1"
-        summary =
-            "Shared Koin module for wrapper for HealthKit on iOS and Google Fit and Health Connect on Android."
+        summary = "Wrapper for HealthKit on iOS and Google Fit and Health Connect on Android."
         homepage = "https://github.com/vitoksmile/HealthKMP"
         ios.deploymentTarget = "14.1"
         podfile = project.file("../iosApp/Podfile")
         framework {
-            baseName = "HealthKMPKoin"
+            baseName = "HealthKMPSample"
             isStatic = true
         }
     }
@@ -59,33 +32,42 @@ kotlin {
             dependencies {
                 implementation("com.vitoksmile.health-kmp:core:0.0.1")
 
-                api("io.insert-koin:koin-core:3.4.0")
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
             }
         }
 
         val androidMain by getting {
             dependencies {
-                api("io.insert-koin:koin-android:3.3.3")
             }
         }
 
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
-        val iosMain by getting {
+        val iosMain by creating {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+
+            dependencies {
+                // Fix ios build
+                implementation("org.jetbrains.kotlinx:atomicfu:0.21.0")
+            }
         }
     }
 }
 
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "com.vitoksmile.kmp.health.koin"
+    namespace = "com.vitoksmile.kmp.health.sample"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    sourceSets["main"].res.srcDirs("src/androidMain/res")
 
     defaultConfig {
         minSdk = (findProperty("android.minSdk") as String).toInt()

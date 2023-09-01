@@ -3,7 +3,7 @@ package com.vitoksmile.kmp.health
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 import androidx.health.connect.client.PermissionController
 import kotlin.coroutines.resume
 import kotlinx.coroutines.CancellableContinuation
@@ -14,7 +14,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
  *
  * https://issuetracker.google.com/issues/233239418
  */
-internal class HealthConnectPermissionActivity : AppCompatActivity() {
+internal class HealthConnectPermissionActivity : ComponentActivity() {
 
     companion object {
         private const val KEY_READ_PERMISSIONS = "KEY_READ_PERMISSIONS"

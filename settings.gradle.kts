@@ -3,6 +3,7 @@ rootProject.name = "HealthKMP"
 include(":androidApp")
 include(":core")
 include(":koin")
+include(":sample")
 
 pluginManagement {
     repositories {
@@ -33,5 +34,14 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        maven {
+            url = uri("https://maven.pkg.github.com/vitoksmile/HealthKMP")
+            credentials {
+                val properties = java.util.Properties()
+                properties.load(file("local.properties").inputStream())
+                username = properties["GITHUB_USERNAME"].toString()
+                password = properties["GITHUB_TOKEN"].toString()
+            }
+        }
     }
 }

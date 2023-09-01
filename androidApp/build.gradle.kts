@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_VARIABLE")
+
 plugins {
     kotlin("multiplatform")
     id("com.android.application")
@@ -9,8 +11,9 @@ kotlin {
     sourceSets {
         val androidMain by getting {
             dependencies {
-                implementation(project(":core"))
-                implementation(project(":koin"))
+                implementation("com.vitoksmile.health-kmp:core:0.0.1")
+                implementation("com.vitoksmile.health-kmp:koin:0.0.1")
+                implementation(project(":sample"))
             }
         }
     }
