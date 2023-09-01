@@ -13,6 +13,11 @@ Note that for Android, the target phone **needs** to have ~~[Google Fit](https:/
 - STEPS
 - WEIGHT
 
+## Requesting permission
+
+To access health data users need to grant permissions
+
+<img src=images/permission-health-connect.png height=480 /> <img src=images/permission-health-kit.png height=480 />
 
 # Using
 
