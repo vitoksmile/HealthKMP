@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.vitoksmile.health-kmp"
-version = "0.0.1"
+version = "0.0.2"
 
 publishing {
     repositories {
@@ -57,7 +57,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("com.vitoksmile.health-kmp:core:0.0.1")
+//                implementation("com.vitoksmile.health-kmp:core:0.0.2")
+                implementation(project(":core"))
 
                 api("io.insert-koin:koin-core:3.4.0")
             }

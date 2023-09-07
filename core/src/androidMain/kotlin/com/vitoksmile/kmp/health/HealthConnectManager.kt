@@ -2,9 +2,13 @@ package com.vitoksmile.kmp.health
 
 import android.content.Context
 import androidx.health.connect.client.HealthConnectClient
+import androidx.health.connect.client.request.ReadRecordsRequest
+import androidx.health.connect.client.time.TimeRangeFilter
 import kotlinx.coroutines.CancellationException
+import kotlinx.datetime.Instant
+import kotlinx.datetime.toJavaInstant
 
-class HealthConnectManager(
+internal class HealthConnectManager(
     private val context: Context,
 ) : HealthManager {
 
@@ -17,7 +21,7 @@ class HealthConnectManager(
 
     override suspend fun isAuthorized(
         readTypes: List<HealthDataType>,
-        writeTypes: List<HealthDataType>
+        writeTypes: List<HealthDataType>,
     ): Result<Boolean> = runCatching {
         val grantedPermissions = healthConnectClient.permissionController.getGrantedPermissions()
 
@@ -50,6 +54,34 @@ class HealthConnectManager(
 
     override suspend fun revokeAuthorization(): Result<Unit> = runCatching {
         healthConnectClient.permissionController.revokeAllPermissions()
+    }
+
+    override suspend fun readData(
+        startTime: Instant,
+        endTime: Instant,
+        type: HealthDataType,
+    ): Result<List<HealthRecord>> = runCatching {
+        val request = ReadRecordsRequest(
+            recordType = type.toRecordType(),
+            timeRangeFilter = TimeRangeFilter.between(
+                startTime = startTime.toJavaInstant(),
+                endTime = endTime.toJavaInstant()
+            ),
+            ascendingOrder = false,
+        )
+        val response = healthConnectClient.readRecords(request)
+
+        response.records.mapNotNull { it.toHealthRecord() }
+    }
+
+    /**
+     * Inserts one or more [HealthRecord]. Insertion of
+     * multiple [records] is executed in a transaction - if one fails, none is inserted.
+     */
+    override suspend fun writeData(
+        records: List<HealthRecord>,
+    ): Result<Unit> = runCatching {
+        healthConnectClient.insertRecords(records.mapNotNull { it.toHCRecord() })
     }
 }
 

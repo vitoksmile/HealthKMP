@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.vitoksmile.health-kmp"
-version = "0.0.1"
+version = "0.0.2"
 
 publishing {
     repositories {
@@ -54,12 +54,12 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+                api("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
             }
         }
 
         val androidMain by getting {
             dependencies {
-                implementation("androidx.activity:activity:1.7.2")
                 implementation("androidx.startup:startup-runtime:1.1.1")
 
                 implementation("androidx.health.connect:connect-client:1.1.0-alpha04")
@@ -76,7 +76,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
 
             dependencies {
-                // Fix ios build
+                // Workaround for https://youtrack.jetbrains.com/issue/KT-41821
                 implementation("org.jetbrains.kotlinx:atomicfu:0.21.0")
             }
         }

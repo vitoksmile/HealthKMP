@@ -30,7 +30,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("com.vitoksmile.health-kmp:core:0.0.1")
+//                implementation("com.vitoksmile.health-kmp:core:0.0.2")
+                implementation(project(":core"))
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)
@@ -55,7 +56,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
 
             dependencies {
-                // Fix ios build
+                // Workaround for https://youtrack.jetbrains.com/issue/KT-41821
                 implementation("org.jetbrains.kotlinx:atomicfu:0.21.0")
             }
         }

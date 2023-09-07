@@ -11,9 +11,11 @@ kotlin {
     sourceSets {
         val androidMain by getting {
             dependencies {
-                implementation("com.vitoksmile.health-kmp:core:0.0.1")
-                implementation("com.vitoksmile.health-kmp:koin:0.0.1")
+//                implementation("com.vitoksmile.health-kmp:koin:0.0.2")
+                implementation(project(":koin"))
                 implementation(project(":sample"))
+
+                implementation("androidx.activity:activity-compose:1.7.2")
             }
         }
     }
