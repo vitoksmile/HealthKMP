@@ -1,6 +1,7 @@
 package com.vitoksmile.kmp.health
 
-enum class HealthDataType {
-    STEPS,
-    WEIGHT,
+sealed interface HealthDataType {
+    data object Steps : HealthDataType
+
+    data object Weight : HealthDataType
 }

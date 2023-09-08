@@ -28,6 +28,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.vitoksmile.kmp.health.HealthDataType
+import com.vitoksmile.kmp.health.HealthDataType.Steps
+import com.vitoksmile.kmp.health.HealthDataType.Weight
 import com.vitoksmile.kmp.health.HealthManagerFactory
 import com.vitoksmile.kmp.health.HealthRecord
 import com.vitoksmile.kmp.health.records.StepsRecord
@@ -45,14 +47,14 @@ fun SampleApp() {
 
     val readTypes = remember {
         listOf(
-            HealthDataType.STEPS,
-            HealthDataType.WEIGHT,
+            Steps,
+            Weight,
         )
     }
     val writeTypes = remember {
         listOf(
-            HealthDataType.STEPS,
-            HealthDataType.WEIGHT,
+            Steps,
+            Weight,
         )
     }
 

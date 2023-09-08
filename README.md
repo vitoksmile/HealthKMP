@@ -15,8 +15,8 @@ The library supports:
 Note that for Android, the target phone **needs** to have ~~[Google Fit](https://www.google.com/fit/) or~~ [Health Connect](https://health.google/health-connect-android/) (which is currently in beta) installed and have access to the internet, otherwise this library will not work.
 
 ## Data Types
-- STEPS
-- WEIGHT
+- Steps
+- Weight
 
 ## Requesting permission
 
