@@ -39,7 +39,7 @@ kotlin {
 
     cocoapods {
         name = "HealthKMP"
-        version = "0.0.1"
+        version = "0.0.2"
         summary = "Wrapper for HealthKit on iOS and Google Fit and Health Connect on Android."
         homepage = "https://github.com/vitoksmile/HealthKMP"
         ios.deploymentTarget = "14.1"
