@@ -7,6 +7,7 @@
 
     <queries>
         <package android:name="com.google.android.apps.healthdata" />
+        <package android:name="com.google.android.apps.fitness" />
 
         <!--
              This is required such that the app can query and resolve packages that have written
@@ -21,7 +22,11 @@
     <application>
         <activity
             android:name=".HealthConnectPermissionActivity"
-            android:theme="@style/HealthConnectPermissionTheme" />
+            android:theme="@style/PermissionActivityTheme" />
+
+        <activity
+            android:name=".legacy.GoogleFitPermissionActivity"
+            android:theme="@style/PermissionActivityTheme" />
 
         <!-- Initializer for ApplicationContextHolder -->
         <provider

@@ -1,5 +1,7 @@
 package com.vitoksmile.kmp.health.records
 
+import com.vitoksmile.kmp.health.HealthDataType
+import com.vitoksmile.kmp.health.HealthDataType.Steps
 import com.vitoksmile.kmp.health.IntervalRecord
 import kotlinx.datetime.Instant
 
@@ -18,4 +20,7 @@ data class StepsRecord(
     override val startTime: Instant,
     override val endTime: Instant,
     val count: Int,
-) : IntervalRecord
+) : IntervalRecord {
+
+    override val dataType: HealthDataType = Steps
+}

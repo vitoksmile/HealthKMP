@@ -8,7 +8,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toJavaInstant
 
-internal class HealthConnectManager(
+class HealthConnectManager(
     private val context: Context,
 ) : HealthManager {
 

@@ -39,11 +39,14 @@ internal class HealthConnectPermissionActivity : ComponentActivity() {
         }
     }
 
-    private val permissions: Set<String> by lazy {
-        val readPermissions = intent.getStringArrayExtra(KEY_READ_PERMISSIONS).orEmpty().toSet()
-        val writePermissions = intent.getStringArrayExtra(KEY_WRITE_PERMISSIONS).orEmpty().toSet()
-        readPermissions + writePermissions
-    }
+    private val permissions: Set<String>
+        get() {
+            val readPermissions =
+                intent.getStringArrayExtra(KEY_READ_PERMISSIONS).orEmpty().toSet()
+            val writePermissions =
+                intent.getStringArrayExtra(KEY_WRITE_PERMISSIONS).orEmpty().toSet()
+            return readPermissions + writePermissions
+        }
 
     private val contract = PermissionController.createRequestPermissionResultContract()
     private val requestPermissions = registerForActivityResult(contract) { grantedPermissions ->
@@ -56,9 +59,6 @@ internal class HealthConnectPermissionActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val readPermissions = intent.getStringArrayExtra(KEY_READ_PERMISSIONS).orEmpty().toSet()
-        val writePermissions = intent.getStringArrayExtra(KEY_WRITE_PERMISSIONS).orEmpty().toSet()
-        val permissions = readPermissions + writePermissions
         requestPermissions.launch(permissions)
     }
 

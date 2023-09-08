@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.vitoksmile.health-kmp"
-version = "0.0.2"
+version = "0.0.3"
 
 publishing {
     repositories {
@@ -39,7 +39,7 @@ kotlin {
 
     cocoapods {
         name = "HealthKMP"
-        version = "0.0.2"
+        version = "0.0.3"
         summary = "Wrapper for HealthKit on iOS and Google Fit and Health Connect on Android."
         homepage = "https://github.com/vitoksmile/HealthKMP"
         ios.deploymentTarget = "14.1"
@@ -62,6 +62,11 @@ kotlin {
             dependencies {
                 implementation("androidx.startup:startup-runtime:1.1.1")
 
+                // Google Fit
+                implementation("com.google.android.gms:play-services-fitness:21.1.0")
+                implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+                // Health Connect
                 implementation("androidx.health.connect:connect-client:1.1.0-alpha04")
             }
         }

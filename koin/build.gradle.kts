@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.vitoksmile.health-kmp"
-version = "0.0.2"
+version = "0.0.3"
 
 publishing {
     repositories {
@@ -42,7 +42,7 @@ kotlin {
 
     cocoapods {
         name = "HealthKMPKoin"
-        version = "0.0.2"
+        version = "0.0.3"
         summary =
             "Shared Koin module for wrapper for HealthKit on iOS and Google Fit and Health Connect on Android."
         homepage = "https://github.com/vitoksmile/HealthKMP"
@@ -57,7 +57,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("com.vitoksmile.health-kmp:core:0.0.2")
+                implementation("com.vitoksmile.health-kmp:core:0.0.3")
 
                 api("io.insert-koin:koin-core:3.4.0")
             }

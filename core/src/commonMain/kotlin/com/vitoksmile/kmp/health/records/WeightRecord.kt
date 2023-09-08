@@ -1,5 +1,7 @@
 package com.vitoksmile.kmp.health.records
 
+import com.vitoksmile.kmp.health.HealthDataType
+import com.vitoksmile.kmp.health.HealthDataType.Weight
 import com.vitoksmile.kmp.health.InstantaneousRecord
 import com.vitoksmile.kmp.health.units.Mass
 import kotlinx.datetime.Instant
@@ -12,4 +14,7 @@ import kotlinx.datetime.Instant
 data class WeightRecord(
     override val time: Instant,
     val weight: Mass,
-) : InstantaneousRecord
+) : InstantaneousRecord {
+
+    override val dataType: HealthDataType = Weight
+}

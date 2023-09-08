@@ -5,7 +5,10 @@ import kotlinx.datetime.Instant
 /**
  * Common interface shared by readable or writable records.
  */
-interface HealthRecord
+interface HealthRecord {
+
+    val dataType: HealthDataType
+}
 
 /**
  * A record that contains a measurement with a time interval.

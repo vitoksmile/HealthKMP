@@ -11,7 +11,7 @@ kotlin {
     sourceSets {
         val androidMain by getting {
             dependencies {
-                implementation("com.vitoksmile.health-kmp:koin:0.0.2")
+                implementation("com.vitoksmile.health-kmp:koin:0.0.3")
                 implementation(project(":sample"))
 
                 implementation("androidx.activity:activity-compose:1.7.2")
@@ -27,7 +27,7 @@ android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
     defaultConfig {
-        applicationId = "com.vitoksmile.kmm.health"
+        applicationId = namespace
         minSdk = (findProperty("android.minSdk") as String).toInt()
         targetSdk = (findProperty("android.targetSdk") as String).toInt()
         versionCode = 1

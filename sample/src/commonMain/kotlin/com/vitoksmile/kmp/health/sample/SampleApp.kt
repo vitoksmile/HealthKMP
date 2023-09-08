@@ -43,7 +43,7 @@ import kotlin.time.Duration.Companion.hours
 @Composable
 fun SampleApp() {
     val coroutineScope = rememberCoroutineScope()
-    val healthManager = remember { HealthManagerFactory().createManager() }
+    val health = remember { HealthManagerFactory().createManager() }
 
     val readTypes = remember {
         listOf(
@@ -64,15 +64,15 @@ fun SampleApp() {
 
     val data = remember { mutableStateMapOf<HealthDataType, Result<List<HealthRecord>>>() }
 
-    LaunchedEffect(healthManager) {
-        isAvailableResult = healthManager.isAvailable()
+    LaunchedEffect(health) {
+        isAvailableResult = health.isAvailable()
 
         if (isAvailableResult.getOrNull() == false) return@LaunchedEffect
-        isAuthorizedResult = healthManager.isAuthorized(
+        isAuthorizedResult = health.isAuthorized(
             readTypes = readTypes,
             writeTypes = writeTypes,
         )
-        isRevokeSupported = healthManager.isRevokeAuthorizationSupported().getOrNull() ?: false
+        isRevokeSupported = health.isRevokeAuthorizationSupported().getOrNull() ?: false
     }
 
     MaterialTheme {
@@ -89,7 +89,7 @@ fun SampleApp() {
                     Text("HealthManager isAvailable=$isAvailable")
                 }
                 .onFailure {
-                    Text("HealthManager isAvailable=${it.message}")
+                    Text("HealthManager isAvailable=$it")
                 }
 
             isAuthorizedResult
@@ -97,13 +97,13 @@ fun SampleApp() {
                     Text("HealthManager isAuthorized=$it")
                 }
                 ?.onFailure {
-                    Text("HealthManager isAuthorized=${it.message}")
+                    Text("HealthManager isAuthorized=$it")
                 }
-            if (isAvailableResult.getOrNull() == true && isAuthorizedResult?.getOrNull() == false)
+            if (isAvailableResult.getOrNull() == true && isAuthorizedResult?.getOrNull() != true)
                 Button(
                     onClick = {
                         coroutineScope.launch {
-                            isAuthorizedResult = healthManager.requestAuthorization(
+                            isAuthorizedResult = health.requestAuthorization(
                                 readTypes = readTypes,
                                 writeTypes = writeTypes,
                             )
@@ -117,8 +117,8 @@ fun SampleApp() {
                 Button(
                     onClick = {
                         coroutineScope.launch {
-                            healthManager.revokeAuthorization()
-                            isAuthorizedResult = healthManager.isAuthorized(
+                            health.revokeAuthorization()
+                            isAuthorizedResult = health.isAuthorized(
                                 readTypes = readTypes,
                                 writeTypes = writeTypes,
                             )
@@ -138,7 +138,7 @@ fun SampleApp() {
                         Button(
                             onClick = {
                                 coroutineScope.launch {
-                                    data[type] = healthManager.readData(
+                                    data[type] = health.readData(
                                         startTime = Clock.System.now()
                                             .minus(1.days),
                                         endTime = Clock.System.now(),
@@ -179,7 +179,7 @@ fun SampleApp() {
                     Button(
                         onClick = {
                             coroutineScope.launch {
-                                writeSteps = healthManager.writeData(
+                                writeSteps = health.writeData(
                                     listOf(
                                         StepsRecord(
                                             startTime = Clock.System.now()
@@ -214,7 +214,7 @@ fun SampleApp() {
                     Button(
                         onClick = {
                             coroutineScope.launch {
-                                writeWeight = healthManager.writeData(
+                                writeWeight = health.writeData(
                                     listOf(
                                         WeightRecord(
                                             time = Clock.System.now(),
