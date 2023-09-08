@@ -62,7 +62,7 @@ kotlin {
                 implementation("androidx.activity:activity:1.7.2")
                 implementation("androidx.startup:startup-runtime:1.1.1")
 
-                implementation("androidx.health.connect:connect-client:1.1.0-alpha03")
+                implementation("androidx.health.connect:connect-client:1.1.0-alpha04")
             }
         }
 
