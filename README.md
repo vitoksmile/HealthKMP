@@ -1,9 +1,11 @@
 # HealthKMP
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.viktormykhailiv/health-kmp)](https://central.sonatype.com/search?namespace=com.viktormykhailiv&name=health-kmp)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.1.10-blue.svg?logo=kotlin)](http://kotlinlang.org)
 [![](https://img.shields.io/badge/Kotlin-Multiplatform-%237f52ff?logo=kotlin)](https://kotlinlang.org/docs/multiplatform.html)
 [![](https://img.shields.io/github/license/vitoksmile/HealthKMP)](https://github.com/vitoksmile/HealthKMP/blob/main/LICENSE)
 
-Kotlin Multiplatform Mobile wrapper for HealthKit on iOS and Google Fit and Health Connect on Android.
+Kotlin Multiplatform Mobile wrapper for HealthKit on iOS, and Google Fit or Health Connect on Android.
 
 > Google Fitness API is being deprecated and HealthKMP will try to use Health Connect if the app is installed.
 
@@ -12,7 +14,7 @@ The library supports:
 - reading health data using `readData` method.
 - writing health data using `writeData` method.
 
-Note that for Android, the target phone **needs** to have [Google Fit](https://www.google.com/fit/) or [Health Connect](https://health.google/health-connect-android/) (which is currently in beta) installed and have access to the internet, otherwise this library will not work.
+Note that for Android, the target phone **needs** to have [Google Fit](https://www.google.com/fit/) or [Health Connect](https://health.google/health-connect-android/) installed and have access to the internet, otherwise this library will not work.
 
 ## Data Types
 - Steps
@@ -22,32 +24,17 @@ Note that for Android, the target phone **needs** to have [Google Fit](https://w
 
 To access health data users need to grant permissions
 
-<img src=images/permission-health-connect.png height=480 /> <img src=images/permission-health-kit.png height=480 />
+<img src=readme/permission-health-connect.png height=480 /> <img src=readme/permission-health-kit.png height=480 />
 
 # Setup
 
-You need an access token to install GitHub packages, see [Managing your personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
-
-local.properties
-```
-GITHUB_USERNAME=email@email.com
-GITHUB_TOKEN=xxx
-```
+First add the dependency to your project:
 
 settings.gradle.kts:
 ```kotlin
 dependencyResolutionManagement {
     repositories {
-        maven {
-            url = uri("https://maven.pkg.github.com/vitoksmile/HealthKMP")
-            name = "GitHubPackages"
-            credentials {
-                val properties = java.util.Properties()
-                properties.load(file("local.properties").inputStream())
-                username = properties["GITHUB_USERNAME"].toString()
-                password = properties["GITHUB_TOKEN"].toString()
-            }
-        }
+        mavenCentral()
     }
 }
 ```
@@ -57,15 +44,10 @@ build.gradle:
 sourceSets {
     val commonMain by getting {
         dependencies {
-            implementation("com.vitoksmile.health-kmp:core:0.0.3")
+            implementation("com.viktormykhailiv:health-kmp:0.0.4")
         }
     }
 }
-```
-
-If you are using Koin, add to build.gradle:
-```kotlin
-implementation("com.vitoksmile.health-kmp:koin:0.0.3")
 ```
 
 ## Apple Health (iOS)
@@ -143,12 +125,10 @@ health.isAvailable()
     .onSuccess { isAvailable ->
         if (!isAvailable) {
             println("No Health service is available on the device")
-            return
         }
     }
     .onFailure { error ->
         println("Failed to authorize $error")
-        return
     }
 
 // Requesting access to data types before reading them
@@ -165,15 +145,13 @@ health.requestAuthorization(
     .onSuccess { isAuthorized ->
         if (!isAuthorized) {
             println("Not authorized")
-            return
         }
     }
     .onFailure { error ->
         println("Failed to authorize $error")
-        return
     }
 
-// Fetch steps data from the last 24 hours
+// Read steps data for the last 24 hours
 health.readSteps(
     startTime = Clock.System.now().minus(24.hours),
     endTime = Clock.System.now(),
@@ -191,7 +169,7 @@ health.readSteps(
         println("Failed to read steps $error")
     }
 
-// Fetch weight data from the last year
+// Read weight data for the last year
 health.readWeight(
     startTime = Clock.System.now().minus(365.days),
     endTime = Clock.System.now(),
@@ -210,7 +188,7 @@ health.readWeight(
         println("Failed to read steps $error")
     }
 
-// Write data
+// Write steps and weight data
 health.writeData(
     records = listOf(
         StepsRecord(
@@ -223,26 +201,16 @@ health.writeData(
             endTime = Clock.System.now(),
             count = 123,
         ),
+        // Weight in kilograms
         WeightRecord(
             time = Clock.System.now().minus(1.days),
             weight = Mass.kilograms(61.2),
         ),
+        // Weight in pounds
         WeightRecord(
             time = Clock.System.now(),
-            weight = Mass.kilograms(60.3),
+            weight = Mass.pounds(147.71),
         ),
     )
 )
 ```
-
-## 👷 Project Structure
-* <kbd>core</kbd> - module with main source for the HealthKMP library
-* <kbd>koin</kbd> - module with extensions for Koin
-
-* <kbd>sample</kbd> - shared code for sample Compose Multiplatform project
-* <kbd>androidApp</kbd> - sample Android projects that use HealthKMP
-* <kbd>iosApp</kbd> - sample iOS projects that use HealthKMP
-
-## 📜 License
-
-This project is licensed under the Apache License, Version 2.0 - see the [LICENSE](https://github.com/vitoksmile/HealthKMP/blob/main/LICENSE) file for details

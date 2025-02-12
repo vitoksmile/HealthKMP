@@ -1,0 +1,184 @@
+public final class com/viktormykhailiv/kmp/health/ApplicationContextHolder {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/ApplicationContextHolder;
+	public static field applicationContext Landroid/content/Context;
+	public final fun getApplicationContext ()Landroid/content/Context;
+	public final fun setApplicationContext (Landroid/content/Context;)V
+}
+
+public final class com/viktormykhailiv/kmp/health/ApplicationContextHolderInitializer : androidx/startup/Initializer {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun create (Landroid/content/Context;)Lcom/viktormykhailiv/kmp/health/ApplicationContextHolder;
+	public synthetic fun create (Landroid/content/Context;)Ljava/lang/Object;
+	public fun dependencies ()Ljava/util/List;
+}
+
+public final class com/viktormykhailiv/kmp/health/ExtensionsKt {
+	public static final fun readSteps (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/viktormykhailiv/kmp/health/HealthConnectManager : com/viktormykhailiv/kmp/health/HealthManager {
+	public static final field $stable I
+	public fun <init> (Landroid/content/Context;)V
+	public fun isAuthorized-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isAvailable-d1pmJ48 ()Ljava/lang/Object;
+	public fun isRevokeAuthorizationSupported-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun readData-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun requestAuthorization-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun revokeAuthorization-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun writeData-gIAlu-s (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class com/viktormykhailiv/kmp/health/HealthDataType {
+}
+
+public final class com/viktormykhailiv/kmp/health/HealthDataType$Steps : com/viktormykhailiv/kmp/health/HealthDataType {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$Steps;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/HealthDataType$Weight : com/viktormykhailiv/kmp/health/HealthDataType {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$Weight;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/viktormykhailiv/kmp/health/HealthManager {
+	public abstract fun isAuthorized-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun isAvailable-d1pmJ48 ()Ljava/lang/Object;
+	public abstract fun isRevokeAuthorizationSupported-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun readData-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun requestAuthorization-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun revokeAuthorization-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun writeData-gIAlu-s (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/viktormykhailiv/kmp/health/HealthManagerFactory {
+	public static final field $stable I
+	public fun <init> ()V
+	public final fun createManager ()Lcom/viktormykhailiv/kmp/health/HealthManager;
+}
+
+public abstract interface class com/viktormykhailiv/kmp/health/HealthRecord {
+	public abstract fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+}
+
+public abstract interface class com/viktormykhailiv/kmp/health/InstantaneousRecord : com/viktormykhailiv/kmp/health/HealthRecord {
+	public abstract fun getTime ()Lkotlinx/datetime/Instant;
+}
+
+public abstract interface class com/viktormykhailiv/kmp/health/IntervalRecord : com/viktormykhailiv/kmp/health/HealthRecord {
+	public abstract fun getEndTime ()Lkotlinx/datetime/Instant;
+	public abstract fun getStartTime ()Lkotlinx/datetime/Instant;
+}
+
+public final class com/viktormykhailiv/kmp/health/legacy/GoogleFitManager : com/viktormykhailiv/kmp/health/HealthManager {
+	public static final field $stable I
+	public fun <init> (Landroid/content/Context;)V
+	public fun isAuthorized-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isAvailable-d1pmJ48 ()Ljava/lang/Object;
+	public fun isRevokeAuthorizationSupported-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun readData-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun requestAuthorization-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun revokeAuthorization-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun writeData-gIAlu-s (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/StepsRecord : com/viktormykhailiv/kmp/health/IntervalRecord {
+	public static final field $stable I
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;I)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public final fun component3 ()I
+	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;I)Lcom/viktormykhailiv/kmp/health/records/StepsRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/StepsRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;IILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/StepsRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCount ()I
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public fun getEndTime ()Lkotlinx/datetime/Instant;
+	public fun getStartTime ()Lkotlinx/datetime/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/WeightRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
+	public static final field $stable I
+	public fun <init> (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public final fun copy (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;)Lcom/viktormykhailiv/kmp/health/records/WeightRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/WeightRecord;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/WeightRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public fun getTime ()Lkotlinx/datetime/Instant;
+	public final fun getWeight ()Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/units/Mass : java/lang/Comparable {
+	public static final field $stable I
+	public static final field Companion Lcom/viktormykhailiv/kmp/health/units/Mass$Companion;
+	public synthetic fun <init> (DLcom/viktormykhailiv/kmp/health/units/Mass$Type;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun compareTo (Lcom/viktormykhailiv/kmp/health/units/Mass;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getGrams ()D
+	public final fun getKilograms ()D
+	public final fun getMicrograms ()D
+	public final fun getMilligrams ()D
+	public final fun getOunces ()D
+	public final fun getPounds ()D
+	public static final fun grams (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public fun hashCode ()I
+	public static final fun kilograms (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final fun micrograms (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final fun milligrams (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final fun ounces (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final fun pounds (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/units/Mass$Companion {
+	public final fun grams (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public final fun kilograms (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public final fun micrograms (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public final fun milligrams (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public final fun ounces (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public final fun pounds (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+}
+
+public final class com/viktormykhailiv/kmp/health/units/MassKt {
+	public static final synthetic fun getGrams (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getGrams (F)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getGrams (I)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getGrams (J)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getKilograms (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getKilograms (F)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getKilograms (I)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getKilograms (J)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getMicrograms (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getMicrograms (F)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getMicrograms (I)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getMicrograms (J)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getMilligrams (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getMilligrams (F)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getMilligrams (I)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getMilligrams (J)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getOunces (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getOunces (F)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getOunces (I)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getOunces (J)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getPounds (D)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getPounds (F)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getPounds (I)Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public static final synthetic fun getPounds (J)Lcom/viktormykhailiv/kmp/health/units/Mass;
+}
+

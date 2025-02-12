@@ -1,7 +1,0 @@
-target 'iosApp' do
-  use_frameworks!
-  platform :ios, '14.1'
-  pod 'HealthKMP', :path => '../core'
-  pod 'HealthKMPKoin', :path => '../koin'
-  pod 'HealthKMPSample', :path => '../sample'
-end

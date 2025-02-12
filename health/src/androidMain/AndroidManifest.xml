@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Starting from API level 28 (Android 9.0) acessing some fitness data (e.g. Steps) requires a special permission. -->
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+
+    <queries>
+        <package android:name="com.google.android.apps.healthdata" />
+        <package android:name="com.google.android.apps.fitness" />
+
+        <!--
+             This is required such that the app can query and resolve packages that have written
+             Health Connect data, and obtain their friendly App Name and Icon to show for data
+             attribution in the app
+        -->
+        <intent>
+            <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
+        </intent>
+    </queries>
+
+    <application>
+        <activity
+            android:name=".HealthConnectPermissionActivity"
+            android:theme="@style/PermissionActivityTheme" />
+
+        <activity
+            android:name=".legacy.GoogleFitPermissionActivity"
+            android:theme="@style/PermissionActivityTheme" />
+
+        <!-- Initializer for ApplicationContextHolder -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="com.viktormykhailiv.kmp.health.ApplicationContextHolderInitializer"
+                android:value="androidx.startup" />
+        </provider>
+    </application>
+
+</manifest>
