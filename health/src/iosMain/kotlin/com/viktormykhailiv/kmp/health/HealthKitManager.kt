@@ -9,6 +9,7 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.toNSDate
 import platform.Foundation.NSSortDescriptor
 import platform.HealthKit.HKAuthorizationRequestStatusUnnecessary
+import platform.HealthKit.HKCategorySample
 import platform.HealthKit.HKHealthStore
 import platform.HealthKit.HKObjectQueryNoLimit
 import platform.HealthKit.HKQuantitySample
@@ -111,6 +112,12 @@ internal class HealthKitManager : HealthManager {
                     continuation.resume(Result.success(records))
                 }
 
+                result.firstOrNull() is HKCategorySample -> {
+                    @Suppress("UNCHECKED_CAST")
+                    val records = (result as List<HKCategorySample>).toHealthRecords()
+                    continuation.resume(Result.success(records))
+                }
+
                 else -> {
                     continuation.resume(Result.failure(NotImplementedError("Result ${result.firstOrNull()} is not supported")))
                 }
@@ -123,7 +130,7 @@ internal class HealthKitManager : HealthManager {
     override suspend fun writeData(
         records: List<HealthRecord>,
     ): Result<Unit> = suspendCancellableCoroutine { continuation ->
-        healthKit.saveObjects(records.mapNotNull { it.toHKQuantitySample() }) { _, error ->
+        healthKit.saveObjects(records.mapNotNull { it.toHKObjects() }.flatten()) { _, error ->
             if (continuation.isCancelled) return@saveObjects
 
             if (error != null) {

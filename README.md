@@ -9,14 +9,15 @@ Kotlin Multiplatform Mobile wrapper for HealthKit on iOS, and Google Fit or Heal
 
 > Google Fitness API is being deprecated and HealthKMP will try to use Health Connect if the app is installed.
 
-The library supports:
+HealthKMP supports:
 - handling permissions to access health data using `isAvailable`, `isAuthorized`, `requestAuthorization`, `revokeAuthorization` methods.
 - reading health data using `readData` method.
 - writing health data using `writeData` method.
 
-Note that for Android, the target phone **needs** to have [Google Fit](https://www.google.com/fit/) or [Health Connect](https://health.google/health-connect-android/) installed and have access to the internet, otherwise this library will not work.
+Note that for Android, the target phone **needs** to have [Google Fit](https://www.google.com/fit/) or [Health Connect](https://health.google/health-connect-android/) installed.
 
 ## Data Types
+- Sleep
 - Steps
 - Weight
 
@@ -44,7 +45,7 @@ build.gradle:
 sourceSets {
     val commonMain by getting {
         dependencies {
-            implementation("com.viktormykhailiv:health-kmp:0.0.4")
+            implementation("com.viktormykhailiv:health-kmp:0.0.5")
         }
     }
 }
@@ -117,10 +118,13 @@ See the sample app for detailed examples of how to use the HealthKMP API.
 
 The Health plugin is used via the `HealthManagerFactory` class using the different methods for handling permissions and getting and adding data to Apple Health / Health Connect / Google Fit.
 
+### Check availability
+
+Check if any Health service is available on the device: HealthKit on iOS, and Google Fit or Health Connect on Android
+
 ```kotlin
 val health = HealthManagerFactory().createManager()
 
-// Check if any Health service is available on the device
 health.isAvailable()
     .onSuccess { isAvailable ->
         if (!isAvailable) {
@@ -128,16 +132,23 @@ health.isAvailable()
         }
     }
     .onFailure { error ->
-        println("Failed to authorize $error")
+        println("Failed to check if Health service is available $error")
     }
+```
 
-// Requesting access to data types before reading them
+### Request access
+
+Requesting access to data types before reading them
+
+```kotlin
 health.requestAuthorization(
     readTypes = listOf(
+        HealthDataType.Sleep,
         HealthDataType.Steps,
         HealthDataType.Weight,
     ),
     writeTypes = listOf(
+        HealthDataType.Sleep,
         HealthDataType.Steps,
         HealthDataType.Weight,
     ),
@@ -150,8 +161,43 @@ health.requestAuthorization(
     .onFailure { error ->
         println("Failed to authorize $error")
     }
+```
 
-// Read steps data for the last 24 hours
+### Read sleep
+
+Read sleep data for last 24 hours
+
+```kotlin
+health.readSleep(
+    startTime = Clock.System.now().minus(24.hours),
+    endTime = Clock.System.now(),
+)
+    .onSuccess { sleepRecords ->
+        if (sleepRecords.isEmpty()) {
+            println("No sleep data")
+        } else {
+            sleepRecords.forEach { sleep ->
+                println("Sleep duration ${sleep.duration}")
+
+                // Calculate duration of each sleep stage
+                sleep.stages.groupBy { it.type }
+                    .forEach { (type, stages) ->
+                        val stageDuration = stages.sumOf { it.duration.inWholeMinutes }.minutes
+                        println("Sleep stage $type $stageDuration")
+                    }
+            }
+        }
+    }
+    .onFailure { error ->
+        println("Failed to read sleep $error")
+    }
+```
+
+### Read steps
+
+Read steps data for last 24 hours
+
+```kotlin
 health.readSteps(
     startTime = Clock.System.now().minus(24.hours),
     endTime = Clock.System.now(),
@@ -168,8 +214,13 @@ health.readSteps(
     .onFailure { error ->
         println("Failed to read steps $error")
     }
+```
 
-// Read weight data for the last year
+### Read weight
+
+Read weight data for last year
+
+```kotlin
 health.readWeight(
     startTime = Clock.System.now().minus(365.days),
     endTime = Clock.System.now(),
@@ -187,8 +238,43 @@ health.readWeight(
     .onFailure { error ->
         println("Failed to read steps $error")
     }
+```
 
-// Write steps and weight data
+### Write sleep
+
+Write sleep data for 1 hours
+
+```kotlin
+val startTime = Clock.System.now().minus(12.hours)
+val endTime = Clock.System.now().minus(11.hours)
+val types = listOf(
+    SleepStageType.Awake,
+    SleepStageType.OutOfBed,
+    SleepStageType.Sleeping,
+    SleepStageType.Light,
+    SleepStageType.Deep,
+    SleepStageType.REM,
+)
+health.writeData(
+    records = listOf(
+        SleepSessionRecord(
+            startTime = startTime,
+            endTime = endTime,
+            stages = List(6) {
+                SleepSessionRecord.Stage(
+                    startTime = startTime.plus((10 * it).minutes),
+                    endTime = startTime.plus((10 * it).minutes + 10.minutes),
+                    type = types[it],
+                )
+            },
+        )
+    )
+)
+```
+
+### Write steps
+
+```kotlin
 health.writeData(
     records = listOf(
         StepsRecord(
@@ -201,6 +287,17 @@ health.writeData(
             endTime = Clock.System.now(),
             count = 123,
         ),
+    )
+)
+```
+
+### Write weight
+
+There are different supported `Mass` units: kilograms, ounces, pounds, grams, milligrams, micrograms.
+
+```kotlin
+health.writeData(
+    records = listOf(
         // Weight in kilograms
         WeightRecord(
             time = Clock.System.now().minus(1.days),

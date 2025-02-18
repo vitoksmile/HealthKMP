@@ -33,7 +33,63 @@ abstract interface com.viktormykhailiv.kmp.health/IntervalRecord : com.viktormyk
         abstract fun <get-startTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health/IntervalRecord.startTime.<get-startTime>|<get-startTime>(){}[0]
 }
 
+sealed interface com.viktormykhailiv.kmp.health.records/SleepStageType { // com.viktormykhailiv.kmp.health.records/SleepStageType|null[0]
+    final object Awake : com.viktormykhailiv.kmp.health.records/SleepStageType { // com.viktormykhailiv.kmp.health.records/SleepStageType.Awake|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/SleepStageType.Awake.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/SleepStageType.Awake.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/SleepStageType.Awake.toString|toString(){}[0]
+    }
+
+    final object AwakeInBed : com.viktormykhailiv.kmp.health.records/SleepStageType { // com.viktormykhailiv.kmp.health.records/SleepStageType.AwakeInBed|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/SleepStageType.AwakeInBed.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/SleepStageType.AwakeInBed.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/SleepStageType.AwakeInBed.toString|toString(){}[0]
+    }
+
+    final object Deep : com.viktormykhailiv.kmp.health.records/SleepStageType { // com.viktormykhailiv.kmp.health.records/SleepStageType.Deep|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/SleepStageType.Deep.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/SleepStageType.Deep.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/SleepStageType.Deep.toString|toString(){}[0]
+    }
+
+    final object Light : com.viktormykhailiv.kmp.health.records/SleepStageType { // com.viktormykhailiv.kmp.health.records/SleepStageType.Light|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/SleepStageType.Light.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/SleepStageType.Light.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/SleepStageType.Light.toString|toString(){}[0]
+    }
+
+    final object OutOfBed : com.viktormykhailiv.kmp.health.records/SleepStageType { // com.viktormykhailiv.kmp.health.records/SleepStageType.OutOfBed|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/SleepStageType.OutOfBed.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/SleepStageType.OutOfBed.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/SleepStageType.OutOfBed.toString|toString(){}[0]
+    }
+
+    final object REM : com.viktormykhailiv.kmp.health.records/SleepStageType { // com.viktormykhailiv.kmp.health.records/SleepStageType.REM|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/SleepStageType.REM.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/SleepStageType.REM.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/SleepStageType.REM.toString|toString(){}[0]
+    }
+
+    final object Sleeping : com.viktormykhailiv.kmp.health.records/SleepStageType { // com.viktormykhailiv.kmp.health.records/SleepStageType.Sleeping|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/SleepStageType.Sleeping.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/SleepStageType.Sleeping.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/SleepStageType.Sleeping.toString|toString(){}[0]
+    }
+
+    final object Unknown : com.viktormykhailiv.kmp.health.records/SleepStageType { // com.viktormykhailiv.kmp.health.records/SleepStageType.Unknown|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/SleepStageType.Unknown.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/SleepStageType.Unknown.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/SleepStageType.Unknown.toString|toString(){}[0]
+    }
+}
+
 sealed interface com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType|null[0]
+    final object Sleep : com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType.Sleep|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Sleep.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health/HealthDataType.Sleep.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health/HealthDataType.Sleep.toString|toString(){}[0]
+    }
+
     final object Steps : com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType.Steps|null[0]
         final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Steps.equals|equals(kotlin.Any?){}[0]
         final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health/HealthDataType.Steps.hashCode|hashCode(){}[0]
@@ -44,6 +100,48 @@ sealed interface com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormy
         final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Weight.equals|equals(kotlin.Any?){}[0]
         final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health/HealthDataType.Weight.hashCode|hashCode(){}[0]
         final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health/HealthDataType.Weight.toString|toString(){}[0]
+    }
+}
+
+final class com.viktormykhailiv.kmp.health.records/SleepSessionRecord : com.viktormykhailiv.kmp.health/IntervalRecord { // com.viktormykhailiv.kmp.health.records/SleepSessionRecord|null[0]
+    constructor <init>(kotlinx.datetime/Instant, kotlinx.datetime/Instant, kotlin.collections/List<com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage>) // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.<init>|<init>(kotlinx.datetime.Instant;kotlinx.datetime.Instant;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.SleepSessionRecord.Stage>){}[0]
+
+    final val dataType // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.dataType|{}dataType[0]
+        final fun <get-dataType>(): com.viktormykhailiv.kmp.health/HealthDataType // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.dataType.<get-dataType>|<get-dataType>(){}[0]
+    final val endTime // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.endTime|{}endTime[0]
+        final fun <get-endTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.endTime.<get-endTime>|<get-endTime>(){}[0]
+    final val stages // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.stages|{}stages[0]
+        final fun <get-stages>(): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage> // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.stages.<get-stages>|<get-stages>(){}[0]
+    final val startTime // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.startTime|{}startTime[0]
+        final fun <get-startTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.startTime.<get-startTime>|<get-startTime>(){}[0]
+
+    final fun component1(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.component1|component1(){}[0]
+    final fun component2(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.component2|component2(){}[0]
+    final fun component3(): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage> // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.component3|component3(){}[0]
+    final fun copy(kotlinx.datetime/Instant = ..., kotlinx.datetime/Instant = ..., kotlin.collections/List<com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage> = ...): com.viktormykhailiv.kmp.health.records/SleepSessionRecord // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.copy|copy(kotlinx.datetime.Instant;kotlinx.datetime.Instant;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.SleepSessionRecord.Stage>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.toString|toString(){}[0]
+
+    final class Stage : com.viktormykhailiv.kmp.health/IntervalRecord { // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage|null[0]
+        constructor <init>(kotlinx.datetime/Instant, kotlinx.datetime/Instant, com.viktormykhailiv.kmp.health.records/SleepStageType) // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.<init>|<init>(kotlinx.datetime.Instant;kotlinx.datetime.Instant;com.viktormykhailiv.kmp.health.records.SleepStageType){}[0]
+
+        final val dataType // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.dataType|{}dataType[0]
+            final fun <get-dataType>(): com.viktormykhailiv.kmp.health/HealthDataType // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.dataType.<get-dataType>|<get-dataType>(){}[0]
+        final val endTime // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.endTime|{}endTime[0]
+            final fun <get-endTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.endTime.<get-endTime>|<get-endTime>(){}[0]
+        final val startTime // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.startTime|{}startTime[0]
+            final fun <get-startTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.startTime.<get-startTime>|<get-startTime>(){}[0]
+        final val type // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.type|{}type[0]
+            final fun <get-type>(): com.viktormykhailiv.kmp.health.records/SleepStageType // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.type.<get-type>|<get-type>(){}[0]
+
+        final fun component1(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.component1|component1(){}[0]
+        final fun component2(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.component2|component2(){}[0]
+        final fun component3(): com.viktormykhailiv.kmp.health.records/SleepStageType // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.component3|component3(){}[0]
+        final fun copy(kotlinx.datetime/Instant = ..., kotlinx.datetime/Instant = ..., com.viktormykhailiv.kmp.health.records/SleepStageType = ...): com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.copy|copy(kotlinx.datetime.Instant;kotlinx.datetime.Instant;com.viktormykhailiv.kmp.health.records.SleepStageType){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/SleepSessionRecord.Stage.toString|toString(){}[0]
     }
 }
 
@@ -121,6 +219,16 @@ final class com.viktormykhailiv.kmp.health/HealthManagerFactory { // com.viktorm
     final fun createManager(): com.viktormykhailiv.kmp.health/HealthManager // com.viktormykhailiv.kmp.health/HealthManagerFactory.createManager|createManager(){}[0]
 }
 
+final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord$stableprop|#static{}com_viktormykhailiv_kmp_health_records_SleepSessionRecord$stableprop[0]
+final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord_Stage$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord_Stage$stableprop|#static{}com_viktormykhailiv_kmp_health_records_SleepSessionRecord_Stage$stableprop[0]
+final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Awake$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Awake$stableprop|#static{}com_viktormykhailiv_kmp_health_records_SleepStageType_Awake$stableprop[0]
+final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_AwakeInBed$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_AwakeInBed$stableprop|#static{}com_viktormykhailiv_kmp_health_records_SleepStageType_AwakeInBed$stableprop[0]
+final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Deep$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Deep$stableprop|#static{}com_viktormykhailiv_kmp_health_records_SleepStageType_Deep$stableprop[0]
+final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Light$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Light$stableprop|#static{}com_viktormykhailiv_kmp_health_records_SleepStageType_Light$stableprop[0]
+final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_OutOfBed$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_OutOfBed$stableprop|#static{}com_viktormykhailiv_kmp_health_records_SleepStageType_OutOfBed$stableprop[0]
+final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_REM$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_REM$stableprop|#static{}com_viktormykhailiv_kmp_health_records_SleepStageType_REM$stableprop[0]
+final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Sleeping$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Sleeping$stableprop|#static{}com_viktormykhailiv_kmp_health_records_SleepStageType_Sleeping$stableprop[0]
+final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Unknown$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Unknown$stableprop|#static{}com_viktormykhailiv_kmp_health_records_SleepStageType_Unknown$stableprop[0]
 final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_StepsRecord$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_StepsRecord$stableprop|#static{}com_viktormykhailiv_kmp_health_records_StepsRecord$stableprop[0]
 final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_WeightRecord$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_WeightRecord$stableprop|#static{}com_viktormykhailiv_kmp_health_records_WeightRecord$stableprop[0]
 final val com.viktormykhailiv.kmp.health.units/com_viktormykhailiv_kmp_health_units_Mass$stableprop // com.viktormykhailiv.kmp.health.units/com_viktormykhailiv_kmp_health_units_Mass$stableprop|#static{}com_viktormykhailiv_kmp_health_units_Mass$stableprop[0]
@@ -172,17 +280,32 @@ final val com.viktormykhailiv.kmp.health.units/pounds // com.viktormykhailiv.kmp
     final fun (kotlin/Int).<get-pounds>(): com.viktormykhailiv.kmp.health.units/Mass // com.viktormykhailiv.kmp.health.units/pounds.<get-pounds>|<get-pounds>@kotlin.Int(){}[0]
 final val com.viktormykhailiv.kmp.health.units/pounds // com.viktormykhailiv.kmp.health.units/pounds|@kotlin.Long{}pounds[0]
     final fun (kotlin/Long).<get-pounds>(): com.viktormykhailiv.kmp.health.units/Mass // com.viktormykhailiv.kmp.health.units/pounds.<get-pounds>|<get-pounds>@kotlin.Long(){}[0]
+final val com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Sleep$stableprop // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Sleep$stableprop|#static{}com_viktormykhailiv_kmp_health_HealthDataType_Sleep$stableprop[0]
 final val com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Steps$stableprop // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Steps$stableprop|#static{}com_viktormykhailiv_kmp_health_HealthDataType_Steps$stableprop[0]
 final val com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Weight$stableprop // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Weight$stableprop|#static{}com_viktormykhailiv_kmp_health_HealthDataType_Weight$stableprop[0]
 final val com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthKitManager$stableprop // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthKitManager$stableprop|#static{}com_viktormykhailiv_kmp_health_HealthKitManager$stableprop[0]
 final val com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthManagerFactory$stableprop // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthManagerFactory$stableprop|#static{}com_viktormykhailiv_kmp_health_HealthManagerFactory$stableprop[0]
+final val com.viktormykhailiv.kmp.health/duration // com.viktormykhailiv.kmp.health/duration|@com.viktormykhailiv.kmp.health.IntervalRecord{}duration[0]
+    final fun (com.viktormykhailiv.kmp.health/IntervalRecord).<get-duration>(): kotlin.time/Duration // com.viktormykhailiv.kmp.health/duration.<get-duration>|<get-duration>@com.viktormykhailiv.kmp.health.IntervalRecord(){}[0]
 
+final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord$stableprop_getter|com_viktormykhailiv_kmp_health_records_SleepSessionRecord$stableprop_getter(){}[0]
+final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord_Stage$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord_Stage$stableprop_getter|com_viktormykhailiv_kmp_health_records_SleepSessionRecord_Stage$stableprop_getter(){}[0]
+final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Awake$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Awake$stableprop_getter|com_viktormykhailiv_kmp_health_records_SleepStageType_Awake$stableprop_getter(){}[0]
+final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_AwakeInBed$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_AwakeInBed$stableprop_getter|com_viktormykhailiv_kmp_health_records_SleepStageType_AwakeInBed$stableprop_getter(){}[0]
+final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Deep$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Deep$stableprop_getter|com_viktormykhailiv_kmp_health_records_SleepStageType_Deep$stableprop_getter(){}[0]
+final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Light$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Light$stableprop_getter|com_viktormykhailiv_kmp_health_records_SleepStageType_Light$stableprop_getter(){}[0]
+final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_OutOfBed$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_OutOfBed$stableprop_getter|com_viktormykhailiv_kmp_health_records_SleepStageType_OutOfBed$stableprop_getter(){}[0]
+final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_REM$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_REM$stableprop_getter|com_viktormykhailiv_kmp_health_records_SleepStageType_REM$stableprop_getter(){}[0]
+final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Sleeping$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Sleeping$stableprop_getter|com_viktormykhailiv_kmp_health_records_SleepStageType_Sleeping$stableprop_getter(){}[0]
+final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Unknown$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Unknown$stableprop_getter|com_viktormykhailiv_kmp_health_records_SleepStageType_Unknown$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_StepsRecord$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_StepsRecord$stableprop_getter|com_viktormykhailiv_kmp_health_records_StepsRecord$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_WeightRecord$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_WeightRecord$stableprop_getter|com_viktormykhailiv_kmp_health_records_WeightRecord$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health.units/com_viktormykhailiv_kmp_health_units_Mass$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.units/com_viktormykhailiv_kmp_health_units_Mass$stableprop_getter|com_viktormykhailiv_kmp_health_units_Mass$stableprop_getter(){}[0]
+final fun com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Sleep$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Sleep$stableprop_getter|com_viktormykhailiv_kmp_health_HealthDataType_Sleep$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Steps$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Steps$stableprop_getter|com_viktormykhailiv_kmp_health_HealthDataType_Steps$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Weight$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Weight$stableprop_getter|com_viktormykhailiv_kmp_health_HealthDataType_Weight$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthKitManager$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthKitManager$stableprop_getter|com_viktormykhailiv_kmp_health_HealthKitManager$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthManagerFactory$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthManagerFactory$stableprop_getter|com_viktormykhailiv_kmp_health_HealthManagerFactory$stableprop_getter(){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readSleep(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/SleepSessionRecord>> // com.viktormykhailiv.kmp.health/readSleep|readSleep@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readSteps(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/StepsRecord>> // com.viktormykhailiv.kmp.health/readSteps|readSteps@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readWeight(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/WeightRecord>> // com.viktormykhailiv.kmp.health/readWeight|readWeight@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]

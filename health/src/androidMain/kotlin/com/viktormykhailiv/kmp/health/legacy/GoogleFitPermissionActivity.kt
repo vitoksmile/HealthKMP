@@ -18,6 +18,8 @@ import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
+@Suppress("DEPRECATION")
+@Deprecated("The Google Fit APIs will no longer be available after June 30, 2025. As of May 1, 2024, developers cannot sign up to use these APIs.")
 internal class GoogleFitPermissionActivity : ComponentActivity() {
 
     companion object {

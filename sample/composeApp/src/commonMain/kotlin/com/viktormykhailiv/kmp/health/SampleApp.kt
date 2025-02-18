@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
@@ -30,15 +32,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
+import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
+import com.viktormykhailiv.kmp.health.sleep.SleepSessionCanvas
 import com.viktormykhailiv.kmp.health.units.Mass
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.minutes
 
 @Composable
 fun SampleApp() {
@@ -47,12 +54,14 @@ fun SampleApp() {
 
     val readTypes = remember {
         listOf(
+            Sleep,
             Steps,
             Weight,
         )
     }
     val writeTypes = remember {
         listOf(
+            Sleep,
             Steps,
             Weight,
         )
@@ -154,22 +163,97 @@ fun SampleApp() {
 
                         data[type]
                             ?.onSuccess { records ->
-                                Column {
-                                    Text("count ${records.size}")
+                                Text("$type records count ${records.size}")
 
-                                    records.forEach { record ->
-                                        Text("Record $record")
+                                Spacer(Modifier.size(16.dp))
+                                when (type) {
+                                    Sleep -> {
+                                        records
+                                            .filterIsInstance<SleepSessionRecord>()
+                                            .forEach { record ->
+                                                Text("Sleep duration ${record.duration}")
+                                                SleepSessionCanvas(
+                                                    modifier = Modifier.fillMaxWidth(),
+                                                    record = record,
+                                                )
+                                                Spacer(Modifier.size(16.dp))
+                                            }
+                                    }
+
+                                    Steps -> {
+                                        val steps = records.filterIsInstance<StepsRecord>()
+                                        val average = steps.map { it.count }.average()
+                                        val total = steps.sumOf { it.count }
+                                        Text("Steps average $average")
+                                        Text("Steps total $total")
+                                    }
+
+                                    Weight -> {
+                                        val weight = records.filterIsInstance<WeightRecord>()
+                                        val average = weight.map { it.weight.inKilograms }.average()
+                                        val min = weight.minOf { it.weight.inKilograms }
+                                        val max = weight.maxOf { it.weight.inKilograms }
+                                        Text("Weight average $average kg")
+                                        Text("Weight min $min kg")
+                                        Text("Weight max $max kg")
                                     }
                                 }
                             }
                             ?.onFailure {
-                                Text("Failed to read records $it")
+                                Text("Failed to read $type records $it")
                             }
 
                         Divider()
                     }
 
                     Spacer(modifier = Modifier.height(64.dp))
+                    var writeSleep by remember { mutableStateOf<Result<Unit>?>(null) }
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                val startTime = Clock.System.now()
+                                    .minus(12.hours)
+                                val endTime = Clock.System.now()
+                                    .minus(11.hours)
+                                val types = listOf(
+                                    SleepStageType.Awake,
+                                    SleepStageType.OutOfBed,
+                                    SleepStageType.Sleeping,
+                                    SleepStageType.Light,
+                                    SleepStageType.Deep,
+                                    SleepStageType.REM,
+                                )
+
+                                writeSleep = health.writeData(
+                                    listOf(
+                                        SleepSessionRecord(
+                                            startTime = startTime,
+                                            endTime = endTime,
+                                            stages = List(6) {
+                                                SleepSessionRecord.Stage(
+                                                    startTime = startTime.plus((10 * it).minutes),
+                                                    endTime = startTime.plus((10 * it).minutes + 10.minutes),
+                                                    type = types[it],
+                                                )
+                                            },
+                                        )
+                                    )
+                                )
+                            }
+                        },
+                    ) {
+                        Text("Write sleep")
+                    }
+                    writeSleep
+                        ?.onSuccess {
+                            Text("Sleep wrote successfully")
+                        }
+                        ?.onFailure {
+                            Text("Failed to write sleep $it")
+                        }
+
+                    Divider()
+                    Spacer(modifier = Modifier.height(16.dp))
                     var steps by remember { mutableStateOf(100) }
                     TextField(
                         value = steps.toString(),
@@ -204,12 +288,13 @@ fun SampleApp() {
                             Text("Failed to write steps $it")
                         }
 
+                    Divider()
                     Spacer(modifier = Modifier.height(16.dp))
                     var weight by remember { mutableStateOf(61) }
                     TextField(
                         value = weight.toString(),
                         onValueChange = { weight = it.toIntOrNull() ?: 0 },
-                        label = { Text("Weight") },
+                        label = { Text("Weight, kg") },
                         keyboardOptions = remember { KeyboardOptions(keyboardType = KeyboardType.Number) },
                     )
                     var writeWeight by remember { mutableStateOf<Result<Unit>?>(null) }
@@ -227,7 +312,7 @@ fun SampleApp() {
                             }
                         },
                     ) {
-                        Text("Write $weight weight")
+                        Text("Write $weight kg")
                     }
                     writeWeight
                         ?.onSuccess {

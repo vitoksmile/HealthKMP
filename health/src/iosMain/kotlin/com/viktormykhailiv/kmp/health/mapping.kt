@@ -1,11 +1,22 @@
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
+import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
 import com.viktormykhailiv.kmp.health.units.Mass
 import kotlinx.datetime.toKotlinInstant
 import kotlinx.datetime.toNSDate
 import platform.Foundation.NSDate
+import platform.HealthKit.HKCategorySample
+import platform.HealthKit.HKCategoryTypeIdentifierSleepAnalysis
+import platform.HealthKit.HKCategoryValueSleepAnalysisAsleepCore
+import platform.HealthKit.HKCategoryValueSleepAnalysisAsleepDeep
+import platform.HealthKit.HKCategoryValueSleepAnalysisAsleepREM
+import platform.HealthKit.HKCategoryValueSleepAnalysisAsleepUnspecified
+import platform.HealthKit.HKCategoryValueSleepAnalysisAwake
+import platform.HealthKit.HKObject
+import platform.HealthKit.HKObjectType
 import platform.HealthKit.HKQuantity
 import platform.HealthKit.HKQuantitySample
 import platform.HealthKit.HKQuantityType
@@ -17,7 +28,7 @@ import platform.HealthKit.countUnit
 import platform.HealthKit.poundUnit
 import kotlin.math.roundToInt
 
-internal fun HealthRecord.toHKQuantitySample(): HKQuantitySample? {
+internal fun HealthRecord.toHKObjects(): List<HKObject>? {
     val record = this
 
     val quantityTypeIdentifier: HKQuantityTypeIdentifier
@@ -26,6 +37,30 @@ internal fun HealthRecord.toHKQuantitySample(): HKQuantitySample? {
     val endDate: NSDate
 
     when (record) {
+        is SleepSessionRecord -> {
+            val typeIdentifier = HKObjectType
+                .categoryTypeForIdentifier(HKCategoryTypeIdentifierSleepAnalysis)!!
+
+            return record.stages.map { stage ->
+                val sleepCategory = when (stage.type) {
+                    SleepStageType.Unknown -> HKCategoryValueSleepAnalysisAsleepUnspecified
+                    SleepStageType.Awake -> HKCategoryValueSleepAnalysisAwake
+                    SleepStageType.AwakeInBed -> HKCategoryValueSleepAnalysisAwake
+                    SleepStageType.Sleeping -> HKCategoryValueSleepAnalysisAsleepCore
+                    SleepStageType.OutOfBed -> HKCategoryValueSleepAnalysisAwake
+                    SleepStageType.Light -> HKCategoryValueSleepAnalysisAsleepCore
+                    SleepStageType.Deep -> HKCategoryValueSleepAnalysisAsleepDeep
+                    SleepStageType.REM -> HKCategoryValueSleepAnalysisAsleepREM
+                }
+                HKCategorySample.categorySampleWithType(
+                    type = typeIdentifier,
+                    value = sleepCategory,
+                    startDate = stage.startTime.toNSDate(),
+                    endDate = stage.endTime.toNSDate(),
+                )
+            }
+        }
+
         is StepsRecord -> {
             quantityTypeIdentifier = HKQuantityTypeIdentifierStepCount
             quantity = HKQuantity.quantityWithUnit(
@@ -49,13 +84,42 @@ internal fun HealthRecord.toHKQuantitySample(): HKQuantitySample? {
         else -> return null
     }
 
-    return HKQuantitySample.Companion.quantitySampleWithType(
-        quantityType = HKQuantityType.quantityTypeForIdentifier(quantityTypeIdentifier)
-            ?: return null,
-        quantity = quantity,
-        startDate = startDate,
-        endDate = endDate,
+    return listOf(
+        HKQuantitySample.Companion.quantitySampleWithType(
+            quantityType = HKQuantityType.quantityTypeForIdentifier(quantityTypeIdentifier)
+                ?: return null,
+            quantity = quantity,
+            startDate = startDate,
+            endDate = endDate,
+        )
     )
+}
+
+internal fun List<HKCategorySample>.toHealthRecords(): List<HealthRecord> {
+    if (isEmpty()) return emptyList()
+
+    return when (first().categoryType.identifier) {
+        HKCategoryTypeIdentifierSleepAnalysis -> {
+            map { sample ->
+                val startTime = sample.startDate.toKotlinInstant()
+                val endTime = sample.endDate.toKotlinInstant()
+                val type = when (sample.value) {
+                    HKCategoryValueSleepAnalysisAwake -> SleepStageType.Awake
+                    HKCategoryValueSleepAnalysisAsleepCore -> SleepStageType.Light
+                    HKCategoryValueSleepAnalysisAsleepDeep -> SleepStageType.Deep
+                    HKCategoryValueSleepAnalysisAsleepREM -> SleepStageType.REM
+                    else -> SleepStageType.Unknown
+                }
+                SleepSessionRecord.Stage(
+                    startTime = startTime,
+                    endTime = endTime,
+                    type = type,
+                )
+            }.groupByRecords()
+        }
+
+        else -> emptyList()
+    }
 }
 
 internal fun HKQuantitySample.toHealthRecord(): HealthRecord? {
@@ -66,8 +130,7 @@ internal fun HKQuantitySample.toHealthRecord(): HealthRecord? {
             StepsRecord(
                 startTime = sample.startDate.toKotlinInstant(),
                 endTime = sample.endDate.toKotlinInstant(),
-                count = sample.quantity.doubleValueForUnit(HKUnit.countUnit())
-                    .roundToInt(),
+                count = sample.quantity.doubleValueForUnit(HKUnit.countUnit()).roundToInt(),
             )
         }
 

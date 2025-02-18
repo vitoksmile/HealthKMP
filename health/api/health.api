@@ -15,6 +15,8 @@ public final class com/viktormykhailiv/kmp/health/ApplicationContextHolderInitia
 }
 
 public final class com/viktormykhailiv/kmp/health/ExtensionsKt {
+	public static final fun getDuration (Lcom/viktormykhailiv/kmp/health/IntervalRecord;)J
+	public static final fun readSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readSteps (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
@@ -32,6 +34,14 @@ public final class com/viktormykhailiv/kmp/health/HealthConnectManager : com/vik
 }
 
 public abstract interface class com/viktormykhailiv/kmp/health/HealthDataType {
+}
+
+public final class com/viktormykhailiv/kmp/health/HealthDataType$Sleep : com/viktormykhailiv/kmp/health/HealthDataType {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$Sleep;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/HealthDataType$Steps : com/viktormykhailiv/kmp/health/HealthDataType {
@@ -89,6 +99,107 @@ public final class com/viktormykhailiv/kmp/health/legacy/GoogleFitManager : com/
 	public fun requestAuthorization-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun revokeAuthorization-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun writeData-gIAlu-s (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/SleepSessionRecord : com/viktormykhailiv/kmp/health/IntervalRecord {
+	public static final field $stable I
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Ljava/util/List;)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public final fun component3 ()Ljava/util/List;
+	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Ljava/util/List;)Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Ljava/util/List;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getStages ()Ljava/util/List;
+	public fun getStartTime ()Lkotlinx/datetime/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/SleepSessionRecord$Stage : com/viktormykhailiv/kmp/health/IntervalRecord {
+	public static final field $stable I
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/SleepStageType;)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/SleepStageType;
+	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/SleepStageType;)Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord$Stage;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord$Stage;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/SleepStageType;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord$Stage;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public fun getEndTime ()Lkotlinx/datetime/Instant;
+	public fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getType ()Lcom/viktormykhailiv/kmp/health/records/SleepStageType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/viktormykhailiv/kmp/health/records/SleepStageType {
+}
+
+public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Awake : com/viktormykhailiv/kmp/health/records/SleepStageType {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$Awake;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/SleepStageType$AwakeInBed : com/viktormykhailiv/kmp/health/records/SleepStageType {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$AwakeInBed;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Deep : com/viktormykhailiv/kmp/health/records/SleepStageType {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$Deep;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Light : com/viktormykhailiv/kmp/health/records/SleepStageType {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$Light;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/SleepStageType$OutOfBed : com/viktormykhailiv/kmp/health/records/SleepStageType {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$OutOfBed;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/SleepStageType$REM : com/viktormykhailiv/kmp/health/records/SleepStageType {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$REM;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Sleeping : com/viktormykhailiv/kmp/health/records/SleepStageType {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$Sleeping;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Unknown : com/viktormykhailiv/kmp/health/records/SleepStageType {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$Unknown;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/records/StepsRecord : com/viktormykhailiv/kmp/health/IntervalRecord {
