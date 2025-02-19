@@ -15,15 +15,23 @@ public final class com/viktormykhailiv/kmp/health/ApplicationContextHolderInitia
 }
 
 public final class com/viktormykhailiv/kmp/health/ExtensionsKt {
+	public static final fun aggregateSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun aggregateSteps (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun aggregateWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun getDuration (Lcom/viktormykhailiv/kmp/health/IntervalRecord;)J
 	public static final fun readSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readSteps (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
+public abstract interface class com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
+	public abstract fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+}
+
 public final class com/viktormykhailiv/kmp/health/HealthConnectManager : com/viktormykhailiv/kmp/health/HealthManager {
 	public static final field $stable I
 	public fun <init> (Landroid/content/Context;)V
+	public fun aggregate-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun isAuthorized-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun isAvailable-d1pmJ48 ()Ljava/lang/Object;
 	public fun isRevokeAuthorizationSupported-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -61,6 +69,7 @@ public final class com/viktormykhailiv/kmp/health/HealthDataType$Weight : com/vi
 }
 
 public abstract interface class com/viktormykhailiv/kmp/health/HealthManager {
+	public abstract fun aggregate-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun isAuthorized-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun isAvailable-d1pmJ48 ()Ljava/lang/Object;
 	public abstract fun isRevokeAuthorizationSupported-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -89,9 +98,39 @@ public abstract interface class com/viktormykhailiv/kmp/health/IntervalRecord : 
 	public abstract fun getStartTime ()Lkotlinx/datetime/Instant;
 }
 
+public final class com/viktormykhailiv/kmp/health/aggregate/SleepAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord, com/viktormykhailiv/kmp/health/IntervalRecord {
+	public static final field $stable I
+	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public fun getEndTime ()Lkotlinx/datetime/Instant;
+	public fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getTotalDuration-UwyO8pc ()J
+}
+
+public final class com/viktormykhailiv/kmp/health/aggregate/StepsAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord, com/viktormykhailiv/kmp/health/IntervalRecord {
+	public static final field $stable I
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;J)V
+	public final fun getCount ()J
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public fun getEndTime ()Lkotlinx/datetime/Instant;
+	public fun getStartTime ()Lkotlinx/datetime/Instant;
+}
+
+public final class com/viktormykhailiv/kmp/health/aggregate/WeightAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord, com/viktormykhailiv/kmp/health/IntervalRecord {
+	public static final field $stable I
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;)V
+	public final fun getAvg ()Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getMax ()Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public final fun getMin ()Lcom/viktormykhailiv/kmp/health/units/Mass;
+	public fun getStartTime ()Lkotlinx/datetime/Instant;
+}
+
 public final class com/viktormykhailiv/kmp/health/legacy/GoogleFitManager : com/viktormykhailiv/kmp/health/HealthManager {
 	public static final field $stable I
 	public fun <init> (Landroid/content/Context;)V
+	public fun aggregate-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun isAuthorized-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun isAvailable-d1pmJ48 ()Ljava/lang/Object;
 	public fun isRevokeAuthorizationSupported-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;

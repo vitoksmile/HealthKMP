@@ -93,5 +93,5 @@ internal fun HCRecord.toHealthRecord(): HealthRecord? = when (val record = this)
 private fun Mass.toHCMass(): HCMass =
     HCMass.kilograms(inKilograms)
 
-private fun HCMass.toMass(): Mass =
+internal fun HCMass.toMass(): Mass =
     Mass.kilograms(inKilograms)

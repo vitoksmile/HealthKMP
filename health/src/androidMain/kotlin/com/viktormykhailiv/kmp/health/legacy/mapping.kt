@@ -94,7 +94,6 @@ private fun HealthRecord.toDataPoints(
         record.stages.map { stage ->
             val type = when (stage.type) {
                 SleepStageType.Awake -> SleepStages.AWAKE
-                SleepStageType.Light -> SleepStages.SLEEP
                 SleepStageType.OutOfBed -> SleepStages.OUT_OF_BED
                 SleepStageType.Light -> SleepStages.SLEEP_LIGHT
                 SleepStageType.Deep -> SleepStages.SLEEP_DEEP

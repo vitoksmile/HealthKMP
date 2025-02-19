@@ -35,6 +35,9 @@ import androidx.compose.ui.unit.dp
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
@@ -71,7 +74,12 @@ fun SampleApp() {
     var isAuthorizedResult by remember { mutableStateOf<Result<Boolean>?>(null) }
     var isRevokeSupported by remember { mutableStateOf(false) }
 
-    val data = remember { mutableStateMapOf<HealthDataType, Result<List<HealthRecord>>>() }
+    val records = remember {
+        mutableStateMapOf<HealthDataType, Result<List<HealthRecord>>>()
+    }
+    val aggregatedRecords = remember {
+        mutableStateMapOf<HealthDataType, Result<HealthAggregatedRecord>>()
+    }
 
     LaunchedEffect(health) {
         isAvailableResult = health.isAvailable()
@@ -149,9 +157,9 @@ fun SampleApp() {
                         Button(
                             onClick = {
                                 coroutineScope.launch {
-                                    data[type] = health.readData(
+                                    records[type] = health.readData(
                                         startTime = Clock.System.now()
-                                            .minus(1.days),
+                                            .minus(7.days),
                                         endTime = Clock.System.now(),
                                         type = type,
                                     )
@@ -160,18 +168,32 @@ fun SampleApp() {
                         ) {
                             Text("Read $type")
                         }
+                        Button(
+                            onClick = {
+                                coroutineScope.launch {
+                                    aggregatedRecords[type] = health.aggregate(
+                                        startTime = Clock.System.now()
+                                            .minus(7.days),
+                                        endTime = Clock.System.now(),
+                                        type = type,
+                                    )
+                                }
+                            },
+                        ) {
+                            Text("Aggregate $type")
+                        }
 
-                        data[type]
+                        records[type]
                             ?.onSuccess { records ->
                                 Text("$type records count ${records.size}")
 
-                                Spacer(Modifier.size(16.dp))
                                 when (type) {
                                     Sleep -> {
+                                        Spacer(Modifier.size(16.dp))
                                         records
                                             .filterIsInstance<SleepSessionRecord>()
                                             .forEach { record ->
-                                                Text("Sleep duration ${record.duration}")
+                                                Text("Sleep session duration ${record.duration}")
                                                 SleepSessionCanvas(
                                                     modifier = Modifier.fillMaxWidth(),
                                                     record = record,
@@ -184,18 +206,43 @@ fun SampleApp() {
                                         val steps = records.filterIsInstance<StepsRecord>()
                                         val average = steps.map { it.count }.average()
                                         val total = steps.sumOf { it.count }
-                                        Text("Steps average $average")
-                                        Text("Steps total $total")
+                                        Text("Average $average")
+                                        Text("Total $total")
                                     }
 
                                     Weight -> {
                                         val weight = records.filterIsInstance<WeightRecord>()
                                         val average = weight.map { it.weight.inKilograms }.average()
-                                        val min = weight.minOf { it.weight.inKilograms }
-                                        val max = weight.maxOf { it.weight.inKilograms }
-                                        Text("Weight average $average kg")
-                                        Text("Weight min $min kg")
-                                        Text("Weight max $max kg")
+                                        val min = weight.minOfOrNull { it.weight.inKilograms }
+                                        val max = weight.maxOfOrNull { it.weight.inKilograms }
+                                        Text("Average $average kg")
+                                        Text("Min $min kg")
+                                        Text("Max $max kg")
+                                    }
+                                }
+                            }
+                            ?.onFailure {
+                                Text("Failed to read $type records $it")
+                            }
+
+                        aggregatedRecords[type]
+                            ?.onSuccess { record ->
+                                Spacer(Modifier.size(16.dp))
+                                Text("Aggregated $type")
+
+                                when (record) {
+                                    is SleepAggregatedRecord -> {
+                                        Text("Total ${record.totalDuration}")
+                                    }
+
+                                    is StepsAggregatedRecord -> {
+                                        Text("Total ${record.count}")
+                                    }
+
+                                    is WeightAggregatedRecord -> {
+                                        Text("Average ${record.avg}")
+                                        Text("Min ${record.min}")
+                                        Text("Max ${record.max}")
                                     }
                                 }
                             }

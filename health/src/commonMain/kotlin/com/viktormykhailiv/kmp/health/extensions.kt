@@ -4,6 +4,10 @@ package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
+import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.StepsRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
@@ -20,6 +24,16 @@ suspend fun HealthManager.readSleep(
         type = Sleep,
     ).map { it.filterIsInstance<SleepSessionRecord>() }
 
+suspend fun HealthManager.aggregateSleep(
+    startTime: Instant,
+    endTime: Instant,
+): Result<SleepAggregatedRecord> =
+    aggregate(
+        startTime = startTime,
+        endTime = endTime,
+        type = Sleep,
+    ).mapCatching { it as SleepAggregatedRecord }
+
 suspend fun HealthManager.readSteps(
     startTime: Instant,
     endTime: Instant,
@@ -30,6 +44,16 @@ suspend fun HealthManager.readSteps(
         type = Steps,
     ).map { it.filterIsInstance<StepsRecord>() }
 
+suspend fun HealthManager.aggregateSteps(
+    startTime: Instant,
+    endTime: Instant,
+): Result<StepsAggregatedRecord> =
+    aggregate(
+        startTime = startTime,
+        endTime = endTime,
+        type = Steps,
+    ).mapCatching { it as StepsAggregatedRecord }
+
 suspend fun HealthManager.readWeight(
     startTime: Instant,
     endTime: Instant,
@@ -37,8 +61,18 @@ suspend fun HealthManager.readWeight(
     readData(
         startTime = startTime,
         endTime = endTime,
-        type = HealthDataType.Weight,
+        type = Weight,
     ).map { it.filterIsInstance<WeightRecord>() }
+
+suspend fun HealthManager.aggregateWeight(
+    startTime: Instant,
+    endTime: Instant,
+): Result<WeightAggregatedRecord> =
+    aggregate(
+        startTime = startTime,
+        endTime = endTime,
+        type = Weight,
+    ).mapCatching { it as WeightAggregatedRecord }
 
 val IntervalRecord.duration: Duration
     get() = endTime - startTime

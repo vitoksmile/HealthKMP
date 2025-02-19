@@ -8,6 +8,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.HistoryClient
 import com.google.android.gms.fitness.request.DataReadRequest
+import com.viktormykhailiv.kmp.health.HealthAggregatedRecord
 import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthManager
 import com.viktormykhailiv.kmp.health.HealthRecord
@@ -120,6 +121,14 @@ class GoogleFitManager(
                     .insertData(dataSet)
                     .await()
             }
+    }
+
+    override suspend fun aggregate(
+        startTime: Instant,
+        endTime: Instant,
+        type: HealthDataType,
+    ): Result<HealthAggregatedRecord> = runCatching {
+        throw Throwable("The Google Fit APIs will no longer be available.")
     }
 
     @Suppress("DEPRECATION")

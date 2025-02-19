@@ -29,4 +29,10 @@ interface HealthManager {
     suspend fun writeData(
         records: List<HealthRecord>,
     ): Result<Unit>
+
+    suspend fun aggregate(
+        startTime: Instant,
+        endTime: Instant,
+        type: HealthDataType,
+    ): Result<HealthAggregatedRecord>
 }

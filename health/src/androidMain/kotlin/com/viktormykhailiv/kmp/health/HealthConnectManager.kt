@@ -2,6 +2,9 @@ package com.viktormykhailiv.kmp.health
 
 import android.content.Context
 import androidx.health.connect.client.HealthConnectClient
+import androidx.health.connect.client.records.DistanceRecord
+import androidx.health.connect.client.records.HeartRateRecord
+import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import kotlinx.coroutines.CancellationException
@@ -15,6 +18,8 @@ class HealthConnectManager(
     private val healthConnectClient by lazy { HealthConnectClient.getOrCreate(context) }
 
     override fun isAvailable(): Result<Boolean> = runCatching {
+        DistanceRecord.DISTANCE_TOTAL
+        HeartRateRecord.BPM_AVG
         val status = HealthConnectClient.getSdkStatus(context)
         status == HealthConnectClient.SDK_AVAILABLE
     }
@@ -82,6 +87,27 @@ class HealthConnectManager(
         records: List<HealthRecord>,
     ): Result<Unit> = runCatching {
         healthConnectClient.insertRecords(records.mapNotNull { it.toHCRecord() })
+    }
+
+    override suspend fun aggregate(
+        startTime: Instant,
+        endTime: Instant,
+        type: HealthDataType,
+    ): Result<HealthAggregatedRecord> = runCatching {
+        val request = AggregateRequest(
+            metrics = type.toAggregateMetrics(),
+            timeRangeFilter = TimeRangeFilter.between(
+                startTime = startTime.toJavaInstant(),
+                endTime = endTime.toJavaInstant()
+            ),
+        )
+        val response = healthConnectClient.aggregate(request)
+
+        response.toHealthAggregatedRecord(
+            startTime = startTime,
+            endTime = endTime,
+            type = type,
+        )
     }
 }
 

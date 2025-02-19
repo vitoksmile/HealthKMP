@@ -12,7 +12,7 @@ import kotlinx.datetime.Instant
 /**
  * Captures the user's weight.
  *
- * See [Mass] for supported units.
+ * @see [Mass] for supported units.
  */
 data class WeightRecord(
     override val time: Instant,

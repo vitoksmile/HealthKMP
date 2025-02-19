@@ -1,5 +1,6 @@
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import platform.HealthKit.HKCategoryType
@@ -10,7 +11,7 @@ import platform.HealthKit.HKQuantityTypeIdentifierStepCount
 import platform.HealthKit.HKSampleType
 
 internal fun HealthDataType.toHKSampleType(): HKSampleType? = when (this) {
-    HealthDataType.Sleep ->
+    Sleep ->
         HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSleepAnalysis)
 
     Steps ->

@@ -10,9 +10,11 @@ Kotlin Multiplatform Mobile wrapper for HealthKit on iOS, and Google Fit or Heal
 > Google Fitness API is being deprecated and HealthKMP will try to use Health Connect if the app is installed.
 
 HealthKMP supports:
-- handling permissions to access health data using `isAvailable`, `isAuthorized`, `requestAuthorization`, `revokeAuthorization` methods.
-- reading health data using `readData` method.
-- writing health data using `writeData` method.
+- checking if any of health service is available on the device.
+- handling permissions to access health data.
+- reading health data.
+- writing health data.
+- aggregating health data.
 
 Note that for Android, the target phone **needs** to have [Google Fit](https://www.google.com/fit/) or [Health Connect](https://health.google/health-connect-android/) installed.
 
@@ -45,7 +47,7 @@ build.gradle:
 sourceSets {
     val commonMain by getting {
         dependencies {
-            implementation("com.viktormykhailiv:health-kmp:0.0.5")
+            implementation("com.viktormykhailiv:health-kmp:0.0.6")
         }
     }
 }
@@ -165,79 +167,102 @@ health.requestAuthorization(
 
 ### Read sleep
 
-Read sleep data for last 24 hours
+Read detailed sleep data for last 24 hours
 
 ```kotlin
 health.readSleep(
     startTime = Clock.System.now().minus(24.hours),
     endTime = Clock.System.now(),
-)
-    .onSuccess { sleepRecords ->
-        if (sleepRecords.isEmpty()) {
-            println("No sleep data")
-        } else {
-            sleepRecords.forEach { sleep ->
-                println("Sleep duration ${sleep.duration}")
+).onSuccess { sleepRecords ->
+    sleepRecords.forEach { sleep ->
+        println("Sleep duration ${sleep.duration}")
 
-                // Calculate duration of each sleep stage
-                sleep.stages.groupBy { it.type }
-                    .forEach { (type, stages) ->
-                        val stageDuration = stages.sumOf { it.duration.inWholeMinutes }.minutes
-                        println("Sleep stage $type $stageDuration")
-                    }
+        // Calculate duration of each sleep stage
+        sleep.stages.groupBy { it.type }
+            .forEach { (type, stages) ->
+                val stageDuration = stages.sumOf { it.duration.inWholeMinutes }.minutes
+                println("Sleep stage $type $stageDuration")
             }
-        }
     }
-    .onFailure { error ->
-        println("Failed to read sleep $error")
+    if (sleepRecords.isEmpty()) {
+        println("No sleep data")
     }
+}.onFailure { error ->
+    println("Failed to read sleep $error")
+}
+```
+
+Read aggregated sleep data for last month
+
+```kotlin
+health.aggregateSleep(
+    startTime = Clock.System.now().minus(30.days),
+    endTime = Clock.System.now(),
+).onSuccess { sleep ->
+    println("Sleep total duration ${sleep.totalDuration}")
+}
 ```
 
 ### Read steps
 
-Read steps data for last 24 hours
+Read detailed steps data for last day
 
 ```kotlin
 health.readSteps(
-    startTime = Clock.System.now().minus(24.hours),
+    startTime = Clock.System.now().minus(1.days),
     endTime = Clock.System.now(),
-)
-    .onSuccess { steps ->
-        if (steps.isEmpty()) {
-            println("No steps data")
-        } else {
-            val average = steps.map { it.count }.average()
-            val total = steps.sumOf { it.count }
-            println("Steps avg $average, total $total")
-        }
+).onSuccess { steps ->
+    steps.forEachIndexed { index, record ->
+        println("[$index] ${record.count} steps for ${record.duration}")
     }
-    .onFailure { error ->
-        println("Failed to read steps $error")
+    if (steps.isEmpty()) {
+        println("No steps data")
     }
+}.onFailure { error ->
+    println("Failed to read steps $error")
+}
+```
+
+Read aggregated steps data for last day
+
+```kotlin
+health.aggregateSteps(
+    startTime = Clock.System.now().minus(1.days),
+    endTime = Clock.System.now(),
+).onSuccess { steps ->
+    println("Steps total ${steps.count}")
+}
 ```
 
 ### Read weight
 
-Read weight data for last year
+Read detailed weight data for last year
 
 ```kotlin
 health.readWeight(
     startTime = Clock.System.now().minus(365.days),
     endTime = Clock.System.now(),
-)
-    .onSuccess { records ->
-        if (records.isEmpty()) {
-            println("No weight data")
-        } else {
-            val average = records.map { it.weight.inKilograms }.average()
-            val min = records.minOf { it.weight.inKilograms }
-            val max = records.maxOf { it.weight.inKilograms }
-            println("Weight avg $average kg, min $min kg, max $max kg")
-        }
+).onSuccess { records ->
+    records.forEachIndexed { index, record ->
+        println("[$index] ${record.weight} at ${record.time}")
     }
-    .onFailure { error ->
-        println("Failed to read steps $error")
+    if (records.isEmpty()) {
+        println("No weight data")
     }
+}.onFailure { error ->
+    println("Failed to read weight $error")
+}
+```
+
+Read aggregated weight data for last year
+
+```kotlin
+health.aggregateWeight(
+    startTime = Clock.System.now().minus(365.hours),
+    endTime = Clock.System.now(),
+).onSuccess { weight ->
+    println("Weight avg ${weight.avg} kg, min ${weight.min}, max ${weight.max}")
+}
 ```
 
 ### Write sleep

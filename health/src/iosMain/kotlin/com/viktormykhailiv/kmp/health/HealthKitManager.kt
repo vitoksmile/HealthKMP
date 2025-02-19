@@ -1,9 +1,7 @@
-@file:Suppress("ClassName")
-
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toNSDate
@@ -17,6 +15,7 @@ import platform.HealthKit.HKQuery
 import platform.HealthKit.HKQueryOptionStrictStartDate
 import platform.HealthKit.HKSampleQuery
 import platform.HealthKit.HKSampleSortIdentifierEndDate
+import platform.HealthKit.HKStatisticsQuery
 import platform.HealthKit.predicateForSamplesWithStartDate
 
 internal class HealthKitManager : HealthManager {
@@ -38,7 +37,7 @@ internal class HealthKitManager : HealthManager {
             if (continuation.isCancelled) return@getRequestStatusForAuthorizationToShareTypes
 
             if (error != null) {
-                continuation.resumeWithException(Throwable(error.toString()))
+                continuation.resume(Result.failure(Throwable(error.toString())))
             } else {
                 continuation.resume(Result.success(status == HKAuthorizationRequestStatusUnnecessary))
             }
@@ -56,7 +55,8 @@ internal class HealthKitManager : HealthManager {
             if (continuation.isCancelled) return@requestAuthorizationToShareTypes
 
             if (error != null) {
-                continuation.resumeWithException(Throwable(error.toString()))
+                @Suppress("RemoveExplicitTypeArguments")
+                continuation.resume(Result.failure<Unit>(Throwable(error.toString())))
             } else {
                 // We don't case about result here, it will be mapped to isAuthorized
                 continuation.resume(Result.success(Unit))
@@ -80,7 +80,7 @@ internal class HealthKitManager : HealthManager {
         val query = HKSampleQuery(
             sampleType = type.toHKSampleType()
                 ?: run {
-                    continuation.resume(Result.failure(NotImplementedError("Data type $type is not supported")))
+                    continuation.resume(Result.failure(NotImplementedError("$type is not supported")))
                     return@suspendCancellableCoroutine
                 },
             predicate = HKQuery.predicateForSamplesWithStartDate(
@@ -96,7 +96,7 @@ internal class HealthKitManager : HealthManager {
             if (continuation.isCancelled) return@HKSampleQuery
 
             if (error != null) {
-                continuation.resumeWithException(Throwable(error.toString()))
+                continuation.resume(Result.failure(Throwable(error.toString())))
                 return@HKSampleQuery
             }
 
@@ -134,11 +134,59 @@ internal class HealthKitManager : HealthManager {
             if (continuation.isCancelled) return@saveObjects
 
             if (error != null) {
-                continuation.resumeWithException(Throwable(error.toString()))
+                continuation.resume(Result.failure(Throwable(error.toString())))
                 return@saveObjects
             }
 
             continuation.resume(Result.success(Unit))
+        }
+    }
+
+    override suspend fun aggregate(
+        startTime: Instant,
+        endTime: Instant,
+        type: HealthDataType,
+    ): Result<HealthAggregatedRecord> {
+        if (type == Sleep) {
+            // Sleep is not supported for aggregation, aggregate manually
+            return readSleep(startTime = startTime, endTime = endTime)
+                .mapCatching { it.aggregate(startTime = startTime, endTime = endTime) }
+        }
+
+        return suspendCancellableCoroutine { continuation ->
+            val query = HKStatisticsQuery(
+                quantityType = type.toHKQuantityType()
+                    ?: run {
+                        continuation.resume(Result.failure(NotImplementedError("$type is not supported")))
+                        return@suspendCancellableCoroutine
+                    },
+                quantitySamplePredicate = HKQuery.predicateForSamplesWithStartDate(
+                    startDate = startTime.toNSDate(),
+                    endDate = endTime.toNSDate(),
+                    options = HKQueryOptionStrictStartDate,
+                ),
+                options = type.toHKStatisticOptions(),
+            ) { _, result, error ->
+                if (continuation.isCancelled) return@HKStatisticsQuery
+
+                if (error != null) {
+                    continuation.resume(Result.failure(Throwable(error.toString())))
+                    return@HKStatisticsQuery
+                }
+
+                val data = result?.toHealthAggregatedRecord()
+                when {
+                    data == null -> {
+                        continuation.resume(Result.failure(Throwable("$type data not found")))
+                    }
+
+                    else -> {
+                        continuation.resume(Result.success(data))
+                    }
+                }
+            }
+
+            healthKit.executeQuery(query)
         }
     }
 }

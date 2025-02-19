@@ -137,9 +137,7 @@ internal fun HKQuantitySample.toHealthRecord(): HealthRecord? {
         HKQuantityTypeIdentifierBodyMass -> {
             WeightRecord(
                 time = sample.startDate.toKotlinInstant(),
-                weight = Mass.pounds(
-                    sample.quantity.doubleValueForUnit(HKUnit.poundUnit()),
-                ),
+                weight = Mass.pounds(sample.quantity.doubleValueForUnit(HKUnit.poundUnit())),
             )
         }
 
