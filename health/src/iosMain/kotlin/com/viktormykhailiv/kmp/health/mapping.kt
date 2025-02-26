@@ -1,5 +1,6 @@
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
@@ -22,10 +23,13 @@ import platform.HealthKit.HKQuantitySample
 import platform.HealthKit.HKQuantityType
 import platform.HealthKit.HKQuantityTypeIdentifier
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
+import platform.HealthKit.HKQuantityTypeIdentifierHeartRate
 import platform.HealthKit.HKQuantityTypeIdentifierStepCount
 import platform.HealthKit.HKUnit
 import platform.HealthKit.countUnit
+import platform.HealthKit.minuteUnit
 import platform.HealthKit.poundUnit
+import platform.HealthKit.unitDividedByUnit
 import kotlin.math.roundToInt
 
 internal fun HealthRecord.toHKObjects(): List<HKObject>? {
@@ -37,6 +41,23 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
     val endDate: NSDate
 
     when (record) {
+        is HeartRateRecord -> {
+            quantityTypeIdentifier = HKQuantityTypeIdentifierHeartRate
+
+            return record.samples.map { sample ->
+                HKQuantitySample.quantitySampleWithType(
+                    quantityType = HKQuantityType.quantityTypeForIdentifier(quantityTypeIdentifier)
+                        ?: return null,
+                    quantity = HKQuantity.quantityWithUnit(
+                        unit = heartRateUnit,
+                        doubleValue = sample.beatsPerMinute.toDouble(),
+                    ),
+                    startDate = sample.time.toNSDate(),
+                    endDate = sample.time.toNSDate(),
+                )
+            }
+        }
+
         is SleepSessionRecord -> {
             val typeIdentifier = HKObjectType
                 .categoryTypeForIdentifier(HKCategoryTypeIdentifierSleepAnalysis)!!
@@ -85,7 +106,7 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
     }
 
     return listOf(
-        HKQuantitySample.Companion.quantitySampleWithType(
+        HKQuantitySample.quantitySampleWithType(
             quantityType = HKQuantityType.quantityTypeForIdentifier(quantityTypeIdentifier)
                 ?: return null,
             quantity = quantity,
@@ -122,25 +143,42 @@ internal fun List<HKCategorySample>.toHealthRecords(): List<HealthRecord> {
     }
 }
 
-internal fun HKQuantitySample.toHealthRecord(): HealthRecord? {
-    val sample = this
+internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
+    if (isEmpty()) return emptyList()
 
-    return when (sample.quantityType.identifier) {
+    return when (first().quantityType.identifier) {
+        HKQuantityTypeIdentifierHeartRate -> {
+            map { sample ->
+                HeartRateSampleInternal(
+                    startTime = sample.startDate.toKotlinInstant(),
+                    endTime = sample.endDate.toKotlinInstant(),
+                    beatsPerMinute = sample.quantity.doubleValueForUnit(heartRateUnit).roundToInt(),
+                )
+            }.group()
+        }
+
         HKQuantityTypeIdentifierStepCount -> {
-            StepsRecord(
-                startTime = sample.startDate.toKotlinInstant(),
-                endTime = sample.endDate.toKotlinInstant(),
-                count = sample.quantity.doubleValueForUnit(HKUnit.countUnit()).roundToInt(),
-            )
+            map { sample ->
+                StepsRecord(
+                    startTime = sample.startDate.toKotlinInstant(),
+                    endTime = sample.endDate.toKotlinInstant(),
+                    count = sample.quantity.doubleValueForUnit(HKUnit.countUnit()).roundToInt(),
+                )
+            }
         }
 
         HKQuantityTypeIdentifierBodyMass -> {
-            WeightRecord(
-                time = sample.startDate.toKotlinInstant(),
-                weight = Mass.pounds(sample.quantity.doubleValueForUnit(HKUnit.poundUnit())),
-            )
+            map { sample ->
+                WeightRecord(
+                    time = sample.startDate.toKotlinInstant(),
+                    weight = Mass.pounds(sample.quantity.doubleValueForUnit(HKUnit.poundUnit())),
+                )
+            }
         }
 
-        else -> null
+        else -> emptyList()
     }
 }
+
+internal val heartRateUnit: HKUnit
+    get() = HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit())

@@ -11,6 +11,14 @@ interface HealthRecord {
 }
 
 /**
+ * A record that contains a series of measurements.
+ */
+interface SeriesRecord<out T : Any> : IntervalRecord {
+
+    val samples: List<T>
+}
+
+/**
  * A record that contains a measurement with a time interval.
  *
  * @see InstantaneousRecord for records with instantaneous measurement.

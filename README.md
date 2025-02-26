@@ -19,6 +19,7 @@ HealthKMP supports:
 Note that for Android, the target phone **needs** to have [Google Fit](https://www.google.com/fit/) or [Health Connect](https://health.google/health-connect-android/) installed.
 
 ## Data Types
+- Heart rate
 - Sleep
 - Steps
 - Weight
@@ -47,7 +48,7 @@ build.gradle:
 sourceSets {
     val commonMain by getting {
         dependencies {
-            implementation("com.viktormykhailiv:health-kmp:0.0.6")
+            implementation("com.viktormykhailiv:health-kmp:0.0.7")
         }
     }
 }
@@ -69,7 +70,7 @@ Step 2: Enable "HealthKit" by adding a capability inside the "Signing & Capabili
 ## Health Connect (Android option 1)
 
 Using Health Connect on Android requires special permissions in the `AndroidManifest.xml` file.
-The permissions can be found here: https://developer.android.com/guide/health-and-fitness/health-connect/data-and-data-types/data-types
+The permissions can be found here: https://developer.android.com/health-and-fitness/guides/health-connect/plan/data-types
 
 Example shown here (can also be found in the sample app):
 
@@ -145,14 +146,16 @@ Requesting access to data types before reading them
 ```kotlin
 health.requestAuthorization(
     readTypes = listOf(
-        HealthDataType.Sleep,
-        HealthDataType.Steps,
-        HealthDataType.Weight,
+        HeartRate,
+        Sleep,
+        Steps,
+        Weight,
     ),
     writeTypes = listOf(
-        HealthDataType.Sleep,
-        HealthDataType.Steps,
-        HealthDataType.Weight,
+        HeartRate,
+        Sleep,
+        Steps,
+        Weight,
     ),
 )
     .onSuccess { isAuthorized ->

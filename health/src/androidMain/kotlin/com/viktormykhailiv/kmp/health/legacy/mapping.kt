@@ -8,11 +8,13 @@ import com.google.android.gms.fitness.data.Device
 import com.google.android.gms.fitness.data.Field
 import com.google.android.gms.fitness.data.SleepStages
 import com.viktormykhailiv.kmp.health.HealthDataType
+import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import com.viktormykhailiv.kmp.health.HealthRecord
 import com.viktormykhailiv.kmp.health.groupByRecords
+import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
@@ -23,6 +25,21 @@ import java.util.concurrent.TimeUnit
 
 internal fun List<DataPoint>.toHealthRecords(type: HealthDataType): List<HealthRecord> {
     return when (type) {
+        is HeartRate -> {
+            map { dataPoint ->
+                HeartRateRecord(
+                    startTime = dataPoint.startTime,
+                    endTime = dataPoint.endTime,
+                    samples = listOf(
+                        HeartRateRecord.Sample(
+                            time = dataPoint.startTime,
+                            beatsPerMinute = dataPoint.getValue(Field.FIELD_BPM).asInt(),
+                        )
+                    ),
+                )
+            }
+        }
+
         is Sleep -> {
             map { dataPoint ->
                 val startTime = dataPoint.startTime
@@ -90,6 +107,19 @@ internal fun List<HealthRecord>.toDataSets(context: Context): List<DataSet> {
 private fun HealthRecord.toDataPoints(
     dataSource: DataSource,
 ): List<DataPoint> = when (val record = this) {
+    is HeartRateRecord -> {
+        record.samples.map { sample ->
+            DataPoint.builder(dataSource)
+                .setTimeInterval(
+                    record.startTime.toEpochMilliseconds(),
+                    record.endTime.toEpochMilliseconds(),
+                    TimeUnit.MILLISECONDS,
+                )
+                .setField(Field.FIELD_BPM, sample.beatsPerMinute)
+                .build()
+        }
+    }
+
     is SleepSessionRecord -> {
         record.stages.map { stage ->
             val type = when (stage.type) {

@@ -6,6 +6,11 @@
 // - Show declarations: true
 
 // Library unique name: <HealthKMP:health>
+abstract interface <#A: out kotlin/Any> com.viktormykhailiv.kmp.health/SeriesRecord : com.viktormykhailiv.kmp.health/IntervalRecord { // com.viktormykhailiv.kmp.health/SeriesRecord|null[0]
+    abstract val samples // com.viktormykhailiv.kmp.health/SeriesRecord.samples|{}samples[0]
+        abstract fun <get-samples>(): kotlin.collections/List<#A> // com.viktormykhailiv.kmp.health/SeriesRecord.samples.<get-samples>|<get-samples>(){}[0]
+}
+
 abstract interface com.viktormykhailiv.kmp.health/HealthAggregatedRecord { // com.viktormykhailiv.kmp.health/HealthAggregatedRecord|null[0]
     abstract val dataType // com.viktormykhailiv.kmp.health/HealthAggregatedRecord.dataType|{}dataType[0]
         abstract fun <get-dataType>(): com.viktormykhailiv.kmp.health/HealthDataType // com.viktormykhailiv.kmp.health/HealthAggregatedRecord.dataType.<get-dataType>|<get-dataType>(){}[0]
@@ -90,6 +95,12 @@ sealed interface com.viktormykhailiv.kmp.health.records/SleepStageType { // com.
 }
 
 sealed interface com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType|null[0]
+    final object HeartRate : com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType.HeartRate|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.HeartRate.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health/HealthDataType.HeartRate.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health/HealthDataType.HeartRate.toString|toString(){}[0]
+    }
+
     final object Sleep : com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType.Sleep|null[0]
         final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Sleep.equals|equals(kotlin.Any?){}[0]
         final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health/HealthDataType.Sleep.hashCode|hashCode(){}[0]
@@ -107,6 +118,23 @@ sealed interface com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormy
         final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health/HealthDataType.Weight.hashCode|hashCode(){}[0]
         final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health/HealthDataType.Weight.toString|toString(){}[0]
     }
+}
+
+final class com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord : com.viktormykhailiv.kmp.health/HealthAggregatedRecord, com.viktormykhailiv.kmp.health/IntervalRecord { // com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord|null[0]
+    constructor <init>(kotlinx.datetime/Instant, kotlinx.datetime/Instant, kotlin/Long, kotlin/Long, kotlin/Long) // com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord.<init>|<init>(kotlinx.datetime.Instant;kotlinx.datetime.Instant;kotlin.Long;kotlin.Long;kotlin.Long){}[0]
+
+    final val avg // com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord.avg|{}avg[0]
+        final fun <get-avg>(): kotlin/Long // com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord.avg.<get-avg>|<get-avg>(){}[0]
+    final val dataType // com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord.dataType|{}dataType[0]
+        final fun <get-dataType>(): com.viktormykhailiv.kmp.health/HealthDataType // com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord.dataType.<get-dataType>|<get-dataType>(){}[0]
+    final val endTime // com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord.endTime|{}endTime[0]
+        final fun <get-endTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord.endTime.<get-endTime>|<get-endTime>(){}[0]
+    final val max // com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord.max|{}max[0]
+        final fun <get-max>(): kotlin/Long // com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord.max.<get-max>|<get-max>(){}[0]
+    final val min // com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord.min|{}min[0]
+        final fun <get-min>(): kotlin/Long // com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord.min.<get-min>|<get-min>(){}[0]
+    final val startTime // com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord.startTime|{}startTime[0]
+        final fun <get-startTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord.startTime.<get-startTime>|<get-startTime>(){}[0]
 }
 
 final class com.viktormykhailiv.kmp.health.aggregate/SleepAggregatedRecord : com.viktormykhailiv.kmp.health/HealthAggregatedRecord, com.viktormykhailiv.kmp.health/IntervalRecord { // com.viktormykhailiv.kmp.health.aggregate/SleepAggregatedRecord|null[0]
@@ -150,6 +178,37 @@ final class com.viktormykhailiv.kmp.health.aggregate/WeightAggregatedRecord : co
         final fun <get-min>(): com.viktormykhailiv.kmp.health.units/Mass // com.viktormykhailiv.kmp.health.aggregate/WeightAggregatedRecord.min.<get-min>|<get-min>(){}[0]
     final val startTime // com.viktormykhailiv.kmp.health.aggregate/WeightAggregatedRecord.startTime|{}startTime[0]
         final fun <get-startTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.aggregate/WeightAggregatedRecord.startTime.<get-startTime>|<get-startTime>(){}[0]
+}
+
+final class com.viktormykhailiv.kmp.health.records/HeartRateRecord : com.viktormykhailiv.kmp.health/SeriesRecord<com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample> { // com.viktormykhailiv.kmp.health.records/HeartRateRecord|null[0]
+    constructor <init>(kotlinx.datetime/Instant, kotlinx.datetime/Instant, kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample>) // com.viktormykhailiv.kmp.health.records/HeartRateRecord.<init>|<init>(kotlinx.datetime.Instant;kotlinx.datetime.Instant;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.HeartRateRecord.Sample>){}[0]
+
+    final val dataType // com.viktormykhailiv.kmp.health.records/HeartRateRecord.dataType|{}dataType[0]
+        final fun <get-dataType>(): com.viktormykhailiv.kmp.health/HealthDataType // com.viktormykhailiv.kmp.health.records/HeartRateRecord.dataType.<get-dataType>|<get-dataType>(){}[0]
+    final val endTime // com.viktormykhailiv.kmp.health.records/HeartRateRecord.endTime|{}endTime[0]
+        final fun <get-endTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/HeartRateRecord.endTime.<get-endTime>|<get-endTime>(){}[0]
+    final val samples // com.viktormykhailiv.kmp.health.records/HeartRateRecord.samples|{}samples[0]
+        final fun <get-samples>(): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample> // com.viktormykhailiv.kmp.health.records/HeartRateRecord.samples.<get-samples>|<get-samples>(){}[0]
+    final val startTime // com.viktormykhailiv.kmp.health.records/HeartRateRecord.startTime|{}startTime[0]
+        final fun <get-startTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/HeartRateRecord.startTime.<get-startTime>|<get-startTime>(){}[0]
+
+    final class Sample : com.viktormykhailiv.kmp.health/InstantaneousRecord { // com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample|null[0]
+        constructor <init>(kotlinx.datetime/Instant, kotlin/Int) // com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample.<init>|<init>(kotlinx.datetime.Instant;kotlin.Int){}[0]
+
+        final val beatsPerMinute // com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample.beatsPerMinute|{}beatsPerMinute[0]
+            final fun <get-beatsPerMinute>(): kotlin/Int // com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample.beatsPerMinute.<get-beatsPerMinute>|<get-beatsPerMinute>(){}[0]
+        final val dataType // com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample.dataType|{}dataType[0]
+            final fun <get-dataType>(): com.viktormykhailiv.kmp.health/HealthDataType // com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample.dataType.<get-dataType>|<get-dataType>(){}[0]
+        final val time // com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample.time|{}time[0]
+            final fun <get-time>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample.time.<get-time>|<get-time>(){}[0]
+
+        final fun component1(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample.component1|component1(){}[0]
+        final fun component2(): kotlin/Int // com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample.component2|component2(){}[0]
+        final fun copy(kotlinx.datetime/Instant = ..., kotlin/Int = ...): com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample // com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample.copy|copy(kotlinx.datetime.Instant;kotlin.Int){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample.toString|toString(){}[0]
+    }
 }
 
 final class com.viktormykhailiv.kmp.health.records/SleepSessionRecord : com.viktormykhailiv.kmp.health/IntervalRecord { // com.viktormykhailiv.kmp.health.records/SleepSessionRecord|null[0]
@@ -268,9 +327,12 @@ final class com.viktormykhailiv.kmp.health/HealthManagerFactory { // com.viktorm
     final fun createManager(): com.viktormykhailiv.kmp.health/HealthManager // com.viktormykhailiv.kmp.health/HealthManagerFactory.createManager|createManager(){}[0]
 }
 
+final val com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_HeartRateAggregatedRecord$stableprop // com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_HeartRateAggregatedRecord$stableprop|#static{}com_viktormykhailiv_kmp_health_aggregate_HeartRateAggregatedRecord$stableprop[0]
 final val com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_SleepAggregatedRecord$stableprop // com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_SleepAggregatedRecord$stableprop|#static{}com_viktormykhailiv_kmp_health_aggregate_SleepAggregatedRecord$stableprop[0]
 final val com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_StepsAggregatedRecord$stableprop // com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_StepsAggregatedRecord$stableprop|#static{}com_viktormykhailiv_kmp_health_aggregate_StepsAggregatedRecord$stableprop[0]
 final val com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_WeightAggregatedRecord$stableprop // com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_WeightAggregatedRecord$stableprop|#static{}com_viktormykhailiv_kmp_health_aggregate_WeightAggregatedRecord$stableprop[0]
+final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_HeartRateRecord$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_HeartRateRecord$stableprop|#static{}com_viktormykhailiv_kmp_health_records_HeartRateRecord$stableprop[0]
+final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_HeartRateRecord_Sample$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_HeartRateRecord_Sample$stableprop|#static{}com_viktormykhailiv_kmp_health_records_HeartRateRecord_Sample$stableprop[0]
 final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord$stableprop|#static{}com_viktormykhailiv_kmp_health_records_SleepSessionRecord$stableprop[0]
 final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord_Stage$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord_Stage$stableprop|#static{}com_viktormykhailiv_kmp_health_records_SleepSessionRecord_Stage$stableprop[0]
 final val com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Awake$stableprop // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Awake$stableprop|#static{}com_viktormykhailiv_kmp_health_records_SleepStageType_Awake$stableprop[0]
@@ -332,17 +394,22 @@ final val com.viktormykhailiv.kmp.health.units/pounds // com.viktormykhailiv.kmp
     final fun (kotlin/Int).<get-pounds>(): com.viktormykhailiv.kmp.health.units/Mass // com.viktormykhailiv.kmp.health.units/pounds.<get-pounds>|<get-pounds>@kotlin.Int(){}[0]
 final val com.viktormykhailiv.kmp.health.units/pounds // com.viktormykhailiv.kmp.health.units/pounds|@kotlin.Long{}pounds[0]
     final fun (kotlin/Long).<get-pounds>(): com.viktormykhailiv.kmp.health.units/Mass // com.viktormykhailiv.kmp.health.units/pounds.<get-pounds>|<get-pounds>@kotlin.Long(){}[0]
+final val com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_HeartRate$stableprop // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_HeartRate$stableprop|#static{}com_viktormykhailiv_kmp_health_HealthDataType_HeartRate$stableprop[0]
 final val com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Sleep$stableprop // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Sleep$stableprop|#static{}com_viktormykhailiv_kmp_health_HealthDataType_Sleep$stableprop[0]
 final val com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Steps$stableprop // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Steps$stableprop|#static{}com_viktormykhailiv_kmp_health_HealthDataType_Steps$stableprop[0]
 final val com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Weight$stableprop // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Weight$stableprop|#static{}com_viktormykhailiv_kmp_health_HealthDataType_Weight$stableprop[0]
 final val com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthKitManager$stableprop // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthKitManager$stableprop|#static{}com_viktormykhailiv_kmp_health_HealthKitManager$stableprop[0]
 final val com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthManagerFactory$stableprop // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthManagerFactory$stableprop|#static{}com_viktormykhailiv_kmp_health_HealthManagerFactory$stableprop[0]
+final val com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HeartRateSampleInternal$stableprop // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HeartRateSampleInternal$stableprop|#static{}com_viktormykhailiv_kmp_health_HeartRateSampleInternal$stableprop[0]
 final val com.viktormykhailiv.kmp.health/duration // com.viktormykhailiv.kmp.health/duration|@com.viktormykhailiv.kmp.health.IntervalRecord{}duration[0]
     final fun (com.viktormykhailiv.kmp.health/IntervalRecord).<get-duration>(): kotlin.time/Duration // com.viktormykhailiv.kmp.health/duration.<get-duration>|<get-duration>@com.viktormykhailiv.kmp.health.IntervalRecord(){}[0]
 
+final fun com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_HeartRateAggregatedRecord$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_HeartRateAggregatedRecord$stableprop_getter|com_viktormykhailiv_kmp_health_aggregate_HeartRateAggregatedRecord$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_SleepAggregatedRecord$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_SleepAggregatedRecord$stableprop_getter|com_viktormykhailiv_kmp_health_aggregate_SleepAggregatedRecord$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_StepsAggregatedRecord$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_StepsAggregatedRecord$stableprop_getter|com_viktormykhailiv_kmp_health_aggregate_StepsAggregatedRecord$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_WeightAggregatedRecord$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.aggregate/com_viktormykhailiv_kmp_health_aggregate_WeightAggregatedRecord$stableprop_getter|com_viktormykhailiv_kmp_health_aggregate_WeightAggregatedRecord$stableprop_getter(){}[0]
+final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_HeartRateRecord$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_HeartRateRecord$stableprop_getter|com_viktormykhailiv_kmp_health_records_HeartRateRecord$stableprop_getter(){}[0]
+final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_HeartRateRecord_Sample$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_HeartRateRecord_Sample$stableprop_getter|com_viktormykhailiv_kmp_health_records_HeartRateRecord_Sample$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord$stableprop_getter|com_viktormykhailiv_kmp_health_records_SleepSessionRecord$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord_Stage$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepSessionRecord_Stage$stableprop_getter|com_viktormykhailiv_kmp_health_records_SleepSessionRecord_Stage$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Awake$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_SleepStageType_Awake$stableprop_getter|com_viktormykhailiv_kmp_health_records_SleepStageType_Awake$stableprop_getter(){}[0]
@@ -356,14 +423,18 @@ final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_
 final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_StepsRecord$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_StepsRecord$stableprop_getter|com_viktormykhailiv_kmp_health_records_StepsRecord$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_WeightRecord$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.records/com_viktormykhailiv_kmp_health_records_WeightRecord$stableprop_getter|com_viktormykhailiv_kmp_health_records_WeightRecord$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health.units/com_viktormykhailiv_kmp_health_units_Mass$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health.units/com_viktormykhailiv_kmp_health_units_Mass$stableprop_getter|com_viktormykhailiv_kmp_health_units_Mass$stableprop_getter(){}[0]
+final fun com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_HeartRate$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_HeartRate$stableprop_getter|com_viktormykhailiv_kmp_health_HealthDataType_HeartRate$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Sleep$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Sleep$stableprop_getter|com_viktormykhailiv_kmp_health_HealthDataType_Sleep$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Steps$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Steps$stableprop_getter|com_viktormykhailiv_kmp_health_HealthDataType_Steps$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Weight$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthDataType_Weight$stableprop_getter|com_viktormykhailiv_kmp_health_HealthDataType_Weight$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthKitManager$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthKitManager$stableprop_getter|com_viktormykhailiv_kmp_health_HealthKitManager$stableprop_getter(){}[0]
 final fun com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthManagerFactory$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HealthManagerFactory$stableprop_getter|com_viktormykhailiv_kmp_health_HealthManagerFactory$stableprop_getter(){}[0]
+final fun com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HeartRateSampleInternal$stableprop_getter(): kotlin/Int // com.viktormykhailiv.kmp.health/com_viktormykhailiv_kmp_health_HeartRateSampleInternal$stableprop_getter|com_viktormykhailiv_kmp_health_HeartRateSampleInternal$stableprop_getter(){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/aggregateHeartRate(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord> // com.viktormykhailiv.kmp.health/aggregateHeartRate|aggregateHeartRate@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/aggregateSleep(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<com.viktormykhailiv.kmp.health.aggregate/SleepAggregatedRecord> // com.viktormykhailiv.kmp.health/aggregateSleep|aggregateSleep@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/aggregateSteps(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<com.viktormykhailiv.kmp.health.aggregate/StepsAggregatedRecord> // com.viktormykhailiv.kmp.health/aggregateSteps|aggregateSteps@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/aggregateWeight(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<com.viktormykhailiv.kmp.health.aggregate/WeightAggregatedRecord> // com.viktormykhailiv.kmp.health/aggregateWeight|aggregateWeight@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readHeartRate(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeartRateRecord>> // com.viktormykhailiv.kmp.health/readHeartRate|readHeartRate@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readSleep(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/SleepSessionRecord>> // com.viktormykhailiv.kmp.health/readSleep|readSleep@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readSteps(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/StepsRecord>> // com.viktormykhailiv.kmp.health/readSteps|readSteps@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readWeight(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/WeightRecord>> // com.viktormykhailiv.kmp.health/readWeight|readWeight@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]

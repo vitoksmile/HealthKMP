@@ -107,8 +107,7 @@ internal class HealthKitManager : HealthManager {
 
                 result.firstOrNull() is HKQuantitySample -> {
                     @Suppress("UNCHECKED_CAST")
-                    val records = (result as List<HKQuantitySample>)
-                        .mapNotNull { it.toHealthRecord() }
+                    val records = (result as List<HKQuantitySample>).toHealthRecord()
                     continuation.resume(Result.success(records))
                 }
 

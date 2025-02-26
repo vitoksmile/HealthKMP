@@ -21,7 +21,7 @@ data class SleepSessionRecord(
     override val dataType: HealthDataType = Sleep
 
     init {
-        require(startTime < endTime) { "startTime must be before endTime." }
+        require(startTime <= endTime) { "startTime must be before endTime." }
         if (stages.isNotEmpty()) {
             val sortedStages = stages.sortedWith { a, b -> a.startTime.compareTo(b.startTime) }
             for (i in 0 until sortedStages.lastIndex) {

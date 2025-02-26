@@ -15,10 +15,12 @@ public final class com/viktormykhailiv/kmp/health/ApplicationContextHolderInitia
 }
 
 public final class com/viktormykhailiv/kmp/health/ExtensionsKt {
+	public static final fun aggregateHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateSteps (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun getDuration (Lcom/viktormykhailiv/kmp/health/IntervalRecord;)J
+	public static final fun readHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readSteps (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -42,6 +44,14 @@ public final class com/viktormykhailiv/kmp/health/HealthConnectManager : com/vik
 }
 
 public abstract interface class com/viktormykhailiv/kmp/health/HealthDataType {
+}
+
+public final class com/viktormykhailiv/kmp/health/HealthDataType$HeartRate : com/viktormykhailiv/kmp/health/HealthDataType {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$HeartRate;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/HealthDataType$Sleep : com/viktormykhailiv/kmp/health/HealthDataType {
@@ -98,6 +108,21 @@ public abstract interface class com/viktormykhailiv/kmp/health/IntervalRecord : 
 	public abstract fun getStartTime ()Lkotlinx/datetime/Instant;
 }
 
+public abstract interface class com/viktormykhailiv/kmp/health/SeriesRecord : com/viktormykhailiv/kmp/health/IntervalRecord {
+	public abstract fun getSamples ()Ljava/util/List;
+}
+
+public final class com/viktormykhailiv/kmp/health/aggregate/HeartRateAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord, com/viktormykhailiv/kmp/health/IntervalRecord {
+	public static final field $stable I
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;JJJ)V
+	public final fun getAvg ()J
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getMax ()J
+	public final fun getMin ()J
+	public fun getStartTime ()Lkotlinx/datetime/Instant;
+}
+
 public final class com/viktormykhailiv/kmp/health/aggregate/SleepAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord, com/viktormykhailiv/kmp/health/IntervalRecord {
 	public static final field $stable I
 	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;JLkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -138,6 +163,30 @@ public final class com/viktormykhailiv/kmp/health/legacy/GoogleFitManager : com/
 	public fun requestAuthorization-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun revokeAuthorization-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun writeData-gIAlu-s (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/HeartRateRecord : com/viktormykhailiv/kmp/health/SeriesRecord {
+	public static final field $stable I
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Ljava/util/List;)V
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public fun getEndTime ()Lkotlinx/datetime/Instant;
+	public fun getSamples ()Ljava/util/List;
+	public fun getStartTime ()Lkotlinx/datetime/Instant;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/HeartRateRecord$Sample : com/viktormykhailiv/kmp/health/InstantaneousRecord {
+	public static final field $stable I
+	public fun <init> (Lkotlinx/datetime/Instant;I)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()I
+	public final fun copy (Lkotlinx/datetime/Instant;I)Lcom/viktormykhailiv/kmp/health/records/HeartRateRecord$Sample;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/HeartRateRecord$Sample;Lkotlinx/datetime/Instant;IILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/HeartRateRecord$Sample;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBeatsPerMinute ()I
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public fun getTime ()Lkotlinx/datetime/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/records/SleepSessionRecord : com/viktormykhailiv/kmp/health/IntervalRecord {

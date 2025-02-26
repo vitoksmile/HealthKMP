@@ -29,6 +29,6 @@ data class StepsRecord(
     init {
         count.requireNotLess(other = 1, name = "count")
         count.requireNotMore(other = 1_000_000, name = "count")
-        require(startTime < endTime) { "startTime must be before endTime." }
+        require(startTime <= endTime) { "startTime must be before endTime." }
     }
 }

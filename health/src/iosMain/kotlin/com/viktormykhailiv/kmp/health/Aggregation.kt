@@ -1,8 +1,10 @@
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
@@ -12,6 +14,7 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.toKotlinInstant
 import platform.HealthKit.HKQuantityType
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
+import platform.HealthKit.HKQuantityTypeIdentifierHeartRate
 import platform.HealthKit.HKQuantityTypeIdentifierStepCount
 import platform.HealthKit.HKStatistics
 import platform.HealthKit.HKStatisticsOptionCumulativeSum
@@ -25,6 +28,9 @@ import platform.HealthKit.poundUnit
 import kotlin.time.Duration.Companion.seconds
 
 internal fun HealthDataType.toHKQuantityType(): HKQuantityType? = when (this) {
+    HeartRate ->
+        HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
+
     Sleep ->
         throw IllegalArgumentException("Sleep is not supported for aggregation")
 
@@ -39,17 +45,17 @@ internal fun HealthDataType.toHKQuantityType(): HKQuantityType? = when (this) {
  * Note: following `AggregateMetric` must be aligned with [toHealthAggregatedRecord].
  */
 internal fun HealthDataType.toHKStatisticOptions(): HKStatisticsOptions = when (this) {
-    Sleep -> {
-        throw IllegalArgumentException("Sleep is not supported for aggregation")
-    }
-
-    Steps -> {
-        HKStatisticsOptionCumulativeSum
-    }
-
-    Weight -> {
+    HeartRate ->
         HKStatisticsOptionDiscreteAverage or HKStatisticsOptionDiscreteMin or HKStatisticsOptionDiscreteMax
-    }
+
+    Sleep ->
+        throw IllegalArgumentException("Sleep is not supported for aggregation")
+
+    Steps ->
+        HKStatisticsOptionCumulativeSum
+
+    Weight ->
+        HKStatisticsOptionDiscreteAverage or HKStatisticsOptionDiscreteMin or HKStatisticsOptionDiscreteMax
 }
 
 /**
@@ -57,6 +63,16 @@ internal fun HealthDataType.toHKStatisticOptions(): HKStatisticsOptions = when (
  */
 internal fun HKStatistics.toHealthAggregatedRecord(): HealthAggregatedRecord? {
     return when (quantityType.identifier) {
+        HKQuantityTypeIdentifierHeartRate -> {
+            HeartRateAggregatedRecord(
+                startTime = startDate.toKotlinInstant(),
+                endTime = endDate.toKotlinInstant(),
+                avg = averageQuantity()?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L,
+                min = minimumQuantity()?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L,
+                max = maximumQuantity()?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L,
+            )
+        }
+
         HKQuantityTypeIdentifierStepCount -> {
             StepsAggregatedRecord(
                 startTime = startDate.toKotlinInstant(),

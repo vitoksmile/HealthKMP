@@ -32,12 +32,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
+import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
@@ -46,6 +49,7 @@ import com.viktormykhailiv.kmp.health.sleep.SleepSessionCanvas
 import com.viktormykhailiv.kmp.health.units.Mass
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
+import kotlin.random.Random
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
@@ -57,6 +61,7 @@ fun SampleApp() {
 
     val readTypes = remember {
         listOf(
+            HeartRate,
             Sleep,
             Steps,
             Weight,
@@ -64,6 +69,7 @@ fun SampleApp() {
     }
     val writeTypes = remember {
         listOf(
+            HeartRate,
             Sleep,
             Steps,
             Weight,
@@ -188,6 +194,18 @@ fun SampleApp() {
                                 Text("$type records count ${records.size}")
 
                                 when (type) {
+                                    is HeartRate -> {
+                                        val heartRates = records.filterIsInstance<HeartRateRecord>()
+                                            .map { it.samples }
+                                            .flatten()
+                                        val average = heartRates.map { it.beatsPerMinute }.average()
+                                        val min = heartRates.minOfOrNull { it.beatsPerMinute }
+                                        val max = heartRates.maxOfOrNull { it.beatsPerMinute }
+                                        Text("Average $average")
+                                        Text("Min $min")
+                                        Text("Max $max")
+                                    }
+
                                     Sleep -> {
                                         Spacer(Modifier.size(16.dp))
                                         records
@@ -231,6 +249,12 @@ fun SampleApp() {
                                 Text("Aggregated $type")
 
                                 when (record) {
+                                    is HeartRateAggregatedRecord -> {
+                                        Text("Average ${record.avg}")
+                                        Text("Min ${record.min}")
+                                        Text("Max ${record.max}")
+                                    }
+
                                     is SleepAggregatedRecord -> {
                                         Text("Total ${record.totalDuration}")
                                     }
@@ -254,6 +278,43 @@ fun SampleApp() {
                     }
 
                     Spacer(modifier = Modifier.height(64.dp))
+                    var writeHeartRate by remember { mutableStateOf<Result<Unit>?>(null) }
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                val samplesCount = 6
+                                val sampleInterval = 10.minutes
+                                val endTime = Clock.System.now()
+                                val startTime = endTime.minus(sampleInterval * samplesCount)
+                                writeHeartRate = health.writeData(
+                                    listOf(
+                                        HeartRateRecord(
+                                            startTime = startTime,
+                                            endTime = endTime,
+                                            samples = List(samplesCount) {
+                                                HeartRateRecord.Sample(
+                                                    time = startTime.plus((it * sampleInterval.inWholeMinutes).minutes),
+                                                    beatsPerMinute = Random.nextInt(1, 300),
+                                                )
+                                            }
+                                        )
+                                    )
+                                )
+                            }
+                        },
+                    ) {
+                        Text("Write heart rate")
+                    }
+                    writeHeartRate
+                        ?.onSuccess {
+                            Text("Heart rate wrote successfully")
+                        }
+                        ?.onFailure {
+                            Text("Failed to write heart rate $it")
+                        }
+
+                    Divider()
+                    Spacer(modifier = Modifier.height(16.dp))
                     var writeSleep by remember { mutableStateOf<Result<Unit>?>(null) }
                     Button(
                         onClick = {

@@ -2,12 +2,15 @@ package com.viktormykhailiv.kmp.health
 
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.aggregate.AggregationResult
+import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
+import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
@@ -20,17 +23,17 @@ import kotlin.time.toKotlinDuration
  * Note: following `AggregateMetric` must be aligned with [toHealthAggregatedRecord].
  */
 internal fun HealthDataType.toAggregateMetrics(): Set<AggregateMetric<Any>> = when (this) {
-    Sleep -> {
+    HeartRate ->
+        setOf(HeartRateRecord.BPM_AVG, HeartRateRecord.BPM_MIN, HeartRateRecord.BPM_MAX)
+
+    Sleep ->
         setOf(SleepSessionRecord.SLEEP_DURATION_TOTAL)
-    }
 
-    Steps -> {
+    Steps ->
         setOf(StepsRecord.COUNT_TOTAL)
-    }
 
-    Weight -> {
+    Weight ->
         setOf(WeightRecord.WEIGHT_AVG, WeightRecord.WEIGHT_MIN, WeightRecord.WEIGHT_MAX)
-    }
 }
 
 /**
@@ -41,6 +44,16 @@ internal fun AggregationResult.toHealthAggregatedRecord(
     endTime: Instant,
     type: HealthDataType,
 ): HealthAggregatedRecord = when (type) {
+    is HeartRate -> {
+        HeartRateAggregatedRecord(
+            startTime = startTime,
+            endTime = endTime,
+            avg = get(HeartRateRecord.BPM_AVG) ?: 0L,
+            min = get(HeartRateRecord.BPM_MIN) ?: 0L,
+            max = get(HeartRateRecord.BPM_MAX) ?: 0L,
+        )
+    }
+
     is Sleep -> {
         SleepAggregatedRecord(
             startTime = startTime,

@@ -1,5 +1,6 @@
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
@@ -8,12 +9,26 @@ import com.viktormykhailiv.kmp.health.units.Mass
 import kotlinx.datetime.toJavaInstant
 import kotlinx.datetime.toKotlinInstant
 import androidx.health.connect.client.records.Record as HCRecord
+import androidx.health.connect.client.records.HeartRateRecord as HCHeartRateRecord
 import androidx.health.connect.client.records.SleepSessionRecord as HCSleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord as HCStepsRecord
 import androidx.health.connect.client.records.WeightRecord as HCWeightRecord
 import androidx.health.connect.client.units.Mass as HCMass
 
 internal fun HealthRecord.toHCRecord(): HCRecord? = when (val record = this) {
+    is HeartRateRecord -> HCHeartRateRecord(
+        startTime = record.startTime.toJavaInstant(),
+        endTime = record.endTime.toJavaInstant(),
+        startZoneOffset = null,
+        endZoneOffset = null,
+        samples = record.samples.map { sample ->
+            HCHeartRateRecord.Sample(
+                time = sample.time.toJavaInstant(),
+                beatsPerMinute = sample.beatsPerMinute.toLong(),
+            )
+        },
+    )
+
     is SleepSessionRecord -> HCSleepSessionRecord(
         startTime = record.startTime.toJavaInstant(),
         endTime = record.endTime.toJavaInstant(),
@@ -55,6 +70,17 @@ internal fun HealthRecord.toHCRecord(): HCRecord? = when (val record = this) {
 }
 
 internal fun HCRecord.toHealthRecord(): HealthRecord? = when (val record = this) {
+    is HCHeartRateRecord -> HeartRateRecord(
+        startTime = record.startTime.toKotlinInstant(),
+        endTime = record.endTime.toKotlinInstant(),
+        samples = record.samples.map { sample ->
+            HeartRateRecord.Sample(
+                time = sample.time.toKotlinInstant(),
+                beatsPerMinute = sample.beatsPerMinute.toInt(),
+            )
+        },
+    )
+
     is HCSleepSessionRecord -> SleepSessionRecord(
         startTime = record.startTime.toKotlinInstant(),
         endTime = record.endTime.toKotlinInstant(),
