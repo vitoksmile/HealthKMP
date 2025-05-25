@@ -1,5 +1,6 @@
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import kotlinx.datetime.Instant
 
 /**
@@ -8,6 +9,11 @@ import kotlinx.datetime.Instant
 interface HealthRecord {
 
     val dataType: HealthDataType
+
+    /**
+     * Set of common metadata associated with the written record.
+     */
+    val metadata: Metadata
 }
 
 /**

@@ -1,7 +1,7 @@
 # HealthKMP
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.viktormykhailiv/health-kmp)](https://central.sonatype.com/search?namespace=com.viktormykhailiv&name=health-kmp)
-[![Kotlin](https://img.shields.io/badge/kotlin-2.1.10-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.1.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
 [![](https://img.shields.io/badge/Kotlin-Multiplatform-%237f52ff?logo=kotlin)](https://kotlinlang.org/docs/multiplatform.html)
 [![](https://img.shields.io/github/license/vitoksmile/HealthKMP)](https://github.com/vitoksmile/HealthKMP/blob/main/LICENSE)
 
@@ -48,7 +48,7 @@ build.gradle:
 sourceSets {
     val commonMain by getting {
         dependencies {
-            implementation("com.viktormykhailiv:health-kmp:0.0.7")
+            implementation("com.viktormykhailiv:health-kmp:0.0.8")
         }
     }
 }
@@ -295,6 +295,7 @@ health.writeData(
                     type = types[it],
                 )
             },
+            metadata = generateMetadata(),
         )
     )
 )
@@ -309,11 +310,13 @@ health.writeData(
             startTime = Clock.System.now().minus(1.days).minus(3.hours),
             endTime = Clock.System.now().minus(1.days).minus(1.hours),
             count = 75,
+            metadata = generateMetadata(),
         ),
         StepsRecord(
             startTime = Clock.System.now().minus(1.hours),
             endTime = Clock.System.now(),
             count = 123,
+            metadata = generateMetadata(),
         ),
     )
 )
@@ -330,12 +333,28 @@ health.writeData(
         WeightRecord(
             time = Clock.System.now().minus(1.days),
             weight = Mass.kilograms(61.2),
+            metadata = generateMetadata(),
         ),
         // Weight in pounds
         WeightRecord(
             time = Clock.System.now(),
             weight = Mass.pounds(147.71),
+            metadata = generateMetadata(),
         ),
     )
 )
+```
+
+### Metadata
+
+`HealthRecord` requires `Metadata` with recording method to help to understand how the data was
+recorded, unique identifier of data, and device information associated with the data.
+
+```kotlin
+fun generateMetadata() : Metadata {
+    return Metadata.manualEntry(
+        id = Uuid.random().toString(),
+        device = Device.getLocalDevice(),
+    )
+}
 ```

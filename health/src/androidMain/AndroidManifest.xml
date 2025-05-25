@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Starting from API level 28 (Android 9.0) acessing some fitness data (e.g. Steps) requires a special permission. -->
+    <!-- Starting from API level 28 (Android 9.0) accessing some fitness data (e.g. Steps) requires a special permission. -->
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
 
     <queries>

@@ -1,18 +1,26 @@
 [versions]
-agp = "8.8.1"
-android-compileSdk = "35"
+agp = "8.10.0"
+android-compileSdk = "36"
 android-minSdk = "26"
-android-targetSdk = "35"
-androidx-activityCompose = "1.10.0"
+android-targetSdk = "36"
+androidx-activityCompose = "1.10.1"
 binary-compatibility-validator = "0.17.0"
-compose-multiplatform = "1.7.0"
-kotlin = "2.1.10"
+compose-multiplatform = "1.8.1"
+connectClient = "1.1.0-rc01"
+kotlin = "2.1.21"
 kotlinxDatetime = "0.6.1"
 maven-publish = "0.30.0"
+playServicesAuth = "21.3.0"
+playServicesFitness = "21.2.0"
+startupRuntime = "1.2.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-healthconnect-client = { module = "androidx.health.connect:connect-client", version.ref = "connectClient" }
+androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startupRuntime" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+playservices-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
+playservices-fitness = { module = "com.google.android.gms:play-services-fitness", version.ref = "playServicesFitness" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

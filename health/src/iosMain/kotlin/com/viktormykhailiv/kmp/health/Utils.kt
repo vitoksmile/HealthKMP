@@ -1,6 +1,7 @@
 package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
+import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import kotlinx.datetime.Instant
 import kotlin.time.Duration.Companion.minutes
 
@@ -10,7 +11,7 @@ internal data class HeartRateSampleInternal(
     val beatsPerMinute: Int,
 )
 
-internal fun List<HeartRateSampleInternal>.group(): List<HeartRateRecord> {
+internal fun List<HeartRateSampleInternal>.group(metadata: Metadata): List<HeartRateRecord> {
     fun List<HeartRateSampleInternal>.convert(): List<HeartRateRecord.Sample> {
         return map {
             HeartRateRecord.Sample(
@@ -38,6 +39,7 @@ internal fun List<HeartRateSampleInternal>.group(): List<HeartRateRecord> {
                         startTime = samples.first().startTime,
                         endTime = samples.last().endTime,
                         samples = samples.convert(),
+                        metadata = metadata,
                     )
                 )
             }
@@ -54,6 +56,7 @@ internal fun List<HeartRateSampleInternal>.group(): List<HeartRateRecord> {
                 startTime = samples.first().startTime,
                 endTime = samples.last().endTime,
                 samples = samples.convert(),
+                metadata = metadata,
             )
         )
     }

@@ -13,14 +13,13 @@ import kotlinx.datetime.Instant
  * @param min Minimum heart rate.
  * @param max Maximum heart rate.
  */
-class HeartRateAggregatedRecord(
-    override val startTime: Instant,
-    override val endTime: Instant,
+data class HeartRateAggregatedRecord(
+    val startTime: Instant,
+    val endTime: Instant,
     val avg: Long,
     val min: Long,
     val max: Long,
-) : HealthAggregatedRecord,
-    IntervalRecord {
+) : HealthAggregatedRecord {
 
     override val dataType: HealthDataType = HeartRate
 }

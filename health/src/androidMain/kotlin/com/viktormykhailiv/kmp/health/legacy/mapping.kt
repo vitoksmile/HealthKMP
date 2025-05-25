@@ -4,7 +4,7 @@ import android.content.Context
 import com.google.android.gms.fitness.data.DataPoint
 import com.google.android.gms.fitness.data.DataSet
 import com.google.android.gms.fitness.data.DataSource
-import com.google.android.gms.fitness.data.Device
+import com.google.android.gms.fitness.data.Device as FitnessDevice
 import com.google.android.gms.fitness.data.Field
 import com.google.android.gms.fitness.data.SleepStages
 import com.viktormykhailiv.kmp.health.HealthDataType
@@ -19,6 +19,10 @@ import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
+import com.viktormykhailiv.kmp.health.records.metadata.Device
+import com.viktormykhailiv.kmp.health.records.metadata.DeviceType
+import com.viktormykhailiv.kmp.health.records.metadata.Metadata
+import com.viktormykhailiv.kmp.health.records.metadata.getLocalDevice
 import com.viktormykhailiv.kmp.health.units.Mass
 import kotlinx.datetime.Instant
 import java.util.concurrent.TimeUnit
@@ -36,11 +40,13 @@ internal fun List<DataPoint>.toHealthRecords(type: HealthDataType): List<HealthR
                             beatsPerMinute = dataPoint.getValue(Field.FIELD_BPM).asInt(),
                         )
                     ),
+                    metadata = dataPoint.toMetadata(),
                 )
             }
         }
 
         is Sleep -> {
+            val metadata = firstOrNull().toMetadata()
             map { dataPoint ->
                 val startTime = dataPoint.startTime
                 val endTime = dataPoint.endTime
@@ -58,7 +64,7 @@ internal fun List<DataPoint>.toHealthRecords(type: HealthDataType): List<HealthR
                     endTime = endTime,
                     type = stageType,
                 )
-            }.groupByRecords()
+            }.groupByRecords(metadata)
         }
 
         is Steps -> {
@@ -67,6 +73,7 @@ internal fun List<DataPoint>.toHealthRecords(type: HealthDataType): List<HealthR
                     startTime = dataPoint.startTime,
                     endTime = dataPoint.endTime,
                     count = dataPoint.getValue(Field.FIELD_STEPS).asInt(),
+                    metadata = dataPoint.toMetadata(),
                 )
             }
         }
@@ -76,8 +83,9 @@ internal fun List<DataPoint>.toHealthRecords(type: HealthDataType): List<HealthR
                 WeightRecord(
                     time = dataPoint.startTime,
                     weight = Mass.kilograms(
-                        dataPoint.getValue(Field.FIELD_WEIGHT).asFloat().toDouble()
+                        dataPoint.getValue(Field.FIELD_WEIGHT).asFloat().toDouble(),
                     ),
+                    metadata = dataPoint.toMetadata(),
                 )
             }
         }
@@ -92,7 +100,7 @@ internal fun List<HealthRecord>.toDataSets(context: Context): List<DataSet> {
             val dataSource = DataSource.Builder()
                 .setDataType(recordsByType.first().dataType.toDataType())
                 .setType(DataSource.TYPE_RAW)
-                .setDevice(Device.getLocalDevice(context))
+                .setDevice(Device.getLocalDevice().toFitnessDevice())
                 .setAppPackageName(context.applicationContext)
                 .build()
 
@@ -176,3 +184,35 @@ private inline val DataPoint.startTime: Instant
 
 private inline val DataPoint.endTime: Instant
     get() = Instant.fromEpochMilliseconds(getEndTime(TimeUnit.MILLISECONDS))
+
+private fun DataPoint?.toMetadata(): Metadata = Metadata.unknownRecordingMethod(
+    device = this?.dataSource?.device?.toDevice(),
+)
+
+private fun FitnessDevice.toDevice(): Device = Device(
+    type = when (type) {
+        FitnessDevice.TYPE_PHONE -> DeviceType.Phone
+        FitnessDevice.TYPE_TABLET -> DeviceType.Phone
+        FitnessDevice.TYPE_WATCH -> DeviceType.Watch
+        FitnessDevice.TYPE_CHEST_STRAP -> DeviceType.ChestStrap
+        FitnessDevice.TYPE_SCALE -> DeviceType.Scale
+        FitnessDevice.TYPE_HEAD_MOUNTED -> DeviceType.HeadMounted
+        else -> DeviceType.Unknown
+    },
+    manufacturer = manufacturer,
+    model = model,
+)
+
+private fun Device.toFitnessDevice(): FitnessDevice = FitnessDevice(
+    /* manufacturer = */ manufacturer ?: "unknown",
+    /* model = */ model ?: "unknown",
+    /* uid = */ "unknown",
+    /* type = */ when (type) {
+        DeviceType.Phone -> FitnessDevice.TYPE_PHONE
+        DeviceType.Watch -> FitnessDevice.TYPE_WATCH
+        DeviceType.ChestStrap -> FitnessDevice.TYPE_CHEST_STRAP
+        DeviceType.Scale -> FitnessDevice.TYPE_SCALE
+        DeviceType.HeadMounted -> FitnessDevice.TYPE_HEAD_MOUNTED
+        else -> FitnessDevice.TYPE_UNKNOWN
+    },
+)

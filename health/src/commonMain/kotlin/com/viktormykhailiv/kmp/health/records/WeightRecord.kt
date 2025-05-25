@@ -3,6 +3,7 @@ package com.viktormykhailiv.kmp.health.records
 import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import com.viktormykhailiv.kmp.health.InstantaneousRecord
+import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import com.viktormykhailiv.kmp.health.requireNotLess
 import com.viktormykhailiv.kmp.health.requireNotMore
 import com.viktormykhailiv.kmp.health.units.Mass
@@ -17,6 +18,7 @@ import kotlinx.datetime.Instant
 data class WeightRecord(
     override val time: Instant,
     val weight: Mass,
+    override val metadata: Metadata,
 ) : InstantaneousRecord {
 
     override val dataType: HealthDataType = Weight

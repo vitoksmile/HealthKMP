@@ -16,14 +16,13 @@ import kotlinx.datetime.Instant
  *
  * @see [Mass] for supported units.
  */
-class WeightAggregatedRecord(
-    override val startTime: Instant,
-    override val endTime: Instant,
+data class WeightAggregatedRecord(
+    val startTime: Instant,
+    val endTime: Instant,
     val avg: Mass,
     val min: Mass,
     val max: Mass,
-) : HealthAggregatedRecord,
-    IntervalRecord {
+) : HealthAggregatedRecord {
 
     override val dataType: HealthDataType = Weight
 }

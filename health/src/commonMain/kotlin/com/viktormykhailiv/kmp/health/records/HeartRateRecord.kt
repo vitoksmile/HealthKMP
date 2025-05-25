@@ -4,6 +4,7 @@ import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.InstantaneousRecord
 import com.viktormykhailiv.kmp.health.SeriesRecord
+import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import com.viktormykhailiv.kmp.health.requireNotLess
 import com.viktormykhailiv.kmp.health.requireNotMore
 import kotlinx.datetime.Instant
@@ -12,10 +13,11 @@ import kotlinx.datetime.Instant
  * Captures the user's heart rate.
  * Each record represents a series of measurements.
  */
-class HeartRateRecord(
+data class HeartRateRecord(
     override val startTime: Instant,
     override val endTime: Instant,
     override val samples: List<Sample>,
+    override val metadata: Metadata,
 ) : SeriesRecord<HeartRateRecord.Sample> {
 
     override val dataType: HealthDataType = HeartRate
@@ -33,11 +35,9 @@ class HeartRateRecord(
      * @see HeartRateRecord
      */
     data class Sample(
-        override val time: Instant,
+        val time: Instant,
         val beatsPerMinute: Int,
-    ) : InstantaneousRecord {
-
-        override val dataType: HealthDataType = HealthDataType.Steps
+    ) {
 
         init {
             beatsPerMinute.requireNotLess(other = 1, name = "beatsPerMinute")

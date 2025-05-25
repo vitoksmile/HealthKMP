@@ -3,6 +3,7 @@ package com.viktormykhailiv.kmp.health.records
 import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.IntervalRecord
+import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import com.viktormykhailiv.kmp.health.requireNotLess
 import com.viktormykhailiv.kmp.health.requireNotMore
 import kotlinx.datetime.Instant
@@ -22,6 +23,7 @@ data class StepsRecord(
     override val startTime: Instant,
     override val endTime: Instant,
     val count: Int,
+    override val metadata: Metadata,
 ) : IntervalRecord {
 
     override val dataType: HealthDataType = Steps

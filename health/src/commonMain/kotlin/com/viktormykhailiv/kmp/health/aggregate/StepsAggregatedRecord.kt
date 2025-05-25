@@ -9,12 +9,11 @@ import kotlinx.datetime.Instant
 /**
  * Captures the aggregated number of steps.
  */
-class StepsAggregatedRecord(
-    override val startTime: Instant,
-    override val endTime: Instant,
+data class StepsAggregatedRecord(
+    val startTime: Instant,
+    val endTime: Instant,
     val count: Long,
-) : HealthAggregatedRecord,
-    IntervalRecord {
+) : HealthAggregatedRecord {
 
     override val dataType: HealthDataType = Steps
 }

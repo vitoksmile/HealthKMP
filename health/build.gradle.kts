@@ -12,7 +12,7 @@ plugins {
 kotlin {
     androidTarget {
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
 
@@ -38,14 +38,14 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                implementation("androidx.startup:startup-runtime:1.2.0")
+                implementation(libs.androidx.startup.runtime)
 
                 // Google Fit
-                implementation("com.google.android.gms:play-services-fitness:21.2.0")
-                implementation("com.google.android.gms:play-services-auth:21.3.0")
+                implementation(libs.playservices.auth)
+                implementation(libs.playservices.fitness)
 
                 // Health Connect
-                implementation("androidx.health.connect:connect-client:1.1.0-alpha11")
+                implementation(libs.androidx.healthconnect.client)
             }
         }
     }
@@ -69,8 +69,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 

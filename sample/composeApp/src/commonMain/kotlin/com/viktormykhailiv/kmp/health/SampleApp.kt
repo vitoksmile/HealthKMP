@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalUuidApi::class)
+
 package com.viktormykhailiv.kmp.health
 
 import androidx.compose.foundation.layout.Arrangement
@@ -45,6 +47,9 @@ import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
+import com.viktormykhailiv.kmp.health.records.metadata.Device
+import com.viktormykhailiv.kmp.health.records.metadata.Metadata
+import com.viktormykhailiv.kmp.health.records.metadata.getLocalDevice
 import com.viktormykhailiv.kmp.health.sleep.SleepSessionCanvas
 import com.viktormykhailiv.kmp.health.units.Mass
 import kotlinx.coroutines.launch
@@ -53,6 +58,8 @@ import kotlin.random.Random
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 @Composable
 fun SampleApp() {
@@ -95,7 +102,7 @@ fun SampleApp() {
             readTypes = readTypes,
             writeTypes = writeTypes,
         )
-        isRevokeSupported = health.isRevokeAuthorizationSupported().getOrNull() ?: false
+        isRevokeSupported = health.isRevokeAuthorizationSupported().getOrNull() == true
     }
 
     MaterialTheme {
@@ -296,8 +303,9 @@ fun SampleApp() {
                                                     time = startTime.plus((it * sampleInterval.inWholeMinutes).minutes),
                                                     beatsPerMinute = Random.nextInt(1, 300),
                                                 )
-                                            }
-                                        )
+                                            },
+                                            metadata = generateMetadata(),
+                                        ),
                                     )
                                 )
                             }
@@ -344,6 +352,7 @@ fun SampleApp() {
                                                     type = types[it],
                                                 )
                                             },
+                                            metadata = generateMetadata(),
                                         )
                                     )
                                 )
@@ -380,6 +389,7 @@ fun SampleApp() {
                                                 .minus(1.hours),
                                             endTime = Clock.System.now(),
                                             count = steps,
+                                            metadata = generateMetadata(),
                                         )
                                     )
                                 )
@@ -414,6 +424,7 @@ fun SampleApp() {
                                         WeightRecord(
                                             time = Clock.System.now(),
                                             weight = Mass.kilograms(weight.toDouble()),
+                                            metadata = generateMetadata(),
                                         )
                                     )
                                 )
@@ -434,5 +445,10 @@ fun SampleApp() {
         }
     }
 }
+
+private fun generateMetadata(): Metadata = Metadata.manualEntry(
+    id = Uuid.random().toString(),
+    device = Device.getLocalDevice(),
+)
 
 expect fun getPlatformName(): String

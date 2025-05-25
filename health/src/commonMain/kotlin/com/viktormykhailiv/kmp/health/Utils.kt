@@ -1,6 +1,7 @@
 package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
+import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import kotlinx.datetime.Instant
 import kotlin.time.Duration.Companion.seconds
 
@@ -12,7 +13,9 @@ internal fun <T : Comparable<T>> T.requireNotMore(other: T, name: String) {
     require(this <= other) { "$name must not be more than $other, currently $this." }
 }
 
-internal fun List<SleepSessionRecord.Stage>.groupByRecords(): List<SleepSessionRecord> {
+internal fun List<SleepSessionRecord.Stage>.groupByRecords(metadata: Metadata): List<SleepSessionRecord> {
+    if (isEmpty()) return emptyList()
+
     var lastStage: SleepSessionRecord.Stage? = null
     val sleepStages = mutableListOf<SleepSessionRecord.Stage>()
     val records = mutableListOf<SleepSessionRecord>()
@@ -31,6 +34,7 @@ internal fun List<SleepSessionRecord.Stage>.groupByRecords(): List<SleepSessionR
                         startTime = sleepStages.first().startTime,
                         endTime = sleepStages.last().endTime,
                         stages = sleepStages.toList(),
+                        metadata = metadata,
                     )
                 )
             }
@@ -46,6 +50,7 @@ internal fun List<SleepSessionRecord.Stage>.groupByRecords(): List<SleepSessionR
                 startTime = sleepStages.first().startTime,
                 endTime = sleepStages.last().endTime,
                 stages = sleepStages.toList(),
+                metadata = metadata,
             )
         )
     }

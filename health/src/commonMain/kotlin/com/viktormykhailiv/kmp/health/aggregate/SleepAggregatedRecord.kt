@@ -10,12 +10,11 @@ import kotlin.time.Duration
 /**
  * Captures the aggregated total duration of sleep sessions.
  */
-class SleepAggregatedRecord(
-    override val startTime: Instant,
-    override val endTime: Instant,
+data class SleepAggregatedRecord(
+    val startTime: Instant,
+    val endTime: Instant,
     val totalDuration: Duration,
-) : HealthAggregatedRecord,
-    IntervalRecord {
+) : HealthAggregatedRecord {
 
     override val dataType: HealthDataType = Sleep
 }

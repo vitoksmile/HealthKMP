@@ -3,6 +3,7 @@ package com.viktormykhailiv.kmp.health.records
 import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.IntervalRecord
+import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import kotlinx.datetime.Instant
 
 /**
@@ -16,6 +17,7 @@ data class SleepSessionRecord(
     override val startTime: Instant,
     override val endTime: Instant,
     val stages: List<Stage>,
+    override val metadata: Metadata,
 ) : IntervalRecord {
 
     override val dataType: HealthDataType = Sleep
@@ -39,13 +41,10 @@ data class SleepSessionRecord(
      * @see SleepSessionRecord
      */
     data class Stage(
-        override val startTime: Instant,
-        override val endTime: Instant,
+        val startTime: Instant,
+        val endTime: Instant,
         val type: SleepStageType,
-    ) : IntervalRecord {
-
-        override val dataType: HealthDataType = Sleep
-    }
+    )
 }
 
 sealed interface SleepStageType {

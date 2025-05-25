@@ -5,6 +5,9 @@ import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
+import com.viktormykhailiv.kmp.health.records.metadata.Device
+import com.viktormykhailiv.kmp.health.records.metadata.DeviceType
+import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import com.viktormykhailiv.kmp.health.units.Mass
 import kotlinx.datetime.toKotlinInstant
 import kotlinx.datetime.toNSDate
@@ -54,6 +57,7 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
                     ),
                     startDate = sample.time.toNSDate(),
                     endDate = sample.time.toNSDate(),
+                    metadata = metadata.toHKMetadata(),
                 )
             }
         }
@@ -78,6 +82,7 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
                     value = sleepCategory,
                     startDate = stage.startTime.toNSDate(),
                     endDate = stage.endTime.toNSDate(),
+                    metadata = metadata.toHKMetadata(),
                 )
             }
         }
@@ -112,6 +117,7 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
             quantity = quantity,
             startDate = startDate,
             endDate = endDate,
+            metadata = metadata.toHKMetadata(),
         )
     )
 }
@@ -121,6 +127,7 @@ internal fun List<HKCategorySample>.toHealthRecords(): List<HealthRecord> {
 
     return when (first().categoryType.identifier) {
         HKCategoryTypeIdentifierSleepAnalysis -> {
+            val metadata = firstOrNull()?.metadata.toMetadata()
             map { sample ->
                 val startTime = sample.startDate.toKotlinInstant()
                 val endTime = sample.endDate.toKotlinInstant()
@@ -136,7 +143,7 @@ internal fun List<HKCategorySample>.toHealthRecords(): List<HealthRecord> {
                     endTime = endTime,
                     type = type,
                 )
-            }.groupByRecords()
+            }.groupByRecords(metadata)
         }
 
         else -> emptyList()
@@ -148,13 +155,14 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
 
     return when (first().quantityType.identifier) {
         HKQuantityTypeIdentifierHeartRate -> {
+            val metadata = firstOrNull()?.metadata.toMetadata()
             map { sample ->
                 HeartRateSampleInternal(
                     startTime = sample.startDate.toKotlinInstant(),
                     endTime = sample.endDate.toKotlinInstant(),
                     beatsPerMinute = sample.quantity.doubleValueForUnit(heartRateUnit).roundToInt(),
                 )
-            }.group()
+            }.group(metadata)
         }
 
         HKQuantityTypeIdentifierStepCount -> {
@@ -163,6 +171,7 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
                     startTime = sample.startDate.toKotlinInstant(),
                     endTime = sample.endDate.toKotlinInstant(),
                     count = sample.quantity.doubleValueForUnit(HKUnit.countUnit()).roundToInt(),
+                    metadata = sample.toMetadata(),
                 )
             }
         }
@@ -172,6 +181,7 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
                 WeightRecord(
                     time = sample.startDate.toKotlinInstant(),
                     weight = Mass.pounds(sample.quantity.doubleValueForUnit(HKUnit.poundUnit())),
+                    metadata = sample.toMetadata(),
                 )
             }
         }
@@ -182,3 +192,50 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
 
 internal val heartRateUnit: HKUnit
     get() = HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit())
+
+private fun HKQuantitySample.toMetadata(): Metadata {
+    return metadata.toMetadata()
+}
+
+private fun Map<Any?, *>?.toMetadata(): Metadata {
+    val metadata = this.orEmpty()
+    val id = metadata[HKMetadataKeyExternalUUID] as? String ?: Metadata.EMPTY_ID
+
+    val deviceManufacturer = metadata[HKMetadataKeyDeviceManufacturerName] as? String
+    val deviceName = metadata[HKMetadataKeyDeviceName] as? String
+    val device = if (deviceManufacturer != null || deviceName != null) {
+        Device(
+            type = DeviceType.Unknown,
+            manufacturer = deviceManufacturer,
+            model = deviceName,
+        )
+    } else {
+        null
+    }
+
+    return if (metadata[HKMetadataKeyWasUserEntered] == true || device == null) {
+        Metadata.manualEntry(id = id)
+    } else {
+        Metadata.autoRecorded(id = id, device = device)
+    }
+}
+
+private fun Metadata.toHKMetadata(): Map<Any?, Any> {
+    return buildMap {
+        put(HKMetadataKeyWasUserEntered, recordingMethod is Metadata.RecordingMethod.ManualEntry)
+        id.takeIf { it != Metadata.EMPTY_ID }?.let { put(HKMetadataKeyExternalUUID, id) }
+        device?.manufacturer?.let { put(HKMetadataKeyDeviceManufacturerName, it) }
+        device?.model?.let { put(HKMetadataKeyDeviceName, it) }
+    }
+}
+
+/**
+ * https://developer.apple.com/documentation/healthkit/metadata-keys
+ */
+// General Keys
+private const val HKMetadataKeyExternalUUID = "HKExternalUUID"
+private const val HKMetadataKeyWasUserEntered = "HKWasUserEntered"
+
+// Device Information Keys
+private const val HKMetadataKeyDeviceManufacturerName = "HKDeviceManufacturerName"
+private const val HKMetadataKeyDeviceName = "HKDeviceName"
