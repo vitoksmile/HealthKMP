@@ -1,52 +1,52 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.binaryCompatibilityValidator)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.mavenPublish)
+    alias(libs.plugins.skie)
 }
 
 kotlin {
     androidTarget {
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
+            jvmTarget.set(JvmTarget.fromTarget(libs.versions.java.get()))
         }
     }
 
+    val xcframeworkName = "HealthKMP"
+    val xcf = XCFramework(xcframeworkName)
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ComposeApp"
+        iosSimulatorArm64(),
+    ).forEach {
+        val bundleId = "${providers.gradleProperty("GROUP").get()}.$xcframeworkName"
+        it.binaries.framework {
+            binaryOption("bundleId", bundleId)
+            baseName = xcframeworkName
+            xcf.add(this)
             isStatic = true
         }
     }
 
     sourceSets {
         commonMain.dependencies {
+            api(libs.kotlinx.coroutines)
             api(libs.kotlinx.datetime)
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.ui)
         }
 
-        val androidMain by getting {
-            dependencies {
-                implementation(libs.androidx.startup.runtime)
+        androidMain.dependencies {
+            implementation(libs.androidx.startup.runtime)
 
-                // Google Fit
-                implementation(libs.playservices.auth)
-                implementation(libs.playservices.fitness)
+            // Google Fit
+            implementation(libs.playservices.auth)
+            implementation(libs.playservices.fitness)
 
-                // Health Connect
-                implementation(libs.androidx.healthconnect.client)
-            }
+            // Health Connect
+            implementation(libs.androidx.healthconnect.client)
         }
     }
 }
@@ -69,13 +69,10 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        val javaVersion = JavaVersion.toVersion(libs.versions.java.get())
+        sourceCompatibility = javaVersion
+        targetCompatibility = javaVersion
     }
-}
-
-dependencies {
-    debugImplementation(compose.uiTooling)
 }
 
 task("printVersionName") {

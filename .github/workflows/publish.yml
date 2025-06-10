@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -19,28 +19,38 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      - name: Grant Permission to Execute Gradle
-        run: chmod +x gradlew
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
 
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: build
+        run: ./gradlew :health:build
 
       - name: Retrieve Version
         run: echo "VERSION_NAME=$(${{github.workspace}}/gradlew -q printVersionName)" >> $GITHUB_ENV
 
       - name: Publish Library
-        run: |
-          echo "Publishing and Releasing ${{ env.VERSION_NAME }}"
-          ./gradlew publish
-          echo "Published and Released ${{ env.VERSION_NAME }}"
+        run: ./gradlew publish
         env:
           ORG_GRADLE_PROJECT_VERSION_NAME: ${{ env.VERSION_NAME }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGINMEMORYKEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGINMEMORYKEYPASSWORD }}
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.ORG_GRADLE_PROJECT_MAVENCENTRALUSERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.ORG_GRADLE_PROJECT_MAVENCENTRALPASSWORD }}
+
+      - name: Assemble XCFramework
+        run: ./gradlew :health:assembleHealthKMPXCFramework
+
+      - name: Zip XCFramework
+        uses: vimtor/action-zip@v1.2
+        with:
+          files: health/build/XCFrameworks/release/
+          dest: HealthKMP.xcframework.zip
+
+      - name: Set up Swift
+        uses: swift-actions/setup-swift@v2
+
+      - name: Compute XCFramework checksum
+        run: swift package compute-checksum HealthKMP.xcframework.zip
 
       - name: Create and push tag
         run: |
@@ -53,12 +63,16 @@ jobs:
           TAG: ${{ env.VERSION_NAME }}
 
       - name: Create Release on GitHub
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: create_release_step
+        # https://github.com/softprops/action-gh-release/issues/628
+        # uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: ${{ env.VERSION_NAME }}
-          release_name: ${{ env.VERSION_NAME }}
           draft: false
           prerelease: false
+          files: HealthKMP.xcframework.zip
+
+      - name: XCFramework download url
+        run: echo ${{ fromJSON(steps.create_release_step.outputs.assets)[0].browser_download_url }}

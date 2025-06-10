@@ -1,23 +1,27 @@
 [versions]
-agp = "8.10.0"
+agp = "8.10.1"
 android-compileSdk = "36"
 android-minSdk = "26"
 android-targetSdk = "36"
 androidx-activityCompose = "1.10.1"
 binary-compatibility-validator = "0.17.0"
 compose-multiplatform = "1.8.1"
-connectClient = "1.1.0-rc01"
+connectClient = "1.1.0-rc02"
+java = "21"
 kotlin = "2.1.21"
+kotlinxCoroutines = "1.10.2"
 kotlinxDatetime = "0.6.1"
 maven-publish = "0.30.0"
 playServicesAuth = "21.3.0"
 playServicesFitness = "21.2.0"
+skie = "0.10.2"
 startupRuntime = "1.2.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-healthconnect-client = { module = "androidx.health.connect:connect-client", version.ref = "connectClient" }
 androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startupRuntime" }
+kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 playservices-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 playservices-fitness = { module = "com.google.android.gms:play-services-fitness", version.ref = "playServicesFitness" }
@@ -30,3 +34,4 @@ composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-mu
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
+skie = { id = "co.touchlab.skie", version.ref = "skie" }

@@ -48,7 +48,7 @@ build.gradle:
 sourceSets {
     val commonMain by getting {
         dependencies {
-            implementation("com.viktormykhailiv:health-kmp:0.0.8")
+            implementation("com.viktormykhailiv:health-kmp:0.0.9")
         }
     }
 }
@@ -358,3 +358,17 @@ fun generateMetadata() : Metadata {
     )
 }
 ```
+
+## Swift
+
+HealthKMP is Swift compatible and can be added as package dependency to Xcode projects.
+
+### Add the package dependency
+
+1. In Xcode, choose **File | Add Package Dependencies**.
+ 
+2. In the search field, enter `https://github.com/vitoksmile/HealthKMP-SPM`:
+
+   <img src=readme/swift-package-manager.png width=640 />
+
+3. Press the **Add package** button.

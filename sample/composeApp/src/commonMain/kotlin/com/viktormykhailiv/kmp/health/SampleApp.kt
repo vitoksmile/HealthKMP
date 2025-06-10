@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalUuidApi::class)
-
 package com.viktormykhailiv.kmp.health
 
 import androidx.compose.foundation.layout.Arrangement
@@ -47,9 +45,6 @@ import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
-import com.viktormykhailiv.kmp.health.records.metadata.Device
-import com.viktormykhailiv.kmp.health.records.metadata.Metadata
-import com.viktormykhailiv.kmp.health.records.metadata.getLocalDevice
 import com.viktormykhailiv.kmp.health.sleep.SleepSessionCanvas
 import com.viktormykhailiv.kmp.health.units.Mass
 import kotlinx.coroutines.launch
@@ -58,8 +53,6 @@ import kotlin.random.Random
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
-import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 
 @Composable
 fun SampleApp() {
@@ -304,7 +297,7 @@ fun SampleApp() {
                                                     beatsPerMinute = Random.nextInt(1, 300),
                                                 )
                                             },
-                                            metadata = generateMetadata(),
+                                            metadata = generateManualEntryMetadata(),
                                         ),
                                     )
                                 )
@@ -352,7 +345,7 @@ fun SampleApp() {
                                                     type = types[it],
                                                 )
                                             },
-                                            metadata = generateMetadata(),
+                                            metadata = generateManualEntryMetadata(),
                                         )
                                     )
                                 )
@@ -389,7 +382,7 @@ fun SampleApp() {
                                                 .minus(1.hours),
                                             endTime = Clock.System.now(),
                                             count = steps,
-                                            metadata = generateMetadata(),
+                                            metadata = generateManualEntryMetadata(),
                                         )
                                     )
                                 )
@@ -424,7 +417,7 @@ fun SampleApp() {
                                         WeightRecord(
                                             time = Clock.System.now(),
                                             weight = Mass.kilograms(weight.toDouble()),
-                                            metadata = generateMetadata(),
+                                            metadata = generateManualEntryMetadata(),
                                         )
                                     )
                                 )
@@ -445,10 +438,5 @@ fun SampleApp() {
         }
     }
 }
-
-private fun generateMetadata(): Metadata = Metadata.manualEntry(
-    id = Uuid.random().toString(),
-    device = Device.getLocalDevice(),
-)
 
 expect fun getPlatformName(): String

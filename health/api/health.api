@@ -1,5 +1,4 @@
 public final class com/viktormykhailiv/kmp/health/ApplicationContextHolder {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/ApplicationContextHolder;
 	public static field applicationContext Landroid/content/Context;
 	public final fun getApplicationContext ()Landroid/content/Context;
@@ -7,7 +6,6 @@ public final class com/viktormykhailiv/kmp/health/ApplicationContextHolder {
 }
 
 public final class com/viktormykhailiv/kmp/health/ApplicationContextHolderInitializer : androidx/startup/Initializer {
-	public static final field $stable I
 	public fun <init> ()V
 	public fun create (Landroid/content/Context;)Lcom/viktormykhailiv/kmp/health/ApplicationContextHolder;
 	public synthetic fun create (Landroid/content/Context;)Ljava/lang/Object;
@@ -19,6 +17,7 @@ public final class com/viktormykhailiv/kmp/health/ExtensionsKt {
 	public static final fun aggregateSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateSteps (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun generateManualEntryMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
 	public static final fun getDuration (Lcom/viktormykhailiv/kmp/health/IntervalRecord;)J
 	public static final fun readHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -31,7 +30,6 @@ public abstract interface class com/viktormykhailiv/kmp/health/HealthAggregatedR
 }
 
 public final class com/viktormykhailiv/kmp/health/HealthConnectManager : com/viktormykhailiv/kmp/health/HealthManager {
-	public static final field $stable I
 	public fun <init> (Landroid/content/Context;)V
 	public fun aggregate-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun isAuthorized-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -47,7 +45,6 @@ public abstract interface class com/viktormykhailiv/kmp/health/HealthDataType {
 }
 
 public final class com/viktormykhailiv/kmp/health/HealthDataType$HeartRate : com/viktormykhailiv/kmp/health/HealthDataType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$HeartRate;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -55,7 +52,6 @@ public final class com/viktormykhailiv/kmp/health/HealthDataType$HeartRate : com
 }
 
 public final class com/viktormykhailiv/kmp/health/HealthDataType$Sleep : com/viktormykhailiv/kmp/health/HealthDataType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$Sleep;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -63,7 +59,6 @@ public final class com/viktormykhailiv/kmp/health/HealthDataType$Sleep : com/vik
 }
 
 public final class com/viktormykhailiv/kmp/health/HealthDataType$Steps : com/viktormykhailiv/kmp/health/HealthDataType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$Steps;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -71,7 +66,6 @@ public final class com/viktormykhailiv/kmp/health/HealthDataType$Steps : com/vik
 }
 
 public final class com/viktormykhailiv/kmp/health/HealthDataType$Weight : com/viktormykhailiv/kmp/health/HealthDataType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$Weight;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -90,7 +84,6 @@ public abstract interface class com/viktormykhailiv/kmp/health/HealthManager {
 }
 
 public final class com/viktormykhailiv/kmp/health/HealthManagerFactory {
-	public static final field $stable I
 	public fun <init> ()V
 	public final fun createManager ()Lcom/viktormykhailiv/kmp/health/HealthManager;
 }
@@ -114,7 +107,6 @@ public abstract interface class com/viktormykhailiv/kmp/health/SeriesRecord : co
 }
 
 public final class com/viktormykhailiv/kmp/health/aggregate/HeartRateAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
-	public static final field $stable I
 	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;JJJ)V
 	public final fun component1 ()Lkotlinx/datetime/Instant;
 	public final fun component2 ()Lkotlinx/datetime/Instant;
@@ -135,7 +127,6 @@ public final class com/viktormykhailiv/kmp/health/aggregate/HeartRateAggregatedR
 }
 
 public final class com/viktormykhailiv/kmp/health/aggregate/SleepAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
-	public static final field $stable I
 	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;JLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lkotlinx/datetime/Instant;
 	public final fun component2 ()Lkotlinx/datetime/Instant;
@@ -152,7 +143,6 @@ public final class com/viktormykhailiv/kmp/health/aggregate/SleepAggregatedRecor
 }
 
 public final class com/viktormykhailiv/kmp/health/aggregate/StepsAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
-	public static final field $stable I
 	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;J)V
 	public final fun component1 ()Lkotlinx/datetime/Instant;
 	public final fun component2 ()Lkotlinx/datetime/Instant;
@@ -169,7 +159,6 @@ public final class com/viktormykhailiv/kmp/health/aggregate/StepsAggregatedRecor
 }
 
 public final class com/viktormykhailiv/kmp/health/aggregate/WeightAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
-	public static final field $stable I
 	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;)V
 	public final fun component1 ()Lkotlinx/datetime/Instant;
 	public final fun component2 ()Lkotlinx/datetime/Instant;
@@ -190,7 +179,6 @@ public final class com/viktormykhailiv/kmp/health/aggregate/WeightAggregatedReco
 }
 
 public final class com/viktormykhailiv/kmp/health/legacy/GoogleFitManager : com/viktormykhailiv/kmp/health/HealthManager {
-	public static final field $stable I
 	public fun <init> (Landroid/content/Context;)V
 	public fun aggregate-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun isAuthorized-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -203,7 +191,6 @@ public final class com/viktormykhailiv/kmp/health/legacy/GoogleFitManager : com/
 }
 
 public final class com/viktormykhailiv/kmp/health/records/HeartRateRecord : com/viktormykhailiv/kmp/health/SeriesRecord {
-	public static final field $stable I
 	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
 	public final fun component1 ()Lkotlinx/datetime/Instant;
 	public final fun component2 ()Lkotlinx/datetime/Instant;
@@ -222,7 +209,6 @@ public final class com/viktormykhailiv/kmp/health/records/HeartRateRecord : com/
 }
 
 public final class com/viktormykhailiv/kmp/health/records/HeartRateRecord$Sample {
-	public static final field $stable I
 	public fun <init> (Lkotlinx/datetime/Instant;I)V
 	public final fun component1 ()Lkotlinx/datetime/Instant;
 	public final fun component2 ()I
@@ -236,7 +222,6 @@ public final class com/viktormykhailiv/kmp/health/records/HeartRateRecord$Sample
 }
 
 public final class com/viktormykhailiv/kmp/health/records/SleepSessionRecord : com/viktormykhailiv/kmp/health/IntervalRecord {
-	public static final field $stable I
 	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
 	public final fun component1 ()Lkotlinx/datetime/Instant;
 	public final fun component2 ()Lkotlinx/datetime/Instant;
@@ -255,7 +240,6 @@ public final class com/viktormykhailiv/kmp/health/records/SleepSessionRecord : c
 }
 
 public final class com/viktormykhailiv/kmp/health/records/SleepSessionRecord$Stage {
-	public static final field $stable I
 	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/SleepStageType;)V
 	public final fun component1 ()Lkotlinx/datetime/Instant;
 	public final fun component2 ()Lkotlinx/datetime/Instant;
@@ -274,7 +258,6 @@ public abstract interface class com/viktormykhailiv/kmp/health/records/SleepStag
 }
 
 public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Awake : com/viktormykhailiv/kmp/health/records/SleepStageType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$Awake;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -282,7 +265,6 @@ public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Awake :
 }
 
 public final class com/viktormykhailiv/kmp/health/records/SleepStageType$AwakeInBed : com/viktormykhailiv/kmp/health/records/SleepStageType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$AwakeInBed;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -290,7 +272,6 @@ public final class com/viktormykhailiv/kmp/health/records/SleepStageType$AwakeIn
 }
 
 public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Deep : com/viktormykhailiv/kmp/health/records/SleepStageType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$Deep;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -298,7 +279,6 @@ public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Deep : 
 }
 
 public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Light : com/viktormykhailiv/kmp/health/records/SleepStageType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$Light;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -306,7 +286,6 @@ public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Light :
 }
 
 public final class com/viktormykhailiv/kmp/health/records/SleepStageType$OutOfBed : com/viktormykhailiv/kmp/health/records/SleepStageType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$OutOfBed;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -314,7 +293,6 @@ public final class com/viktormykhailiv/kmp/health/records/SleepStageType$OutOfBe
 }
 
 public final class com/viktormykhailiv/kmp/health/records/SleepStageType$REM : com/viktormykhailiv/kmp/health/records/SleepStageType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$REM;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -322,7 +300,6 @@ public final class com/viktormykhailiv/kmp/health/records/SleepStageType$REM : c
 }
 
 public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Sleeping : com/viktormykhailiv/kmp/health/records/SleepStageType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$Sleeping;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -330,7 +307,6 @@ public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Sleepin
 }
 
 public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Unknown : com/viktormykhailiv/kmp/health/records/SleepStageType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SleepStageType$Unknown;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -338,7 +314,6 @@ public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Unknown
 }
 
 public final class com/viktormykhailiv/kmp/health/records/StepsRecord : com/viktormykhailiv/kmp/health/IntervalRecord {
-	public static final field $stable I
 	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;ILcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
 	public final fun component1 ()Lkotlinx/datetime/Instant;
 	public final fun component2 ()Lkotlinx/datetime/Instant;
@@ -357,7 +332,6 @@ public final class com/viktormykhailiv/kmp/health/records/StepsRecord : com/vikt
 }
 
 public final class com/viktormykhailiv/kmp/health/records/WeightRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
-	public static final field $stable I
 	public fun <init> (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
 	public final fun component1 ()Lkotlinx/datetime/Instant;
 	public final fun component2 ()Lcom/viktormykhailiv/kmp/health/units/Mass;
@@ -374,7 +348,6 @@ public final class com/viktormykhailiv/kmp/health/records/WeightRecord : com/vik
 }
 
 public final class com/viktormykhailiv/kmp/health/records/metadata/Device {
-	public static final field $stable I
 	public static final field Companion Lcom/viktormykhailiv/kmp/health/records/metadata/Device$Companion;
 	public fun <init> (Lcom/viktormykhailiv/kmp/health/records/metadata/DeviceType;Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Lcom/viktormykhailiv/kmp/health/records/metadata/DeviceType;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -398,7 +371,6 @@ public abstract interface class com/viktormykhailiv/kmp/health/records/metadata/
 }
 
 public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$ChestStrap : com/viktormykhailiv/kmp/health/records/metadata/DeviceType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/metadata/DeviceType$ChestStrap;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -406,7 +378,6 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$Ch
 }
 
 public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$FitnessBand : com/viktormykhailiv/kmp/health/records/metadata/DeviceType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/metadata/DeviceType$FitnessBand;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -414,7 +385,6 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$Fi
 }
 
 public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$HeadMounted : com/viktormykhailiv/kmp/health/records/metadata/DeviceType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/metadata/DeviceType$HeadMounted;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -422,7 +392,6 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$He
 }
 
 public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$Phone : com/viktormykhailiv/kmp/health/records/metadata/DeviceType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/metadata/DeviceType$Phone;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -430,7 +399,6 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$Ph
 }
 
 public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$Ring : com/viktormykhailiv/kmp/health/records/metadata/DeviceType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/metadata/DeviceType$Ring;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -438,7 +406,6 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$Ri
 }
 
 public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$Scale : com/viktormykhailiv/kmp/health/records/metadata/DeviceType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/metadata/DeviceType$Scale;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -446,7 +413,6 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$Sc
 }
 
 public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$SmartDisplay : com/viktormykhailiv/kmp/health/records/metadata/DeviceType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/metadata/DeviceType$SmartDisplay;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -454,7 +420,6 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$Sm
 }
 
 public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$Unknown : com/viktormykhailiv/kmp/health/records/metadata/DeviceType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/metadata/DeviceType$Unknown;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -462,7 +427,6 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$Un
 }
 
 public final class com/viktormykhailiv/kmp/health/records/metadata/DeviceType$Watch : com/viktormykhailiv/kmp/health/records/metadata/DeviceType {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/metadata/DeviceType$Watch;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -474,7 +438,6 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/Device_androi
 }
 
 public final class com/viktormykhailiv/kmp/health/records/metadata/Metadata {
-	public static final field $stable I
 	public static final field Companion Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata$Companion;
 	public final fun component1 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata$RecordingMethod;
 	public final fun component2 ()Ljava/lang/String;
@@ -502,7 +465,6 @@ public abstract interface class com/viktormykhailiv/kmp/health/records/metadata/
 }
 
 public final class com/viktormykhailiv/kmp/health/records/metadata/Metadata$RecordingMethod$AutoRecorded : com/viktormykhailiv/kmp/health/records/metadata/Metadata$RecordingMethod {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata$RecordingMethod$AutoRecorded;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -510,7 +472,6 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/Metadata$Reco
 }
 
 public final class com/viktormykhailiv/kmp/health/records/metadata/Metadata$RecordingMethod$ManualEntry : com/viktormykhailiv/kmp/health/records/metadata/Metadata$RecordingMethod {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata$RecordingMethod$ManualEntry;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -518,7 +479,6 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/Metadata$Reco
 }
 
 public final class com/viktormykhailiv/kmp/health/records/metadata/Metadata$RecordingMethod$Unknown : com/viktormykhailiv/kmp/health/records/metadata/Metadata$RecordingMethod {
-	public static final field $stable I
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata$RecordingMethod$Unknown;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
@@ -526,7 +486,6 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/Metadata$Reco
 }
 
 public final class com/viktormykhailiv/kmp/health/units/Mass : java/lang/Comparable {
-	public static final field $stable I
 	public static final field Companion Lcom/viktormykhailiv/kmp/health/units/Mass$Companion;
 	public synthetic fun <init> (DLcom/viktormykhailiv/kmp/health/units/Mass$Type;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun compareTo (Lcom/viktormykhailiv/kmp/health/units/Mass;)I
