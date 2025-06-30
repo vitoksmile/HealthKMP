@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.viktormykhailiv.kmp.health.legacy
 
 import android.content.Context
@@ -16,8 +18,7 @@ import kotlinx.datetime.Instant
 import java.util.concurrent.CancellationException
 import java.util.concurrent.TimeUnit
 
-@Suppress("DEPRECATION")
-@Deprecated("The Google Fit APIs will no longer be available after June 30, 2025. As of May 1, 2024, developers cannot sign up to use these APIs.")
+@Deprecated("The Google Fit APIs will be deprecated in 2026")
 class GoogleFitManager(
     private val context: Context,
 ) : HealthManager {

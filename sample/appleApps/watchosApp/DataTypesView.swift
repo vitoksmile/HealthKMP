@@ -3,6 +3,7 @@ import SwiftUI
 struct DataTypesView : View {
     
     let navigateToHeartRate: () -> Void
+    let navigateToHeight: () -> Void
     let navigateToSleep: () -> Void
     let navigateToSteps: () -> Void
     let navigateToWeight: () -> Void
@@ -10,6 +11,10 @@ struct DataTypesView : View {
     var body: some View {
         Button("Heart rate") {
             navigateToHeartRate()
+        }
+        
+        Button("Height") {
+            navigateToHeight()
         }
         
 //        Button("Sleep") {
@@ -29,6 +34,7 @@ struct DataTypesView : View {
 #Preview {
     DataTypesView(
         navigateToHeartRate: {},
+        navigateToHeight: {},
         navigateToSleep: {},
         navigateToSteps: {},
         navigateToWeight: {},

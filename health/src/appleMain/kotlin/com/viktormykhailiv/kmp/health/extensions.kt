@@ -3,14 +3,17 @@
 package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
+import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
+import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.StepsRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
@@ -40,6 +43,17 @@ suspend fun SwiftHealthManager.readHeartRage(
         endTime = endTime,
         type = HeartRate,
     ).filterIsInstance<HeartRateRecord>()
+
+@Throws(Throwable::class)
+suspend fun SwiftHealthManager.readHeight(
+    startTime: NSDate,
+    endTime: NSDate,
+): List<HeightRecord> =
+    readData(
+        startTime = startTime,
+        endTime = endTime,
+        type = Height,
+    ).filterIsInstance<HeightRecord>()
 
 @Throws(Throwable::class)
 suspend fun SwiftHealthManager.readSleep(
@@ -86,6 +100,18 @@ suspend fun SwiftHealthManager.aggregateHeartRate(
         endTime = endTime,
         type = HeartRate,
     ) as HeartRateAggregatedRecord
+}
+
+@Throws(Throwable::class)
+suspend fun SwiftHealthManager.aggregateHeight(
+    startTime: NSDate,
+    endTime: NSDate,
+): HeightAggregatedRecord {
+    return aggregate(
+        startTime = startTime,
+        endTime = endTime,
+        type = Height,
+    ) as HeightAggregatedRecord
 }
 
 @Throws(Throwable::class)

@@ -4,6 +4,7 @@ import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.DataType
 import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
+import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
@@ -30,6 +31,8 @@ internal fun fitnessOptions(
 
 internal fun HealthDataType.toDataType(): DataType = when (this) {
     HeartRate -> DataType.TYPE_HEART_RATE_BPM
+
+    Height -> DataType.TYPE_HEIGHT
 
     Sleep -> DataType.TYPE_SLEEP_SEGMENT
 

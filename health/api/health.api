@@ -14,12 +14,14 @@ public final class com/viktormykhailiv/kmp/health/ApplicationContextHolderInitia
 
 public final class com/viktormykhailiv/kmp/health/ExtensionsKt {
 	public static final fun aggregateHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun aggregateHeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateSteps (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun generateManualEntryMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
 	public static final fun getDuration (Lcom/viktormykhailiv/kmp/health/IntervalRecord;)J
 	public static final fun readHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readHeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readSteps (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -46,6 +48,13 @@ public abstract interface class com/viktormykhailiv/kmp/health/HealthDataType {
 
 public final class com/viktormykhailiv/kmp/health/HealthDataType$HeartRate : com/viktormykhailiv/kmp/health/HealthDataType {
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$HeartRate;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/HealthDataType$Height : com/viktormykhailiv/kmp/health/HealthDataType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$Height;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -121,6 +130,26 @@ public final class com/viktormykhailiv/kmp/health/aggregate/HeartRateAggregatedR
 	public final fun getEndTime ()Lkotlinx/datetime/Instant;
 	public final fun getMax ()J
 	public final fun getMin ()J
+	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/aggregate/HeightAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun component5 ()Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;)Lcom/viktormykhailiv/kmp/health/aggregate/HeightAggregatedRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/HeightAggregatedRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/HeightAggregatedRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAvg ()Lcom/viktormykhailiv/kmp/health/units/Length;
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public final fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getMax ()Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun getMin ()Lcom/viktormykhailiv/kmp/health/units/Length;
 	public final fun getStartTime ()Lkotlinx/datetime/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -217,6 +246,22 @@ public final class com/viktormykhailiv/kmp/health/records/HeartRateRecord$Sample
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBeatsPerMinute ()I
 	public final fun getTime ()Lkotlinx/datetime/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/HeightRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
+	public fun <init> (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public final fun copy (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/HeightRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/HeightRecord;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/HeightRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public final fun getHeight ()Lcom/viktormykhailiv/kmp/health/units/Length;
+	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public fun getTime ()Lkotlinx/datetime/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -481,6 +526,57 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/Metadata$Reco
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/units/Length : java/lang/Comparable {
+	public static final field Companion Lcom/viktormykhailiv/kmp/health/units/Length$Companion;
+	public synthetic fun <init> (DLcom/viktormykhailiv/kmp/health/units/Length$Type;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun compareTo (Lcom/viktormykhailiv/kmp/health/units/Length;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static final fun feet (D)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun getFeet ()D
+	public final fun getInches ()D
+	public final fun getKilometers ()D
+	public final fun getMeters ()D
+	public final fun getMiles ()D
+	public fun hashCode ()I
+	public static final fun inches (D)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final fun kilometers (D)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final fun meters (D)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final fun miles (D)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/units/Length$Companion {
+	public final fun feet (D)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun inches (D)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun kilometers (D)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun meters (D)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun miles (D)Lcom/viktormykhailiv/kmp/health/units/Length;
+}
+
+public final class com/viktormykhailiv/kmp/health/units/LengthKt {
+	public static final synthetic fun getFeet (D)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getFeet (F)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getFeet (I)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getFeet (J)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getInches (D)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getInches (F)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getInches (I)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getInches (J)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getKilometers (D)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getKilometers (F)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getKilometers (I)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getKilometers (J)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getMeters (D)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getMeters (F)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getMeters (I)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getMeters (J)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getMiles (D)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getMiles (F)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getMiles (I)Lcom/viktormykhailiv/kmp/health/units/Length;
+	public static final synthetic fun getMiles (J)Lcom/viktormykhailiv/kmp/health/units/Length;
 }
 
 public final class com/viktormykhailiv/kmp/health/units/Mass : java/lang/Comparable {

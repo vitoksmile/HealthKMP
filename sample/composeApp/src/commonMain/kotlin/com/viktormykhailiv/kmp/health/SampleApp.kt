@@ -33,19 +33,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
+import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
+import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
 import com.viktormykhailiv.kmp.health.sleep.SleepSessionCanvas
+import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
@@ -62,6 +66,7 @@ fun SampleApp() {
     val readTypes = remember {
         listOf(
             HeartRate,
+            Height,
             Sleep,
             Steps,
             Weight,
@@ -70,6 +75,7 @@ fun SampleApp() {
     val writeTypes = remember {
         listOf(
             HeartRate,
+            Height,
             Sleep,
             Steps,
             Weight,
@@ -200,6 +206,16 @@ fun SampleApp() {
                                         Text("Max $max")
                                     }
 
+                                    is Height -> {
+                                        val height = records.filterIsInstance<HeightRecord>()
+                                        val average = height.map { it.height.inMeters }.average()
+                                        val min = height.minOfOrNull { it.height.inMeters }
+                                        val max = height.maxOfOrNull { it.height.inMeters }
+                                        Text("Average $average meters")
+                                        Text("Min $min meters")
+                                        Text("Max $max meters")
+                                    }
+
                                     Sleep -> {
                                         Spacer(Modifier.size(16.dp))
                                         records
@@ -244,6 +260,12 @@ fun SampleApp() {
 
                                 when (record) {
                                     is HeartRateAggregatedRecord -> {
+                                        Text("Average ${record.avg}")
+                                        Text("Min ${record.min}")
+                                        Text("Max ${record.max}")
+                                    }
+
+                                    is HeightAggregatedRecord -> {
                                         Text("Average ${record.avg}")
                                         Text("Min ${record.min}")
                                         Text("Max ${record.max}")
@@ -391,6 +413,41 @@ fun SampleApp() {
                         }
                         ?.onFailure {
                             Text("Failed to write steps $it")
+                        }
+
+                    Divider()
+                    Spacer(modifier = Modifier.height(16.dp))
+                    var height by remember { mutableStateOf(175) }
+                    TextField(
+                        value = height.toString(),
+                        onValueChange = { height = it.toIntOrNull() ?: 0 },
+                        label = { Text("Height, cm") },
+                        keyboardOptions = remember { KeyboardOptions(keyboardType = KeyboardType.Number) },
+                    )
+                    var writeHeight by remember { mutableStateOf<Result<Unit>?>(null) }
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                writeHeight = health.writeData(
+                                    listOf(
+                                        HeightRecord(
+                                            time = Clock.System.now(),
+                                            height = Length.meters(height / 100.0),
+                                            metadata = generateManualEntryMetadata(),
+                                        )
+                                    )
+                                )
+                            }
+                        },
+                    ) {
+                        Text("Write $height cm")
+                    }
+                    writeHeight
+                        ?.onSuccess {
+                            Text("Height wrote successfully")
+                        }
+                        ?.onFailure {
+                            Text("Failed to write height $it")
                         }
 
                     Divider()

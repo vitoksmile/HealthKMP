@@ -3,14 +3,17 @@
 package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
+import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
+import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
 import kotlinx.cinterop.UnsafeNumber
 import kotlinx.datetime.Instant
@@ -18,6 +21,7 @@ import kotlinx.datetime.toKotlinInstant
 import platform.HealthKit.HKQuantityType
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
 import platform.HealthKit.HKQuantityTypeIdentifierHeartRate
+import platform.HealthKit.HKQuantityTypeIdentifierHeight
 import platform.HealthKit.HKQuantityTypeIdentifierStepCount
 import platform.HealthKit.HKStatistics
 import platform.HealthKit.HKStatisticsOptionCumulativeSum
@@ -34,6 +38,9 @@ internal fun HealthDataType.toHKQuantityType(): HKQuantityType? = when (this) {
     HeartRate ->
         HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
 
+    Height ->
+        HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeight)
+
     Sleep ->
         throw IllegalArgumentException("Sleep is not supported for aggregation")
 
@@ -49,6 +56,9 @@ internal fun HealthDataType.toHKQuantityType(): HKQuantityType? = when (this) {
  */
 internal fun HealthDataType.toHKStatisticOptions(): HKStatisticsOptions = when (this) {
     HeartRate ->
+        HKStatisticsOptionDiscreteAverage or HKStatisticsOptionDiscreteMin or HKStatisticsOptionDiscreteMax
+
+    Height ->
         HKStatisticsOptionDiscreteAverage or HKStatisticsOptionDiscreteMin or HKStatisticsOptionDiscreteMax
 
     Sleep ->
@@ -73,6 +83,16 @@ internal fun HKStatistics.toHealthAggregatedRecord(): HealthAggregatedRecord? {
                 avg = averageQuantity()?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L,
                 min = minimumQuantity()?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L,
                 max = maximumQuantity()?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L,
+            )
+        }
+
+        HKQuantityTypeIdentifierHeight -> {
+            HeightAggregatedRecord(
+                startTime = startDate.toKotlinInstant(),
+                endTime = endDate.toKotlinInstant(),
+                avg = Length.meters(averageQuantity()?.doubleValueForUnit(heightUnit) ?: 0.0),
+                min = Length.meters(minimumQuantity()?.doubleValueForUnit(heightUnit) ?: 0.0),
+                max = Length.meters(maximumQuantity()?.doubleValueForUnit(heightUnit) ?: 0.0),
             )
         }
 

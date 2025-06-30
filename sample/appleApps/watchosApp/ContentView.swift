@@ -3,6 +3,7 @@ import HealthKMP
 
 enum Destination: Hashable {
     case heartRate
+    case height
     case steps
     case weight
 }
@@ -43,6 +44,7 @@ struct ContentView: View {
                     } else {
                         DataTypesView(
                             navigateToHeartRate: { navigation.append(Destination.heartRate) },
+                            navigateToHeight: { navigation.append(Destination.height) },
                             navigateToSleep: {},
                             navigateToSteps: { navigation.append(Destination.steps) },
                             navigateToWeight: { navigation.append(Destination.weight) },
@@ -55,6 +57,8 @@ struct ContentView: View {
                 switch destination {
                 case .heartRate:
                     HeartRateView()
+                case .height:
+                    HeightView()
                 case .steps:
                     StepsView()
                 case .weight:

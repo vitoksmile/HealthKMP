@@ -1,6 +1,7 @@
 package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
+import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
@@ -8,6 +9,7 @@ import com.viktormykhailiv.kmp.health.records.WeightRecord
 import com.viktormykhailiv.kmp.health.records.metadata.Device
 import com.viktormykhailiv.kmp.health.records.metadata.DeviceType
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
+import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
 import kotlinx.datetime.toJavaInstant
 import kotlinx.datetime.toKotlinInstant
@@ -15,10 +17,12 @@ import androidx.health.connect.client.records.metadata.Device as HCDevice
 import androidx.health.connect.client.records.metadata.Metadata as HCMetadata
 import androidx.health.connect.client.records.Record as HCRecord
 import androidx.health.connect.client.records.HeartRateRecord as HCHeartRateRecord
+import androidx.health.connect.client.records.HeightRecord as HCHeightRecord
 import androidx.health.connect.client.records.SleepSessionRecord as HCSleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord as HCStepsRecord
 import androidx.health.connect.client.records.WeightRecord as HCWeightRecord
 import androidx.health.connect.client.units.Mass as HCMass
+import androidx.health.connect.client.units.Length as HCLength
 
 internal fun HealthRecord.toHCRecord(): HCRecord? = when (val record = this) {
     is HeartRateRecord -> HCHeartRateRecord(
@@ -32,6 +36,13 @@ internal fun HealthRecord.toHCRecord(): HCRecord? = when (val record = this) {
                 beatsPerMinute = sample.beatsPerMinute.toLong(),
             )
         },
+        metadata = record.metadata.toHCMetadata(),
+    )
+
+    is HeightRecord -> HCHeightRecord(
+        time = record.time.toJavaInstant(),
+        zoneOffset = null,
+        height = HCLength.meters(record.height.inMeters),
         metadata = record.metadata.toHCMetadata(),
     )
 
@@ -88,6 +99,12 @@ internal fun HCRecord.toHealthRecord(): HealthRecord? = when (val record = this)
                 beatsPerMinute = sample.beatsPerMinute.toInt(),
             )
         },
+        metadata = record.metadata.toMetadata(),
+    )
+
+    is HCHeightRecord -> HeightRecord(
+        time = record.time.toKotlinInstant(),
+        height = Length.meters(record.height.inMeters),
         metadata = record.metadata.toMetadata(),
     )
 

@@ -24,6 +24,7 @@
             android:name=".HealthConnectPermissionActivity"
             android:theme="@style/PermissionActivityTheme" />
 
+        <!--suppress DeprecatedClassUsageInspection -->
         <activity
             android:name=".legacy.GoogleFitPermissionActivity"
             android:theme="@style/PermissionActivityTheme" />

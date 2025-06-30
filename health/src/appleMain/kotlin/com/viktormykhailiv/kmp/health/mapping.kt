@@ -3,6 +3,7 @@
 package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
+import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
@@ -30,9 +31,11 @@ import platform.HealthKit.HKQuantityType
 import platform.HealthKit.HKQuantityTypeIdentifier
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
 import platform.HealthKit.HKQuantityTypeIdentifierHeartRate
+import platform.HealthKit.HKQuantityTypeIdentifierHeight
 import platform.HealthKit.HKQuantityTypeIdentifierStepCount
 import platform.HealthKit.HKUnit
 import platform.HealthKit.countUnit
+import platform.HealthKit.meterUnit
 import platform.HealthKit.minuteUnit
 import platform.HealthKit.poundUnit
 import platform.HealthKit.unitDividedByUnit
@@ -63,6 +66,16 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
                     metadata = metadata.toHKMetadata(),
                 )
             }
+        }
+
+        is HeightRecord -> {
+            quantityTypeIdentifier = HKQuantityTypeIdentifierHeight
+            quantity = HKQuantity.quantityWithUnit(
+                unit = heightUnit,
+                doubleValue = record.height.inMeters,
+            )
+            startDate = record.time.toNSDate()
+            endDate = record.time.toNSDate()
         }
 
         is SleepSessionRecord -> {
@@ -195,6 +208,9 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
 
 internal val heartRateUnit: HKUnit
     get() = HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit())
+
+internal val heightUnit: HKUnit
+    get() = HKUnit.meterUnit()
 
 private fun HKQuantitySample.toMetadata(): Metadata {
     return metadata.toMetadata()

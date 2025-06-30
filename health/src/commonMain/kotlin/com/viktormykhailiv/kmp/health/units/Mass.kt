@@ -13,7 +13,7 @@ import kotlin.jvm.JvmSynthetic
  * - ounces - see [Mass.ounces], [Double.ounces]
  * - pounds - see [Mass.pounds], [Double.pounds]
  */
-class Mass private constructor(
+data class Mass private constructor(
     private val value: Double,
     private val type: Type,
 ) : Comparable<Mass> {
@@ -60,21 +60,6 @@ class Mass private constructor(
         } else {
             inGrams.compareTo(other.inGrams)
         }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is Mass) return false
-
-        if (type == other.type) {
-            return value == other.value
-        }
-
-        return inGrams == other.inGrams
-    }
-
-    override fun hashCode(): Int = inGrams.hashCode()
-
-    override fun toString(): String = "$value ${type.name.lowercase()}"
 
     companion object {
         private val ZEROS = Type.entries.associateWith { Mass(value = 0.0, type = it) }

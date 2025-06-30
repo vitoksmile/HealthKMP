@@ -3,14 +3,17 @@
 package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
+import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
+import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.StepsRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
@@ -41,6 +44,16 @@ suspend fun HealthManager.readHeartRate(
         endTime = endTime,
         type = HeartRate,
     ).map { it.filterIsInstance<HeartRateRecord>() }
+
+suspend fun HealthManager.readHeight(
+    startTime: Instant,
+    endTime: Instant,
+): Result<List<HeightRecord>> =
+    readData(
+        startTime = startTime,
+        endTime = endTime,
+        type = Height,
+    ).map { it.filterIsInstance<HeightRecord>() }
 
 suspend fun HealthManager.readSleep(
     startTime: Instant,
@@ -83,6 +96,16 @@ suspend fun HealthManager.aggregateHeartRate(
         endTime = endTime,
         type = HeartRate,
     ).mapCatching { it as HeartRateAggregatedRecord }
+
+suspend fun HealthManager.aggregateHeight(
+    startTime: Instant,
+    endTime: Instant,
+): Result<HeightAggregatedRecord> =
+    aggregate(
+        startTime = startTime,
+        endTime = endTime,
+        type = Height,
+    ).mapCatching { it as HeightAggregatedRecord }
 
 suspend fun HealthManager.aggregateSleep(
     startTime: Instant,

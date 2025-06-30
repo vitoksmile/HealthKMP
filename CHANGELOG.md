@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.11](https://github.com/vitoksmile/HealthKMP/releases/tag/0.0.11)
+
+- Added **height** data type
+
+[Full Changelog](https://github.com/vitoksmile/HealthKMP/compare/0.0.10...0.0.11)
+
 ## [0.0.10](https://github.com/vitoksmile/HealthKMP/releases/tag/0.0.10)
 
 - Added watchOS support

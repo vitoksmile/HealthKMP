@@ -9,12 +9,14 @@ import com.google.android.gms.fitness.data.Field
 import com.google.android.gms.fitness.data.SleepStages
 import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
+import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import com.viktormykhailiv.kmp.health.HealthRecord
 import com.viktormykhailiv.kmp.health.groupByRecords
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
+import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
@@ -23,6 +25,7 @@ import com.viktormykhailiv.kmp.health.records.metadata.Device
 import com.viktormykhailiv.kmp.health.records.metadata.DeviceType
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import com.viktormykhailiv.kmp.health.records.metadata.getLocalDevice
+import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
 import kotlinx.datetime.Instant
 import java.util.concurrent.TimeUnit
@@ -39,6 +42,18 @@ internal fun List<DataPoint>.toHealthRecords(type: HealthDataType): List<HealthR
                             time = dataPoint.startTime,
                             beatsPerMinute = dataPoint.getValue(Field.FIELD_BPM).asInt(),
                         )
+                    ),
+                    metadata = dataPoint.toMetadata(),
+                )
+            }
+        }
+
+        is Height -> {
+            map { dataPoint ->
+                HeightRecord(
+                    time = dataPoint.startTime,
+                    height = Length.meters(
+                        dataPoint.getValue(Field.FIELD_HEIGHT).asFloat().toDouble(),
                     ),
                     metadata = dataPoint.toMetadata(),
                 )
@@ -128,6 +143,18 @@ private fun HealthRecord.toDataPoints(
         }
     }
 
+    is HeightRecord -> {
+        listOf(
+            DataPoint.builder(dataSource)
+                .setTimestamp(
+                    record.time.toEpochMilliseconds(),
+                    TimeUnit.MILLISECONDS,
+                )
+                .setField(Field.FIELD_HEIGHT, record.height.inMeters.toFloat())
+                .build()
+        )
+    }
+
     is SleepSessionRecord -> {
         record.stages.map { stage ->
             val type = when (stage.type) {
@@ -207,7 +234,8 @@ private fun Device.toFitnessDevice(): FitnessDevice = FitnessDevice(
     /* manufacturer = */ manufacturer ?: "unknown",
     /* model = */ model ?: "unknown",
     /* uid = */ "unknown",
-    /* type = */ when (type) {
+    /* type = */
+    when (type) {
         DeviceType.Phone -> FitnessDevice.TYPE_PHONE
         DeviceType.Watch -> FitnessDevice.TYPE_WATCH
         DeviceType.ChestStrap -> FitnessDevice.TYPE_CHEST_STRAP
