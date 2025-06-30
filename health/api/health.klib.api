@@ -1,5 +1,5 @@
 // Klib ABI Dump
-// Targets: [iosArm64, iosSimulatorArm64, iosX64]
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
 // Rendering settings:
 // - Signature version: 2
 // - Show manifest properties: true
@@ -306,7 +306,6 @@ final class com.viktormykhailiv.kmp.health.records.metadata/Metadata { // com.vi
     final fun component1(): com.viktormykhailiv.kmp.health.records.metadata/Metadata.RecordingMethod // com.viktormykhailiv.kmp.health.records.metadata/Metadata.component1|component1(){}[0]
     final fun component2(): kotlin/String // com.viktormykhailiv.kmp.health.records.metadata/Metadata.component2|component2(){}[0]
     final fun component3(): com.viktormykhailiv.kmp.health.records.metadata/Device? // com.viktormykhailiv.kmp.health.records.metadata/Metadata.component3|component3(){}[0]
-    final fun copy(com.viktormykhailiv.kmp.health.records.metadata/Metadata.RecordingMethod = ..., kotlin/String = ..., com.viktormykhailiv.kmp.health.records.metadata/Device? = ...): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health.records.metadata/Metadata.copy|copy(com.viktormykhailiv.kmp.health.records.metadata.Metadata.RecordingMethod;kotlin.String;com.viktormykhailiv.kmp.health.records.metadata.Device?){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records.metadata/Metadata.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records.metadata/Metadata.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records.metadata/Metadata.toString|toString(){}[0]

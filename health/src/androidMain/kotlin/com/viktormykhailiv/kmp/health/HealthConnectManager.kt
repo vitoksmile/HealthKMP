@@ -2,8 +2,6 @@ package com.viktormykhailiv.kmp.health
 
 import android.content.Context
 import androidx.health.connect.client.HealthConnectClient
-import androidx.health.connect.client.records.DistanceRecord
-import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
@@ -18,8 +16,6 @@ class HealthConnectManager(
     private val healthConnectClient by lazy { HealthConnectClient.getOrCreate(context) }
 
     override fun isAvailable(): Result<Boolean> = runCatching {
-        DistanceRecord.DISTANCE_TOTAL
-        HeartRateRecord.BPM_AVG
         val status = HealthConnectClient.getSdkStatus(context)
         status == HealthConnectClient.SDK_AVAILABLE
     }
@@ -48,7 +44,7 @@ class HealthConnectManager(
                         readPermissions = readTypes.readPermissions,
                         writePermissions = writeTypes.writePermissions,
                     ).getOrThrow()
-                } catch (ignored: CancellationException) {
+                } catch (_: CancellationException) {
                     false
                 } catch (ex: Throwable) {
                     throw ex

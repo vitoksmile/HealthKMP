@@ -1,11 +1,15 @@
+<img src=readme/app-logo.jpg width=256 />
+
 # HealthKMP
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.viktormykhailiv/health-kmp)](https://central.sonatype.com/search?namespace=com.viktormykhailiv&name=health-kmp)
-[![Kotlin](https://img.shields.io/badge/kotlin-2.1.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.2.0-blue.svg?logo=kotlin)](http://kotlinlang.org)
 [![](https://img.shields.io/badge/Kotlin-Multiplatform-%237f52ff?logo=kotlin)](https://kotlinlang.org/docs/multiplatform.html)
-[![](https://img.shields.io/github/license/vitoksmile/HealthKMP)](https://github.com/vitoksmile/HealthKMP/blob/main/LICENSE)
+[![](http://img.shields.io/badge/platform-android-6EDB8D?style=flat)](https://kotlinlang.org/docs/multiplatform.html)
+[![](http://img.shields.io/badge/platform-ios-CDCDCD?style=flat)](https://kotlinlang.org/docs/multiplatform.html)
+[![](http://img.shields.io/badge/platform-watchos-C0C0C0?style=flat)](https://kotlinlang.org/docs/multiplatform.html)
 
-Kotlin Multiplatform Mobile wrapper for HealthKit on iOS, and Google Fit or Health Connect on Android.
+Kotlin Multiplatform wrapper for Apple's HealthKit (iOS and watchOS), and Google Fit or Health Connect on Android.
 
 > Google Fitness API is being deprecated and HealthKMP will try to use Health Connect if the app is installed.
 
@@ -16,9 +20,9 @@ HealthKMP supports:
 - writing health data.
 - aggregating health data.
 
-Note that for Android, the target phone **needs** to have [Google Fit](https://www.google.com/fit/) or [Health Connect](https://health.google/health-connect-android/) installed.
+Note that for Android, the target device **needs** to have [Google Fit](https://www.google.com/fit/) or [Health Connect](https://health.google/health-connect-android/) installed.
 
-## Data Types
+## Supported data types (iOS, watchOS, Android)
 - Heart rate
 - Sleep
 - Steps
@@ -28,7 +32,15 @@ Note that for Android, the target phone **needs** to have [Google Fit](https://w
 
 To access health data users need to grant permissions
 
-<img src=readme/permission-health-connect.png height=480 /> <img src=readme/permission-health-kit.png height=480 />
+<img src=readme/permission-android.png height=512 /> <img src=readme/permission-ios.png height=512 />
+
+<img src=readme/permission-watchos-1.png width=200 /> <img src=readme/permission-watchos-2.png width=200 /> <img src=readme/permission-watchos-3.png width=200 />
+
+# Sample apps
+
+Compose Multiplatform is used for iOS and Android apps.
+
+SwiftUI is used for watchOS app.
 
 # Setup
 
@@ -48,13 +60,29 @@ build.gradle:
 sourceSets {
     val commonMain by getting {
         dependencies {
-            implementation("com.viktormykhailiv:health-kmp:0.0.9")
+            implementation("com.viktormykhailiv:health-kmp:0.0.10")
         }
     }
 }
 ```
 
-## Apple Health (iOS)
+or use version catalog:
+```
+[versions]
+health = "0.0.10"
+
+[libraries]
+health = { module = "com.viktormykhailiv:health-kmp", version.ref = "health" }
+
+[plugins]
+```
+
+build.gradle:
+```
+implementation(libs.health)
+```
+
+## Apple Health (iOS or watchOS)
 
 Step 1: Append the Info.plist with the following 2 entries
 
@@ -123,7 +151,7 @@ The Health plugin is used via the `HealthManagerFactory` class using the differe
 
 ### Check availability
 
-Check if any Health service is available on the device: HealthKit on iOS, and Google Fit or Health Connect on Android
+Check if any Health service is available on the device: HealthKit on iOS or watchOS, and Google Fit or Health Connect on Android
 
 ```kotlin
 val health = HealthManagerFactory().createManager()

@@ -442,8 +442,6 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/Metadata {
 	public final fun component1 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata$RecordingMethod;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Device;
-	public final fun copy (Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata$RecordingMethod;Ljava/lang/String;Lcom/viktormykhailiv/kmp/health/records/metadata/Device;)Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata$RecordingMethod;Ljava/lang/String;Lcom/viktormykhailiv/kmp/health/records/metadata/Device;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getDevice ()Lcom/viktormykhailiv/kmp/health/records/metadata/Device;
 	public final fun getId ()Ljava/lang/String;

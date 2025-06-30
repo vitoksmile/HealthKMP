@@ -37,7 +37,7 @@ class GoogleFitManager(
                 )
             }
             true
-        } catch (e: PackageManager.NameNotFoundException) {
+        } catch (_: Throwable) {
             false
         }
     }
@@ -67,7 +67,7 @@ class GoogleFitManager(
 
                     isAuthorized(readTypes = readTypes, writeTypes = writeTypes)
                         .getOrThrow()
-                } catch (ignored: CancellationException) {
+                } catch (_: CancellationException) {
                     false
                 } catch (ex: Throwable) {
                     throw ex

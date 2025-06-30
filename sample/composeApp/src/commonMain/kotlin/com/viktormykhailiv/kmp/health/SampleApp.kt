@@ -110,17 +110,11 @@ fun SampleApp() {
             Text("Hello, this is HealthKMP for ${getPlatformName()}")
 
             isAvailableResult
-                .onSuccess { isAvailable ->
-                    Text("HealthManager isAvailable=$isAvailable")
-                }
                 .onFailure {
                     Text("HealthManager isAvailable=$it")
                 }
 
             isAuthorizedResult
-                ?.onSuccess {
-                    Text("HealthManager isAuthorized=$it")
-                }
                 ?.onFailure {
                     Text("HealthManager isAuthorized=$it")
                 }
@@ -135,7 +129,7 @@ fun SampleApp() {
                         }
                     },
                 ) {
-                    Text("Request authorization")
+                    Text("Request permissions")
                 }
 
             if (isAvailableResult.getOrNull() == true && isRevokeSupported && isAuthorizedResult?.getOrNull() == true)
@@ -294,7 +288,7 @@ fun SampleApp() {
                                             samples = List(samplesCount) {
                                                 HeartRateRecord.Sample(
                                                     time = startTime.plus((it * sampleInterval.inWholeMinutes).minutes),
-                                                    beatsPerMinute = Random.nextInt(1, 300),
+                                                    beatsPerMinute = Random.nextInt(40, 300),
                                                 )
                                             },
                                             metadata = generateManualEntryMetadata(),
