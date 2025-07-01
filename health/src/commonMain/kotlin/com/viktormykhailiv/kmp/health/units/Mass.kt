@@ -61,6 +61,8 @@ data class Mass private constructor(
             inGrams.compareTo(other.inGrams)
         }
 
+    override fun toString(): String = "$value ${type.name.lowercase()}"
+
     companion object {
         private val ZEROS = Type.entries.associateWith { Mass(value = 0.0, type = it) }
 

@@ -5,6 +5,8 @@ import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
+import com.viktormykhailiv.kmp.health.aggregate.BloodGlucoseAggregatedRecord
+import com.viktormykhailiv.kmp.health.units.BloodGlucose as BloodGlucoseUnit
 import kotlinx.coroutines.CancellationException
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toJavaInstant
@@ -90,6 +92,27 @@ class HealthConnectManager(
         endTime: Instant,
         type: HealthDataType,
     ): Result<HealthAggregatedRecord> = runCatching {
+        if (type == HealthDataType.BloodGlucose) {
+            return@runCatching readBloodGlucose(
+                startTime = startTime,
+                endTime = endTime,
+            ).mapCatching { records ->
+                BloodGlucoseAggregatedRecord(
+                    startTime = startTime,
+                    endTime = endTime,
+                    avg = BloodGlucoseUnit.millimolesPerLiter(
+                        records.map { it.level.inMillimolesPerLiter }.average()
+                    ),
+                    min = BloodGlucoseUnit.millimolesPerLiter(
+                        records.minOfOrNull { it.level.inMillimolesPerLiter } ?: 0.0
+                    ),
+                    max = BloodGlucoseUnit.millimolesPerLiter(
+                        records.maxOfOrNull { it.level.inMillimolesPerLiter } ?: 0.0
+                    ),
+                )
+            }.getOrThrow()
+        }
+
         val request = AggregateRequest(
             metrics = type.toAggregateMetrics(),
             timeRangeFilter = TimeRangeFilter.between(

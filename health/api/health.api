@@ -13,6 +13,7 @@ public final class com/viktormykhailiv/kmp/health/ApplicationContextHolderInitia
 }
 
 public final class com/viktormykhailiv/kmp/health/ExtensionsKt {
+	public static final fun aggregateBloodGlucose (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateBloodPressure (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateHeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -21,6 +22,7 @@ public final class com/viktormykhailiv/kmp/health/ExtensionsKt {
 	public static final fun aggregateWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun generateManualEntryMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
 	public static final fun getDuration (Lcom/viktormykhailiv/kmp/health/IntervalRecord;)J
+	public static final fun readBloodGlucose (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readBloodPressure (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readHeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -46,6 +48,13 @@ public final class com/viktormykhailiv/kmp/health/HealthConnectManager : com/vik
 }
 
 public abstract interface class com/viktormykhailiv/kmp/health/HealthDataType {
+}
+
+public final class com/viktormykhailiv/kmp/health/HealthDataType$BloodGlucose : com/viktormykhailiv/kmp/health/HealthDataType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$BloodGlucose;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/HealthDataType$BloodPressure : com/viktormykhailiv/kmp/health/HealthDataType {
@@ -122,6 +131,26 @@ public abstract interface class com/viktormykhailiv/kmp/health/IntervalRecord : 
 
 public abstract interface class com/viktormykhailiv/kmp/health/SeriesRecord : com/viktormykhailiv/kmp/health/IntervalRecord {
 	public abstract fun getSamples ()Ljava/util/List;
+}
+
+public final class com/viktormykhailiv/kmp/health/aggregate/BloodGlucoseAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
+	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
+	public final fun component5 ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
+	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;)Lcom/viktormykhailiv/kmp/health/aggregate/BloodGlucoseAggregatedRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/BloodGlucoseAggregatedRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/BloodGlucoseAggregatedRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAvg ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public final fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getMax ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
+	public final fun getMin ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
+	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
@@ -261,6 +290,50 @@ public final class com/viktormykhailiv/kmp/health/legacy/GoogleFitManager : com/
 	public fun writeData-gIAlu-s (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
+public final class com/viktormykhailiv/kmp/health/records/BloodGlucoseRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
+	public fun <init> (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;Lcom/viktormykhailiv/kmp/health/records/MealType;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
+	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;
+	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/records/MealType;
+	public final fun component5 ()Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;
+	public final fun component6 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public final fun copy (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;Lcom/viktormykhailiv/kmp/health/records/MealType;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;Lcom/viktormykhailiv/kmp/health/records/MealType;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public final fun getLevel ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
+	public final fun getMealType ()Lcom/viktormykhailiv/kmp/health/records/MealType;
+	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public final fun getRelationToMeal ()Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;
+	public final fun getSpecimenSource ()Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;
+	public fun getTime ()Lkotlinx/datetime/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal : java/lang/Enum {
+	public static final field AfterMeal Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;
+	public static final field BeforeMeal Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;
+	public static final field Fasting Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;
+	public static final field General Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;
+	public static fun values ()[Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource : java/lang/Enum {
+	public static final field CapillaryBlood Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;
+	public static final field InterstitialFluid Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;
+	public static final field Plasma Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;
+	public static final field Serum Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;
+	public static final field Tears Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;
+	public static final field WholeBlood Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;
+	public static fun values ()[Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;
+}
+
 public final class com/viktormykhailiv/kmp/health/records/BloodPressureRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
 	public fun <init> (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Pressure;Lcom/viktormykhailiv/kmp/health/units/Pressure;Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$BodyPosition;Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
 	public final fun component1 ()Lkotlinx/datetime/Instant;
@@ -348,6 +421,16 @@ public final class com/viktormykhailiv/kmp/health/records/HeightRecord : com/vik
 	public fun getTime ()Lkotlinx/datetime/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/MealType : java/lang/Enum {
+	public static final field Breakfast Lcom/viktormykhailiv/kmp/health/records/MealType;
+	public static final field Dinner Lcom/viktormykhailiv/kmp/health/records/MealType;
+	public static final field Lunch Lcom/viktormykhailiv/kmp/health/records/MealType;
+	public static final field Snack Lcom/viktormykhailiv/kmp/health/records/MealType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/viktormykhailiv/kmp/health/records/MealType;
+	public static fun values ()[Lcom/viktormykhailiv/kmp/health/records/MealType;
 }
 
 public final class com/viktormykhailiv/kmp/health/records/SleepSessionRecord : com/viktormykhailiv/kmp/health/IntervalRecord {
@@ -610,6 +693,25 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/Metadata$Reco
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/units/BloodGlucose : java/lang/Comparable {
+	public static final field Companion Lcom/viktormykhailiv/kmp/health/units/BloodGlucose$Companion;
+	public synthetic fun <init> (DLcom/viktormykhailiv/kmp/health/units/BloodGlucose$Type;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun compareTo (Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMilligramsPerDeciliter ()D
+	public final fun getMillimolesPerLiter ()D
+	public fun hashCode ()I
+	public static final fun milligramsPerDeciliter (D)Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
+	public static final fun millimolesPerLiter (D)Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/units/BloodGlucose$Companion {
+	public final fun milligramsPerDeciliter (D)Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
+	public final fun millimolesPerLiter (D)Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
 }
 
 public final class com/viktormykhailiv/kmp/health/units/Length : java/lang/Comparable {

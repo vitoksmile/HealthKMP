@@ -32,26 +32,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.aggregate.BloodGlucoseAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
+import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
+import com.viktormykhailiv.kmp.health.records.MealType
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
 import com.viktormykhailiv.kmp.health.sleep.SleepSessionCanvas
+import com.viktormykhailiv.kmp.health.units.BloodGlucose as BloodGlucoseUnit
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
 import com.viktormykhailiv.kmp.health.units.millimetersOfMercury
@@ -69,6 +74,7 @@ fun SampleApp() {
 
     val readTypes = remember {
         listOf(
+            BloodGlucose,
             BloodPressure,
             HeartRate,
             Height,
@@ -79,6 +85,7 @@ fun SampleApp() {
     }
     val writeTypes = remember {
         listOf(
+            BloodGlucose,
             BloodPressure,
             HeartRate,
             Height,
@@ -200,6 +207,22 @@ fun SampleApp() {
                                 Text("$type records count ${records.size}")
 
                                 when (type) {
+                                    is BloodGlucose -> {
+                                        val glucose = records.filterIsInstance<BloodGlucoseRecord>()
+                                        val average =
+                                            glucose.map { it.level.inMillimolesPerLiter }.average()
+                                                .let { BloodGlucoseUnit.millimolesPerLiter(it) }
+                                        val min =
+                                            glucose.minOfOrNull { it.level.inMillimolesPerLiter }
+                                                ?.let { BloodGlucoseUnit.millimolesPerLiter(it) }
+                                        val max =
+                                            glucose.maxOfOrNull { it.level.inMillimolesPerLiter }
+                                                ?.let { BloodGlucoseUnit.millimolesPerLiter(it) }
+                                        Text("Average $average")
+                                        Text("Min $min")
+                                        Text("Max $max")
+                                    }
+
                                     is BloodPressure -> {
                                         val bloodPressure =
                                             records.filterIsInstance<BloodPressureRecord>()
@@ -237,11 +260,14 @@ fun SampleApp() {
                                     is Height -> {
                                         val height = records.filterIsInstance<HeightRecord>()
                                         val average = height.map { it.height.inMeters }.average()
+                                            .let { Length.meters(it) }
                                         val min = height.minOfOrNull { it.height.inMeters }
+                                            ?.let { Length.meters(it) }
                                         val max = height.maxOfOrNull { it.height.inMeters }
-                                        Text("Average $average meters")
-                                        Text("Min $min meters")
-                                        Text("Max $max meters")
+                                            ?.let { Length.meters(it) }
+                                        Text("Average $average")
+                                        Text("Min $min")
+                                        Text("Max $max")
                                     }
 
                                     Sleep -> {
@@ -269,11 +295,14 @@ fun SampleApp() {
                                     Weight -> {
                                         val weight = records.filterIsInstance<WeightRecord>()
                                         val average = weight.map { it.weight.inKilograms }.average()
+                                            .let { Mass.kilograms(it) }
                                         val min = weight.minOfOrNull { it.weight.inKilograms }
+                                            ?.let { Mass.kilograms(it) }
                                         val max = weight.maxOfOrNull { it.weight.inKilograms }
-                                        Text("Average $average kg")
-                                        Text("Min $min kg")
-                                        Text("Max $max kg")
+                                            ?.let { Mass.kilograms(it) }
+                                        Text("Average $average")
+                                        Text("Min $min")
+                                        Text("Max $max")
                                     }
                                 }
                             }
@@ -287,6 +316,12 @@ fun SampleApp() {
                                 Text("Aggregated $type")
 
                                 when (record) {
+                                    is BloodGlucoseAggregatedRecord -> {
+                                        Text("Average ${record.avg}")
+                                        Text("Min ${record.min}")
+                                        Text("Max ${record.max}")
+                                    }
+
                                     is BloodPressureAggregatedRecord -> {
                                         Text("Average ${record.systolic.avg}/${record.diastolic.avg}")
                                         Text("Min ${record.systolic.min}/${record.diastolic.min}")
@@ -321,6 +356,7 @@ fun SampleApp() {
                                 }
                             }
                             ?.onFailure {
+                                Spacer(Modifier.size(16.dp))
                                 Text("Failed to read $type records $it")
                             }
 
@@ -328,8 +364,50 @@ fun SampleApp() {
                     }
 
                     Spacer(modifier = Modifier.height(64.dp))
-                    var systolicBloodPressure by remember { mutableStateOf(120) }
-                    var diastolicBloodPressure by remember { mutableStateOf(80) }
+                    var bloodGlucose by remember { mutableStateOf(Random.nextInt(20, 40)) }
+                    TextField(
+                        value = bloodGlucose.toString(),
+                        onValueChange = { bloodGlucose = it.toIntOrNull() ?: 0 },
+                        label = { Text("Blood glucose") },
+                        keyboardOptions = remember { KeyboardOptions(keyboardType = KeyboardType.Number) },
+                    )
+                    var writeBloodGlucose by remember { mutableStateOf<Result<Unit>?>(null) }
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                writeBloodGlucose = health.writeData(
+                                    listOf(
+                                        BloodGlucoseRecord(
+                                            time = Clock.System.now(),
+                                            level = BloodGlucoseUnit.millimolesPerLiter(bloodGlucose.toDouble()),
+                                            specimenSource = BloodGlucoseRecord.SpecimenSource.entries.random(),
+                                            mealType = MealType.entries.random(),
+                                            relationToMeal = BloodGlucoseRecord.RelationToMeal.entries.random(),
+                                            metadata = generateManualEntryMetadata(),
+                                        )
+                                    )
+                                )
+                            }
+                        },
+                    ) {
+                        Text("Write $bloodGlucose blood glucose")
+                    }
+                    writeBloodGlucose
+                        ?.onSuccess {
+                            Text("Blood glucose wrote successfully")
+                        }
+                        ?.onFailure {
+                            Text("Failed to write blood glucose $it")
+                        }
+
+                    Divider()
+                    Spacer(modifier = Modifier.height(16.dp))
+                    var systolicBloodPressure by remember {
+                        mutableStateOf(Random.nextInt(100, 140))
+                    }
+                    var diastolicBloodPressure by remember {
+                        mutableStateOf(Random.nextInt(70, 90))
+                    }
                     TextField(
                         value = systolicBloodPressure.toString(),
                         onValueChange = { systolicBloodPressure = it.toIntOrNull() ?: 0 },
@@ -459,7 +537,7 @@ fun SampleApp() {
 
                     Divider()
                     Spacer(modifier = Modifier.height(16.dp))
-                    var steps by remember { mutableStateOf(100) }
+                    var steps by remember { mutableStateOf(Random.nextInt(1, 100)) }
                     TextField(
                         value = steps.toString(),
                         onValueChange = { steps = it.toIntOrNull() ?: 0 },
@@ -496,7 +574,7 @@ fun SampleApp() {
 
                     Divider()
                     Spacer(modifier = Modifier.height(16.dp))
-                    var height by remember { mutableStateOf(175) }
+                    var height by remember { mutableStateOf(Random.nextInt(150, 200)) }
                     TextField(
                         value = height.toString(),
                         onValueChange = { height = it.toIntOrNull() ?: 0 },
@@ -531,7 +609,7 @@ fun SampleApp() {
 
                     Divider()
                     Spacer(modifier = Modifier.height(16.dp))
-                    var weight by remember { mutableStateOf(61) }
+                    var weight by remember { mutableStateOf(Random.nextInt(50, 100)) }
                     TextField(
                         value = weight.toString(),
                         onValueChange = { weight = it.toIntOrNull() ?: 0 },

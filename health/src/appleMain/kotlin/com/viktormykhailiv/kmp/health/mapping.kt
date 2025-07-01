@@ -2,6 +2,7 @@
 
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
@@ -12,8 +13,10 @@ import com.viktormykhailiv.kmp.health.records.WeightRecord
 import com.viktormykhailiv.kmp.health.records.metadata.Device
 import com.viktormykhailiv.kmp.health.records.metadata.DeviceType
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
+import com.viktormykhailiv.kmp.health.units.Length
+import com.viktormykhailiv.kmp.health.units.BloodGlucose as BloodGlucoseUnit
 import com.viktormykhailiv.kmp.health.units.Mass
-import com.viktormykhailiv.kmp.health.units.millimetersOfMercury
+import com.viktormykhailiv.kmp.health.units.Pressure
 import kotlinx.cinterop.UnsafeNumber
 import kotlinx.datetime.toKotlinInstant
 import kotlinx.datetime.toNSDate
@@ -31,6 +34,7 @@ import platform.HealthKit.HKQuantity
 import platform.HealthKit.HKQuantitySample
 import platform.HealthKit.HKQuantityType
 import platform.HealthKit.HKQuantityTypeIdentifier
+import platform.HealthKit.HKQuantityTypeIdentifierBloodGlucose
 import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureDiastolic
 import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureSystolic
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
@@ -38,14 +42,18 @@ import platform.HealthKit.HKQuantityTypeIdentifierHeartRate
 import platform.HealthKit.HKQuantityTypeIdentifierHeight
 import platform.HealthKit.HKQuantityTypeIdentifierStepCount
 import platform.HealthKit.HKUnit
+import platform.HealthKit.HKUnitMolarMassBloodGlucose
 import platform.HealthKit.countUnit
+import platform.HealthKit.literUnit
 import platform.HealthKit.meterUnit
 import platform.HealthKit.millimeterOfMercuryUnit
 import platform.HealthKit.minuteUnit
+import platform.HealthKit.moleUnitWithMolarMass
 import platform.HealthKit.poundUnit
 import platform.HealthKit.unitDividedByUnit
-import kotlin.math.roundToInt
+import kotlin.collections.orEmpty
 
+// region Write
 internal fun HealthRecord.toHKObjects(): List<HKObject>? {
     val record = this
 
@@ -53,8 +61,35 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
     val quantity: HKQuantity
     val startDate: NSDate
     val endDate: NSDate
+    val metadata = record.metadata.toHKMetadata()
 
     when (record) {
+        is BloodGlucoseRecord -> {
+            quantityTypeIdentifier = HKQuantityTypeIdentifierBloodGlucose
+            quantity = HKQuantity.quantityWithUnit(
+                unit = bloodGlucoseUnit,
+                // bloodGlucoseUnit is in moles per liter
+                doubleValue = record.level.inMillimolesPerLiter / 1_000,
+            )
+            startDate = record.time.toNSDate()
+            endDate = record.time.toNSDate()
+
+            when (record.relationToMeal) {
+                BloodGlucoseRecord.RelationToMeal.BeforeMeal -> {
+                    metadata[HKMetadataKeyBloodGlucoseMealTime] = HKBloodGlucoseMealTimePreprandial
+                }
+
+                BloodGlucoseRecord.RelationToMeal.AfterMeal -> {
+                    metadata[HKMetadataKeyBloodGlucoseMealTime] = HKBloodGlucoseMealTimePostprandial
+                }
+
+                BloodGlucoseRecord.RelationToMeal.General,
+                BloodGlucoseRecord.RelationToMeal.Fasting,
+                null -> {
+                }
+            }
+        }
+
         is BloodPressureRecord -> {
             return listOf(
                 HKQuantitySample.quantitySampleWithType(
@@ -67,7 +102,7 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
                     ),
                     startDate = record.time.toNSDate(),
                     endDate = record.time.toNSDate(),
-                    metadata = metadata.toHKMetadata(),
+                    metadata = metadata,
                 ),
                 HKQuantitySample.quantitySampleWithType(
                     quantityType = HKQuantityType.quantityTypeForIdentifier(
@@ -79,7 +114,7 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
                     ),
                     startDate = record.time.toNSDate(),
                     endDate = record.time.toNSDate(),
-                    metadata = metadata.toHKMetadata(),
+                    metadata = metadata,
                 ),
             )
         }
@@ -97,7 +132,7 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
                     ),
                     startDate = sample.time.toNSDate(),
                     endDate = sample.time.toNSDate(),
-                    metadata = metadata.toHKMetadata(),
+                    metadata = metadata,
                 )
             }
         }
@@ -132,7 +167,7 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
                     value = sleepCategory,
                     startDate = stage.startTime.toNSDate(),
                     endDate = stage.endTime.toNSDate(),
-                    metadata = metadata.toHKMetadata(),
+                    metadata = metadata,
                 )
             }
         }
@@ -140,7 +175,7 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
         is StepsRecord -> {
             quantityTypeIdentifier = HKQuantityTypeIdentifierStepCount
             quantity = HKQuantity.quantityWithUnit(
-                unit = HKUnit.countUnit(),
+                unit = stepsUnit,
                 doubleValue = record.count.toDouble(),
             )
             startDate = record.startTime.toNSDate()
@@ -150,7 +185,7 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
         is WeightRecord -> {
             quantityTypeIdentifier = HKQuantityTypeIdentifierBodyMass
             quantity = HKQuantity.quantityWithUnit(
-                unit = HKUnit.poundUnit(),
+                unit = weightUnit,
                 doubleValue = record.weight.inPounds,
             )
             startDate = record.time.toNSDate()
@@ -167,11 +202,13 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
             quantity = quantity,
             startDate = startDate,
             endDate = endDate,
-            metadata = metadata.toHKMetadata(),
+            metadata = metadata,
         )
     )
 }
+// endregion
 
+// region Read
 internal fun List<HKCategorySample>.toHealthRecords(): List<HealthRecord> {
     if (isEmpty()) return emptyList()
 
@@ -204,6 +241,23 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
     if (isEmpty()) return emptyList()
 
     return when (first().quantityType.identifier) {
+        HKQuantityTypeIdentifierBloodGlucose -> {
+            map { sample ->
+                BloodGlucoseRecord(
+                    time = sample.startDate.toKotlinInstant(),
+                    level = sample.quantity.bloodGlucoseValue,
+                    specimenSource = null,
+                    mealType = null,
+                    relationToMeal = when (sample.metadata.orEmpty()[HKMetadataKeyBloodGlucoseMealTime]) {
+                        HKBloodGlucoseMealTimePreprandial -> BloodGlucoseRecord.RelationToMeal.BeforeMeal
+                        HKBloodGlucoseMealTimePostprandial -> BloodGlucoseRecord.RelationToMeal.AfterMeal
+                        else -> null
+                    },
+                    metadata = sample.toMetadata(),
+                )
+            }
+        }
+
         HKQuantityTypeIdentifierBloodPressureSystolic,
         HKQuantityTypeIdentifierBloodPressureDiastolic -> {
             val systolicList =
@@ -225,8 +279,8 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
                     records.add(
                         BloodPressureRecord(
                             time = date.first,
-                            systolic = systolic.quantity.doubleValueForUnit(bloodPressureUnit).millimetersOfMercury,
-                            diastolic = diastolic.quantity.doubleValueForUnit(bloodPressureUnit).millimetersOfMercury,
+                            systolic = systolic.quantity.bloodPressureValue,
+                            diastolic = diastolic.quantity.bloodPressureValue,
                             bodyPosition = null,
                             measurementLocation = null,
                             metadata = systolic.toMetadata(),
@@ -243,7 +297,7 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
                 HeartRateSampleInternal(
                     startTime = sample.startDate.toKotlinInstant(),
                     endTime = sample.endDate.toKotlinInstant(),
-                    beatsPerMinute = sample.quantity.doubleValueForUnit(heartRateUnit).roundToInt(),
+                    beatsPerMinute = sample.quantity.heartRateValue.toInt(),
                 )
             }.group(metadata)
         }
@@ -253,7 +307,7 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
                 StepsRecord(
                     startTime = sample.startDate.toKotlinInstant(),
                     endTime = sample.endDate.toKotlinInstant(),
-                    count = sample.quantity.doubleValueForUnit(HKUnit.countUnit()).roundToInt(),
+                    count = sample.quantity.stepsValue.toInt(),
                     metadata = sample.toMetadata(),
                 )
             }
@@ -263,7 +317,7 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
             map { sample ->
                 WeightRecord(
                     time = sample.startDate.toKotlinInstant(),
-                    weight = Mass.pounds(sample.quantity.doubleValueForUnit(HKUnit.poundUnit())),
+                    weight = sample.quantity.weightValue,
                     metadata = sample.toMetadata(),
                 )
             }
@@ -272,16 +326,56 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
         else -> emptyList()
     }
 }
+// endregion
 
-internal val bloodPressureUnit: HKUnit
+// region Units
+internal val HKQuantity?.bloodGlucoseValue: BloodGlucoseUnit
+    get() = BloodGlucoseUnit.millimolesPerLiter(
+        this?.doubleValueForUnit(bloodGlucoseUnit)?.times(1_000) ?: 0.0
+    )
+
+private val bloodGlucoseUnit: HKUnit
+    get() = HKUnit.moleUnitWithMolarMass(HKUnitMolarMassBloodGlucose)
+        .unitDividedByUnit(HKUnit.literUnit())
+
+internal val HKQuantity?.bloodPressureValue: Pressure
+    get() = Pressure.millimetersOfMercury(
+        this?.doubleValueForUnit(bloodPressureUnit) ?: 0.0
+    )
+
+private val bloodPressureUnit: HKUnit
     get() = HKUnit.millimeterOfMercuryUnit()
 
-internal val heartRateUnit: HKUnit
+internal val HKQuantity?.heartRateValue: Long
+    get() = this?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L
+
+private val heartRateUnit: HKUnit
     get() = HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit())
 
-internal val heightUnit: HKUnit
+internal val HKQuantity?.heightValue: Length
+    get() = Length.meters(
+        this?.doubleValueForUnit(heightUnit) ?: 0.0
+    )
+
+private val heightUnit: HKUnit
     get() = HKUnit.meterUnit()
 
+internal val HKQuantity?.stepsValue: Long
+    get() = this?.doubleValueForUnit(stepsUnit)?.toLong() ?: 0L
+
+private val stepsUnit: HKUnit
+    get() = HKUnit.countUnit()
+
+internal val HKQuantity?.weightValue: Mass
+    get() = Mass.pounds(
+        this?.doubleValueForUnit(weightUnit) ?: 0.0
+    )
+
+private val weightUnit: HKUnit
+    get() = HKUnit.poundUnit()
+// endregion
+
+// region Metadata
 private fun HKQuantitySample.toMetadata(): Metadata {
     return metadata.toMetadata()
 }
@@ -309,13 +403,13 @@ private fun Map<Any?, *>?.toMetadata(): Metadata {
     }
 }
 
-private fun Metadata.toHKMetadata(): Map<Any?, Any> {
+private fun Metadata.toHKMetadata(): MutableMap<Any?, Any> {
     return buildMap {
         put(HKMetadataKeyWasUserEntered, recordingMethod is Metadata.RecordingMethod.ManualEntry)
         id.takeIf { it != Metadata.EMPTY_ID }?.let { put(HKMetadataKeyExternalUUID, id) }
         device?.manufacturer?.let { put(HKMetadataKeyDeviceManufacturerName, it) }
         device?.model?.let { put(HKMetadataKeyDeviceName, it) }
-    }
+    }.toMutableMap()
 }
 
 /**
@@ -328,3 +422,9 @@ private const val HKMetadataKeyWasUserEntered = "HKWasUserEntered"
 // Device Information Keys
 private const val HKMetadataKeyDeviceManufacturerName = "HKDeviceManufacturerName"
 private const val HKMetadataKeyDeviceName = "HKDeviceName"
+
+// Blood glucose
+private const val HKMetadataKeyBloodGlucoseMealTime = "HKBloodGlucoseMealTime"
+private const val HKBloodGlucoseMealTimePreprandial = 1.0
+private const val HKBloodGlucoseMealTimePostprandial = 2.0
+// endregion

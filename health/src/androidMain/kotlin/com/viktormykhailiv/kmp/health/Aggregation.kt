@@ -8,6 +8,7 @@ import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
+import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
@@ -31,6 +32,9 @@ import kotlin.time.toKotlinDuration
  * Note: following `AggregateMetric` must be aligned with [toHealthAggregatedRecord].
  */
 internal fun HealthDataType.toAggregateMetrics(): Set<AggregateMetric<Any>> = when (this) {
+    BloodGlucose ->
+        throw IllegalArgumentException("Aggregated BloodGlucose is not supported")
+
     BloodPressure ->
         setOf(
             BloodPressureRecord.SYSTOLIC_AVG,
@@ -65,6 +69,9 @@ internal fun AggregationResult.toHealthAggregatedRecord(
     endTime: Instant,
     type: HealthDataType,
 ): HealthAggregatedRecord = when (type) {
+    is BloodGlucose ->
+        throw IllegalArgumentException("Aggregated BloodGlucose is not supported")
+
     is BloodPressure -> {
         BloodPressureAggregatedRecord(
             startTime = startTime,

@@ -2,6 +2,7 @@
 
 ## [0.0.11](https://github.com/vitoksmile/HealthKMP/releases/tag/0.0.11)
 
+- Added **blood glucose** data type
 - Added **blood pressure** data type
 - Added **height** data type
 

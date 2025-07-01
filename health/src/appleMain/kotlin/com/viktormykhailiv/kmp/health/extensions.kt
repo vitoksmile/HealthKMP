@@ -2,18 +2,21 @@
 
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.aggregate.BloodGlucoseAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
+import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
@@ -36,6 +39,17 @@ fun Instant.toNSDate(): NSDate = toNSDate()
 fun NSDate.toKotlinInstant(): Instant = toKotlinInstant()
 
 // region Read extensions
+@Throws(Throwable::class)
+suspend fun SwiftHealthManager.readBloodGlucose(
+    startTime: NSDate,
+    endTime: NSDate,
+): List<BloodGlucoseRecord> =
+    readData(
+        startTime = startTime,
+        endTime = endTime,
+        type = BloodGlucose,
+    ).filterIsInstance<BloodGlucoseRecord>()
+
 @Throws(Throwable::class)
 suspend fun SwiftHealthManager.readBloodPressure(
     startTime: NSDate,
@@ -104,6 +118,17 @@ suspend fun SwiftHealthManager.readWeight(
 // endregion
 
 // region Aggregate extensions
+@Throws(Throwable::class)
+suspend fun SwiftHealthManager.aggregateBloodGlucose(
+    startTime: NSDate,
+    endTime: NSDate,
+): BloodGlucoseAggregatedRecord =
+    aggregate(
+        startTime = startTime,
+        endTime = endTime,
+        type = BloodGlucose,
+    ) as BloodGlucoseAggregatedRecord
+
 @Throws(Throwable::class)
 suspend fun SwiftHealthManager.aggregateBloodPressure(
     startTime: NSDate,

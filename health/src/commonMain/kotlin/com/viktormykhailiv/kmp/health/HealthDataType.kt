@@ -2,6 +2,8 @@ package com.viktormykhailiv.kmp.health
 
 sealed interface HealthDataType {
 
+    data object BloodGlucose : HealthDataType
+
     data object BloodPressure : HealthDataType
 
     data object HeartRate : HealthDataType

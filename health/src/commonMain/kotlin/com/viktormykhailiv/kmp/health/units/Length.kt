@@ -55,6 +55,8 @@ data class Length private constructor(
             inMeters.compareTo(other.inMeters)
         }
 
+    override fun toString(): String = "$value ${type.name.lowercase()}"
+
     companion object {
         private val ZEROS = Type.entries.associateWith { Length(value = 0.0, type = it) }
 

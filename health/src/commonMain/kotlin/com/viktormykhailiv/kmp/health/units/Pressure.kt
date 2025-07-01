@@ -23,6 +23,8 @@ data class Pressure private constructor(
 
     override fun compareTo(other: Pressure): Int = value.compareTo(other.value)
 
+    override fun toString(): String = "$value mmHg"
+
     companion object {
         private val ZERO = Pressure(value = 0.0)
 

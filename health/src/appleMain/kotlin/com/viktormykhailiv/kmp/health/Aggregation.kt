@@ -2,12 +2,14 @@
 
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.aggregate.BloodGlucoseAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
@@ -15,13 +17,11 @@ import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
-import com.viktormykhailiv.kmp.health.units.Length
-import com.viktormykhailiv.kmp.health.units.Mass
-import com.viktormykhailiv.kmp.health.units.Pressure
 import kotlinx.cinterop.UnsafeNumber
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toKotlinInstant
 import platform.HealthKit.HKQuantityType
+import platform.HealthKit.HKQuantityTypeIdentifierBloodGlucose
 import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureDiastolic
 import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureSystolic
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
@@ -34,12 +34,12 @@ import platform.HealthKit.HKStatisticsOptionDiscreteAverage
 import platform.HealthKit.HKStatisticsOptionDiscreteMax
 import platform.HealthKit.HKStatisticsOptionDiscreteMin
 import platform.HealthKit.HKStatisticsOptions
-import platform.HealthKit.HKUnit
-import platform.HealthKit.countUnit
-import platform.HealthKit.poundUnit
 import kotlin.time.Duration.Companion.seconds
 
 internal fun HealthDataType.toHKQuantityType(): List<HKQuantityType?> = when (this) {
+    BloodGlucose ->
+        listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodGlucose))
+
     BloodPressure ->
         listOf(
             HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic),
@@ -66,6 +66,9 @@ internal fun HealthDataType.toHKQuantityType(): List<HKQuantityType?> = when (th
  * Note: following `AggregateMetric` must be aligned with [toHealthAggregatedRecord].
  */
 internal fun HealthDataType.toHKStatisticOptions(): HKStatisticsOptions = when (this) {
+    BloodGlucose ->
+        discreteStatisticsOptions()
+
     BloodPressure ->
         discreteStatisticsOptions()
 
@@ -95,6 +98,16 @@ private fun discreteStatisticsOptions(): HKStatisticsOptions {
 internal fun List<HKStatistics>.toHealthAggregatedRecord(): HealthAggregatedRecord? {
     val record = first()
     return when (record.quantityType.identifier) {
+        HKQuantityTypeIdentifierBloodGlucose -> {
+            BloodGlucoseAggregatedRecord(
+                startTime = record.startDate.toKotlinInstant(),
+                endTime = record.endDate.toKotlinInstant(),
+                avg = record.averageQuantity().bloodGlucoseValue,
+                min = record.minimumQuantity().bloodGlucoseValue,
+                max = record.maximumQuantity().bloodGlucoseValue,
+            )
+        }
+
         HKQuantityTypeIdentifierBloodPressureSystolic,
         HKQuantityTypeIdentifierBloodPressureDiastolic -> {
             val systolic =
@@ -106,26 +119,14 @@ internal fun List<HKStatistics>.toHealthAggregatedRecord(): HealthAggregatedReco
                 startTime = record.startDate.toKotlinInstant(),
                 endTime = record.endDate.toKotlinInstant(),
                 systolic = BloodPressureAggregatedRecord.AggregatedRecord(
-                    avg = Pressure.millimetersOfMercury(
-                        systolic.averageQuantity()?.doubleValueForUnit(bloodPressureUnit) ?: 0.0,
-                    ),
-                    min = Pressure.millimetersOfMercury(
-                        systolic.minimumQuantity()?.doubleValueForUnit(bloodPressureUnit) ?: 0.0,
-                    ),
-                    max = Pressure.millimetersOfMercury(
-                        systolic.maximumQuantity()?.doubleValueForUnit(bloodPressureUnit) ?: 0.0,
-                    ),
+                    avg = systolic.averageQuantity().bloodPressureValue,
+                    min = systolic.minimumQuantity().bloodPressureValue,
+                    max = systolic.maximumQuantity().bloodPressureValue,
                 ),
                 diastolic = BloodPressureAggregatedRecord.AggregatedRecord(
-                    avg = Pressure.millimetersOfMercury(
-                        diastolic.averageQuantity()?.doubleValueForUnit(bloodPressureUnit) ?: 0.0,
-                    ),
-                    min = Pressure.millimetersOfMercury(
-                        diastolic.minimumQuantity()?.doubleValueForUnit(bloodPressureUnit) ?: 0.0,
-                    ),
-                    max = Pressure.millimetersOfMercury(
-                        diastolic.maximumQuantity()?.doubleValueForUnit(bloodPressureUnit) ?: 0.0,
-                    ),
+                    avg = diastolic.averageQuantity().bloodPressureValue,
+                    min = diastolic.minimumQuantity().bloodPressureValue,
+                    max = diastolic.maximumQuantity().bloodPressureValue,
                 ),
             )
         }
@@ -134,9 +135,9 @@ internal fun List<HKStatistics>.toHealthAggregatedRecord(): HealthAggregatedReco
             HeartRateAggregatedRecord(
                 startTime = record.startDate.toKotlinInstant(),
                 endTime = record.endDate.toKotlinInstant(),
-                avg = record.averageQuantity()?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L,
-                min = record.minimumQuantity()?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L,
-                max = record.maximumQuantity()?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L,
+                avg = record.averageQuantity().heartRateValue,
+                min = record.minimumQuantity().heartRateValue,
+                max = record.maximumQuantity().heartRateValue,
             )
         }
 
@@ -144,15 +145,9 @@ internal fun List<HKStatistics>.toHealthAggregatedRecord(): HealthAggregatedReco
             HeightAggregatedRecord(
                 startTime = record.startDate.toKotlinInstant(),
                 endTime = record.endDate.toKotlinInstant(),
-                avg = Length.meters(
-                    record.averageQuantity()?.doubleValueForUnit(heightUnit) ?: 0.0
-                ),
-                min = Length.meters(
-                    record.minimumQuantity()?.doubleValueForUnit(heightUnit) ?: 0.0
-                ),
-                max = Length.meters(
-                    record.maximumQuantity()?.doubleValueForUnit(heightUnit) ?: 0.0
-                ),
+                avg = record.averageQuantity().heightValue,
+                min = record.minimumQuantity().heightValue,
+                max = record.maximumQuantity().heightValue,
             )
         }
 
@@ -160,8 +155,7 @@ internal fun List<HKStatistics>.toHealthAggregatedRecord(): HealthAggregatedReco
             StepsAggregatedRecord(
                 startTime = record.startDate.toKotlinInstant(),
                 endTime = record.endDate.toKotlinInstant(),
-                count = record.sumQuantity()?.doubleValueForUnit(HKUnit.countUnit())?.toLong()
-                    ?: 0L,
+                count = record.sumQuantity().stepsValue,
             )
         }
 
@@ -169,15 +163,9 @@ internal fun List<HKStatistics>.toHealthAggregatedRecord(): HealthAggregatedReco
             WeightAggregatedRecord(
                 startTime = record.startDate.toKotlinInstant(),
                 endTime = record.endDate.toKotlinInstant(),
-                avg = Mass.pounds(
-                    record.averageQuantity()?.doubleValueForUnit(HKUnit.poundUnit()) ?: 0.0
-                ),
-                min = Mass.pounds(
-                    record.minimumQuantity()?.doubleValueForUnit(HKUnit.poundUnit()) ?: 0.0
-                ),
-                max = Mass.pounds(
-                    record.maximumQuantity()?.doubleValueForUnit(HKUnit.poundUnit()) ?: 0.0
-                ),
+                avg = record.averageQuantity().weightValue,
+                min = record.minimumQuantity().weightValue,
+                max = record.maximumQuantity().weightValue,
             )
         }
 
