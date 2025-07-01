@@ -5,8 +5,7 @@ import kotlin.jvm.JvmStatic
 import kotlin.jvm.JvmSynthetic
 
 /**
- * Represents a unit of length.
- * Supported units:-
+ * Represents a unit of length. Supported units:
  * - meters - see [Length.meters], [Double.meters]
  * - kilometers - see [Length.kilometers], [Double.kilometers]
  * - miles - see [Length.miles], [Double.miles]

@@ -2,16 +2,19 @@
 
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
+import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
@@ -35,6 +38,16 @@ val IntervalRecord.duration: Duration
     get() = endTime - startTime
 
 // region Read extensions
+suspend fun HealthManager.readBloodPressure(
+    startTime: Instant,
+    endTime: Instant,
+): Result<List<BloodPressureRecord>> =
+    readData(
+        startTime = startTime,
+        endTime = endTime,
+        type = BloodPressure,
+    ).map { it.filterIsInstance<BloodPressureRecord>() }
+
 suspend fun HealthManager.readHeartRate(
     startTime: Instant,
     endTime: Instant,
@@ -87,6 +100,16 @@ suspend fun HealthManager.readWeight(
 // endregion
 
 // region Aggregate extensions
+suspend fun HealthManager.aggregateBloodPressure(
+    startTime: Instant,
+    endTime: Instant,
+): Result<BloodPressureAggregatedRecord> =
+    aggregate(
+        startTime = startTime,
+        endTime = endTime,
+        type = BloodPressure,
+    ).mapCatching { it as BloodPressureAggregatedRecord }
+
 suspend fun HealthManager.aggregateHeartRate(
     startTime: Instant,
     endTime: Instant,

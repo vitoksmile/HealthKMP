@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.legacy.GoogleFitManager

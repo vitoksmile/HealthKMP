@@ -2,6 +2,7 @@
 
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
@@ -12,6 +13,7 @@ import com.viktormykhailiv.kmp.health.records.metadata.Device
 import com.viktormykhailiv.kmp.health.records.metadata.DeviceType
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import com.viktormykhailiv.kmp.health.units.Mass
+import com.viktormykhailiv.kmp.health.units.millimetersOfMercury
 import kotlinx.cinterop.UnsafeNumber
 import kotlinx.datetime.toKotlinInstant
 import kotlinx.datetime.toNSDate
@@ -29,6 +31,8 @@ import platform.HealthKit.HKQuantity
 import platform.HealthKit.HKQuantitySample
 import platform.HealthKit.HKQuantityType
 import platform.HealthKit.HKQuantityTypeIdentifier
+import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureDiastolic
+import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureSystolic
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
 import platform.HealthKit.HKQuantityTypeIdentifierHeartRate
 import platform.HealthKit.HKQuantityTypeIdentifierHeight
@@ -36,6 +40,7 @@ import platform.HealthKit.HKQuantityTypeIdentifierStepCount
 import platform.HealthKit.HKUnit
 import platform.HealthKit.countUnit
 import platform.HealthKit.meterUnit
+import platform.HealthKit.millimeterOfMercuryUnit
 import platform.HealthKit.minuteUnit
 import platform.HealthKit.poundUnit
 import platform.HealthKit.unitDividedByUnit
@@ -50,6 +55,35 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
     val endDate: NSDate
 
     when (record) {
+        is BloodPressureRecord -> {
+            return listOf(
+                HKQuantitySample.quantitySampleWithType(
+                    quantityType = HKQuantityType.quantityTypeForIdentifier(
+                        HKQuantityTypeIdentifierBloodPressureSystolic
+                    ) ?: return null,
+                    quantity = HKQuantity.quantityWithUnit(
+                        unit = bloodPressureUnit,
+                        doubleValue = record.systolic.inMillimetersOfMercury,
+                    ),
+                    startDate = record.time.toNSDate(),
+                    endDate = record.time.toNSDate(),
+                    metadata = metadata.toHKMetadata(),
+                ),
+                HKQuantitySample.quantitySampleWithType(
+                    quantityType = HKQuantityType.quantityTypeForIdentifier(
+                        HKQuantityTypeIdentifierBloodPressureDiastolic
+                    ) ?: return null,
+                    quantity = HKQuantity.quantityWithUnit(
+                        unit = bloodPressureUnit,
+                        doubleValue = record.diastolic.inMillimetersOfMercury,
+                    ),
+                    startDate = record.time.toNSDate(),
+                    endDate = record.time.toNSDate(),
+                    metadata = metadata.toHKMetadata(),
+                ),
+            )
+        }
+
         is HeartRateRecord -> {
             quantityTypeIdentifier = HKQuantityTypeIdentifierHeartRate
 
@@ -170,6 +204,39 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
     if (isEmpty()) return emptyList()
 
     return when (first().quantityType.identifier) {
+        HKQuantityTypeIdentifierBloodPressureSystolic,
+        HKQuantityTypeIdentifierBloodPressureDiastolic -> {
+            val systolicList =
+                this.filter { it.quantityType.identifier == HKQuantityTypeIdentifierBloodPressureSystolic }
+                    .groupBy { it.startDate.toKotlinInstant() to it.endDate.toKotlinInstant() }
+            val diastolicList =
+                this.filter { it.quantityType.identifier == HKQuantityTypeIdentifierBloodPressureDiastolic }
+                    .groupBy { it.startDate.toKotlinInstant() to it.endDate.toKotlinInstant() }
+
+            val records = mutableListOf<BloodPressureRecord>()
+            for ((date, systolicList) in systolicList) {
+                val diastolicList = diastolicList[date] ?: continue
+
+                for (i in systolicList.indices) {
+                    if (i > systolicList.size - 1) break
+                    val systolic = systolicList[i]
+                    val diastolic = diastolicList[i]
+
+                    records.add(
+                        BloodPressureRecord(
+                            time = date.first,
+                            systolic = systolic.quantity.doubleValueForUnit(bloodPressureUnit).millimetersOfMercury,
+                            diastolic = diastolic.quantity.doubleValueForUnit(bloodPressureUnit).millimetersOfMercury,
+                            bodyPosition = null,
+                            measurementLocation = null,
+                            metadata = systolic.toMetadata(),
+                        )
+                    )
+                }
+            }
+            records
+        }
+
         HKQuantityTypeIdentifierHeartRate -> {
             val metadata = firstOrNull()?.metadata.toMetadata()
             map { sample ->
@@ -205,6 +272,9 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
         else -> emptyList()
     }
 }
+
+internal val bloodPressureUnit: HKUnit
+    get() = HKUnit.millimeterOfMercuryUnit()
 
 internal val heartRateUnit: HKUnit
     get() = HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit())

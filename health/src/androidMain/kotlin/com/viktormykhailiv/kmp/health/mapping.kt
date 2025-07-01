@@ -1,5 +1,6 @@
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
@@ -11,20 +12,45 @@ import com.viktormykhailiv.kmp.health.records.metadata.DeviceType
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
+import com.viktormykhailiv.kmp.health.units.Pressure
 import kotlinx.datetime.toJavaInstant
 import kotlinx.datetime.toKotlinInstant
 import androidx.health.connect.client.records.metadata.Device as HCDevice
 import androidx.health.connect.client.records.metadata.Metadata as HCMetadata
 import androidx.health.connect.client.records.Record as HCRecord
+import androidx.health.connect.client.records.BloodPressureRecord as HCBloodPressureRecord
 import androidx.health.connect.client.records.HeartRateRecord as HCHeartRateRecord
 import androidx.health.connect.client.records.HeightRecord as HCHeightRecord
 import androidx.health.connect.client.records.SleepSessionRecord as HCSleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord as HCStepsRecord
 import androidx.health.connect.client.records.WeightRecord as HCWeightRecord
-import androidx.health.connect.client.units.Mass as HCMass
 import androidx.health.connect.client.units.Length as HCLength
+import androidx.health.connect.client.units.Mass as HCMass
+import androidx.health.connect.client.units.Pressure as HCPressure
 
 internal fun HealthRecord.toHCRecord(): HCRecord? = when (val record = this) {
+    is BloodPressureRecord -> HCBloodPressureRecord(
+        time = record.time.toJavaInstant(),
+        zoneOffset = null,
+        metadata = record.metadata.toHCMetadata(),
+        systolic = systolic.toHCPressure(),
+        diastolic = diastolic.toHCPressure(),
+        bodyPosition = when (bodyPosition) {
+            BloodPressureRecord.BodyPosition.StandingUp -> HCBloodPressureRecord.BODY_POSITION_STANDING_UP
+            BloodPressureRecord.BodyPosition.SittingDown -> HCBloodPressureRecord.BODY_POSITION_SITTING_DOWN
+            BloodPressureRecord.BodyPosition.LyingDown -> HCBloodPressureRecord.BODY_POSITION_LYING_DOWN
+            BloodPressureRecord.BodyPosition.Reclining -> HCBloodPressureRecord.BODY_POSITION_RECLINING
+            null -> HCBloodPressureRecord.BODY_POSITION_UNKNOWN
+        },
+        measurementLocation = when (measurementLocation) {
+            BloodPressureRecord.MeasurementLocation.LeftWrist -> HCBloodPressureRecord.MEASUREMENT_LOCATION_LEFT_WRIST
+            BloodPressureRecord.MeasurementLocation.RightWrist -> HCBloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_WRIST
+            BloodPressureRecord.MeasurementLocation.LeftUpperArm -> HCBloodPressureRecord.MEASUREMENT_LOCATION_LEFT_UPPER_ARM
+            BloodPressureRecord.MeasurementLocation.RightUpperArm -> HCBloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_UPPER_ARM
+            null -> HCBloodPressureRecord.MEASUREMENT_LOCATION_UNKNOWN
+        },
+    )
+
     is HeartRateRecord -> HCHeartRateRecord(
         startTime = record.startTime.toJavaInstant(),
         endTime = record.endTime.toJavaInstant(),
@@ -42,7 +68,7 @@ internal fun HealthRecord.toHCRecord(): HCRecord? = when (val record = this) {
     is HeightRecord -> HCHeightRecord(
         time = record.time.toJavaInstant(),
         zoneOffset = null,
-        height = HCLength.meters(record.height.inMeters),
+        height = record.height.toHCLength(),
         metadata = record.metadata.toHCMetadata(),
     )
 
@@ -90,6 +116,27 @@ internal fun HealthRecord.toHCRecord(): HCRecord? = when (val record = this) {
 }
 
 internal fun HCRecord.toHealthRecord(): HealthRecord? = when (val record = this) {
+    is HCBloodPressureRecord -> BloodPressureRecord(
+        time = record.time.toKotlinInstant(),
+        systolic = systolic.toPressure(),
+        diastolic = diastolic.toPressure(),
+        bodyPosition = when (bodyPosition) {
+            HCBloodPressureRecord.BODY_POSITION_STANDING_UP -> BloodPressureRecord.BodyPosition.StandingUp
+            HCBloodPressureRecord.BODY_POSITION_SITTING_DOWN -> BloodPressureRecord.BodyPosition.SittingDown
+            HCBloodPressureRecord.BODY_POSITION_LYING_DOWN -> BloodPressureRecord.BodyPosition.LyingDown
+            HCBloodPressureRecord.BODY_POSITION_RECLINING -> BloodPressureRecord.BodyPosition.Reclining
+            else -> null
+        },
+        measurementLocation = when (measurementLocation) {
+            HCBloodPressureRecord.MEASUREMENT_LOCATION_LEFT_WRIST -> BloodPressureRecord.MeasurementLocation.LeftWrist
+            HCBloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_WRIST -> BloodPressureRecord.MeasurementLocation.RightWrist
+            HCBloodPressureRecord.MEASUREMENT_LOCATION_LEFT_UPPER_ARM -> BloodPressureRecord.MeasurementLocation.LeftUpperArm
+            HCBloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_UPPER_ARM -> BloodPressureRecord.MeasurementLocation.RightUpperArm
+            else -> null
+        },
+        metadata = record.metadata.toMetadata(),
+    )
+
     is HCHeartRateRecord -> HeartRateRecord(
         startTime = record.startTime.toKotlinInstant(),
         endTime = record.endTime.toKotlinInstant(),
@@ -104,7 +151,7 @@ internal fun HCRecord.toHealthRecord(): HealthRecord? = when (val record = this)
 
     is HCHeightRecord -> HeightRecord(
         time = record.time.toKotlinInstant(),
-        height = Length.meters(record.height.inMeters),
+        height = record.height.toLength(),
         metadata = record.metadata.toMetadata(),
     )
 
@@ -211,6 +258,20 @@ private fun HCDevice.toDevice(): Device = Device(
     model = model,
 )
 
-private fun Mass.toHCMass(): HCMass = HCMass.kilograms(inKilograms)
+private fun Mass.toHCMass(): HCMass =
+    HCMass.kilograms(inKilograms)
 
-internal fun HCMass.toMass(): Mass = Mass.kilograms(inKilograms)
+internal fun HCMass.toMass(): Mass =
+    Mass.kilograms(inKilograms)
+
+private fun Length.toHCLength(): HCLength =
+    HCLength.meters(inMeters)
+
+internal fun HCLength.toLength(): Length =
+    Length.meters(inMeters)
+
+private fun Pressure.toHCPressure(): HCPressure =
+    HCPressure.millimetersOfMercury(inMillimetersOfMercury)
+
+internal fun HCPressure.toPressure(): Pressure =
+    Pressure.millimetersOfMercury(inMillimetersOfMercury)

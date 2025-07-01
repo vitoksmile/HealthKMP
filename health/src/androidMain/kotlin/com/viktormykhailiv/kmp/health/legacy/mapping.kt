@@ -8,6 +8,7 @@ import com.google.android.gms.fitness.data.Device as FitnessDevice
 import com.google.android.gms.fitness.data.Field
 import com.google.android.gms.fitness.data.SleepStages
 import com.viktormykhailiv.kmp.health.HealthDataType
+import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
@@ -32,6 +33,9 @@ import java.util.concurrent.TimeUnit
 
 internal fun List<DataPoint>.toHealthRecords(type: HealthDataType): List<HealthRecord> {
     return when (type) {
+        is BloodPressure ->
+            throw IllegalArgumentException("BloodPressure is not supported")
+
         is HeartRate -> {
             map { dataPoint ->
                 HeartRateRecord(

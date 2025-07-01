@@ -32,16 +32,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
+import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
@@ -51,6 +54,7 @@ import com.viktormykhailiv.kmp.health.records.WeightRecord
 import com.viktormykhailiv.kmp.health.sleep.SleepSessionCanvas
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
+import com.viktormykhailiv.kmp.health.units.millimetersOfMercury
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlin.random.Random
@@ -65,6 +69,7 @@ fun SampleApp() {
 
     val readTypes = remember {
         listOf(
+            BloodPressure,
             HeartRate,
             Height,
             Sleep,
@@ -74,6 +79,7 @@ fun SampleApp() {
     }
     val writeTypes = remember {
         listOf(
+            BloodPressure,
             HeartRate,
             Height,
             Sleep,
@@ -194,6 +200,28 @@ fun SampleApp() {
                                 Text("$type records count ${records.size}")
 
                                 when (type) {
+                                    is BloodPressure -> {
+                                        val bloodPressure =
+                                            records.filterIsInstance<BloodPressureRecord>()
+                                        val systolicAvg =
+                                            bloodPressure.map { it.systolic.inMillimetersOfMercury }
+                                                .average()
+                                        val systolicMin =
+                                            bloodPressure.minOfOrNull { it.systolic.inMillimetersOfMercury }
+                                        val systolicMax =
+                                            bloodPressure.maxOfOrNull { it.systolic.inMillimetersOfMercury }
+                                        val diastolicAvg =
+                                            bloodPressure.map { it.diastolic.inMillimetersOfMercury }
+                                                .average()
+                                        val diastolicMin =
+                                            bloodPressure.minOfOrNull { it.diastolic.inMillimetersOfMercury }
+                                        val diastolicMax =
+                                            bloodPressure.maxOfOrNull { it.diastolic.inMillimetersOfMercury }
+                                        Text("Average $systolicAvg/$diastolicAvg")
+                                        Text("Min $systolicMin/$diastolicMin")
+                                        Text("Max $systolicMax/$diastolicMax")
+                                    }
+
                                     is HeartRate -> {
                                         val heartRates = records.filterIsInstance<HeartRateRecord>()
                                             .map { it.samples }
@@ -259,6 +287,12 @@ fun SampleApp() {
                                 Text("Aggregated $type")
 
                                 when (record) {
+                                    is BloodPressureAggregatedRecord -> {
+                                        Text("Average ${record.systolic.avg}/${record.diastolic.avg}")
+                                        Text("Min ${record.systolic.min}/${record.diastolic.min}")
+                                        Text("Max ${record.systolic.max}/${record.diastolic.max}")
+                                    }
+
                                     is HeartRateAggregatedRecord -> {
                                         Text("Average ${record.avg}")
                                         Text("Min ${record.min}")
@@ -294,6 +328,51 @@ fun SampleApp() {
                     }
 
                     Spacer(modifier = Modifier.height(64.dp))
+                    var systolicBloodPressure by remember { mutableStateOf(120) }
+                    var diastolicBloodPressure by remember { mutableStateOf(80) }
+                    TextField(
+                        value = systolicBloodPressure.toString(),
+                        onValueChange = { systolicBloodPressure = it.toIntOrNull() ?: 0 },
+                        label = { Text("Systolic blood pressure") },
+                        keyboardOptions = remember { KeyboardOptions(keyboardType = KeyboardType.Number) },
+                    )
+                    TextField(
+                        value = diastolicBloodPressure.toString(),
+                        onValueChange = { diastolicBloodPressure = it.toIntOrNull() ?: 0 },
+                        label = { Text("Diastolic blood pressure") },
+                        keyboardOptions = remember { KeyboardOptions(keyboardType = KeyboardType.Number) },
+                    )
+                    var writeBloodPressure by remember { mutableStateOf<Result<Unit>?>(null) }
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                writeBloodPressure = health.writeData(
+                                    listOf(
+                                        BloodPressureRecord(
+                                            time = Clock.System.now(),
+                                            systolic = systolicBloodPressure.millimetersOfMercury,
+                                            diastolic = diastolicBloodPressure.millimetersOfMercury,
+                                            bodyPosition = null,
+                                            measurementLocation = null,
+                                            metadata = generateManualEntryMetadata(),
+                                        )
+                                    )
+                                )
+                            }
+                        },
+                    ) {
+                        Text("Write $systolicBloodPressure/$diastolicBloodPressure blood pressure")
+                    }
+                    writeBloodPressure
+                        ?.onSuccess {
+                            Text("Steps wrote blood pressure")
+                        }
+                        ?.onFailure {
+                            Text("Failed to write blood pressure $it")
+                        }
+
+                    Divider()
+                    Spacer(modifier = Modifier.height(16.dp))
                     var writeHeartRate by remember { mutableStateOf<Result<Unit>?>(null) }
                     Button(
                         onClick = {

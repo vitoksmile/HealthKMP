@@ -2,23 +2,27 @@ package com.viktormykhailiv.kmp.health
 
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.aggregate.AggregationResult
+import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
+import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
-import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.kilograms
+import com.viktormykhailiv.kmp.health.units.meters
+import com.viktormykhailiv.kmp.health.units.millimetersOfMercury
 import kotlinx.datetime.Instant
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.toKotlinDuration
@@ -27,6 +31,16 @@ import kotlin.time.toKotlinDuration
  * Note: following `AggregateMetric` must be aligned with [toHealthAggregatedRecord].
  */
 internal fun HealthDataType.toAggregateMetrics(): Set<AggregateMetric<Any>> = when (this) {
+    BloodPressure ->
+        setOf(
+            BloodPressureRecord.SYSTOLIC_AVG,
+            BloodPressureRecord.SYSTOLIC_MIN,
+            BloodPressureRecord.SYSTOLIC_MAX,
+            BloodPressureRecord.DIASTOLIC_AVG,
+            BloodPressureRecord.DIASTOLIC_MIN,
+            BloodPressureRecord.DIASTOLIC_MAX,
+        )
+
     HeartRate ->
         setOf(HeartRateRecord.BPM_AVG, HeartRateRecord.BPM_MIN, HeartRateRecord.BPM_MAX)
 
@@ -51,6 +65,29 @@ internal fun AggregationResult.toHealthAggregatedRecord(
     endTime: Instant,
     type: HealthDataType,
 ): HealthAggregatedRecord = when (type) {
+    is BloodPressure -> {
+        BloodPressureAggregatedRecord(
+            startTime = startTime,
+            endTime = endTime,
+            systolic = BloodPressureAggregatedRecord.AggregatedRecord(
+                avg = get(BloodPressureRecord.SYSTOLIC_AVG)?.toPressure()
+                    ?: 0.millimetersOfMercury,
+                min = get(BloodPressureRecord.SYSTOLIC_MIN)?.toPressure()
+                    ?: 0.millimetersOfMercury,
+                max = get(BloodPressureRecord.SYSTOLIC_MAX)?.toPressure()
+                    ?: 0.millimetersOfMercury,
+            ),
+            diastolic = BloodPressureAggregatedRecord.AggregatedRecord(
+                avg = get(BloodPressureRecord.DIASTOLIC_AVG)?.toPressure()
+                    ?: 0.millimetersOfMercury,
+                min = get(BloodPressureRecord.DIASTOLIC_MIN)?.toPressure()
+                    ?: 0.millimetersOfMercury,
+                max = get(BloodPressureRecord.DIASTOLIC_MAX)?.toPressure()
+                    ?: 0.millimetersOfMercury,
+            ),
+        )
+    }
+
     is HeartRate -> {
         HeartRateAggregatedRecord(
             startTime = startTime,
@@ -65,9 +102,9 @@ internal fun AggregationResult.toHealthAggregatedRecord(
         HeightAggregatedRecord(
             startTime = startTime,
             endTime = endTime,
-            avg = Length.meters(get(HeightRecord.HEIGHT_AVG)?.inMeters ?: 0.0),
-            min = Length.meters(get(HeightRecord.HEIGHT_MIN)?.inMeters ?: 0.0),
-            max = Length.meters(get(HeightRecord.HEIGHT_MAX)?.inMeters ?: 0.0),
+            avg = get(HeightRecord.HEIGHT_AVG)?.toLength() ?: 0.meters,
+            min = get(HeightRecord.HEIGHT_MIN)?.toLength() ?: 0.meters,
+            max = get(HeightRecord.HEIGHT_MAX)?.toLength() ?: 0.meters,
         )
     }
 

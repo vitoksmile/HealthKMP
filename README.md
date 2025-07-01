@@ -23,11 +23,17 @@ HealthKMP supports:
 Note that for Android, the target device **needs** to have [Google Fit](https://www.google.com/fit/) or [Health Connect](https://health.google/health-connect-android/) installed.
 
 ## Supported data types (iOS, watchOS, Android)
+- Blood pressure
 - Heart rate
 - Height
 - Sleep
 - Steps
 - Weight
+
+## Supported units
+- Length: meters, kilometers, miles, inches, feet
+- Mass: grams, kilograms, milligrams, micrograms, ounces, pounds
+- Pressure: millimeters of Mercury (mmHg)
 
 ## Requesting permission
 
@@ -175,13 +181,17 @@ Requesting access to data types before reading them
 ```kotlin
 health.requestAuthorization(
     readTypes = listOf(
+        BloodPressure,
         HeartRate,
+        Height,
         Sleep,
         Steps,
         Weight,
     ),
     writeTypes = listOf(
+       BloodPressure,
         HeartRate,
+        Height,
         Sleep,
         Steps,
         Weight,

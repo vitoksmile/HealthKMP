@@ -3,6 +3,7 @@ package com.viktormykhailiv.kmp.health.legacy
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.DataType
 import com.viktormykhailiv.kmp.health.HealthDataType
+import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
@@ -30,6 +31,8 @@ internal fun fitnessOptions(
 }
 
 internal fun HealthDataType.toDataType(): DataType = when (this) {
+    BloodPressure -> throw IllegalArgumentException("BloodPressure is not supported")
+
     HeartRate -> DataType.TYPE_HEART_RATE_BPM
 
     Height -> DataType.TYPE_HEIGHT

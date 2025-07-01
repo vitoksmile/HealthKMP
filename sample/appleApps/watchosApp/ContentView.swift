@@ -2,6 +2,7 @@ import SwiftUI
 import HealthKMP
 
 enum Destination: Hashable {
+    case bloodPressure
     case heartRate
     case height
     case steps
@@ -43,6 +44,7 @@ struct ContentView: View {
                         })
                     } else {
                         DataTypesView(
+                            navigateToBloodPressure: { navigation.append(Destination.bloodPressure) },
                             navigateToHeartRate: { navigation.append(Destination.heartRate) },
                             navigateToHeight: { navigation.append(Destination.height) },
                             navigateToSleep: {},
@@ -55,6 +57,8 @@ struct ContentView: View {
             .navigationTitle("HealthKMP")
             .navigationDestination(for: Destination.self) { destination in
                 switch destination {
+                case .bloodPressure:
+                    BloodPressureView()
                 case .heartRate:
                     HeartRateView()
                 case .height:

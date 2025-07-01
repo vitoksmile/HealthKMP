@@ -2,11 +2,13 @@
 
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
@@ -15,10 +17,13 @@ import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
+import com.viktormykhailiv.kmp.health.units.Pressure
 import kotlinx.cinterop.UnsafeNumber
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toKotlinInstant
 import platform.HealthKit.HKQuantityType
+import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureDiastolic
+import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureSystolic
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
 import platform.HealthKit.HKQuantityTypeIdentifierHeartRate
 import platform.HealthKit.HKQuantityTypeIdentifierHeight
@@ -34,32 +39,41 @@ import platform.HealthKit.countUnit
 import platform.HealthKit.poundUnit
 import kotlin.time.Duration.Companion.seconds
 
-internal fun HealthDataType.toHKQuantityType(): HKQuantityType? = when (this) {
+internal fun HealthDataType.toHKQuantityType(): List<HKQuantityType?> = when (this) {
+    BloodPressure ->
+        listOf(
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic),
+            HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic),
+        )
+
     HeartRate ->
-        HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
+        listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate))
 
     Height ->
-        HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeight)
+        listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeight))
 
     Sleep ->
         throw IllegalArgumentException("Sleep is not supported for aggregation")
 
     Steps ->
-        HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
+        listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount))
 
     Weight ->
-        HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)
+        listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass))
 }
 
 /**
  * Note: following `AggregateMetric` must be aligned with [toHealthAggregatedRecord].
  */
 internal fun HealthDataType.toHKStatisticOptions(): HKStatisticsOptions = when (this) {
+    BloodPressure ->
+        discreteStatisticsOptions()
+
     HeartRate ->
-        HKStatisticsOptionDiscreteAverage or HKStatisticsOptionDiscreteMin or HKStatisticsOptionDiscreteMax
+        discreteStatisticsOptions()
 
     Height ->
-        HKStatisticsOptionDiscreteAverage or HKStatisticsOptionDiscreteMin or HKStatisticsOptionDiscreteMax
+        discreteStatisticsOptions()
 
     Sleep ->
         throw IllegalArgumentException("Sleep is not supported for aggregation")
@@ -68,49 +82,102 @@ internal fun HealthDataType.toHKStatisticOptions(): HKStatisticsOptions = when (
         HKStatisticsOptionCumulativeSum
 
     Weight ->
-        HKStatisticsOptionDiscreteAverage or HKStatisticsOptionDiscreteMin or HKStatisticsOptionDiscreteMax
+        discreteStatisticsOptions()
+}
+
+private fun discreteStatisticsOptions(): HKStatisticsOptions {
+    return HKStatisticsOptionDiscreteAverage or HKStatisticsOptionDiscreteMin or HKStatisticsOptionDiscreteMax
 }
 
 /**
  * Note: following `AggregateMetric` must be aligned with [toHKStatisticOptions].
  */
-internal fun HKStatistics.toHealthAggregatedRecord(): HealthAggregatedRecord? {
-    return when (quantityType.identifier) {
+internal fun List<HKStatistics>.toHealthAggregatedRecord(): HealthAggregatedRecord? {
+    val record = first()
+    return when (record.quantityType.identifier) {
+        HKQuantityTypeIdentifierBloodPressureSystolic,
+        HKQuantityTypeIdentifierBloodPressureDiastolic -> {
+            val systolic =
+                first { it.quantityType.identifier == HKQuantityTypeIdentifierBloodPressureSystolic }
+            val diastolic =
+                first { it.quantityType.identifier == HKQuantityTypeIdentifierBloodPressureDiastolic }
+
+            BloodPressureAggregatedRecord(
+                startTime = record.startDate.toKotlinInstant(),
+                endTime = record.endDate.toKotlinInstant(),
+                systolic = BloodPressureAggregatedRecord.AggregatedRecord(
+                    avg = Pressure.millimetersOfMercury(
+                        systolic.averageQuantity()?.doubleValueForUnit(bloodPressureUnit) ?: 0.0,
+                    ),
+                    min = Pressure.millimetersOfMercury(
+                        systolic.minimumQuantity()?.doubleValueForUnit(bloodPressureUnit) ?: 0.0,
+                    ),
+                    max = Pressure.millimetersOfMercury(
+                        systolic.maximumQuantity()?.doubleValueForUnit(bloodPressureUnit) ?: 0.0,
+                    ),
+                ),
+                diastolic = BloodPressureAggregatedRecord.AggregatedRecord(
+                    avg = Pressure.millimetersOfMercury(
+                        diastolic.averageQuantity()?.doubleValueForUnit(bloodPressureUnit) ?: 0.0,
+                    ),
+                    min = Pressure.millimetersOfMercury(
+                        diastolic.minimumQuantity()?.doubleValueForUnit(bloodPressureUnit) ?: 0.0,
+                    ),
+                    max = Pressure.millimetersOfMercury(
+                        diastolic.maximumQuantity()?.doubleValueForUnit(bloodPressureUnit) ?: 0.0,
+                    ),
+                ),
+            )
+        }
+
         HKQuantityTypeIdentifierHeartRate -> {
             HeartRateAggregatedRecord(
-                startTime = startDate.toKotlinInstant(),
-                endTime = endDate.toKotlinInstant(),
-                avg = averageQuantity()?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L,
-                min = minimumQuantity()?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L,
-                max = maximumQuantity()?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L,
+                startTime = record.startDate.toKotlinInstant(),
+                endTime = record.endDate.toKotlinInstant(),
+                avg = record.averageQuantity()?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L,
+                min = record.minimumQuantity()?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L,
+                max = record.maximumQuantity()?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L,
             )
         }
 
         HKQuantityTypeIdentifierHeight -> {
             HeightAggregatedRecord(
-                startTime = startDate.toKotlinInstant(),
-                endTime = endDate.toKotlinInstant(),
-                avg = Length.meters(averageQuantity()?.doubleValueForUnit(heightUnit) ?: 0.0),
-                min = Length.meters(minimumQuantity()?.doubleValueForUnit(heightUnit) ?: 0.0),
-                max = Length.meters(maximumQuantity()?.doubleValueForUnit(heightUnit) ?: 0.0),
+                startTime = record.startDate.toKotlinInstant(),
+                endTime = record.endDate.toKotlinInstant(),
+                avg = Length.meters(
+                    record.averageQuantity()?.doubleValueForUnit(heightUnit) ?: 0.0
+                ),
+                min = Length.meters(
+                    record.minimumQuantity()?.doubleValueForUnit(heightUnit) ?: 0.0
+                ),
+                max = Length.meters(
+                    record.maximumQuantity()?.doubleValueForUnit(heightUnit) ?: 0.0
+                ),
             )
         }
 
         HKQuantityTypeIdentifierStepCount -> {
             StepsAggregatedRecord(
-                startTime = startDate.toKotlinInstant(),
-                endTime = endDate.toKotlinInstant(),
-                count = sumQuantity()?.doubleValueForUnit(HKUnit.countUnit())?.toLong() ?: 0L,
+                startTime = record.startDate.toKotlinInstant(),
+                endTime = record.endDate.toKotlinInstant(),
+                count = record.sumQuantity()?.doubleValueForUnit(HKUnit.countUnit())?.toLong()
+                    ?: 0L,
             )
         }
 
         HKQuantityTypeIdentifierBodyMass -> {
             WeightAggregatedRecord(
-                startTime = startDate.toKotlinInstant(),
-                endTime = endDate.toKotlinInstant(),
-                avg = Mass.pounds(averageQuantity()?.doubleValueForUnit(HKUnit.poundUnit()) ?: 0.0),
-                min = Mass.pounds(minimumQuantity()?.doubleValueForUnit(HKUnit.poundUnit()) ?: 0.0),
-                max = Mass.pounds(maximumQuantity()?.doubleValueForUnit(HKUnit.poundUnit()) ?: 0.0),
+                startTime = record.startDate.toKotlinInstant(),
+                endTime = record.endDate.toKotlinInstant(),
+                avg = Mass.pounds(
+                    record.averageQuantity()?.doubleValueForUnit(HKUnit.poundUnit()) ?: 0.0
+                ),
+                min = Mass.pounds(
+                    record.minimumQuantity()?.doubleValueForUnit(HKUnit.poundUnit()) ?: 0.0
+                ),
+                max = Mass.pounds(
+                    record.maximumQuantity()?.doubleValueForUnit(HKUnit.poundUnit()) ?: 0.0
+                ),
             )
         }
 

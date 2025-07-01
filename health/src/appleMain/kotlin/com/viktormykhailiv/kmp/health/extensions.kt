@@ -2,16 +2,19 @@
 
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
+import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
@@ -33,6 +36,17 @@ fun Instant.toNSDate(): NSDate = toNSDate()
 fun NSDate.toKotlinInstant(): Instant = toKotlinInstant()
 
 // region Read extensions
+@Throws(Throwable::class)
+suspend fun SwiftHealthManager.readBloodPressure(
+    startTime: NSDate,
+    endTime: NSDate,
+): List<BloodPressureRecord> =
+    readData(
+        startTime = startTime,
+        endTime = endTime,
+        type = BloodPressure,
+    ).filterIsInstance<BloodPressureRecord>()
+
 @Throws(Throwable::class)
 suspend fun SwiftHealthManager.readHeartRage(
     startTime: NSDate,
@@ -91,62 +105,68 @@ suspend fun SwiftHealthManager.readWeight(
 
 // region Aggregate extensions
 @Throws(Throwable::class)
+suspend fun SwiftHealthManager.aggregateBloodPressure(
+    startTime: NSDate,
+    endTime: NSDate,
+): BloodPressureAggregatedRecord =
+    aggregate(
+        startTime = startTime,
+        endTime = endTime,
+        type = BloodPressure,
+    ) as BloodPressureAggregatedRecord
+
+@Throws(Throwable::class)
 suspend fun SwiftHealthManager.aggregateHeartRate(
     startTime: NSDate,
     endTime: NSDate,
-): HeartRateAggregatedRecord {
-    return aggregate(
+): HeartRateAggregatedRecord =
+    aggregate(
         startTime = startTime,
         endTime = endTime,
         type = HeartRate,
     ) as HeartRateAggregatedRecord
-}
 
 @Throws(Throwable::class)
 suspend fun SwiftHealthManager.aggregateHeight(
     startTime: NSDate,
     endTime: NSDate,
-): HeightAggregatedRecord {
-    return aggregate(
+): HeightAggregatedRecord =
+    aggregate(
         startTime = startTime,
         endTime = endTime,
         type = Height,
     ) as HeightAggregatedRecord
-}
 
 @Throws(Throwable::class)
 suspend fun SwiftHealthManager.aggregateSleep(
     startTime: NSDate,
     endTime: NSDate,
-): SleepAggregatedRecord {
-    return aggregate(
+): SleepAggregatedRecord =
+    aggregate(
         startTime = startTime,
         endTime = endTime,
         type = Sleep,
     ) as SleepAggregatedRecord
-}
 
 @Throws(Throwable::class)
 suspend fun SwiftHealthManager.aggregateSteps(
     startTime: NSDate,
     endTime: NSDate,
-): StepsAggregatedRecord {
-    return aggregate(
+): StepsAggregatedRecord =
+    aggregate(
         startTime = startTime,
         endTime = endTime,
         type = Steps,
     ) as StepsAggregatedRecord
-}
 
 @Throws(Throwable::class)
 suspend fun SwiftHealthManager.aggregateWeight(
     startTime: NSDate,
     endTime: NSDate,
-): WeightAggregatedRecord {
-    return aggregate(
+): WeightAggregatedRecord =
+    aggregate(
         startTime = startTime,
         endTime = endTime,
         type = Weight,
     ) as WeightAggregatedRecord
-}
 // endregion
