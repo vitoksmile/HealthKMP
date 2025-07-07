@@ -4,6 +4,7 @@ package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
+import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
@@ -11,6 +12,7 @@ import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import com.viktormykhailiv.kmp.health.aggregate.BloodGlucoseAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.BodyTemperatureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
@@ -18,6 +20,7 @@ import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
+import com.viktormykhailiv.kmp.health.records.BodyTemperatureRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
@@ -60,6 +63,17 @@ suspend fun SwiftHealthManager.readBloodPressure(
         endTime = endTime,
         type = BloodPressure,
     ).filterIsInstance<BloodPressureRecord>()
+
+@Throws(Throwable::class)
+suspend fun SwiftHealthManager.readBodyTemperature(
+    startTime: NSDate,
+    endTime: NSDate,
+): List<BodyTemperatureRecord> =
+    readData(
+        startTime = startTime,
+        endTime = endTime,
+        type = BodyTemperature,
+    ).filterIsInstance<BodyTemperatureRecord>()
 
 @Throws(Throwable::class)
 suspend fun SwiftHealthManager.readHeartRage(
@@ -139,6 +153,17 @@ suspend fun SwiftHealthManager.aggregateBloodPressure(
         endTime = endTime,
         type = BloodPressure,
     ) as BloodPressureAggregatedRecord
+
+@Throws(Throwable::class)
+suspend fun SwiftHealthManager.aggregateBodyTemperature(
+    startTime: NSDate,
+    endTime: NSDate,
+): BodyTemperatureAggregatedRecord =
+    aggregate(
+        startTime = startTime,
+        endTime = endTime,
+        type = BodyTemperature,
+    ) as BodyTemperatureAggregatedRecord
 
 @Throws(Throwable::class)
 suspend fun SwiftHealthManager.aggregateHeartRate(

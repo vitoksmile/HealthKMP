@@ -4,6 +4,7 @@ struct DataTypesView : View {
     
     let navigateToBloodGlucose: () -> Void
     let navigateToBloodPressure: () -> Void
+    let navigateToBodyTemperature: () -> Void
     let navigateToHeartRate: () -> Void
     let navigateToHeight: () -> Void
     let navigateToSleep: () -> Void
@@ -17,6 +18,10 @@ struct DataTypesView : View {
         
         Button("Blood pressure") {
             navigateToBloodPressure()
+        }
+        
+        Button("Body temperature") {
+            navigateToBodyTemperature()
         }
         
         Button("Heart rate") {
@@ -45,6 +50,7 @@ struct DataTypesView : View {
     DataTypesView(
         navigateToBloodGlucose: {},
         navigateToBloodPressure: {},
+        navigateToBodyTemperature: {},
         navigateToHeartRate: {},
         navigateToHeight: {},
         navigateToSleep: {},

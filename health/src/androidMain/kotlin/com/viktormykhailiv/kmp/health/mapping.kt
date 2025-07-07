@@ -2,6 +2,7 @@ package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
+import com.viktormykhailiv.kmp.health.records.BodyTemperatureRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.MealType
@@ -16,6 +17,7 @@ import com.viktormykhailiv.kmp.health.units.BloodGlucose
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
 import com.viktormykhailiv.kmp.health.units.Pressure
+import com.viktormykhailiv.kmp.health.units.Temperature
 import kotlinx.datetime.toJavaInstant
 import kotlinx.datetime.toKotlinInstant
 import androidx.health.connect.client.records.metadata.Device as HCDevice
@@ -23,6 +25,8 @@ import androidx.health.connect.client.records.metadata.Metadata as HCMetadata
 import androidx.health.connect.client.records.Record as HCRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord as HCBloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord as HCBloodPressureRecord
+import androidx.health.connect.client.records.BodyTemperatureRecord as HCBodyTemperatureRecord
+import androidx.health.connect.client.records.BodyTemperatureMeasurementLocation as HCBodyTemperatureMeasurementLocation
 import androidx.health.connect.client.records.HeartRateRecord as HCHeartRateRecord
 import androidx.health.connect.client.records.HeightRecord as HCHeightRecord
 import androidx.health.connect.client.records.MealType as HCMealType
@@ -33,6 +37,7 @@ import androidx.health.connect.client.units.BloodGlucose as HCBloodGlucose
 import androidx.health.connect.client.units.Length as HCLength
 import androidx.health.connect.client.units.Mass as HCMass
 import androidx.health.connect.client.units.Pressure as HCPressure
+import androidx.health.connect.client.units.Temperature as HCTemperature
 
 internal fun HealthRecord.toHCRecord(): HCRecord? = when (val record = this) {
     is BloodGlucoseRecord -> HCBloodGlucoseRecord(
@@ -83,6 +88,26 @@ internal fun HealthRecord.toHCRecord(): HCRecord? = when (val record = this) {
             BloodPressureRecord.MeasurementLocation.LeftUpperArm -> HCBloodPressureRecord.MEASUREMENT_LOCATION_LEFT_UPPER_ARM
             BloodPressureRecord.MeasurementLocation.RightUpperArm -> HCBloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_UPPER_ARM
             null -> HCBloodPressureRecord.MEASUREMENT_LOCATION_UNKNOWN
+        },
+        metadata = record.metadata.toHCMetadata(),
+    )
+
+    is BodyTemperatureRecord -> HCBodyTemperatureRecord(
+        time = record.time.toJavaInstant(),
+        zoneOffset = null,
+        temperature = HCTemperature.celsius(record.temperature.inCelsius),
+        measurementLocation = when (measurementLocation) {
+            BodyTemperatureRecord.MeasurementLocation.Armpit -> HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_ARMPIT
+            BodyTemperatureRecord.MeasurementLocation.Finger -> HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_FINGER
+            BodyTemperatureRecord.MeasurementLocation.Forehead -> HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_FOREHEAD
+            BodyTemperatureRecord.MeasurementLocation.Mouth -> HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_MOUTH
+            BodyTemperatureRecord.MeasurementLocation.Rectum -> HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_RECTUM
+            BodyTemperatureRecord.MeasurementLocation.TemporalArtery -> HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_TEMPORAL_ARTERY
+            BodyTemperatureRecord.MeasurementLocation.Toe -> HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_TOE
+            BodyTemperatureRecord.MeasurementLocation.Ear -> HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_EAR
+            BodyTemperatureRecord.MeasurementLocation.Wrist -> HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_WRIST
+            BodyTemperatureRecord.MeasurementLocation.Vagina -> HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_VAGINA
+            null -> HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_UNKNOWN
         },
         metadata = record.metadata.toHCMetadata(),
     )
@@ -197,6 +222,25 @@ internal fun HCRecord.toHealthRecord(): HealthRecord? = when (val record = this)
             HCBloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_WRIST -> BloodPressureRecord.MeasurementLocation.RightWrist
             HCBloodPressureRecord.MEASUREMENT_LOCATION_LEFT_UPPER_ARM -> BloodPressureRecord.MeasurementLocation.LeftUpperArm
             HCBloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_UPPER_ARM -> BloodPressureRecord.MeasurementLocation.RightUpperArm
+            else -> null
+        },
+        metadata = record.metadata.toMetadata(),
+    )
+
+    is HCBodyTemperatureRecord -> BodyTemperatureRecord(
+        time = record.time.toKotlinInstant(),
+        temperature = Temperature.celsius(record.temperature.inCelsius),
+        measurementLocation = when (measurementLocation) {
+            HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_ARMPIT -> BodyTemperatureRecord.MeasurementLocation.Armpit
+            HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_FINGER -> BodyTemperatureRecord.MeasurementLocation.Finger
+            HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_FOREHEAD -> BodyTemperatureRecord.MeasurementLocation.Forehead
+            HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_MOUTH -> BodyTemperatureRecord.MeasurementLocation.Mouth
+            HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_RECTUM -> BodyTemperatureRecord.MeasurementLocation.Rectum
+            HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_TEMPORAL_ARTERY -> BodyTemperatureRecord.MeasurementLocation.TemporalArtery
+            HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_TOE -> BodyTemperatureRecord.MeasurementLocation.Toe
+            HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_EAR -> BodyTemperatureRecord.MeasurementLocation.Ear
+            HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_WRIST -> BodyTemperatureRecord.MeasurementLocation.Wrist
+            HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_VAGINA -> BodyTemperatureRecord.MeasurementLocation.Vagina
             else -> null
         },
         metadata = record.metadata.toMetadata(),

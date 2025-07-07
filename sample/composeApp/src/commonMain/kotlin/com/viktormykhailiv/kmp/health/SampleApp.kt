@@ -34,6 +34,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
+import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
@@ -41,6 +42,7 @@ import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import com.viktormykhailiv.kmp.health.aggregate.BloodGlucoseAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.BodyTemperatureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
@@ -48,6 +50,7 @@ import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
+import com.viktormykhailiv.kmp.health.records.BodyTemperatureRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.MealType
@@ -59,6 +62,7 @@ import com.viktormykhailiv.kmp.health.sleep.SleepSessionCanvas
 import com.viktormykhailiv.kmp.health.units.BloodGlucose as BloodGlucoseUnit
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
+import com.viktormykhailiv.kmp.health.units.Temperature
 import com.viktormykhailiv.kmp.health.units.millimetersOfMercury
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
@@ -76,6 +80,7 @@ fun SampleApp() {
         listOf(
             BloodGlucose,
             BloodPressure,
+            BodyTemperature,
             HeartRate,
             Height,
             Sleep,
@@ -87,6 +92,7 @@ fun SampleApp() {
         listOf(
             BloodGlucose,
             BloodPressure,
+            BodyTemperature,
             HeartRate,
             Height,
             Sleep,
@@ -245,6 +251,23 @@ fun SampleApp() {
                                         Text("Max $systolicMax/$diastolicMax")
                                     }
 
+                                    is BodyTemperature -> {
+                                        val temperature =
+                                            records.filterIsInstance<BodyTemperatureRecord>()
+                                        val average =
+                                            temperature.map { it.temperature.inCelsius }.average()
+                                                .let { Temperature.celsius(it) }
+                                        val min =
+                                            temperature.minOfOrNull { it.temperature.inCelsius }
+                                                ?.let { Temperature.celsius(it) }
+                                        val max =
+                                            temperature.maxOfOrNull { it.temperature.inCelsius }
+                                                ?.let { Temperature.celsius(it) }
+                                        Text("Average $average")
+                                        Text("Min $min")
+                                        Text("Max $max")
+                                    }
+
                                     is HeartRate -> {
                                         val heartRates = records.filterIsInstance<HeartRateRecord>()
                                             .map { it.samples }
@@ -328,6 +351,12 @@ fun SampleApp() {
                                         Text("Max ${record.systolic.max}/${record.diastolic.max}")
                                     }
 
+                                    is BodyTemperatureAggregatedRecord -> {
+                                        Text("Average ${record.avg}")
+                                        Text("Min ${record.min}")
+                                        Text("Max ${record.max}")
+                                    }
+
                                     is HeartRateAggregatedRecord -> {
                                         Text("Average ${record.avg}")
                                         Text("Min ${record.min}")
@@ -394,7 +423,7 @@ fun SampleApp() {
                     }
                     writeBloodGlucose
                         ?.onSuccess {
-                            Text("Blood glucose wrote successfully")
+                            Text("Successfully wrote blood glucose")
                         }
                         ?.onFailure {
                             Text("Failed to write blood glucose $it")
@@ -443,10 +472,48 @@ fun SampleApp() {
                     }
                     writeBloodPressure
                         ?.onSuccess {
-                            Text("Steps wrote blood pressure")
+                            Text("Successfully wrote blood pressure")
                         }
                         ?.onFailure {
                             Text("Failed to write blood pressure $it")
+                        }
+
+                    Divider()
+                    Spacer(modifier = Modifier.height(16.dp))
+                    var bodyTemperature by remember {
+                        mutableStateOf(Random.nextInt(356, 399) / 10.0)
+                    }
+                    TextField(
+                        value = bodyTemperature.toString(),
+                        onValueChange = { bodyTemperature = it.toDoubleOrNull() ?: 0.0 },
+                        label = { Text("Body temperature") },
+                        keyboardOptions = remember { KeyboardOptions(keyboardType = KeyboardType.Number) },
+                    )
+                    var writeBodyTemperature by remember { mutableStateOf<Result<Unit>?>(null) }
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                writeBodyTemperature = health.writeData(
+                                    listOf(
+                                        BodyTemperatureRecord(
+                                            time = Clock.System.now(),
+                                            temperature = Temperature.celsius(bodyTemperature),
+                                            measurementLocation = null,
+                                            metadata = generateManualEntryMetadata(),
+                                        )
+                                    )
+                                )
+                            }
+                        },
+                    ) {
+                        Text("Write $bodyTemperature body temperature")
+                    }
+                    writeBodyTemperature
+                        ?.onSuccess {
+                            Text("Successfully wrote body temperature")
+                        }
+                        ?.onFailure {
+                            Text("Failed to write body temperature $it")
                         }
 
                     Divider()
@@ -481,7 +548,7 @@ fun SampleApp() {
                     }
                     writeHeartRate
                         ?.onSuccess {
-                            Text("Heart rate wrote successfully")
+                            Text("Successfully wrote heart rate")
                         }
                         ?.onFailure {
                             Text("Failed to write heart rate $it")
@@ -529,7 +596,7 @@ fun SampleApp() {
                     }
                     writeSleep
                         ?.onSuccess {
-                            Text("Sleep wrote successfully")
+                            Text("Successfully wrote sleep")
                         }
                         ?.onFailure {
                             Text("Failed to write sleep $it")
@@ -566,7 +633,7 @@ fun SampleApp() {
                     }
                     writeSteps
                         ?.onSuccess {
-                            Text("Steps wrote successfully")
+                            Text("Successfully wrote steps")
                         }
                         ?.onFailure {
                             Text("Failed to write steps $it")
@@ -601,7 +668,7 @@ fun SampleApp() {
                     }
                     writeHeight
                         ?.onSuccess {
-                            Text("Height wrote successfully")
+                            Text("Successfully wrote height")
                         }
                         ?.onFailure {
                             Text("Failed to write height $it")
@@ -636,7 +703,7 @@ fun SampleApp() {
                     }
                     writeWeight
                         ?.onSuccess {
-                            Text("Weight wrote successfully")
+                            Text("Successfully wrote weight")
                         }
                         ?.onFailure {
                             Text("Failed to write weight $it")

@@ -4,6 +4,7 @@ package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
+import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
@@ -11,6 +12,7 @@ import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import com.viktormykhailiv.kmp.health.aggregate.BloodGlucoseAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.BodyTemperatureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
@@ -25,6 +27,7 @@ import platform.HealthKit.HKQuantityTypeIdentifierBloodGlucose
 import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureDiastolic
 import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureSystolic
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
+import platform.HealthKit.HKQuantityTypeIdentifierBodyTemperature
 import platform.HealthKit.HKQuantityTypeIdentifierHeartRate
 import platform.HealthKit.HKQuantityTypeIdentifierHeight
 import platform.HealthKit.HKQuantityTypeIdentifierStepCount
@@ -45,6 +48,9 @@ internal fun HealthDataType.toHKQuantityType(): List<HKQuantityType?> = when (th
             HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic),
             HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic),
         )
+
+    BodyTemperature ->
+        listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyTemperature))
 
     HeartRate ->
         listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate))
@@ -70,6 +76,9 @@ internal fun HealthDataType.toHKStatisticOptions(): HKStatisticsOptions = when (
         discreteStatisticsOptions()
 
     BloodPressure ->
+        discreteStatisticsOptions()
+
+    BodyTemperature ->
         discreteStatisticsOptions()
 
     HeartRate ->
@@ -128,6 +137,16 @@ internal fun List<HKStatistics>.toHealthAggregatedRecord(): HealthAggregatedReco
                     min = diastolic.minimumQuantity().bloodPressureValue,
                     max = diastolic.maximumQuantity().bloodPressureValue,
                 ),
+            )
+        }
+
+        HKQuantityTypeIdentifierBodyTemperature -> {
+            BodyTemperatureAggregatedRecord(
+                startTime = record.startDate.toKotlinInstant(),
+                endTime = record.endDate.toKotlinInstant(),
+                avg = record.averageQuantity().bodyTemperatureValue,
+                min = record.minimumQuantity().bodyTemperatureValue,
+                max = record.maximumQuantity().bodyTemperatureValue,
             )
         }
 

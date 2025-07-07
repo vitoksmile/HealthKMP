@@ -3,6 +3,7 @@ package com.viktormykhailiv.kmp.health
 import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
+import androidx.health.connect.client.records.BodyTemperatureRecord
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.Record
@@ -11,6 +12,7 @@ import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
+import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
@@ -22,6 +24,8 @@ internal fun HealthDataType.toRecordType(): KClass<out Record> = when (this) {
     BloodGlucose -> BloodGlucoseRecord::class
 
     BloodPressure -> BloodPressureRecord::class
+
+    BodyTemperature -> BodyTemperatureRecord::class
 
     HeartRate -> HeartRateRecord::class
 

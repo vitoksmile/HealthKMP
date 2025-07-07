@@ -4,6 +4,7 @@ package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
+import com.viktormykhailiv.kmp.health.records.BodyTemperatureRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
@@ -17,6 +18,7 @@ import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.BloodGlucose as BloodGlucoseUnit
 import com.viktormykhailiv.kmp.health.units.Mass
 import com.viktormykhailiv.kmp.health.units.Pressure
+import com.viktormykhailiv.kmp.health.units.Temperature
 import kotlinx.cinterop.UnsafeNumber
 import kotlinx.datetime.toKotlinInstant
 import kotlinx.datetime.toNSDate
@@ -38,12 +40,14 @@ import platform.HealthKit.HKQuantityTypeIdentifierBloodGlucose
 import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureDiastolic
 import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureSystolic
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
+import platform.HealthKit.HKQuantityTypeIdentifierBodyTemperature
 import platform.HealthKit.HKQuantityTypeIdentifierHeartRate
 import platform.HealthKit.HKQuantityTypeIdentifierHeight
 import platform.HealthKit.HKQuantityTypeIdentifierStepCount
 import platform.HealthKit.HKUnit
 import platform.HealthKit.HKUnitMolarMassBloodGlucose
 import platform.HealthKit.countUnit
+import platform.HealthKit.degreeFahrenheitUnit
 import platform.HealthKit.literUnit
 import platform.HealthKit.meterUnit
 import platform.HealthKit.millimeterOfMercuryUnit
@@ -117,6 +121,16 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
                     metadata = metadata,
                 ),
             )
+        }
+
+        is BodyTemperatureRecord -> {
+            quantityTypeIdentifier = HKQuantityTypeIdentifierBodyTemperature
+            quantity = HKQuantity.quantityWithUnit(
+                unit = bodyTemperatureUnit,
+                doubleValue = record.temperature.inFahrenheit,
+            )
+            startDate = record.time.toNSDate()
+            endDate = record.time.toNSDate()
         }
 
         is HeartRateRecord -> {
@@ -291,6 +305,17 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
             records
         }
 
+        HKQuantityTypeIdentifierBodyTemperature -> {
+            map { sample ->
+                BodyTemperatureRecord(
+                    time = sample.startDate.toKotlinInstant(),
+                    temperature = sample.quantity.bodyTemperatureValue,
+                    measurementLocation = null,
+                    metadata = sample.toMetadata(),
+                )
+            }
+        }
+
         HKQuantityTypeIdentifierHeartRate -> {
             val metadata = firstOrNull()?.metadata.toMetadata()
             map { sample ->
@@ -345,6 +370,14 @@ internal val HKQuantity?.bloodPressureValue: Pressure
 
 private val bloodPressureUnit: HKUnit
     get() = HKUnit.millimeterOfMercuryUnit()
+
+internal val HKQuantity?.bodyTemperatureValue: Temperature
+    get() = Temperature.fahrenheit(
+        this?.doubleValueForUnit(bodyTemperatureUnit) ?: 0.0
+    )
+
+private val bodyTemperatureUnit: HKUnit
+    get() = HKUnit.degreeFahrenheitUnit()
 
 internal val HKQuantity?.heartRateValue: Long
     get() = this?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L

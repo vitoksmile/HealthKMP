@@ -4,6 +4,7 @@
 
 - Added **blood glucose** data type
 - Added **blood pressure** data type
+- Added **body temperature** data type
 - Added **height** data type
 
 [Full Changelog](https://github.com/vitoksmile/HealthKMP/compare/0.0.10...0.0.11)

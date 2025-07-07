@@ -15,6 +15,7 @@ public final class com/viktormykhailiv/kmp/health/ApplicationContextHolderInitia
 public final class com/viktormykhailiv/kmp/health/ExtensionsKt {
 	public static final fun aggregateBloodGlucose (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateBloodPressure (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun aggregateBodyTemperature (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateHeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -24,6 +25,7 @@ public final class com/viktormykhailiv/kmp/health/ExtensionsKt {
 	public static final fun getDuration (Lcom/viktormykhailiv/kmp/health/IntervalRecord;)J
 	public static final fun readBloodGlucose (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readBloodPressure (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readBodyTemperature (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readHeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -59,6 +61,13 @@ public final class com/viktormykhailiv/kmp/health/HealthDataType$BloodGlucose : 
 
 public final class com/viktormykhailiv/kmp/health/HealthDataType$BloodPressure : com/viktormykhailiv/kmp/health/HealthDataType {
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$BloodPressure;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/HealthDataType$BodyTemperature : com/viktormykhailiv/kmp/health/HealthDataType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$BodyTemperature;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -182,6 +191,26 @@ public final class com/viktormykhailiv/kmp/health/aggregate/BloodPressureAggrega
 	public final fun getAvg ()Lcom/viktormykhailiv/kmp/health/units/Pressure;
 	public final fun getMax ()Lcom/viktormykhailiv/kmp/health/units/Pressure;
 	public final fun getMin ()Lcom/viktormykhailiv/kmp/health/units/Pressure;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/aggregate/BodyTemperatureAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public final fun component5 ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;)Lcom/viktormykhailiv/kmp/health/aggregate/BodyTemperatureAggregatedRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/BodyTemperatureAggregatedRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/BodyTemperatureAggregatedRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAvg ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public final fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getMax ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public final fun getMin ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public final fun getStartTime ()Lkotlinx/datetime/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -374,6 +403,40 @@ public final class com/viktormykhailiv/kmp/health/records/BloodPressureRecord$Me
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$MeasurementLocation;
 	public static fun values ()[Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$MeasurementLocation;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/BodyTemperatureRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
+	public fun <init> (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
+	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public final fun copy (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public final fun getMeasurementLocation ()Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
+	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public final fun getTemperature ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public fun getTime ()Lkotlinx/datetime/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation : java/lang/Enum {
+	public static final field Armpit Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
+	public static final field Ear Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
+	public static final field Finger Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
+	public static final field Forehead Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
+	public static final field Mouth Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
+	public static final field Rectum Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
+	public static final field TemporalArtery Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
+	public static final field Toe Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
+	public static final field Vagina Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
+	public static final field Wrist Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
+	public static fun values ()[Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
 }
 
 public final class com/viktormykhailiv/kmp/health/records/HeartRateRecord : com/viktormykhailiv/kmp/health/SeriesRecord {
@@ -844,5 +907,35 @@ public final class com/viktormykhailiv/kmp/health/units/PressureKt {
 	public static final synthetic fun getMillimetersOfMercury (F)Lcom/viktormykhailiv/kmp/health/units/Pressure;
 	public static final synthetic fun getMillimetersOfMercury (I)Lcom/viktormykhailiv/kmp/health/units/Pressure;
 	public static final synthetic fun getMillimetersOfMercury (J)Lcom/viktormykhailiv/kmp/health/units/Pressure;
+}
+
+public final class com/viktormykhailiv/kmp/health/units/Temperature : java/lang/Comparable {
+	public static final field Companion Lcom/viktormykhailiv/kmp/health/units/Temperature$Companion;
+	public synthetic fun <init> (DLcom/viktormykhailiv/kmp/health/units/Temperature$Type;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public static final fun celsius (D)Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public fun compareTo (Lcom/viktormykhailiv/kmp/health/units/Temperature;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static final fun fahrenheit (D)Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public final fun getCelsius ()D
+	public final fun getFahrenheit ()D
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/units/Temperature$Companion {
+	public final fun celsius (D)Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public final fun fahrenheit (D)Lcom/viktormykhailiv/kmp/health/units/Temperature;
+}
+
+public final class com/viktormykhailiv/kmp/health/units/TemperatureKt {
+	public static final synthetic fun getCelsius (D)Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public static final synthetic fun getCelsius (F)Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public static final synthetic fun getCelsius (I)Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public static final synthetic fun getCelsius (J)Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public static final synthetic fun getFahrenheit (D)Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public static final synthetic fun getFahrenheit (F)Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public static final synthetic fun getFahrenheit (I)Lcom/viktormykhailiv/kmp/health/units/Temperature;
+	public static final synthetic fun getFahrenheit (J)Lcom/viktormykhailiv/kmp/health/units/Temperature;
 }
 

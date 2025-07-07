@@ -10,17 +10,22 @@ import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
+import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.aggregate.BloodGlucoseAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.BodyTemperatureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
+import com.viktormykhailiv.kmp.health.units.Temperature
+import com.viktormykhailiv.kmp.health.units.BloodGlucose as BloodGlucoseUnit
 import com.viktormykhailiv.kmp.health.units.kilograms
 import com.viktormykhailiv.kmp.health.units.meters
 import com.viktormykhailiv.kmp.health.units.millimetersOfMercury
@@ -30,10 +35,12 @@ import kotlin.time.toKotlinDuration
 
 /**
  * Note: following `AggregateMetric` must be aligned with [toHealthAggregatedRecord].
+ *
+ * @throws IllegalArgumentException if `HealthDataType` can't be aggregated.
  */
 internal fun HealthDataType.toAggregateMetrics(): Set<AggregateMetric<Any>> = when (this) {
     BloodGlucose ->
-        throw IllegalArgumentException("Aggregated BloodGlucose is not supported")
+        throw IllegalArgumentException("Aggregated BloodGlucose is not supported and must be aggregated manually")
 
     BloodPressure ->
         setOf(
@@ -44,6 +51,9 @@ internal fun HealthDataType.toAggregateMetrics(): Set<AggregateMetric<Any>> = wh
             BloodPressureRecord.DIASTOLIC_MIN,
             BloodPressureRecord.DIASTOLIC_MAX,
         )
+
+    BodyTemperature ->
+        throw IllegalArgumentException("Aggregated BodyTemperature is not supported and must be aggregated manually")
 
     HeartRate ->
         setOf(HeartRateRecord.BPM_AVG, HeartRateRecord.BPM_MIN, HeartRateRecord.BPM_MAX)
@@ -63,6 +73,8 @@ internal fun HealthDataType.toAggregateMetrics(): Set<AggregateMetric<Any>> = wh
 
 /**
  * Note: following `AggregateMetric` must be aligned with [toAggregateMetrics].
+ *
+ * @throws IllegalArgumentException if `HealthDataType` can't be aggregated.
  */
 internal fun AggregationResult.toHealthAggregatedRecord(
     startTime: Instant,
@@ -70,7 +82,7 @@ internal fun AggregationResult.toHealthAggregatedRecord(
     type: HealthDataType,
 ): HealthAggregatedRecord = when (type) {
     is BloodGlucose ->
-        throw IllegalArgumentException("Aggregated BloodGlucose is not supported")
+        throw IllegalArgumentException("Aggregated BloodGlucose is not supported and must be aggregated manually")
 
     is BloodPressure -> {
         BloodPressureAggregatedRecord(
@@ -94,6 +106,9 @@ internal fun AggregationResult.toHealthAggregatedRecord(
             ),
         )
     }
+
+    is BodyTemperature ->
+        throw IllegalArgumentException("Aggregated BodyTemperature is not supported and must be aggregated manually")
 
     is HeartRate -> {
         HeartRateAggregatedRecord(
@@ -142,3 +157,49 @@ internal fun AggregationResult.toHealthAggregatedRecord(
         )
     }
 }
+
+internal suspend fun HealthConnectManager.aggregateBloodGlucose(
+    startTime: Instant,
+    endTime: Instant,
+): BloodGlucoseAggregatedRecord =
+    readBloodGlucose(
+        startTime = startTime,
+        endTime = endTime,
+    ).mapCatching { records ->
+        BloodGlucoseAggregatedRecord(
+            startTime = startTime,
+            endTime = endTime,
+            avg = BloodGlucoseUnit.millimolesPerLiter(
+                records.map { it.level.inMillimolesPerLiter }.average()
+            ),
+            min = BloodGlucoseUnit.millimolesPerLiter(
+                records.minOfOrNull { it.level.inMillimolesPerLiter } ?: 0.0
+            ),
+            max = BloodGlucoseUnit.millimolesPerLiter(
+                records.maxOfOrNull { it.level.inMillimolesPerLiter } ?: 0.0
+            ),
+        )
+    }.getOrThrow()
+
+internal suspend fun HealthConnectManager.aggregateBodyTemperature(
+    startTime: Instant,
+    endTime: Instant,
+): BodyTemperatureAggregatedRecord =
+    readBodyTemperature(
+        startTime = startTime,
+        endTime = endTime,
+    ).mapCatching { records ->
+        BodyTemperatureAggregatedRecord(
+            startTime = startTime,
+            endTime = endTime,
+            avg = Temperature.celsius(
+                records.map { it.temperature.inCelsius }.average()
+            ),
+            min = Temperature.celsius(
+                records.minOfOrNull { it.temperature.inCelsius } ?: 0.0
+            ),
+            max = Temperature.celsius(
+                records.maxOfOrNull { it.temperature.inCelsius } ?: 0.0
+            ),
+        )
+    }.getOrThrow()

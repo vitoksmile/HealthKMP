@@ -25,6 +25,7 @@ Note that for Android, the target device **needs** to have [Google Fit](https://
 ## Supported data types (iOS, watchOS, Android)
 - Blood glucose
 - Blood pressure
+- Body temperature
 - Heart rate
 - Height
 - Sleep
@@ -36,6 +37,7 @@ Note that for Android, the target device **needs** to have [Google Fit](https://
 - Length: meters, kilometers, miles, inches, feet
 - Mass: grams, kilograms, milligrams, micrograms, ounces, pounds
 - Pressure: millimeters of Mercury (mmHg)
+- Temperature: Celsius, Fahrenheit
 
 ## Requesting permission
 

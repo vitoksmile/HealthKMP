@@ -3,7 +3,6 @@ package com.viktormykhailiv.kmp.health.aggregate
 import com.viktormykhailiv.kmp.health.HealthAggregatedRecord
 import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
-import com.viktormykhailiv.kmp.health.IntervalRecord
 import kotlinx.datetime.Instant
 
 /**

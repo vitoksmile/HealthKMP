@@ -178,6 +178,12 @@ sealed interface com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormy
         final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health/HealthDataType.BloodPressure.toString|toString(){}[0]
     }
 
+    final object BodyTemperature : com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType.BodyTemperature|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.BodyTemperature.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health/HealthDataType.BodyTemperature.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health/HealthDataType.BodyTemperature.toString|toString(){}[0]
+    }
+
     final object HeartRate : com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType.HeartRate|null[0]
         final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.HeartRate.equals|equals(kotlin.Any?){}[0]
         final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health/HealthDataType.HeartRate.hashCode|hashCode(){}[0]
@@ -277,6 +283,33 @@ final class com.viktormykhailiv.kmp.health.aggregate/BloodPressureAggregatedReco
         final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.aggregate/BloodPressureAggregatedRecord.AggregatedRecord.hashCode|hashCode(){}[0]
         final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.aggregate/BloodPressureAggregatedRecord.AggregatedRecord.toString|toString(){}[0]
     }
+}
+
+final class com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord : com.viktormykhailiv.kmp.health/HealthAggregatedRecord { // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord|null[0]
+    constructor <init>(kotlinx.datetime/Instant, kotlinx.datetime/Instant, com.viktormykhailiv.kmp.health.units/Temperature, com.viktormykhailiv.kmp.health.units/Temperature, com.viktormykhailiv.kmp.health.units/Temperature) // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.<init>|<init>(kotlinx.datetime.Instant;kotlinx.datetime.Instant;com.viktormykhailiv.kmp.health.units.Temperature;com.viktormykhailiv.kmp.health.units.Temperature;com.viktormykhailiv.kmp.health.units.Temperature){}[0]
+
+    final val avg // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.avg|{}avg[0]
+        final fun <get-avg>(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.avg.<get-avg>|<get-avg>(){}[0]
+    final val dataType // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.dataType|{}dataType[0]
+        final fun <get-dataType>(): com.viktormykhailiv.kmp.health/HealthDataType // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.dataType.<get-dataType>|<get-dataType>(){}[0]
+    final val endTime // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.endTime|{}endTime[0]
+        final fun <get-endTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.endTime.<get-endTime>|<get-endTime>(){}[0]
+    final val max // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.max|{}max[0]
+        final fun <get-max>(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.max.<get-max>|<get-max>(){}[0]
+    final val min // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.min|{}min[0]
+        final fun <get-min>(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.min.<get-min>|<get-min>(){}[0]
+    final val startTime // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.startTime|{}startTime[0]
+        final fun <get-startTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.startTime.<get-startTime>|<get-startTime>(){}[0]
+
+    final fun component1(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.component1|component1(){}[0]
+    final fun component2(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.component2|component2(){}[0]
+    final fun component3(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.component3|component3(){}[0]
+    final fun component4(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.component4|component4(){}[0]
+    final fun component5(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.component5|component5(){}[0]
+    final fun copy(kotlinx.datetime/Instant = ..., kotlinx.datetime/Instant = ..., com.viktormykhailiv.kmp.health.units/Temperature = ..., com.viktormykhailiv.kmp.health.units/Temperature = ..., com.viktormykhailiv.kmp.health.units/Temperature = ...): com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.copy|copy(kotlinx.datetime.Instant;kotlinx.datetime.Instant;com.viktormykhailiv.kmp.health.units.Temperature;com.viktormykhailiv.kmp.health.units.Temperature;com.viktormykhailiv.kmp.health.units.Temperature){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord.toString|toString(){}[0]
 }
 
 final class com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord : com.viktormykhailiv.kmp.health/HealthAggregatedRecord { // com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord|null[0]
@@ -579,6 +612,49 @@ final class com.viktormykhailiv.kmp.health.records/BloodPressureRecord : com.vik
     }
 }
 
+final class com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord : com.viktormykhailiv.kmp.health/InstantaneousRecord { // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord|null[0]
+    constructor <init>(kotlinx.datetime/Instant, com.viktormykhailiv.kmp.health.units/Temperature, com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation?, com.viktormykhailiv.kmp.health.records.metadata/Metadata) // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.<init>|<init>(kotlinx.datetime.Instant;com.viktormykhailiv.kmp.health.units.Temperature;com.viktormykhailiv.kmp.health.records.BodyTemperatureRecord.MeasurementLocation?;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
+
+    final val dataType // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.dataType|{}dataType[0]
+        final fun <get-dataType>(): com.viktormykhailiv.kmp.health/HealthDataType // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.dataType.<get-dataType>|<get-dataType>(){}[0]
+    final val measurementLocation // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.measurementLocation|{}measurementLocation[0]
+        final fun <get-measurementLocation>(): com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation? // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.measurementLocation.<get-measurementLocation>|<get-measurementLocation>(){}[0]
+    final val metadata // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.metadata|{}metadata[0]
+        final fun <get-metadata>(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.metadata.<get-metadata>|<get-metadata>(){}[0]
+    final val temperature // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.temperature|{}temperature[0]
+        final fun <get-temperature>(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.temperature.<get-temperature>|<get-temperature>(){}[0]
+    final val time // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.time|{}time[0]
+        final fun <get-time>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.time.<get-time>|<get-time>(){}[0]
+
+    final fun component1(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.component1|component1(){}[0]
+    final fun component2(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.component2|component2(){}[0]
+    final fun component3(): com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation? // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.component3|component3(){}[0]
+    final fun component4(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.component4|component4(){}[0]
+    final fun copy(kotlinx.datetime/Instant = ..., com.viktormykhailiv.kmp.health.units/Temperature = ..., com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation? = ..., com.viktormykhailiv.kmp.health.records.metadata/Metadata = ...): com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.copy|copy(kotlinx.datetime.Instant;com.viktormykhailiv.kmp.health.units.Temperature;com.viktormykhailiv.kmp.health.records.BodyTemperatureRecord.MeasurementLocation?;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.toString|toString(){}[0]
+
+    final enum class MeasurementLocation : kotlin/Enum<com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation> { // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation|null[0]
+        enum entry Armpit // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation.Armpit|null[0]
+        enum entry Ear // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation.Ear|null[0]
+        enum entry Finger // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation.Finger|null[0]
+        enum entry Forehead // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation.Forehead|null[0]
+        enum entry Mouth // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation.Mouth|null[0]
+        enum entry Rectum // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation.Rectum|null[0]
+        enum entry TemporalArtery // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation.TemporalArtery|null[0]
+        enum entry Toe // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation.Toe|null[0]
+        enum entry Vagina // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation.Vagina|null[0]
+        enum entry Wrist // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation.Wrist|null[0]
+
+        final val entries // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation.entries|#static{}entries[0]
+            final fun <get-entries>(): kotlin.enums/EnumEntries<com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation> // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation.entries.<get-entries>|<get-entries>#static(){}[0]
+
+        final fun valueOf(kotlin/String): com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation.valueOf|valueOf#static(kotlin.String){}[0]
+        final fun values(): kotlin/Array<com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation> // com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord.MeasurementLocation.values|values#static(){}[0]
+    }
+}
+
 final class com.viktormykhailiv.kmp.health.records/HeartRateRecord : com.viktormykhailiv.kmp.health/SeriesRecord<com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample> { // com.viktormykhailiv.kmp.health.records/HeartRateRecord|null[0]
     constructor <init>(kotlinx.datetime/Instant, kotlinx.datetime/Instant, kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample>, com.viktormykhailiv.kmp.health.records.metadata/Metadata) // com.viktormykhailiv.kmp.health.records/HeartRateRecord.<init>|<init>(kotlinx.datetime.Instant;kotlinx.datetime.Instant;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.HeartRateRecord.Sample>;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
 
@@ -814,6 +890,23 @@ final class com.viktormykhailiv.kmp.health.units/Pressure : kotlin/Comparable<co
     }
 }
 
+final class com.viktormykhailiv.kmp.health.units/Temperature : kotlin/Comparable<com.viktormykhailiv.kmp.health.units/Temperature> { // com.viktormykhailiv.kmp.health.units/Temperature|null[0]
+    final val inCelsius // com.viktormykhailiv.kmp.health.units/Temperature.inCelsius|{}inCelsius[0]
+        final fun <get-inCelsius>(): kotlin/Double // com.viktormykhailiv.kmp.health.units/Temperature.inCelsius.<get-inCelsius>|<get-inCelsius>(){}[0]
+    final val inFahrenheit // com.viktormykhailiv.kmp.health.units/Temperature.inFahrenheit|{}inFahrenheit[0]
+        final fun <get-inFahrenheit>(): kotlin/Double // com.viktormykhailiv.kmp.health.units/Temperature.inFahrenheit.<get-inFahrenheit>|<get-inFahrenheit>(){}[0]
+
+    final fun compareTo(com.viktormykhailiv.kmp.health.units/Temperature): kotlin/Int // com.viktormykhailiv.kmp.health.units/Temperature.compareTo|compareTo(com.viktormykhailiv.kmp.health.units.Temperature){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.units/Temperature.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.units/Temperature.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.units/Temperature.toString|toString(){}[0]
+
+    final object Companion { // com.viktormykhailiv.kmp.health.units/Temperature.Companion|null[0]
+        final fun celsius(kotlin/Double): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.units/Temperature.Companion.celsius|celsius(kotlin.Double){}[0]
+        final fun fahrenheit(kotlin/Double): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.units/Temperature.Companion.fahrenheit|fahrenheit(kotlin.Double){}[0]
+    }
+}
+
 final class com.viktormykhailiv.kmp.health/HealthManagerFactory { // com.viktormykhailiv.kmp.health/HealthManagerFactory|null[0]
     constructor <init>() // com.viktormykhailiv.kmp.health/HealthManagerFactory.<init>|<init>(){}[0]
 
@@ -833,6 +926,22 @@ final class com.viktormykhailiv.kmp.health/SwiftHealthManager { // com.viktormyk
     final suspend fun writeData(kotlin.collections/List<com.viktormykhailiv.kmp.health/HealthRecord>) // com.viktormykhailiv.kmp.health/SwiftHealthManager.writeData|writeData(kotlin.collections.List<com.viktormykhailiv.kmp.health.HealthRecord>){}[0]
 }
 
+final val com.viktormykhailiv.kmp.health.units/celsius // com.viktormykhailiv.kmp.health.units/celsius|@kotlin.Double{}celsius[0]
+    final fun (kotlin/Double).<get-celsius>(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.units/celsius.<get-celsius>|<get-celsius>@kotlin.Double(){}[0]
+final val com.viktormykhailiv.kmp.health.units/celsius // com.viktormykhailiv.kmp.health.units/celsius|@kotlin.Float{}celsius[0]
+    final fun (kotlin/Float).<get-celsius>(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.units/celsius.<get-celsius>|<get-celsius>@kotlin.Float(){}[0]
+final val com.viktormykhailiv.kmp.health.units/celsius // com.viktormykhailiv.kmp.health.units/celsius|@kotlin.Int{}celsius[0]
+    final fun (kotlin/Int).<get-celsius>(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.units/celsius.<get-celsius>|<get-celsius>@kotlin.Int(){}[0]
+final val com.viktormykhailiv.kmp.health.units/celsius // com.viktormykhailiv.kmp.health.units/celsius|@kotlin.Long{}celsius[0]
+    final fun (kotlin/Long).<get-celsius>(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.units/celsius.<get-celsius>|<get-celsius>@kotlin.Long(){}[0]
+final val com.viktormykhailiv.kmp.health.units/fahrenheit // com.viktormykhailiv.kmp.health.units/fahrenheit|@kotlin.Double{}fahrenheit[0]
+    final fun (kotlin/Double).<get-fahrenheit>(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.units/fahrenheit.<get-fahrenheit>|<get-fahrenheit>@kotlin.Double(){}[0]
+final val com.viktormykhailiv.kmp.health.units/fahrenheit // com.viktormykhailiv.kmp.health.units/fahrenheit|@kotlin.Float{}fahrenheit[0]
+    final fun (kotlin/Float).<get-fahrenheit>(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.units/fahrenheit.<get-fahrenheit>|<get-fahrenheit>@kotlin.Float(){}[0]
+final val com.viktormykhailiv.kmp.health.units/fahrenheit // com.viktormykhailiv.kmp.health.units/fahrenheit|@kotlin.Int{}fahrenheit[0]
+    final fun (kotlin/Int).<get-fahrenheit>(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.units/fahrenheit.<get-fahrenheit>|<get-fahrenheit>@kotlin.Int(){}[0]
+final val com.viktormykhailiv.kmp.health.units/fahrenheit // com.viktormykhailiv.kmp.health.units/fahrenheit|@kotlin.Long{}fahrenheit[0]
+    final fun (kotlin/Long).<get-fahrenheit>(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.units/fahrenheit.<get-fahrenheit>|<get-fahrenheit>@kotlin.Long(){}[0]
 final val com.viktormykhailiv.kmp.health.units/feet // com.viktormykhailiv.kmp.health.units/feet|@kotlin.Double{}feet[0]
     final fun (kotlin/Double).<get-feet>(): com.viktormykhailiv.kmp.health.units/Length // com.viktormykhailiv.kmp.health.units/feet.<get-feet>|<get-feet>@kotlin.Double(){}[0]
 final val com.viktormykhailiv.kmp.health.units/feet // com.viktormykhailiv.kmp.health.units/feet|@kotlin.Float{}feet[0]
@@ -938,6 +1047,7 @@ final fun (platform.Foundation/NSDate).com.viktormykhailiv.kmp.health/toKotlinIn
 final fun com.viktormykhailiv.kmp.health/generateManualEntryMetadata(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health/generateManualEntryMetadata|generateManualEntryMetadata(){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/aggregateBloodGlucose(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<com.viktormykhailiv.kmp.health.aggregate/BloodGlucoseAggregatedRecord> // com.viktormykhailiv.kmp.health/aggregateBloodGlucose|aggregateBloodGlucose@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/aggregateBloodPressure(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<com.viktormykhailiv.kmp.health.aggregate/BloodPressureAggregatedRecord> // com.viktormykhailiv.kmp.health/aggregateBloodPressure|aggregateBloodPressure@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/aggregateBodyTemperature(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord> // com.viktormykhailiv.kmp.health/aggregateBodyTemperature|aggregateBodyTemperature@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/aggregateHeartRate(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord> // com.viktormykhailiv.kmp.health/aggregateHeartRate|aggregateHeartRate@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/aggregateHeight(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<com.viktormykhailiv.kmp.health.aggregate/HeightAggregatedRecord> // com.viktormykhailiv.kmp.health/aggregateHeight|aggregateHeight@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/aggregateSleep(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<com.viktormykhailiv.kmp.health.aggregate/SleepAggregatedRecord> // com.viktormykhailiv.kmp.health/aggregateSleep|aggregateSleep@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
@@ -945,6 +1055,7 @@ final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykha
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/aggregateWeight(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<com.viktormykhailiv.kmp.health.aggregate/WeightAggregatedRecord> // com.viktormykhailiv.kmp.health/aggregateWeight|aggregateWeight@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readBloodGlucose(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/BloodGlucoseRecord>> // com.viktormykhailiv.kmp.health/readBloodGlucose|readBloodGlucose@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readBloodPressure(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/BloodPressureRecord>> // com.viktormykhailiv.kmp.health/readBloodPressure|readBloodPressure@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readBodyTemperature(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord>> // com.viktormykhailiv.kmp.health/readBodyTemperature|readBodyTemperature@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readHeartRate(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeartRateRecord>> // com.viktormykhailiv.kmp.health/readHeartRate|readHeartRate@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readHeight(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeightRecord>> // com.viktormykhailiv.kmp.health/readHeight|readHeight@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readSleep(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/SleepSessionRecord>> // com.viktormykhailiv.kmp.health/readSleep|readSleep@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
@@ -952,6 +1063,7 @@ final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykha
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readWeight(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/WeightRecord>> // com.viktormykhailiv.kmp.health/readWeight|readWeight@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/aggregateBloodGlucose(platform.Foundation/NSDate, platform.Foundation/NSDate): com.viktormykhailiv.kmp.health.aggregate/BloodGlucoseAggregatedRecord // com.viktormykhailiv.kmp.health/aggregateBloodGlucose|aggregateBloodGlucose@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/aggregateBloodPressure(platform.Foundation/NSDate, platform.Foundation/NSDate): com.viktormykhailiv.kmp.health.aggregate/BloodPressureAggregatedRecord // com.viktormykhailiv.kmp.health/aggregateBloodPressure|aggregateBloodPressure@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/aggregateBodyTemperature(platform.Foundation/NSDate, platform.Foundation/NSDate): com.viktormykhailiv.kmp.health.aggregate/BodyTemperatureAggregatedRecord // com.viktormykhailiv.kmp.health/aggregateBodyTemperature|aggregateBodyTemperature@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/aggregateHeartRate(platform.Foundation/NSDate, platform.Foundation/NSDate): com.viktormykhailiv.kmp.health.aggregate/HeartRateAggregatedRecord // com.viktormykhailiv.kmp.health/aggregateHeartRate|aggregateHeartRate@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/aggregateHeight(platform.Foundation/NSDate, platform.Foundation/NSDate): com.viktormykhailiv.kmp.health.aggregate/HeightAggregatedRecord // com.viktormykhailiv.kmp.health/aggregateHeight|aggregateHeight@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/aggregateSleep(platform.Foundation/NSDate, platform.Foundation/NSDate): com.viktormykhailiv.kmp.health.aggregate/SleepAggregatedRecord // com.viktormykhailiv.kmp.health/aggregateSleep|aggregateSleep@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
@@ -959,6 +1071,7 @@ final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktor
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/aggregateWeight(platform.Foundation/NSDate, platform.Foundation/NSDate): com.viktormykhailiv.kmp.health.aggregate/WeightAggregatedRecord // com.viktormykhailiv.kmp.health/aggregateWeight|aggregateWeight@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readBloodGlucose(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/BloodGlucoseRecord> // com.viktormykhailiv.kmp.health/readBloodGlucose|readBloodGlucose@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readBloodPressure(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/BloodPressureRecord> // com.viktormykhailiv.kmp.health/readBloodPressure|readBloodPressure@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readBodyTemperature(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord> // com.viktormykhailiv.kmp.health/readBodyTemperature|readBodyTemperature@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readHeartRage(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeartRateRecord> // com.viktormykhailiv.kmp.health/readHeartRage|readHeartRage@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readHeight(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeightRecord> // com.viktormykhailiv.kmp.health/readHeight|readHeight@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readSleep(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/SleepSessionRecord> // com.viktormykhailiv.kmp.health/readSleep|readSleep@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]

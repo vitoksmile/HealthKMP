@@ -7,6 +7,7 @@ extension EnvironmentValues {
     @Entry var readTypes: [HealthDataType] = [
         HealthDataTypeBloodGlucose(),
         HealthDataTypeBloodPressure(),
+        HealthDataTypeBodyTemperature(),
         HealthDataTypeHeartRate(),
         HealthDataTypeHeight(),
         HealthDataTypeSleep(),
@@ -16,6 +17,7 @@ extension EnvironmentValues {
     @Entry var writeTypes: [HealthDataType] = [
         HealthDataTypeBloodGlucose(),
         HealthDataTypeBloodPressure(),
+        HealthDataTypeBodyTemperature(),
         HealthDataTypeHeartRate(),
         HealthDataTypeHeight(),
         HealthDataTypeSleep(),
