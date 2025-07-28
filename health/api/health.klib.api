@@ -19,6 +19,17 @@ final enum class com.viktormykhailiv.kmp.health.records/MealType : kotlin/Enum<c
     final fun values(): kotlin/Array<com.viktormykhailiv.kmp.health.records/MealType> // com.viktormykhailiv.kmp.health.records/MealType.values|values#static(){}[0]
 }
 
+final enum class com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference : kotlin/Enum<com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference> { // com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference|null[0]
+    enum entry Celsius // com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference.Celsius|null[0]
+    enum entry Fahrenheit // com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference.Fahrenheit|null[0]
+
+    final val entries // com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference> // com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference // com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference> // com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference.values|values#static(){}[0]
+}
+
 abstract interface <#A: out kotlin/Any> com.viktormykhailiv.kmp.health/SeriesRecord : com.viktormykhailiv.kmp.health/IntervalRecord { // com.viktormykhailiv.kmp.health/SeriesRecord|null[0]
     abstract val samples // com.viktormykhailiv.kmp.health/SeriesRecord.samples|{}samples[0]
         abstract fun <get-samples>(): kotlin.collections/List<#A> // com.viktormykhailiv.kmp.health/SeriesRecord.samples.<get-samples>|<get-samples>(){}[0]
@@ -32,6 +43,7 @@ abstract interface com.viktormykhailiv.kmp.health/HealthAggregatedRecord { // co
 abstract interface com.viktormykhailiv.kmp.health/HealthManager { // com.viktormykhailiv.kmp.health/HealthManager|null[0]
     abstract fun isAvailable(): kotlin/Result<kotlin/Boolean> // com.viktormykhailiv.kmp.health/HealthManager.isAvailable|isAvailable(){}[0]
     abstract suspend fun aggregate(kotlinx.datetime/Instant, kotlinx.datetime/Instant, com.viktormykhailiv.kmp.health/HealthDataType): kotlin/Result<com.viktormykhailiv.kmp.health/HealthAggregatedRecord> // com.viktormykhailiv.kmp.health/HealthManager.aggregate|aggregate(kotlinx.datetime.Instant;kotlinx.datetime.Instant;com.viktormykhailiv.kmp.health.HealthDataType){}[0]
+    abstract suspend fun getRegionalPreferences(): kotlin/Result<com.viktormykhailiv.kmp.health.region/RegionalPreferences> // com.viktormykhailiv.kmp.health/HealthManager.getRegionalPreferences|getRegionalPreferences(){}[0]
     abstract suspend fun isAuthorized(kotlin.collections/List<com.viktormykhailiv.kmp.health/HealthDataType>, kotlin.collections/List<com.viktormykhailiv.kmp.health/HealthDataType>): kotlin/Result<kotlin/Boolean> // com.viktormykhailiv.kmp.health/HealthManager.isAuthorized|isAuthorized(kotlin.collections.List<com.viktormykhailiv.kmp.health.HealthDataType>;kotlin.collections.List<com.viktormykhailiv.kmp.health.HealthDataType>){}[0]
     abstract suspend fun isRevokeAuthorizationSupported(): kotlin/Result<kotlin/Boolean> // com.viktormykhailiv.kmp.health/HealthManager.isRevokeAuthorizationSupported|isRevokeAuthorizationSupported(){}[0]
     abstract suspend fun readData(kotlinx.datetime/Instant, kotlinx.datetime/Instant, com.viktormykhailiv.kmp.health/HealthDataType): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health/HealthRecord>> // com.viktormykhailiv.kmp.health/HealthManager.readData|readData(kotlinx.datetime.Instant;kotlinx.datetime.Instant;com.viktormykhailiv.kmp.health.HealthDataType){}[0]
@@ -804,6 +816,19 @@ final class com.viktormykhailiv.kmp.health.records/WeightRecord : com.viktormykh
     final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/WeightRecord.toString|toString(){}[0]
 }
 
+final class com.viktormykhailiv.kmp.health.region/RegionalPreferences { // com.viktormykhailiv.kmp.health.region/RegionalPreferences|null[0]
+    constructor <init>(com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference) // com.viktormykhailiv.kmp.health.region/RegionalPreferences.<init>|<init>(com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference){}[0]
+
+    final val temperature // com.viktormykhailiv.kmp.health.region/RegionalPreferences.temperature|{}temperature[0]
+        final fun <get-temperature>(): com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference // com.viktormykhailiv.kmp.health.region/RegionalPreferences.temperature.<get-temperature>|<get-temperature>(){}[0]
+
+    final fun component1(): com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference // com.viktormykhailiv.kmp.health.region/RegionalPreferences.component1|component1(){}[0]
+    final fun copy(com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference = ...): com.viktormykhailiv.kmp.health.region/RegionalPreferences // com.viktormykhailiv.kmp.health.region/RegionalPreferences.copy|copy(com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.region/RegionalPreferences.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.region/RegionalPreferences.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.region/RegionalPreferences.toString|toString(){}[0]
+}
+
 final class com.viktormykhailiv.kmp.health.units/BloodGlucose : kotlin/Comparable<com.viktormykhailiv.kmp.health.units/BloodGlucose> { // com.viktormykhailiv.kmp.health.units/BloodGlucose|null[0]
     final val inMilligramsPerDeciliter // com.viktormykhailiv.kmp.health.units/BloodGlucose.inMilligramsPerDeciliter|{}inMilligramsPerDeciliter[0]
         final fun <get-inMilligramsPerDeciliter>(): kotlin/Double // com.viktormykhailiv.kmp.health.units/BloodGlucose.inMilligramsPerDeciliter.<get-inMilligramsPerDeciliter>|<get-inMilligramsPerDeciliter>(){}[0]
@@ -918,6 +943,7 @@ final class com.viktormykhailiv.kmp.health/SwiftHealthManager { // com.viktormyk
 
     final fun isAvailable(): kotlin/Boolean // com.viktormykhailiv.kmp.health/SwiftHealthManager.isAvailable|isAvailable(){}[0]
     final suspend fun aggregate(platform.Foundation/NSDate, platform.Foundation/NSDate, com.viktormykhailiv.kmp.health/HealthDataType): com.viktormykhailiv.kmp.health/HealthAggregatedRecord // com.viktormykhailiv.kmp.health/SwiftHealthManager.aggregate|aggregate(platform.Foundation.NSDate;platform.Foundation.NSDate;com.viktormykhailiv.kmp.health.HealthDataType){}[0]
+    final suspend fun getRegionalPreferences(): com.viktormykhailiv.kmp.health.region/RegionalPreferences // com.viktormykhailiv.kmp.health/SwiftHealthManager.getRegionalPreferences|getRegionalPreferences(){}[0]
     final suspend fun isAuthorized(kotlin.collections/List<com.viktormykhailiv.kmp.health/HealthDataType>, kotlin.collections/List<com.viktormykhailiv.kmp.health/HealthDataType>): kotlin/Boolean // com.viktormykhailiv.kmp.health/SwiftHealthManager.isAuthorized|isAuthorized(kotlin.collections.List<com.viktormykhailiv.kmp.health.HealthDataType>;kotlin.collections.List<com.viktormykhailiv.kmp.health.HealthDataType>){}[0]
     final suspend fun isRevokeAuthorizationSupported(): kotlin/Boolean // com.viktormykhailiv.kmp.health/SwiftHealthManager.isRevokeAuthorizationSupported|isRevokeAuthorizationSupported(){}[0]
     final suspend fun readData(platform.Foundation/NSDate, platform.Foundation/NSDate, com.viktormykhailiv.kmp.health/HealthDataType): kotlin.collections/List<com.viktormykhailiv.kmp.health/HealthRecord> // com.viktormykhailiv.kmp.health/SwiftHealthManager.readData|readData(platform.Foundation.NSDate;platform.Foundation.NSDate;com.viktormykhailiv.kmp.health.HealthDataType){}[0]
@@ -1042,6 +1068,7 @@ final val com.viktormykhailiv.kmp.health/duration // com.viktormykhailiv.kmp.hea
     final fun (com.viktormykhailiv.kmp.health/IntervalRecord).<get-duration>(): kotlin.time/Duration // com.viktormykhailiv.kmp.health/duration.<get-duration>|<get-duration>@com.viktormykhailiv.kmp.health.IntervalRecord(){}[0]
 
 final fun (com.viktormykhailiv.kmp.health.records.metadata/Device.Companion).com.viktormykhailiv.kmp.health.records.metadata/getLocalDevice(): com.viktormykhailiv.kmp.health.records.metadata/Device // com.viktormykhailiv.kmp.health.records.metadata/getLocalDevice|getLocalDevice@com.viktormykhailiv.kmp.health.records.metadata.Device.Companion(){}[0]
+final fun (com.viktormykhailiv.kmp.health.units/Temperature).com.viktormykhailiv.kmp.health.region/preferred(com.viktormykhailiv.kmp.health.region/TemperatureRegionalPreference): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.region/preferred|preferred@com.viktormykhailiv.kmp.health.units.Temperature(com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference){}[0]
 final fun (kotlinx.datetime/Instant).com.viktormykhailiv.kmp.health/toNSDate(): platform.Foundation/NSDate // com.viktormykhailiv.kmp.health/toNSDate|toNSDate@kotlinx.datetime.Instant(){}[0]
 final fun (platform.Foundation/NSDate).com.viktormykhailiv.kmp.health/toKotlinInstant(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health/toKotlinInstant|toKotlinInstant@platform.Foundation.NSDate(){}[0]
 final fun com.viktormykhailiv.kmp.health/generateManualEntryMetadata(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health/generateManualEntryMetadata|generateManualEntryMetadata(){}[0]

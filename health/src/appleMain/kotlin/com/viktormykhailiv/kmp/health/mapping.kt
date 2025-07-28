@@ -14,6 +14,7 @@ import com.viktormykhailiv.kmp.health.records.WeightRecord
 import com.viktormykhailiv.kmp.health.records.metadata.Device
 import com.viktormykhailiv.kmp.health.records.metadata.DeviceType
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
+import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.BloodGlucose as BloodGlucoseUnit
 import com.viktormykhailiv.kmp.health.units.Mass
@@ -251,7 +252,9 @@ internal fun List<HKCategorySample>.toHealthRecords(): List<HealthRecord> {
     }
 }
 
-internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
+internal suspend fun List<HKQuantitySample>.toHealthRecord(
+    temperaturePreference: suspend () -> TemperatureRegionalPreference,
+): List<HealthRecord> {
     if (isEmpty()) return emptyList()
 
     return when (first().quantityType.identifier) {
@@ -309,7 +312,8 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
             map { sample ->
                 BodyTemperatureRecord(
                     time = sample.startDate.toKotlinInstant(),
-                    temperature = sample.quantity.bodyTemperatureValue,
+                    temperature = sample.quantity.bodyTemperatureValue
+                        .preferred(temperaturePreference()),
                     measurementLocation = null,
                     metadata = sample.toMetadata(),
                 )
@@ -378,6 +382,12 @@ internal val HKQuantity?.bodyTemperatureValue: Temperature
 
 private val bodyTemperatureUnit: HKUnit
     get() = HKUnit.degreeFahrenheitUnit()
+
+internal fun Temperature.preferred(temperaturePreference: TemperatureRegionalPreference): Temperature =
+    when (temperaturePreference) {
+        TemperatureRegionalPreference.Celsius -> Temperature.celsius(inCelsius)
+        TemperatureRegionalPreference.Fahrenheit -> Temperature.fahrenheit(inFahrenheit)
+    }
 
 internal val HKQuantity?.heartRateValue: Long
     get() = this?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L

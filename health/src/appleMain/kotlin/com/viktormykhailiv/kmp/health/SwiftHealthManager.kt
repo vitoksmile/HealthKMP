@@ -2,6 +2,7 @@
 
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.region.RegionalPreferences
 import kotlinx.datetime.toKotlinInstant
 import platform.Foundation.NSDate
 
@@ -86,6 +87,11 @@ class SwiftHealthManager(
             endTime = endTime.toKotlinInstant(),
             type = type,
         ).getOrThrow()
+    }
+
+    @Throws(Throwable::class)
+    suspend fun getRegionalPreferences(): RegionalPreferences {
+        return manager.getRegionalPreferences().getOrThrow()
     }
 
 }

@@ -5,6 +5,7 @@ package com.viktormykhailiv.kmp.health.legacy
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import androidx.core.text.util.LocalePreferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.fitness.Fitness
@@ -14,6 +15,8 @@ import com.viktormykhailiv.kmp.health.HealthAggregatedRecord
 import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthManager
 import com.viktormykhailiv.kmp.health.HealthRecord
+import com.viktormykhailiv.kmp.health.region.RegionalPreferences
+import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
 import kotlinx.datetime.Instant
 import java.util.concurrent.CancellationException
 import java.util.concurrent.TimeUnit
@@ -130,6 +133,15 @@ class GoogleFitManager(
         type: HealthDataType,
     ): Result<HealthAggregatedRecord> = runCatching {
         throw Throwable("The Google Fit APIs will no longer be available.")
+    }
+
+    override suspend fun getRegionalPreferences(): Result<RegionalPreferences> = runCatching {
+        val temperature = when (LocalePreferences.getTemperatureUnit()) {
+            LocalePreferences.TemperatureUnit.FAHRENHEIT -> TemperatureRegionalPreference.Fahrenheit
+            else -> TemperatureRegionalPreference.Celsius
+        }
+
+        RegionalPreferences(temperature)
     }
 
     @Suppress("DEPRECATION")

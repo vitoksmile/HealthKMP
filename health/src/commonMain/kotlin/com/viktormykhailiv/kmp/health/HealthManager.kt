@@ -1,5 +1,6 @@
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.region.RegionalPreferences
 import kotlinx.datetime.Instant
 
 interface HealthManager {
@@ -35,4 +36,7 @@ interface HealthManager {
         endTime: Instant,
         type: HealthDataType,
     ): Result<HealthAggregatedRecord>
+
+    suspend fun getRegionalPreferences(): Result<RegionalPreferences>
+
 }

@@ -39,6 +39,9 @@ Note that for Android, the target device **needs** to have [Google Fit](https://
 - Pressure: millimeters of Mercury (mmHg)
 - Temperature: Celsius, Fahrenheit
 
+## Supported regional preferences
+- Temperature: Celsius, Fahrenheit
+
 ## Requesting permission
 
 To access health data users need to grant permissions
@@ -71,7 +74,7 @@ build.gradle:
 sourceSets {
     val commonMain by getting {
         dependencies {
-            implementation("com.viktormykhailiv:health-kmp:0.0.11")
+            implementation("com.viktormykhailiv:health-kmp:0.0.12")
         }
     }
 }
@@ -80,7 +83,7 @@ sourceSets {
 or use version catalog:
 ```
 [versions]
-health = "0.0.11"
+health = "0.0.12"
 
 [libraries]
 health = { module = "com.viktormykhailiv:health-kmp", version.ref = "health" }

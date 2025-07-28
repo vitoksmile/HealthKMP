@@ -22,6 +22,7 @@ struct ContentView: View {
     @State private var isLoading: Bool = true
     @State private var isAvailable: Bool = false
     @State private var isAuthorized: Bool = false
+    @State private var temperaturePreference: TemperatureRegionalPreference? = nil
     @State private var error: String? = nil
     
     var body: some View {
@@ -45,6 +46,10 @@ struct ContentView: View {
                             isAuthorized = true
                         })
                     } else {
+                        if (temperaturePreference != nil) {
+                            Text("Regional temperature preference \(temperaturePreference?.name ?? "")")
+                        }
+                        
                         DataTypesView(
                             navigateToBloodGlucose: { navigation.append(Destination.bloodGlucose) },
                             navigateToBloodPressure: { navigation.append(Destination.bloodPressure) },
@@ -92,6 +97,13 @@ struct ContentView: View {
                     } catch {
                         self.error = error.localizedDescription
                     }
+                    
+                    do {
+                        temperaturePreference = try await health.getRegionalPreferences().temperature
+                    } catch {
+                        print("Failed to read regional temperature preference \(error.localizedDescription)")
+                    }
+                    
                     isLoading = false
                 }
             }

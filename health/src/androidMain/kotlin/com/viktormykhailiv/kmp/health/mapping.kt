@@ -13,6 +13,7 @@ import com.viktormykhailiv.kmp.health.records.WeightRecord
 import com.viktormykhailiv.kmp.health.records.metadata.Device
 import com.viktormykhailiv.kmp.health.records.metadata.DeviceType
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
+import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
 import com.viktormykhailiv.kmp.health.units.BloodGlucose
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
@@ -39,7 +40,9 @@ import androidx.health.connect.client.units.Mass as HCMass
 import androidx.health.connect.client.units.Pressure as HCPressure
 import androidx.health.connect.client.units.Temperature as HCTemperature
 
-internal fun HealthRecord.toHCRecord(): HCRecord? = when (val record = this) {
+internal fun HealthRecord.toHCRecord(
+    temperaturePreference: () -> TemperatureRegionalPreference,
+): HCRecord? = when (val record = this) {
     is BloodGlucoseRecord -> HCBloodGlucoseRecord(
         time = record.time.toJavaInstant(),
         zoneOffset = null,
@@ -95,7 +98,7 @@ internal fun HealthRecord.toHCRecord(): HCRecord? = when (val record = this) {
     is BodyTemperatureRecord -> HCBodyTemperatureRecord(
         time = record.time.toJavaInstant(),
         zoneOffset = null,
-        temperature = HCTemperature.celsius(record.temperature.inCelsius),
+        temperature = record.temperature.preferred(temperaturePreference()),
         measurementLocation = when (measurementLocation) {
             BodyTemperatureRecord.MeasurementLocation.Armpit -> HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_ARMPIT
             BodyTemperatureRecord.MeasurementLocation.Finger -> HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_FINGER
@@ -176,7 +179,9 @@ internal fun HealthRecord.toHCRecord(): HCRecord? = when (val record = this) {
     else -> null
 }
 
-internal fun HCRecord.toHealthRecord(): HealthRecord? = when (val record = this) {
+internal fun HCRecord.toHealthRecord(
+    temperaturePreference: () -> TemperatureRegionalPreference,
+): HealthRecord? = when (val record = this) {
     is HCBloodGlucoseRecord -> BloodGlucoseRecord(
         time = record.time.toKotlinInstant(),
         level = BloodGlucose.millimolesPerLiter(level.inMillimolesPerLiter),
@@ -229,7 +234,7 @@ internal fun HCRecord.toHealthRecord(): HealthRecord? = when (val record = this)
 
     is HCBodyTemperatureRecord -> BodyTemperatureRecord(
         time = record.time.toKotlinInstant(),
-        temperature = Temperature.celsius(record.temperature.inCelsius),
+        temperature = record.temperature.preferred(temperaturePreference()),
         measurementLocation = when (measurementLocation) {
             HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_ARMPIT -> BodyTemperatureRecord.MeasurementLocation.Armpit
             HCBodyTemperatureMeasurementLocation.MEASUREMENT_LOCATION_FINGER -> BodyTemperatureRecord.MeasurementLocation.Finger
@@ -384,3 +389,15 @@ private fun Pressure.toHCPressure(): HCPressure =
 
 internal fun HCPressure.toPressure(): Pressure =
     Pressure.millimetersOfMercury(inMillimetersOfMercury)
+
+internal fun HCTemperature.preferred(preference: TemperatureRegionalPreference): Temperature =
+    when (preference) {
+        TemperatureRegionalPreference.Celsius -> Temperature.celsius(inCelsius)
+        TemperatureRegionalPreference.Fahrenheit -> Temperature.fahrenheit(inFahrenheit)
+    }
+
+internal fun Temperature.preferred(preference: TemperatureRegionalPreference): HCTemperature =
+    when (preference) {
+        TemperatureRegionalPreference.Celsius -> HCTemperature.celsius(inCelsius)
+        TemperatureRegionalPreference.Fahrenheit -> HCTemperature.fahrenheit(inFahrenheit)
+    }

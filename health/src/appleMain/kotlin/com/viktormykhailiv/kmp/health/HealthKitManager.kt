@@ -2,7 +2,10 @@
 
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
+import com.viktormykhailiv.kmp.health.region.RegionalPreferences
+import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
 import kotlinx.cinterop.UnsafeNumber
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -23,7 +26,12 @@ import platform.HealthKit.HKSampleType
 import platform.HealthKit.HKStatistics
 import platform.HealthKit.HKStatisticsOptions
 import platform.HealthKit.HKStatisticsQuery
+import platform.HealthKit.HKUnit
+import platform.HealthKit.degreeCelsiusUnit
+import platform.HealthKit.degreeFahrenheitUnit
 import platform.HealthKit.predicateForSamplesWithStartDate
+import platform.HealthKit.preferredUnitsForQuantityTypes
+import kotlin.coroutines.resumeWithException
 
 internal class HealthKitManager : HealthManager {
 
@@ -105,8 +113,10 @@ internal class HealthKitManager : HealthManager {
             }
 
             result.firstOrNull() is HKQuantitySample -> {
+                val temperaturePreference = suspend { getTemperaturePreference() }
+
                 @Suppress("UNCHECKED_CAST")
-                (result as List<HKQuantitySample>).toHealthRecord()
+                (result as List<HKQuantitySample>).toHealthRecord(temperaturePreference)
             }
 
             result.firstOrNull() is HKCategorySample -> {
@@ -146,6 +156,8 @@ internal class HealthKitManager : HealthManager {
                 .mapCatching { it.aggregate(startTime = startTime, endTime = endTime) }
         }
 
+        val temperaturePreference = suspend { getTemperaturePreference() }
+
         return type.toHKQuantityType()
             .map { quantityType ->
                 aggregate(
@@ -160,7 +172,7 @@ internal class HealthKitManager : HealthManager {
                     .onFailure { return Result.failure(it) }
                     .getOrThrow()
             }
-            .toHealthAggregatedRecord()
+            .toHealthAggregatedRecord(temperaturePreference)
             .let { aggregatedRecord ->
                 if (aggregatedRecord != null) {
                     Result.success(aggregatedRecord)
@@ -169,6 +181,42 @@ internal class HealthKitManager : HealthManager {
                 }
             }
     }
+
+    override suspend fun getRegionalPreferences(): Result<RegionalPreferences> = runCatching {
+        RegionalPreferences(
+            temperature = getTemperaturePreference(),
+        )
+    }
+
+    private suspend fun getTemperaturePreference(): TemperatureRegionalPreference = runCatching {
+        val quantityType = BodyTemperature.toHKQuantityType().first()
+            ?: throw IllegalArgumentException("HKQuantityType is not provided")
+        return suspendCancellableCoroutine { continuation ->
+            healthKit.preferredUnitsForQuantityTypes(setOf(quantityType)) { result, error ->
+                if (continuation.isCancelled) return@preferredUnitsForQuantityTypes
+
+                if (error != null) {
+                    continuation.resumeWithException(Throwable(error.toString()))
+                    return@preferredUnitsForQuantityTypes
+                }
+
+                if (result == null || result.isEmpty()) {
+                    continuation.resumeWithException(IllegalStateException("Regional preferences data not found"))
+                    return@preferredUnitsForQuantityTypes
+                }
+
+                val temperature = when (val unit = result[quantityType]) {
+                    HKUnit.degreeCelsiusUnit() -> Result.success(TemperatureRegionalPreference.Celsius)
+                    HKUnit.degreeFahrenheitUnit() -> Result.success(TemperatureRegionalPreference.Fahrenheit)
+                    null -> Result.failure(IllegalStateException("Regional preferences data not found"))
+                    else -> Result.failure(IllegalArgumentException("Temperature unit '$unit' not supported"))
+                }
+                temperature
+                    .onSuccess { continuation.resume(it) }
+                    .onFailure { continuation.resumeWithException(it) }
+            }
+        }
+    }.getOrElse { TemperatureRegionalPreference.Fahrenheit }
 
     private suspend fun readData(
         startTime: Instant,

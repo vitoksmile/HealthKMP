@@ -1,10 +1,15 @@
 package com.viktormykhailiv.kmp.health
 
 import android.content.Context
+import androidx.core.text.util.LocalePreferences
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
+import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
+import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
+import com.viktormykhailiv.kmp.health.region.RegionalPreferences
+import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
 import kotlinx.coroutines.CancellationException
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toJavaInstant
@@ -72,7 +77,9 @@ class HealthConnectManager(
         )
         val response = healthConnectClient.readRecords(request)
 
-        response.records.mapNotNull { it.toHealthRecord() }
+        val temperaturePreference = { getTemperaturePreference() }
+
+        response.records.mapNotNull { it.toHealthRecord(temperaturePreference) }
     }
 
     /**
@@ -82,7 +89,9 @@ class HealthConnectManager(
     override suspend fun writeData(
         records: List<HealthRecord>,
     ): Result<Unit> = runCatching {
-        healthConnectClient.insertRecords(records.mapNotNull { it.toHCRecord() })
+        val temperaturePreference = { getTemperaturePreference() }
+
+        healthConnectClient.insertRecords(records.mapNotNull { it.toHCRecord(temperaturePreference) })
     }
 
     override suspend fun aggregate(
@@ -91,11 +100,11 @@ class HealthConnectManager(
         type: HealthDataType,
     ): Result<HealthAggregatedRecord> = runCatching {
         when (type) {
-            HealthDataType.BloodGlucose -> {
+            BloodGlucose -> {
                 aggregateBloodGlucose(startTime = startTime, endTime = endTime)
             }
 
-            HealthDataType.BodyTemperature -> {
+            BodyTemperature -> {
                 aggregateBodyTemperature(startTime = startTime, endTime = endTime)
             }
 
@@ -117,6 +126,20 @@ class HealthConnectManager(
             }
         }
     }
+
+    override suspend fun getRegionalPreferences(): Result<RegionalPreferences> = runCatching {
+        RegionalPreferences(
+            temperature = getTemperaturePreference(),
+        )
+    }
+
+    private fun getTemperaturePreference(): TemperatureRegionalPreference {
+        return when (LocalePreferences.getTemperatureUnit()) {
+            LocalePreferences.TemperatureUnit.FAHRENHEIT -> TemperatureRegionalPreference.Fahrenheit
+            else -> TemperatureRegionalPreference.Celsius
+        }
+    }
+
 }
 
 private val List<HealthDataType>.readPermissions: Set<String>

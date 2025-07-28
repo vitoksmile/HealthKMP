@@ -40,6 +40,7 @@ public abstract interface class com/viktormykhailiv/kmp/health/HealthAggregatedR
 public final class com/viktormykhailiv/kmp/health/HealthConnectManager : com/viktormykhailiv/kmp/health/HealthManager {
 	public fun <init> (Landroid/content/Context;)V
 	public fun aggregate-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getRegionalPreferences-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun isAuthorized-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun isAvailable-d1pmJ48 ()Ljava/lang/Object;
 	public fun isRevokeAuthorizationSupported-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -110,6 +111,7 @@ public final class com/viktormykhailiv/kmp/health/HealthDataType$Weight : com/vi
 
 public abstract interface class com/viktormykhailiv/kmp/health/HealthManager {
 	public abstract fun aggregate-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getRegionalPreferences-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun isAuthorized-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun isAvailable-d1pmJ48 ()Ljava/lang/Object;
 	public abstract fun isRevokeAuthorizationSupported-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -310,6 +312,7 @@ public final class com/viktormykhailiv/kmp/health/aggregate/WeightAggregatedReco
 public final class com/viktormykhailiv/kmp/health/legacy/GoogleFitManager : com/viktormykhailiv/kmp/health/HealthManager {
 	public fun <init> (Landroid/content/Context;)V
 	public fun aggregate-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getRegionalPreferences-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun isAuthorized-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun isAvailable-d1pmJ48 ()Ljava/lang/Object;
 	public fun isRevokeAuthorizationSupported-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -756,6 +759,29 @@ public final class com/viktormykhailiv/kmp/health/records/metadata/Metadata$Reco
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/region/RegionalPreferences {
+	public fun <init> (Lcom/viktormykhailiv/kmp/health/region/TemperatureRegionalPreference;)V
+	public final fun component1 ()Lcom/viktormykhailiv/kmp/health/region/TemperatureRegionalPreference;
+	public final fun copy (Lcom/viktormykhailiv/kmp/health/region/TemperatureRegionalPreference;)Lcom/viktormykhailiv/kmp/health/region/RegionalPreferences;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/region/RegionalPreferences;Lcom/viktormykhailiv/kmp/health/region/TemperatureRegionalPreference;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/region/RegionalPreferences;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getTemperature ()Lcom/viktormykhailiv/kmp/health/region/TemperatureRegionalPreference;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/region/TemperatureRegionalPreference : java/lang/Enum {
+	public static final field Celsius Lcom/viktormykhailiv/kmp/health/region/TemperatureRegionalPreference;
+	public static final field Fahrenheit Lcom/viktormykhailiv/kmp/health/region/TemperatureRegionalPreference;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/viktormykhailiv/kmp/health/region/TemperatureRegionalPreference;
+	public static fun values ()[Lcom/viktormykhailiv/kmp/health/region/TemperatureRegionalPreference;
+}
+
+public final class com/viktormykhailiv/kmp/health/region/TemperatureRegionalPreferenceKt {
+	public static final fun preferred (Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/region/TemperatureRegionalPreference;)Lcom/viktormykhailiv/kmp/health/units/Temperature;
 }
 
 public final class com/viktormykhailiv/kmp/health/units/BloodGlucose : java/lang/Comparable {

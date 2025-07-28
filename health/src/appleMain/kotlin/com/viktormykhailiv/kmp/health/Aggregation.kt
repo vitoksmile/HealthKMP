@@ -19,6 +19,7 @@ import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
+import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
 import kotlinx.cinterop.UnsafeNumber
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toKotlinInstant
@@ -104,7 +105,9 @@ private fun discreteStatisticsOptions(): HKStatisticsOptions {
 /**
  * Note: following `AggregateMetric` must be aligned with [toHKStatisticOptions].
  */
-internal fun List<HKStatistics>.toHealthAggregatedRecord(): HealthAggregatedRecord? {
+internal suspend fun List<HKStatistics>.toHealthAggregatedRecord(
+    temperaturePreference: suspend () -> TemperatureRegionalPreference,
+): HealthAggregatedRecord? {
     val record = first()
     return when (record.quantityType.identifier) {
         HKQuantityTypeIdentifierBloodGlucose -> {
@@ -144,9 +147,9 @@ internal fun List<HKStatistics>.toHealthAggregatedRecord(): HealthAggregatedReco
             BodyTemperatureAggregatedRecord(
                 startTime = record.startDate.toKotlinInstant(),
                 endTime = record.endDate.toKotlinInstant(),
-                avg = record.averageQuantity().bodyTemperatureValue,
-                min = record.minimumQuantity().bodyTemperatureValue,
-                max = record.maximumQuantity().bodyTemperatureValue,
+                avg = record.averageQuantity().bodyTemperatureValue.preferred(temperaturePreference()),
+                min = record.minimumQuantity().bodyTemperatureValue.preferred(temperaturePreference()),
+                max = record.maximumQuantity().bodyTemperatureValue.preferred(temperaturePreference()),
             )
         }
 

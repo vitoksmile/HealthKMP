@@ -58,6 +58,9 @@ import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
+import com.viktormykhailiv.kmp.health.region.RegionalPreferences
+import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
+import com.viktormykhailiv.kmp.health.region.preferred
 import com.viktormykhailiv.kmp.health.sleep.SleepSessionCanvas
 import com.viktormykhailiv.kmp.health.units.BloodGlucose as BloodGlucoseUnit
 import com.viktormykhailiv.kmp.health.units.Length
@@ -104,6 +107,7 @@ fun SampleApp() {
     var isAvailableResult by remember { mutableStateOf(Result.success(false)) }
     var isAuthorizedResult by remember { mutableStateOf<Result<Boolean>?>(null) }
     var isRevokeSupported by remember { mutableStateOf(false) }
+    var regionalPreferencesResult by remember { mutableStateOf<Result<RegionalPreferences>?>(null) }
 
     val records = remember {
         mutableStateMapOf<HealthDataType, Result<List<HealthRecord>>>()
@@ -121,6 +125,7 @@ fun SampleApp() {
             writeTypes = writeTypes,
         )
         isRevokeSupported = health.isRevokeAuthorizationSupported().getOrNull() == true
+        regionalPreferencesResult = health.getRegionalPreferences()
     }
 
     MaterialTheme {
@@ -174,6 +179,14 @@ fun SampleApp() {
                     ),
                 ) {
                     Text("Revoke authorization")
+                }
+
+            regionalPreferencesResult
+                ?.onSuccess {
+                    Text("Regional temperature preference ${it.temperature}")
+                }
+                ?.onFailure {
+                    Text("Failed to read regional temperature preference $it")
                 }
 
             if (isAvailableResult.getOrNull() == true && isAuthorizedResult?.getOrNull() == true) {
@@ -252,17 +265,21 @@ fun SampleApp() {
                                     }
 
                                     is BodyTemperature -> {
+                                        val unit =
+                                            regionalPreferencesResult?.getOrNull()?.temperature
+                                                ?: TemperatureRegionalPreference.Celsius
+
                                         val temperature =
                                             records.filterIsInstance<BodyTemperatureRecord>()
                                         val average =
                                             temperature.map { it.temperature.inCelsius }.average()
-                                                .let { Temperature.celsius(it) }
+                                                .let { Temperature.celsius(it).preferred(unit) }
                                         val min =
                                             temperature.minOfOrNull { it.temperature.inCelsius }
-                                                ?.let { Temperature.celsius(it) }
+                                                ?.let { Temperature.celsius(it).preferred(unit) }
                                         val max =
                                             temperature.maxOfOrNull { it.temperature.inCelsius }
-                                                ?.let { Temperature.celsius(it) }
+                                                ?.let { Temperature.celsius(it).preferred(unit) }
                                         Text("Average $average")
                                         Text("Min $min")
                                         Text("Max $max")
