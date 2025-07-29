@@ -2,9 +2,11 @@ package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
+import com.viktormykhailiv.kmp.health.records.BodyFatRecord
 import com.viktormykhailiv.kmp.health.records.BodyTemperatureRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
+import com.viktormykhailiv.kmp.health.records.LeanBodyMassRecord
 import com.viktormykhailiv.kmp.health.records.MealType
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
@@ -17,6 +19,7 @@ import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
 import com.viktormykhailiv.kmp.health.units.BloodGlucose
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
+import com.viktormykhailiv.kmp.health.units.Percentage
 import com.viktormykhailiv.kmp.health.units.Pressure
 import com.viktormykhailiv.kmp.health.units.Temperature
 import kotlinx.datetime.toJavaInstant
@@ -26,10 +29,12 @@ import androidx.health.connect.client.records.metadata.Metadata as HCMetadata
 import androidx.health.connect.client.records.Record as HCRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord as HCBloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord as HCBloodPressureRecord
+import androidx.health.connect.client.records.BodyFatRecord as HCBodyFatRecord
 import androidx.health.connect.client.records.BodyTemperatureRecord as HCBodyTemperatureRecord
 import androidx.health.connect.client.records.BodyTemperatureMeasurementLocation as HCBodyTemperatureMeasurementLocation
 import androidx.health.connect.client.records.HeartRateRecord as HCHeartRateRecord
 import androidx.health.connect.client.records.HeightRecord as HCHeightRecord
+import androidx.health.connect.client.records.LeanBodyMassRecord as HCLeanBodyMassRecord
 import androidx.health.connect.client.records.MealType as HCMealType
 import androidx.health.connect.client.records.SleepSessionRecord as HCSleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord as HCStepsRecord
@@ -37,6 +42,7 @@ import androidx.health.connect.client.records.WeightRecord as HCWeightRecord
 import androidx.health.connect.client.units.BloodGlucose as HCBloodGlucose
 import androidx.health.connect.client.units.Length as HCLength
 import androidx.health.connect.client.units.Mass as HCMass
+import androidx.health.connect.client.units.Percentage as HCPercentage
 import androidx.health.connect.client.units.Pressure as HCPressure
 import androidx.health.connect.client.units.Temperature as HCTemperature
 
@@ -95,6 +101,13 @@ internal fun HealthRecord.toHCRecord(
         metadata = record.metadata.toHCMetadata(),
     )
 
+    is BodyFatRecord -> HCBodyFatRecord(
+        time = record.time.toJavaInstant(),
+        zoneOffset = null,
+        percentage = HCPercentage(record.percentage.value),
+        metadata = record.metadata.toHCMetadata(),
+    )
+
     is BodyTemperatureRecord -> HCBodyTemperatureRecord(
         time = record.time.toJavaInstant(),
         zoneOffset = null,
@@ -133,6 +146,13 @@ internal fun HealthRecord.toHCRecord(
         time = record.time.toJavaInstant(),
         zoneOffset = null,
         height = record.height.toHCLength(),
+        metadata = record.metadata.toHCMetadata(),
+    )
+
+    is LeanBodyMassRecord -> HCLeanBodyMassRecord(
+        time = record.time.toJavaInstant(),
+        zoneOffset = null,
+        mass = record.mass.toHCMass(),
         metadata = record.metadata.toHCMetadata(),
     )
 
@@ -232,6 +252,12 @@ internal fun HCRecord.toHealthRecord(
         metadata = record.metadata.toMetadata(),
     )
 
+    is HCBodyFatRecord -> BodyFatRecord(
+        time = record.time.toKotlinInstant(),
+        percentage = Percentage(record.percentage.value),
+        metadata = record.metadata.toMetadata(),
+    )
+
     is HCBodyTemperatureRecord -> BodyTemperatureRecord(
         time = record.time.toKotlinInstant(),
         temperature = record.temperature.preferred(temperaturePreference()),
@@ -266,6 +292,12 @@ internal fun HCRecord.toHealthRecord(
     is HCHeightRecord -> HeightRecord(
         time = record.time.toKotlinInstant(),
         height = record.height.toLength(),
+        metadata = record.metadata.toMetadata(),
+    )
+
+    is HCLeanBodyMassRecord -> LeanBodyMassRecord(
+        time = record.time.toKotlinInstant(),
+        mass = record.mass.toMass(),
         metadata = record.metadata.toMetadata(),
     )
 

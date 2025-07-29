@@ -10,14 +10,17 @@ import com.google.android.gms.fitness.data.SleepStages
 import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
+import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
+import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import com.viktormykhailiv.kmp.health.HealthRecord
 import com.viktormykhailiv.kmp.health.groupByRecords
+import com.viktormykhailiv.kmp.health.records.BodyFatRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
@@ -30,6 +33,7 @@ import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import com.viktormykhailiv.kmp.health.records.metadata.getLocalDevice
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
+import com.viktormykhailiv.kmp.health.units.percent
 import kotlinx.datetime.Instant
 import java.util.concurrent.TimeUnit
 
@@ -40,6 +44,16 @@ internal fun List<DataPoint>.toHealthRecords(type: HealthDataType): List<HealthR
 
         is BloodPressure ->
             throw IllegalArgumentException("BloodPressure is not supported")
+
+        is BodyFat -> {
+            map { dataPoint ->
+                BodyFatRecord(
+                    time = dataPoint.startTime,
+                    percentage = dataPoint.getValue(Field.FIELD_PERCENTAGE).asFloat().percent,
+                    metadata = dataPoint.toMetadata(),
+                )
+            }
+        }
 
         is BodyTemperature ->
             throw IllegalArgumentException("BodyTemperature is not supported")
@@ -71,6 +85,9 @@ internal fun List<DataPoint>.toHealthRecords(type: HealthDataType): List<HealthR
                 )
             }
         }
+
+        is LeanBodyMass ->
+            throw IllegalArgumentException("LeanBodyMass is not supported")
 
         is Sleep -> {
             val metadata = firstOrNull().toMetadata()

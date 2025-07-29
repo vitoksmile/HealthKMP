@@ -4,17 +4,21 @@ package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
+import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
+import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import com.viktormykhailiv.kmp.health.aggregate.BloodGlucoseAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.BodyFatAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BodyTemperatureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.LeanBodyMassAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
@@ -27,10 +31,12 @@ import platform.HealthKit.HKQuantityType
 import platform.HealthKit.HKQuantityTypeIdentifierBloodGlucose
 import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureDiastolic
 import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureSystolic
+import platform.HealthKit.HKQuantityTypeIdentifierBodyFatPercentage
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
 import platform.HealthKit.HKQuantityTypeIdentifierBodyTemperature
 import platform.HealthKit.HKQuantityTypeIdentifierHeartRate
 import platform.HealthKit.HKQuantityTypeIdentifierHeight
+import platform.HealthKit.HKQuantityTypeIdentifierLeanBodyMass
 import platform.HealthKit.HKQuantityTypeIdentifierStepCount
 import platform.HealthKit.HKStatistics
 import platform.HealthKit.HKStatisticsOptionCumulativeSum
@@ -50,6 +56,9 @@ internal fun HealthDataType.toHKQuantityType(): List<HKQuantityType?> = when (th
             HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic),
         )
 
+    BodyFat ->
+        listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyFatPercentage))
+
     BodyTemperature ->
         listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyTemperature))
 
@@ -58,6 +67,9 @@ internal fun HealthDataType.toHKQuantityType(): List<HKQuantityType?> = when (th
 
     Height ->
         listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeight))
+
+    LeanBodyMass ->
+        listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierLeanBodyMass))
 
     Sleep ->
         throw IllegalArgumentException("Sleep is not supported for aggregation")
@@ -79,6 +91,9 @@ internal fun HealthDataType.toHKStatisticOptions(): HKStatisticsOptions = when (
     BloodPressure ->
         discreteStatisticsOptions()
 
+    BodyFat ->
+        discreteStatisticsOptions()
+
     BodyTemperature ->
         discreteStatisticsOptions()
 
@@ -86,6 +101,9 @@ internal fun HealthDataType.toHKStatisticOptions(): HKStatisticsOptions = when (
         discreteStatisticsOptions()
 
     Height ->
+        discreteStatisticsOptions()
+
+    LeanBodyMass ->
         discreteStatisticsOptions()
 
     Sleep ->
@@ -143,6 +161,16 @@ internal suspend fun List<HKStatistics>.toHealthAggregatedRecord(
             )
         }
 
+        HKQuantityTypeIdentifierBodyFatPercentage -> {
+            BodyFatAggregatedRecord(
+                startTime = record.startDate.toKotlinInstant(),
+                endTime = record.endDate.toKotlinInstant(),
+                avg = record.averageQuantity().bodyFatValue,
+                min = record.minimumQuantity().bodyFatValue,
+                max = record.maximumQuantity().bodyFatValue,
+            )
+        }
+
         HKQuantityTypeIdentifierBodyTemperature -> {
             BodyTemperatureAggregatedRecord(
                 startTime = record.startDate.toKotlinInstant(),
@@ -173,6 +201,16 @@ internal suspend fun List<HKStatistics>.toHealthAggregatedRecord(
             )
         }
 
+        HKQuantityTypeIdentifierLeanBodyMass -> {
+            LeanBodyMassAggregatedRecord(
+                startTime = record.startDate.toKotlinInstant(),
+                endTime = record.endDate.toKotlinInstant(),
+                avg = record.averageQuantity().massValue,
+                min = record.minimumQuantity().massValue,
+                max = record.maximumQuantity().massValue,
+            )
+        }
+
         HKQuantityTypeIdentifierStepCount -> {
             StepsAggregatedRecord(
                 startTime = record.startDate.toKotlinInstant(),
@@ -185,9 +223,9 @@ internal suspend fun List<HKStatistics>.toHealthAggregatedRecord(
             WeightAggregatedRecord(
                 startTime = record.startDate.toKotlinInstant(),
                 endTime = record.endDate.toKotlinInstant(),
-                avg = record.averageQuantity().weightValue,
-                min = record.minimumQuantity().weightValue,
-                max = record.maximumQuantity().weightValue,
+                avg = record.averageQuantity().massValue,
+                min = record.minimumQuantity().massValue,
+                max = record.maximumQuantity().massValue,
             )
         }
 

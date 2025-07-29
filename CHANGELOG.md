@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.0.13](https://github.com/vitoksmile/HealthKMP/releases/tag/0.0.13)
+
+- Added **body fat** data type
+- Added **lean body mass** data type
+
 ## [0.0.12](https://github.com/vitoksmile/HealthKMP/releases/tag/0.0.12)
 
 - Regional preferences - temperature

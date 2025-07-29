@@ -4,9 +4,11 @@ package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
+import com.viktormykhailiv.kmp.health.records.BodyFatRecord
 import com.viktormykhailiv.kmp.health.records.BodyTemperatureRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
+import com.viktormykhailiv.kmp.health.records.LeanBodyMassRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
@@ -18,8 +20,10 @@ import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.BloodGlucose as BloodGlucoseUnit
 import com.viktormykhailiv.kmp.health.units.Mass
+import com.viktormykhailiv.kmp.health.units.Percentage
 import com.viktormykhailiv.kmp.health.units.Pressure
 import com.viktormykhailiv.kmp.health.units.Temperature
+import com.viktormykhailiv.kmp.health.units.percent
 import kotlinx.cinterop.UnsafeNumber
 import kotlinx.datetime.toKotlinInstant
 import kotlinx.datetime.toNSDate
@@ -40,10 +44,12 @@ import platform.HealthKit.HKQuantityTypeIdentifier
 import platform.HealthKit.HKQuantityTypeIdentifierBloodGlucose
 import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureDiastolic
 import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureSystolic
+import platform.HealthKit.HKQuantityTypeIdentifierBodyFatPercentage
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
 import platform.HealthKit.HKQuantityTypeIdentifierBodyTemperature
 import platform.HealthKit.HKQuantityTypeIdentifierHeartRate
 import platform.HealthKit.HKQuantityTypeIdentifierHeight
+import platform.HealthKit.HKQuantityTypeIdentifierLeanBodyMass
 import platform.HealthKit.HKQuantityTypeIdentifierStepCount
 import platform.HealthKit.HKUnit
 import platform.HealthKit.HKUnitMolarMassBloodGlucose
@@ -54,6 +60,7 @@ import platform.HealthKit.meterUnit
 import platform.HealthKit.millimeterOfMercuryUnit
 import platform.HealthKit.minuteUnit
 import platform.HealthKit.moleUnitWithMolarMass
+import platform.HealthKit.percentUnit
 import platform.HealthKit.poundUnit
 import platform.HealthKit.unitDividedByUnit
 import kotlin.collections.orEmpty
@@ -124,6 +131,16 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
             )
         }
 
+        is BodyFatRecord -> {
+            quantityTypeIdentifier = HKQuantityTypeIdentifierBodyFatPercentage
+            quantity = HKQuantity.quantityWithUnit(
+                unit = bodyFatUnit,
+                doubleValue = record.percentage.value,
+            )
+            startDate = record.time.toNSDate()
+            endDate = record.time.toNSDate()
+        }
+
         is BodyTemperatureRecord -> {
             quantityTypeIdentifier = HKQuantityTypeIdentifierBodyTemperature
             quantity = HKQuantity.quantityWithUnit(
@@ -157,6 +174,16 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
             quantity = HKQuantity.quantityWithUnit(
                 unit = heightUnit,
                 doubleValue = record.height.inMeters,
+            )
+            startDate = record.time.toNSDate()
+            endDate = record.time.toNSDate()
+        }
+
+        is LeanBodyMassRecord -> {
+            quantityTypeIdentifier = HKQuantityTypeIdentifierLeanBodyMass
+            quantity = HKQuantity.quantityWithUnit(
+                unit = massPoundUnit,
+                doubleValue = record.mass.inPounds,
             )
             startDate = record.time.toNSDate()
             endDate = record.time.toNSDate()
@@ -200,7 +227,7 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
         is WeightRecord -> {
             quantityTypeIdentifier = HKQuantityTypeIdentifierBodyMass
             quantity = HKQuantity.quantityWithUnit(
-                unit = weightUnit,
+                unit = massPoundUnit,
                 doubleValue = record.weight.inPounds,
             )
             startDate = record.time.toNSDate()
@@ -308,6 +335,16 @@ internal suspend fun List<HKQuantitySample>.toHealthRecord(
             records
         }
 
+        HKQuantityTypeIdentifierBodyFatPercentage -> {
+            map { sample ->
+                BodyFatRecord(
+                    time = sample.startDate.toKotlinInstant(),
+                    percentage = sample.quantity.bodyFatValue,
+                    metadata = sample.toMetadata(),
+                )
+            }
+        }
+
         HKQuantityTypeIdentifierBodyTemperature -> {
             map { sample ->
                 BodyTemperatureRecord(
@@ -331,6 +368,16 @@ internal suspend fun List<HKQuantitySample>.toHealthRecord(
             }.group(metadata)
         }
 
+        HKQuantityTypeIdentifierLeanBodyMass -> {
+            map { sample ->
+                LeanBodyMassRecord(
+                    time = sample.startDate.toKotlinInstant(),
+                    mass = sample.quantity.massValue,
+                    metadata = sample.toMetadata(),
+                )
+            }
+        }
+
         HKQuantityTypeIdentifierStepCount -> {
             map { sample ->
                 StepsRecord(
@@ -346,7 +393,7 @@ internal suspend fun List<HKQuantitySample>.toHealthRecord(
             map { sample ->
                 WeightRecord(
                     time = sample.startDate.toKotlinInstant(),
-                    weight = sample.quantity.weightValue,
+                    weight = sample.quantity.massValue,
                     metadata = sample.toMetadata(),
                 )
             }
@@ -389,6 +436,12 @@ internal fun Temperature.preferred(temperaturePreference: TemperatureRegionalPre
         TemperatureRegionalPreference.Fahrenheit -> Temperature.fahrenheit(inFahrenheit)
     }
 
+internal val HKQuantity?.bodyFatValue: Percentage
+    get() = this?.doubleValueForUnit(bodyFatUnit)?.percent ?: 0.percent
+
+private val bodyFatUnit: HKUnit
+    get() = HKUnit.percentUnit()
+
 internal val HKQuantity?.heartRateValue: Long
     get() = this?.doubleValueForUnit(heartRateUnit)?.toLong() ?: 0L
 
@@ -403,19 +456,19 @@ internal val HKQuantity?.heightValue: Length
 private val heightUnit: HKUnit
     get() = HKUnit.meterUnit()
 
+internal val HKQuantity?.massValue: Mass
+    get() = Mass.pounds(
+        this?.doubleValueForUnit(massPoundUnit) ?: 0.0
+    )
+
+private val massPoundUnit: HKUnit
+    get() = HKUnit.poundUnit()
+
 internal val HKQuantity?.stepsValue: Long
     get() = this?.doubleValueForUnit(stepsUnit)?.toLong() ?: 0L
 
 private val stepsUnit: HKUnit
     get() = HKUnit.countUnit()
-
-internal val HKQuantity?.weightValue: Mass
-    get() = Mass.pounds(
-        this?.doubleValueForUnit(weightUnit) ?: 0.0
-    )
-
-private val weightUnit: HKUnit
-    get() = HKUnit.poundUnit()
 // endregion
 
 // region Metadata

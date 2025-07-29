@@ -7,7 +7,9 @@ import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
+import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
+import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
 import com.viktormykhailiv.kmp.health.region.RegionalPreferences
 import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
 import kotlinx.coroutines.CancellationException
@@ -104,8 +106,16 @@ class HealthConnectManager(
                 aggregateBloodGlucose(startTime = startTime, endTime = endTime)
             }
 
+            BodyFat -> {
+                aggregateBodyFat(startTime = startTime, endTime = endTime)
+            }
+
             BodyTemperature -> {
                 aggregateBodyTemperature(startTime = startTime, endTime = endTime)
+            }
+
+            LeanBodyMass -> {
+                aggregateLeanBodyMass(startTime = startTime, endTime = endTime)
             }
 
             else -> {

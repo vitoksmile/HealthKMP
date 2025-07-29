@@ -13,6 +13,14 @@ internal fun <T : Comparable<T>> T.requireNotMore(other: T, name: String) {
     require(this <= other) { "$name must not be more than $other, currently $this." }
 }
 
+internal fun requireNonNegative(value: Long, name: String) {
+    require(value >= 0) { "$name must not be negative" }
+}
+
+internal fun requireNonNegative(value: Double, name: String) {
+    require(value >= 0.0) { "$name must not be negative" }
+}
+
 internal fun List<SleepSessionRecord.Stage>.groupByRecords(metadata: Metadata): List<SleepSessionRecord> {
     if (isEmpty()) return emptyList()
 

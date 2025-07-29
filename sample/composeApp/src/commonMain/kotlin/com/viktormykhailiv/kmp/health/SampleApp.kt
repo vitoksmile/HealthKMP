@@ -34,25 +34,31 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
+import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
+import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import com.viktormykhailiv.kmp.health.aggregate.BloodGlucoseAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.BodyFatAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BodyTemperatureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.LeanBodyMassAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
+import com.viktormykhailiv.kmp.health.records.BodyFatRecord
 import com.viktormykhailiv.kmp.health.records.BodyTemperatureRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
+import com.viktormykhailiv.kmp.health.records.LeanBodyMassRecord
 import com.viktormykhailiv.kmp.health.records.MealType
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
@@ -67,6 +73,7 @@ import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
 import com.viktormykhailiv.kmp.health.units.Temperature
 import com.viktormykhailiv.kmp.health.units.millimetersOfMercury
+import com.viktormykhailiv.kmp.health.units.percent
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlin.random.Random
@@ -83,9 +90,11 @@ fun SampleApp() {
         listOf(
             BloodGlucose,
             BloodPressure,
+            BodyFat,
             BodyTemperature,
             HeartRate,
             Height,
+            LeanBodyMass,
             Sleep,
             Steps,
             Weight,
@@ -95,9 +104,11 @@ fun SampleApp() {
         listOf(
             BloodGlucose,
             BloodPressure,
+            BodyFat,
             BodyTemperature,
             HeartRate,
             Height,
+            LeanBodyMass,
             Sleep,
             Steps,
             Weight,
@@ -264,6 +275,17 @@ fun SampleApp() {
                                         Text("Max $systolicMax/$diastolicMax")
                                     }
 
+                                    is BodyFat -> {
+                                        val fat = records.filterIsInstance<BodyFatRecord>()
+                                        val average = fat.map { it.percentage.value }
+                                            .average().percent
+                                        val min = fat.minOfOrNull { it.percentage.value }?.percent
+                                        val max = fat.maxOfOrNull { it.percentage.value }?.percent
+                                        Text("Average $average")
+                                        Text("Min $min")
+                                        Text("Max $max")
+                                    }
+
                                     is BodyTemperature -> {
                                         val unit =
                                             regionalPreferencesResult?.getOrNull()?.temperature
@@ -305,6 +327,19 @@ fun SampleApp() {
                                             ?.let { Length.meters(it) }
                                         val max = height.maxOfOrNull { it.height.inMeters }
                                             ?.let { Length.meters(it) }
+                                        Text("Average $average")
+                                        Text("Min $min")
+                                        Text("Max $max")
+                                    }
+
+                                    LeanBodyMass -> {
+                                        val mass = records.filterIsInstance<LeanBodyMassRecord>()
+                                        val average = mass.map { it.mass.inKilograms }.average()
+                                            .let { Mass.kilograms(it) }
+                                        val min = mass.minOfOrNull { it.mass.inKilograms }
+                                            ?.let { Mass.kilograms(it) }
+                                        val max = mass.maxOfOrNull { it.mass.inKilograms }
+                                            ?.let { Mass.kilograms(it) }
                                         Text("Average $average")
                                         Text("Min $min")
                                         Text("Max $max")
@@ -368,6 +403,12 @@ fun SampleApp() {
                                         Text("Max ${record.systolic.max}/${record.diastolic.max}")
                                     }
 
+                                    is BodyFatAggregatedRecord -> {
+                                        Text("Average ${record.avg}")
+                                        Text("Min ${record.min}")
+                                        Text("Max ${record.max}")
+                                    }
+
                                     is BodyTemperatureAggregatedRecord -> {
                                         Text("Average ${record.avg}")
                                         Text("Min ${record.min}")
@@ -381,6 +422,12 @@ fun SampleApp() {
                                     }
 
                                     is HeightAggregatedRecord -> {
+                                        Text("Average ${record.avg}")
+                                        Text("Min ${record.min}")
+                                        Text("Max ${record.max}")
+                                    }
+
+                                    is LeanBodyMassAggregatedRecord -> {
                                         Text("Average ${record.avg}")
                                         Text("Min ${record.min}")
                                         Text("Max ${record.max}")
@@ -497,6 +544,43 @@ fun SampleApp() {
 
                     Divider()
                     Spacer(modifier = Modifier.height(16.dp))
+                    var bodyFat by remember {
+                        mutableStateOf(Random.nextInt(1, 100))
+                    }
+                    TextField(
+                        value = bodyFat.toString(),
+                        onValueChange = { bodyFat = it.toIntOrNull() ?: 0 },
+                        label = { Text("Body fat") },
+                        keyboardOptions = remember { KeyboardOptions(keyboardType = KeyboardType.Number) },
+                    )
+                    var writeBodyFat by remember { mutableStateOf<Result<Unit>?>(null) }
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                writeBodyFat = health.writeData(
+                                    listOf(
+                                        BodyFatRecord(
+                                            time = Clock.System.now(),
+                                            percentage = bodyFat.percent,
+                                            metadata = generateManualEntryMetadata(),
+                                        )
+                                    )
+                                )
+                            }
+                        },
+                    ) {
+                        Text("Write $bodyFat body fat")
+                    }
+                    writeBodyFat
+                        ?.onSuccess {
+                            Text("Successfully wrote body fat")
+                        }
+                        ?.onFailure {
+                            Text("Failed to write body fat $it")
+                        }
+
+                    Divider()
+                    Spacer(modifier = Modifier.height(16.dp))
                     var bodyTemperature by remember {
                         mutableStateOf(Random.nextInt(356, 399) / 10.0)
                     }
@@ -569,6 +653,43 @@ fun SampleApp() {
                         }
                         ?.onFailure {
                             Text("Failed to write heart rate $it")
+                        }
+
+                    Divider()
+                    Spacer(modifier = Modifier.height(16.dp))
+                    var leanBodyMass by remember {
+                        mutableStateOf(Random.nextInt(30, 60).toDouble())
+                    }
+                    TextField(
+                        value = leanBodyMass.toString(),
+                        onValueChange = { leanBodyMass = it.toDoubleOrNull() ?: 0.0 },
+                        label = { Text("Lean body mass, kg") },
+                        keyboardOptions = remember { KeyboardOptions(keyboardType = KeyboardType.Number) },
+                    )
+                    var writeLeanBodyMass by remember { mutableStateOf<Result<Unit>?>(null) }
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                writeLeanBodyMass = health.writeData(
+                                    listOf(
+                                        LeanBodyMassRecord(
+                                            time = Clock.System.now(),
+                                            mass = Mass.kilograms(leanBodyMass),
+                                            metadata = generateManualEntryMetadata(),
+                                        )
+                                    )
+                                )
+                            }
+                        },
+                    ) {
+                        Text("Write $leanBodyMass kg")
+                    }
+                    writeLeanBodyMass
+                        ?.onSuccess {
+                            Text("Successfully wrote lean body mass")
+                        }
+                        ?.onFailure {
+                            Text("Failed to write lean body mass $it")
                         }
 
                     Divider()
@@ -693,10 +814,10 @@ fun SampleApp() {
 
                     Divider()
                     Spacer(modifier = Modifier.height(16.dp))
-                    var weight by remember { mutableStateOf(Random.nextInt(50, 100)) }
+                    var weight by remember { mutableStateOf(Random.nextInt(50, 100).toDouble()) }
                     TextField(
                         value = weight.toString(),
-                        onValueChange = { weight = it.toIntOrNull() ?: 0 },
+                        onValueChange = { weight = it.toDoubleOrNull() ?: 0.0 },
                         label = { Text("Weight, kg") },
                         keyboardOptions = remember { KeyboardOptions(keyboardType = KeyboardType.Number) },
                     )
@@ -708,7 +829,7 @@ fun SampleApp() {
                                     listOf(
                                         WeightRecord(
                                             time = Clock.System.now(),
-                                            weight = Mass.kilograms(weight.toDouble()),
+                                            weight = Mass.kilograms(weight),
                                             metadata = generateManualEntryMetadata(),
                                         )
                                     )

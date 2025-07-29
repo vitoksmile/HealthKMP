@@ -25,9 +25,11 @@ Note that for Android, the target device **needs** to have [Google Fit](https://
 ## Supported data types (iOS, watchOS, Android)
 - Blood glucose
 - Blood pressure
+- Body fat
 - Body temperature
 - Heart rate
 - Height
+- Lean body mass
 - Sleep
 - Steps
 - Weight
@@ -36,6 +38,7 @@ Note that for Android, the target device **needs** to have [Google Fit](https://
 - Blood glucose: mmol/L, mg/dL
 - Length: meters, kilometers, miles, inches, feet
 - Mass: grams, kilograms, milligrams, micrograms, ounces, pounds
+- Percentage: e.g. 100%, 89.62%
 - Pressure: millimeters of Mercury (mmHg)
 - Temperature: Celsius, Fahrenheit
 
@@ -74,7 +77,7 @@ build.gradle:
 sourceSets {
     val commonMain by getting {
         dependencies {
-            implementation("com.viktormykhailiv:health-kmp:0.0.12")
+            implementation("com.viktormykhailiv:health-kmp:0.0.13")
         }
     }
 }
@@ -83,7 +86,7 @@ sourceSets {
 or use version catalog:
 ```
 [versions]
-health = "0.0.12"
+health = "0.0.13"
 
 [libraries]
 health = { module = "com.viktormykhailiv:health-kmp", version.ref = "health" }

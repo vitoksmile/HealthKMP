@@ -10,25 +10,31 @@ import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
+import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
+import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import com.viktormykhailiv.kmp.health.aggregate.BloodGlucoseAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.BodyFatAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BodyTemperatureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.LeanBodyMassAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
+import com.viktormykhailiv.kmp.health.units.Mass
 import com.viktormykhailiv.kmp.health.units.Temperature
 import com.viktormykhailiv.kmp.health.units.BloodGlucose as BloodGlucoseUnit
 import com.viktormykhailiv.kmp.health.units.kilograms
 import com.viktormykhailiv.kmp.health.units.meters
 import com.viktormykhailiv.kmp.health.units.millimetersOfMercury
+import com.viktormykhailiv.kmp.health.units.percent
 import kotlinx.datetime.Instant
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.toKotlinDuration
@@ -52,6 +58,9 @@ internal fun HealthDataType.toAggregateMetrics(): Set<AggregateMetric<Any>> = wh
             BloodPressureRecord.DIASTOLIC_MAX,
         )
 
+    BodyFat ->
+        throw IllegalArgumentException("Aggregated BodyFat is not supported and must be aggregated manually")
+
     BodyTemperature ->
         throw IllegalArgumentException("Aggregated BodyTemperature is not supported and must be aggregated manually")
 
@@ -60,6 +69,9 @@ internal fun HealthDataType.toAggregateMetrics(): Set<AggregateMetric<Any>> = wh
 
     Height ->
         setOf(HeightRecord.HEIGHT_AVG, HeightRecord.HEIGHT_MIN, HeightRecord.HEIGHT_MAX)
+
+    LeanBodyMass ->
+        throw IllegalArgumentException("Aggregated LeanBodyMass is not supported and must be aggregated manually")
 
     Sleep ->
         setOf(SleepSessionRecord.SLEEP_DURATION_TOTAL)
@@ -107,6 +119,9 @@ internal fun AggregationResult.toHealthAggregatedRecord(
         )
     }
 
+    is BodyFat ->
+        throw IllegalArgumentException("Aggregated BodyFat is not supported and must be aggregated manually")
+
     is BodyTemperature ->
         throw IllegalArgumentException("Aggregated BodyTemperature is not supported and must be aggregated manually")
 
@@ -129,6 +144,9 @@ internal fun AggregationResult.toHealthAggregatedRecord(
             max = get(HeightRecord.HEIGHT_MAX)?.toLength() ?: 0.meters,
         )
     }
+
+    is LeanBodyMass ->
+        throw IllegalArgumentException("Aggregated LeanBodyMass is not supported and must be aggregated manually")
 
     is Sleep -> {
         SleepAggregatedRecord(
@@ -181,6 +199,23 @@ internal suspend fun HealthConnectManager.aggregateBloodGlucose(
         )
     }.getOrThrow()
 
+internal suspend fun HealthConnectManager.aggregateBodyFat(
+    startTime: Instant,
+    endTime: Instant,
+): BodyFatAggregatedRecord =
+    readBodyFat(
+        startTime = startTime,
+        endTime = endTime,
+    ).mapCatching { records ->
+        BodyFatAggregatedRecord(
+            startTime = startTime,
+            endTime = endTime,
+            avg = records.map { it.percentage.value }.average().percent,
+            min = records.minOfOrNull { it.percentage.value }?.percent ?: 0.percent,
+            max = records.maxOfOrNull { it.percentage.value }?.percent ?: 0.percent,
+        )
+    }.getOrThrow()
+
 internal suspend fun HealthConnectManager.aggregateBodyTemperature(
     startTime: Instant,
     endTime: Instant,
@@ -200,6 +235,29 @@ internal suspend fun HealthConnectManager.aggregateBodyTemperature(
             ),
             max = Temperature.celsius(
                 records.maxOfOrNull { it.temperature.inCelsius } ?: 0.0
+            ),
+        )
+    }.getOrThrow()
+
+internal suspend fun HealthConnectManager.aggregateLeanBodyMass(
+    startTime: Instant,
+    endTime: Instant,
+): LeanBodyMassAggregatedRecord =
+    readLeanBodyMass(
+        startTime = startTime,
+        endTime = endTime,
+    ).mapCatching { records ->
+        LeanBodyMassAggregatedRecord(
+            startTime = startTime,
+            endTime = endTime,
+            avg = Mass.kilograms(
+                records.map { it.mass.inKilograms }.average()
+            ),
+            min = Mass.kilograms(
+                records.minOfOrNull { it.mass.inKilograms } ?: 0.0
+            ),
+            max = Mass.kilograms(
+                records.maxOfOrNull { it.mass.inKilograms } ?: 0.0
             ),
         )
     }.getOrThrow()

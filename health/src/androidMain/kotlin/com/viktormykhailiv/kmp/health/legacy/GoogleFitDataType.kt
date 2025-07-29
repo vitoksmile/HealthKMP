@@ -5,9 +5,11 @@ import com.google.android.gms.fitness.data.DataType
 import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
+import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
+import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
@@ -37,11 +39,15 @@ internal fun HealthDataType.toDataType(): DataType = when (this) {
 
     BloodPressure -> throw IllegalArgumentException("BloodPressure is not supported")
 
+    BodyFat -> DataType.TYPE_BODY_FAT_PERCENTAGE
+
     BodyTemperature -> throw IllegalArgumentException("BodyTemperature is not supported")
 
     HeartRate -> DataType.TYPE_HEART_RATE_BPM
 
     Height -> DataType.TYPE_HEIGHT
+
+    LeanBodyMass -> throw IllegalArgumentException("LeanBodyMass is not supported")
 
     Sleep -> DataType.TYPE_SLEEP_SEGMENT
 
