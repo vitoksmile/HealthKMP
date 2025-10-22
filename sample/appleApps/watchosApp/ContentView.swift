@@ -5,6 +5,7 @@ enum Destination: Hashable {
     case bloodGlucose
     case bloodPressure
     case bodyTemperature
+    case exercise
     case heartRate
     case height
     case steps
@@ -54,6 +55,7 @@ struct ContentView: View {
                             navigateToBloodGlucose: { navigation.append(Destination.bloodGlucose) },
                             navigateToBloodPressure: { navigation.append(Destination.bloodPressure) },
                             navigateToBodyTemperature: { navigation.append(Destination.bodyTemperature) },
+                            navigateToExercise:  { navigation.append(Destination.exercise) },
                             navigateToHeartRate: { navigation.append(Destination.heartRate) },
                             navigateToHeight: { navigation.append(Destination.height) },
                             navigateToSleep: {},
@@ -72,6 +74,8 @@ struct ContentView: View {
                     BloodPressureView()
                 case .bodyTemperature:
                     BodyTemperatureView()
+                case .exercise:
+                    ExerciseView()
                 case .heartRate:
                     HeartRateView()
                 case .height:

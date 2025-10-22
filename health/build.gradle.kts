@@ -1,3 +1,4 @@
+import co.touchlab.skie.configuration.DefaultArgumentInterop
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
@@ -84,8 +85,18 @@ android {
     }
 }
 
-task("printVersionName") {
+tasks.register("printVersionName") {
     println(providers.gradleProperty("VERSION_NAME").get())
+}
+
+skie {
+    features {
+        group {
+            DefaultArgumentInterop.Enabled(true)
+            // Set same value as number of arguments for HealthDataType.Exercise
+            DefaultArgumentInterop.MaximumDefaultArgumentCount(6)
+        }
+    }
 }
 
 apiValidation {

@@ -29,6 +29,8 @@ public final class com/viktormykhailiv/kmp/health/ExtensionsKt {
 	public static final fun readBloodPressure (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readBodyFat (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readBodyTemperature (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readExercise (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType$Exercise;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readExercise$default (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType$Exercise;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun readHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readHeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readLeanBodyMass (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -81,6 +83,29 @@ public final class com/viktormykhailiv/kmp/health/HealthDataType$BodyFat : com/v
 public final class com/viktormykhailiv/kmp/health/HealthDataType$BodyTemperature : com/viktormykhailiv/kmp/health/HealthDataType {
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$BodyTemperature;
 	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/HealthDataType$Exercise : com/viktormykhailiv/kmp/health/HealthDataType {
+	public fun <init> ()V
+	public fun <init> (ZZZZZZ)V
+	public synthetic fun <init> (ZZZZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun copy (ZZZZZZ)Lcom/viktormykhailiv/kmp/health/HealthDataType$Exercise;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/HealthDataType$Exercise;ZZZZZZILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/HealthDataType$Exercise;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getActiveEnergyBurned ()Z
+	public final fun getCyclingPower ()Z
+	public final fun getCyclingSpeed ()Z
+	public final fun getDistanceWalkingRunning ()Z
+	public final fun getFlightsClimbed ()Z
+	public final fun getRunningSpeed ()Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -514,6 +539,1017 @@ public final class com/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
 	public static fun values ()[Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseLap {
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;)V
+	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;)Lcom/viktormykhailiv/kmp/health/records/ExerciseLap;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/ExerciseLap;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/ExerciseLap;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getLength ()Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseRoute {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;Ljava/util/List;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRoute ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseRoute$Location {
+	public static final field MAX_LATITUDE D
+	public static final field MAX_LONGITUDE D
+	public static final field MIN_LATITUDE D
+	public static final field MIN_LONGITUDE D
+	public fun <init> (Lkotlinx/datetime/Instant;DDLcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;)V
+	public synthetic fun <init> (Lkotlinx/datetime/Instant;DDLcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()D
+	public final fun component3 ()D
+	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun component5 ()Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun component6 ()Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun copy (Lkotlinx/datetime/Instant;DDLcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;)Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute$Location;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute$Location;Lkotlinx/datetime/Instant;DDLcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute$Location;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAltitude ()Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun getHorizontalAccuracy ()Lcom/viktormykhailiv/kmp/health/units/Length;
+	public final fun getLatitude ()D
+	public final fun getLongitude ()D
+	public final fun getTime ()Lkotlinx/datetime/Instant;
+	public final fun getVerticalAccuracy ()Lcom/viktormykhailiv/kmp/health/units/Length;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment {
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;I)V
+	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;
+	public final fun component4 ()I
+	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;I)Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;IILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getRepetitions ()I
+	public final fun getSegmentType ()Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;
+	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$ArmCurl : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$ArmCurl;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$BackExtension : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$BackExtension;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$BallSlam : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$BallSlam;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$BarbellShoulderPress : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$BarbellShoulderPress;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$BenchPress : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$BenchPress;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$BenchSitUp : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$BenchSitUp;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Biking : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Biking;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$BikingStationary : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$BikingStationary;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Burpee : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Burpee;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Crunch : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Crunch;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Deadlift : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Deadlift;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DoubleArmTricepsExtension : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DoubleArmTricepsExtension;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellCurlLeftArm : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellCurlLeftArm;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellCurlRightArm : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellCurlRightArm;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellFrontRaise : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellFrontRaise;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellLateralRaise : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellLateralRaise;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellRow : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellRow;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellTricepsExtensionLeftArm : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellTricepsExtensionLeftArm;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellTricepsExtensionRightArm : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellTricepsExtensionRightArm;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellTricepsExtensionTwoArm : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$DumbbellTricepsExtensionTwoArm;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Elliptical : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Elliptical;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$ForwardTwist : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$ForwardTwist;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$FrontRaise : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$FrontRaise;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$HighIntensityIntervalTraining : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$HighIntensityIntervalTraining;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$HipThrust : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$HipThrust;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$HulaHoop : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$HulaHoop;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$JumpRope : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$JumpRope;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$JumpingJack : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$JumpingJack;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$KettlebellSwing : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$KettlebellSwing;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$LatPullDown : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$LatPullDown;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$LateralRaise : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$LateralRaise;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$LegCurl : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$LegCurl;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$LegExtension : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$LegExtension;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$LegPress : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$LegPress;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$LegRaise : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$LegRaise;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Lunge : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Lunge;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$MountainClimber : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$MountainClimber;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$OtherWorkout : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$OtherWorkout;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Pause : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Pause;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Pilates : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Pilates;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Plank : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Plank;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$PullUp : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$PullUp;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Punch : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Punch;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Rest : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Rest;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$RowingMachine : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$RowingMachine;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Running : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Running;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$RunningTreadmill : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$RunningTreadmill;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$ShoulderPress : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$ShoulderPress;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SingleArmTricepsExtension : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SingleArmTricepsExtension;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SitUp : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SitUp;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Squat : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Squat;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$StairClimbing : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$StairClimbing;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$StairClimbingMachine : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$StairClimbingMachine;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Stretching : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Stretching;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingBackstroke : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingBackstroke;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingBreaststroke : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingBreaststroke;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingButterfly : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingButterfly;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingFreestyle : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingFreestyle;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingMixed : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingMixed;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingOpenWater : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingOpenWater;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingOther : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingOther;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingPool : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$SwimmingPool;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Unknown : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Unknown;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$UpperTwist : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$UpperTwist;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Walking : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Walking;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Weightlifting : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Weightlifting;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Wheelchair : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Wheelchair;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Yoga : com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Yoga;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseSessionRecord : com/viktormykhailiv/kmp/health/IntervalRecord {
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseType;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;Ljava/lang/String;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseType;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;Ljava/lang/String;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component10 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/ExerciseType;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/util/List;
+	public final fun component7 ()Ljava/util/List;
+	public final fun component8 ()Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseType;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;Ljava/lang/String;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/ExerciseSessionRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/ExerciseSessionRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseType;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;Ljava/lang/String;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/ExerciseSessionRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getExerciseRoute ()Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;
+	public final fun getExerciseType ()Lcom/viktormykhailiv/kmp/health/records/ExerciseType;
+	public final fun getLaps ()Ljava/util/List;
+	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public final fun getNotes ()Ljava/lang/String;
+	public final fun getPlannedExerciseSessionId ()Ljava/lang/String;
+	public final fun getSegments ()Ljava/util/List;
+	public fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getTitle ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/viktormykhailiv/kmp/health/records/ExerciseType {
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Badminton : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Badminton;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Baseball : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Baseball;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Basketball : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Basketball;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Biking : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Biking;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$BikingStationary : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$BikingStationary;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$BootCamp : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$BootCamp;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Boxing : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Boxing;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Calisthenics : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Calisthenics;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Cricket : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Cricket;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Dancing : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Dancing;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Elliptical : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Elliptical;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$ExerciseClass : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$ExerciseClass;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Fencing : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Fencing;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$FootballAmerican : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$FootballAmerican;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$FootballAustralian : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$FootballAustralian;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$FrisbeeDisc : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$FrisbeeDisc;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Golf : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Golf;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$GuidedBreathing : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$GuidedBreathing;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Gymnastics : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Gymnastics;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Handball : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Handball;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$HighIntensityIntervalTraining : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$HighIntensityIntervalTraining;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Hiking : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Hiking;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$IceHockey : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$IceHockey;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$IceSkating : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$IceSkating;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$MartialArts : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$MartialArts;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$OtherWorkout : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$OtherWorkout;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Paddling : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Paddling;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Paragliding : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Paragliding;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Pilates : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Pilates;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Racquetball : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Racquetball;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$RockClimbing : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$RockClimbing;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$RollerHockey : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$RollerHockey;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Rowing : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Rowing;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$RowingMachine : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$RowingMachine;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Rugby : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Rugby;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Running : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Running;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$RunningTreadmill : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$RunningTreadmill;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Sailing : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Sailing;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$ScubaDiving : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$ScubaDiving;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Skating : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Skating;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Skiing : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Skiing;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Snowboarding : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Snowboarding;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Snowshoeing : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Snowshoeing;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Soccer : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Soccer;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Softball : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Softball;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Squash : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Squash;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$StairClimbing : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$StairClimbing;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$StairClimbingMachine : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$StairClimbingMachine;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$StrengthTraining : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$StrengthTraining;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Stretching : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Stretching;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Surfing : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Surfing;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$SwimmingOpenWater : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$SwimmingOpenWater;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$SwimmingPool : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$SwimmingPool;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$TableTennis : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$TableTennis;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Tennis : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Tennis;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Volleyball : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Volleyball;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Walking : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Walking;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$WaterPolo : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$WaterPolo;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Weightlifting : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Weightlifting;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Wheelchair : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Wheelchair;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Yoga : com/viktormykhailiv/kmp/health/records/ExerciseType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/ExerciseType$Yoga;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/records/HeartRateRecord : com/viktormykhailiv/kmp/health/SeriesRecord {

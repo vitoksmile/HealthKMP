@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.14](https://github.com/vitoksmile/HealthKMP/releases/tag/0.0.14)
+
+- Added **exercise** data type
+
 ## [0.0.13](https://github.com/vitoksmile/HealthKMP/releases/tag/0.0.13)
 
 - Added **body fat** data type

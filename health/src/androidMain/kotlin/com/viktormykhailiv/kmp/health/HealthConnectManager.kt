@@ -153,7 +153,7 @@ class HealthConnectManager(
 }
 
 private val List<HealthDataType>.readPermissions: Set<String>
-    get() = map { it.toHealthPermission(isRead = true) }.toSet()
+    get() = map { it.toHealthPermissions(isRead = true) }.flatten().toSet()
 
 private val List<HealthDataType>.writePermissions: Set<String>
-    get() = map { it.toHealthPermission(isWrite = true) }.toSet()
+    get() = map { it.toHealthPermissions(isWrite = true) }.flatten().toSet()

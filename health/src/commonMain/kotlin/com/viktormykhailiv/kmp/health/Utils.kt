@@ -5,6 +5,13 @@ import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import kotlinx.datetime.Instant
 import kotlin.time.Duration.Companion.seconds
 
+internal inline fun <T, R> Result<T>.flatMap(transform: (value: T) -> Result<R>): Result<R> {
+    return when {
+        isSuccess -> runCatching { transform(getOrThrow()).getOrThrow() }
+        else -> Result.failure(exceptionOrNull()!!)
+    }
+}
+
 internal fun <T : Comparable<T>> T.requireNotLess(other: T, name: String) {
     require(this >= other) { "$name must not be less than $other, currently $this." }
 }

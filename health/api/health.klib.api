@@ -127,6 +127,374 @@ sealed interface com.viktormykhailiv.kmp.health.records.metadata/DeviceType { //
     }
 }
 
+sealed interface com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType|null[0]
+    final object Badminton : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Badminton|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Badminton.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Badminton.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Badminton.toString|toString(){}[0]
+    }
+
+    final object Baseball : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Baseball|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Baseball.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Baseball.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Baseball.toString|toString(){}[0]
+    }
+
+    final object Basketball : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Basketball|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Basketball.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Basketball.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Basketball.toString|toString(){}[0]
+    }
+
+    final object Biking : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Biking|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Biking.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Biking.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Biking.toString|toString(){}[0]
+    }
+
+    final object BikingStationary : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.BikingStationary|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.BikingStationary.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.BikingStationary.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.BikingStationary.toString|toString(){}[0]
+    }
+
+    final object BootCamp : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.BootCamp|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.BootCamp.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.BootCamp.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.BootCamp.toString|toString(){}[0]
+    }
+
+    final object Boxing : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Boxing|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Boxing.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Boxing.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Boxing.toString|toString(){}[0]
+    }
+
+    final object Calisthenics : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Calisthenics|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Calisthenics.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Calisthenics.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Calisthenics.toString|toString(){}[0]
+    }
+
+    final object Cricket : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Cricket|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Cricket.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Cricket.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Cricket.toString|toString(){}[0]
+    }
+
+    final object Dancing : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Dancing|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Dancing.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Dancing.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Dancing.toString|toString(){}[0]
+    }
+
+    final object Elliptical : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Elliptical|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Elliptical.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Elliptical.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Elliptical.toString|toString(){}[0]
+    }
+
+    final object ExerciseClass : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.ExerciseClass|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.ExerciseClass.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.ExerciseClass.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.ExerciseClass.toString|toString(){}[0]
+    }
+
+    final object Fencing : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Fencing|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Fencing.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Fencing.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Fencing.toString|toString(){}[0]
+    }
+
+    final object FootballAmerican : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.FootballAmerican|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.FootballAmerican.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.FootballAmerican.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.FootballAmerican.toString|toString(){}[0]
+    }
+
+    final object FootballAustralian : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.FootballAustralian|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.FootballAustralian.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.FootballAustralian.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.FootballAustralian.toString|toString(){}[0]
+    }
+
+    final object FrisbeeDisc : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.FrisbeeDisc|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.FrisbeeDisc.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.FrisbeeDisc.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.FrisbeeDisc.toString|toString(){}[0]
+    }
+
+    final object Golf : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Golf|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Golf.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Golf.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Golf.toString|toString(){}[0]
+    }
+
+    final object GuidedBreathing : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.GuidedBreathing|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.GuidedBreathing.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.GuidedBreathing.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.GuidedBreathing.toString|toString(){}[0]
+    }
+
+    final object Gymnastics : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Gymnastics|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Gymnastics.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Gymnastics.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Gymnastics.toString|toString(){}[0]
+    }
+
+    final object Handball : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Handball|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Handball.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Handball.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Handball.toString|toString(){}[0]
+    }
+
+    final object HighIntensityIntervalTraining : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.HighIntensityIntervalTraining|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.HighIntensityIntervalTraining.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.HighIntensityIntervalTraining.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.HighIntensityIntervalTraining.toString|toString(){}[0]
+    }
+
+    final object Hiking : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Hiking|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Hiking.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Hiking.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Hiking.toString|toString(){}[0]
+    }
+
+    final object IceHockey : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.IceHockey|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.IceHockey.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.IceHockey.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.IceHockey.toString|toString(){}[0]
+    }
+
+    final object IceSkating : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.IceSkating|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.IceSkating.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.IceSkating.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.IceSkating.toString|toString(){}[0]
+    }
+
+    final object MartialArts : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.MartialArts|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.MartialArts.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.MartialArts.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.MartialArts.toString|toString(){}[0]
+    }
+
+    final object OtherWorkout : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.OtherWorkout|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.OtherWorkout.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.OtherWorkout.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.OtherWorkout.toString|toString(){}[0]
+    }
+
+    final object Paddling : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Paddling|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Paddling.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Paddling.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Paddling.toString|toString(){}[0]
+    }
+
+    final object Paragliding : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Paragliding|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Paragliding.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Paragliding.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Paragliding.toString|toString(){}[0]
+    }
+
+    final object Pilates : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Pilates|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Pilates.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Pilates.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Pilates.toString|toString(){}[0]
+    }
+
+    final object Racquetball : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Racquetball|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Racquetball.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Racquetball.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Racquetball.toString|toString(){}[0]
+    }
+
+    final object RockClimbing : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.RockClimbing|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.RockClimbing.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.RockClimbing.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.RockClimbing.toString|toString(){}[0]
+    }
+
+    final object RollerHockey : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.RollerHockey|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.RollerHockey.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.RollerHockey.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.RollerHockey.toString|toString(){}[0]
+    }
+
+    final object Rowing : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Rowing|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Rowing.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Rowing.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Rowing.toString|toString(){}[0]
+    }
+
+    final object RowingMachine : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.RowingMachine|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.RowingMachine.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.RowingMachine.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.RowingMachine.toString|toString(){}[0]
+    }
+
+    final object Rugby : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Rugby|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Rugby.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Rugby.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Rugby.toString|toString(){}[0]
+    }
+
+    final object Running : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Running|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Running.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Running.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Running.toString|toString(){}[0]
+    }
+
+    final object RunningTreadmill : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.RunningTreadmill|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.RunningTreadmill.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.RunningTreadmill.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.RunningTreadmill.toString|toString(){}[0]
+    }
+
+    final object Sailing : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Sailing|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Sailing.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Sailing.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Sailing.toString|toString(){}[0]
+    }
+
+    final object ScubaDiving : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.ScubaDiving|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.ScubaDiving.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.ScubaDiving.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.ScubaDiving.toString|toString(){}[0]
+    }
+
+    final object Skating : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Skating|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Skating.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Skating.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Skating.toString|toString(){}[0]
+    }
+
+    final object Skiing : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Skiing|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Skiing.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Skiing.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Skiing.toString|toString(){}[0]
+    }
+
+    final object Snowboarding : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Snowboarding|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Snowboarding.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Snowboarding.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Snowboarding.toString|toString(){}[0]
+    }
+
+    final object Snowshoeing : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Snowshoeing|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Snowshoeing.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Snowshoeing.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Snowshoeing.toString|toString(){}[0]
+    }
+
+    final object Soccer : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Soccer|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Soccer.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Soccer.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Soccer.toString|toString(){}[0]
+    }
+
+    final object Softball : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Softball|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Softball.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Softball.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Softball.toString|toString(){}[0]
+    }
+
+    final object Squash : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Squash|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Squash.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Squash.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Squash.toString|toString(){}[0]
+    }
+
+    final object StairClimbing : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.StairClimbing|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.StairClimbing.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.StairClimbing.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.StairClimbing.toString|toString(){}[0]
+    }
+
+    final object StairClimbingMachine : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.StairClimbingMachine|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.StairClimbingMachine.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.StairClimbingMachine.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.StairClimbingMachine.toString|toString(){}[0]
+    }
+
+    final object StrengthTraining : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.StrengthTraining|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.StrengthTraining.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.StrengthTraining.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.StrengthTraining.toString|toString(){}[0]
+    }
+
+    final object Stretching : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Stretching|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Stretching.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Stretching.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Stretching.toString|toString(){}[0]
+    }
+
+    final object Surfing : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Surfing|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Surfing.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Surfing.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Surfing.toString|toString(){}[0]
+    }
+
+    final object SwimmingOpenWater : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.SwimmingOpenWater|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.SwimmingOpenWater.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.SwimmingOpenWater.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.SwimmingOpenWater.toString|toString(){}[0]
+    }
+
+    final object SwimmingPool : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.SwimmingPool|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.SwimmingPool.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.SwimmingPool.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.SwimmingPool.toString|toString(){}[0]
+    }
+
+    final object TableTennis : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.TableTennis|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.TableTennis.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.TableTennis.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.TableTennis.toString|toString(){}[0]
+    }
+
+    final object Tennis : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Tennis|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Tennis.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Tennis.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Tennis.toString|toString(){}[0]
+    }
+
+    final object Volleyball : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Volleyball|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Volleyball.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Volleyball.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Volleyball.toString|toString(){}[0]
+    }
+
+    final object Walking : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Walking|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Walking.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Walking.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Walking.toString|toString(){}[0]
+    }
+
+    final object WaterPolo : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.WaterPolo|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.WaterPolo.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.WaterPolo.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.WaterPolo.toString|toString(){}[0]
+    }
+
+    final object Weightlifting : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Weightlifting|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Weightlifting.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Weightlifting.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Weightlifting.toString|toString(){}[0]
+    }
+
+    final object Wheelchair : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Wheelchair|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Wheelchair.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Wheelchair.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Wheelchair.toString|toString(){}[0]
+    }
+
+    final object Yoga : com.viktormykhailiv.kmp.health.records/ExerciseType { // com.viktormykhailiv.kmp.health.records/ExerciseType.Yoga|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseType.Yoga.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseType.Yoga.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseType.Yoga.toString|toString(){}[0]
+    }
+}
+
 sealed interface com.viktormykhailiv.kmp.health.records/SleepStageType { // com.viktormykhailiv.kmp.health.records/SleepStageType|null[0]
     final object Awake : com.viktormykhailiv.kmp.health.records/SleepStageType { // com.viktormykhailiv.kmp.health.records/SleepStageType.Awake|null[0]
         final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/SleepStageType.Awake.equals|equals(kotlin.Any?){}[0]
@@ -178,6 +546,34 @@ sealed interface com.viktormykhailiv.kmp.health.records/SleepStageType { // com.
 }
 
 sealed interface com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType|null[0]
+    final class Exercise : com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType.Exercise|null[0]
+        constructor <init>(kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ...) // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.<init>|<init>(kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean){}[0]
+
+        final val activeEnergyBurned // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.activeEnergyBurned|{}activeEnergyBurned[0]
+            final fun <get-activeEnergyBurned>(): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.activeEnergyBurned.<get-activeEnergyBurned>|<get-activeEnergyBurned>(){}[0]
+        final val cyclingPower // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.cyclingPower|{}cyclingPower[0]
+            final fun <get-cyclingPower>(): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.cyclingPower.<get-cyclingPower>|<get-cyclingPower>(){}[0]
+        final val cyclingSpeed // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.cyclingSpeed|{}cyclingSpeed[0]
+            final fun <get-cyclingSpeed>(): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.cyclingSpeed.<get-cyclingSpeed>|<get-cyclingSpeed>(){}[0]
+        final val distanceWalkingRunning // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.distanceWalkingRunning|{}distanceWalkingRunning[0]
+            final fun <get-distanceWalkingRunning>(): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.distanceWalkingRunning.<get-distanceWalkingRunning>|<get-distanceWalkingRunning>(){}[0]
+        final val flightsClimbed // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.flightsClimbed|{}flightsClimbed[0]
+            final fun <get-flightsClimbed>(): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.flightsClimbed.<get-flightsClimbed>|<get-flightsClimbed>(){}[0]
+        final val runningSpeed // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.runningSpeed|{}runningSpeed[0]
+            final fun <get-runningSpeed>(): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.runningSpeed.<get-runningSpeed>|<get-runningSpeed>(){}[0]
+
+        final fun component1(): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.component1|component1(){}[0]
+        final fun component2(): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.component2|component2(){}[0]
+        final fun component3(): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.component3|component3(){}[0]
+        final fun component4(): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.component4|component4(){}[0]
+        final fun component5(): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.component5|component5(){}[0]
+        final fun component6(): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.component6|component6(){}[0]
+        final fun copy(kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ...): com.viktormykhailiv.kmp.health/HealthDataType.Exercise // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.copy|copy(kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health/HealthDataType.Exercise.toString|toString(){}[0]
+    }
+
     final object BloodGlucose : com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType.BloodGlucose|null[0]
         final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.BloodGlucose.equals|equals(kotlin.Any?){}[0]
         final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health/HealthDataType.BloodGlucose.hashCode|hashCode(){}[0]
@@ -754,6 +1150,540 @@ final class com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord : com.v
     }
 }
 
+final class com.viktormykhailiv.kmp.health.records/ExerciseLap { // com.viktormykhailiv.kmp.health.records/ExerciseLap|null[0]
+    constructor <init>(kotlinx.datetime/Instant, kotlinx.datetime/Instant, com.viktormykhailiv.kmp.health.units/Length? = ...) // com.viktormykhailiv.kmp.health.records/ExerciseLap.<init>|<init>(kotlinx.datetime.Instant;kotlinx.datetime.Instant;com.viktormykhailiv.kmp.health.units.Length?){}[0]
+
+    final val endTime // com.viktormykhailiv.kmp.health.records/ExerciseLap.endTime|{}endTime[0]
+        final fun <get-endTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/ExerciseLap.endTime.<get-endTime>|<get-endTime>(){}[0]
+    final val length // com.viktormykhailiv.kmp.health.records/ExerciseLap.length|{}length[0]
+        final fun <get-length>(): com.viktormykhailiv.kmp.health.units/Length? // com.viktormykhailiv.kmp.health.records/ExerciseLap.length.<get-length>|<get-length>(){}[0]
+    final val startTime // com.viktormykhailiv.kmp.health.records/ExerciseLap.startTime|{}startTime[0]
+        final fun <get-startTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/ExerciseLap.startTime.<get-startTime>|<get-startTime>(){}[0]
+
+    final fun component1(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/ExerciseLap.component1|component1(){}[0]
+    final fun component2(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/ExerciseLap.component2|component2(){}[0]
+    final fun component3(): com.viktormykhailiv.kmp.health.units/Length? // com.viktormykhailiv.kmp.health.records/ExerciseLap.component3|component3(){}[0]
+    final fun copy(kotlinx.datetime/Instant = ..., kotlinx.datetime/Instant = ..., com.viktormykhailiv.kmp.health.units/Length? = ...): com.viktormykhailiv.kmp.health.records/ExerciseLap // com.viktormykhailiv.kmp.health.records/ExerciseLap.copy|copy(kotlinx.datetime.Instant;kotlinx.datetime.Instant;com.viktormykhailiv.kmp.health.units.Length?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseLap.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseLap.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseLap.toString|toString(){}[0]
+}
+
+final class com.viktormykhailiv.kmp.health.records/ExerciseRoute { // com.viktormykhailiv.kmp.health.records/ExerciseRoute|null[0]
+    constructor <init>(kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location>) // com.viktormykhailiv.kmp.health.records/ExerciseRoute.<init>|<init>(kotlin.collections.List<com.viktormykhailiv.kmp.health.records.ExerciseRoute.Location>){}[0]
+
+    final val route // com.viktormykhailiv.kmp.health.records/ExerciseRoute.route|{}route[0]
+        final fun <get-route>(): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location> // com.viktormykhailiv.kmp.health.records/ExerciseRoute.route.<get-route>|<get-route>(){}[0]
+
+    final fun component1(): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location> // com.viktormykhailiv.kmp.health.records/ExerciseRoute.component1|component1(){}[0]
+    final fun copy(kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location> = ...): com.viktormykhailiv.kmp.health.records/ExerciseRoute // com.viktormykhailiv.kmp.health.records/ExerciseRoute.copy|copy(kotlin.collections.List<com.viktormykhailiv.kmp.health.records.ExerciseRoute.Location>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseRoute.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseRoute.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseRoute.toString|toString(){}[0]
+
+    final class Location { // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location|null[0]
+        constructor <init>(kotlinx.datetime/Instant, kotlin/Double, kotlin/Double, com.viktormykhailiv.kmp.health.units/Length? = ..., com.viktormykhailiv.kmp.health.units/Length? = ..., com.viktormykhailiv.kmp.health.units/Length? = ...) // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.<init>|<init>(kotlinx.datetime.Instant;kotlin.Double;kotlin.Double;com.viktormykhailiv.kmp.health.units.Length?;com.viktormykhailiv.kmp.health.units.Length?;com.viktormykhailiv.kmp.health.units.Length?){}[0]
+
+        final val altitude // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.altitude|{}altitude[0]
+            final fun <get-altitude>(): com.viktormykhailiv.kmp.health.units/Length? // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.altitude.<get-altitude>|<get-altitude>(){}[0]
+        final val horizontalAccuracy // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.horizontalAccuracy|{}horizontalAccuracy[0]
+            final fun <get-horizontalAccuracy>(): com.viktormykhailiv.kmp.health.units/Length? // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.horizontalAccuracy.<get-horizontalAccuracy>|<get-horizontalAccuracy>(){}[0]
+        final val latitude // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.latitude|{}latitude[0]
+            final fun <get-latitude>(): kotlin/Double // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.latitude.<get-latitude>|<get-latitude>(){}[0]
+        final val longitude // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.longitude|{}longitude[0]
+            final fun <get-longitude>(): kotlin/Double // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.longitude.<get-longitude>|<get-longitude>(){}[0]
+        final val time // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.time|{}time[0]
+            final fun <get-time>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.time.<get-time>|<get-time>(){}[0]
+        final val verticalAccuracy // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.verticalAccuracy|{}verticalAccuracy[0]
+            final fun <get-verticalAccuracy>(): com.viktormykhailiv.kmp.health.units/Length? // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.verticalAccuracy.<get-verticalAccuracy>|<get-verticalAccuracy>(){}[0]
+
+        final fun component1(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.component1|component1(){}[0]
+        final fun component2(): kotlin/Double // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.component2|component2(){}[0]
+        final fun component3(): kotlin/Double // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.component3|component3(){}[0]
+        final fun component4(): com.viktormykhailiv.kmp.health.units/Length? // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.component4|component4(){}[0]
+        final fun component5(): com.viktormykhailiv.kmp.health.units/Length? // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.component5|component5(){}[0]
+        final fun component6(): com.viktormykhailiv.kmp.health.units/Length? // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.component6|component6(){}[0]
+        final fun copy(kotlinx.datetime/Instant = ..., kotlin/Double = ..., kotlin/Double = ..., com.viktormykhailiv.kmp.health.units/Length? = ..., com.viktormykhailiv.kmp.health.units/Length? = ..., com.viktormykhailiv.kmp.health.units/Length? = ...): com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.copy|copy(kotlinx.datetime.Instant;kotlin.Double;kotlin.Double;com.viktormykhailiv.kmp.health.units.Length?;com.viktormykhailiv.kmp.health.units.Length?;com.viktormykhailiv.kmp.health.units.Length?){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseRoute.Location.toString|toString(){}[0]
+    }
+}
+
+final class com.viktormykhailiv.kmp.health.records/ExerciseSegment { // com.viktormykhailiv.kmp.health.records/ExerciseSegment|null[0]
+    constructor <init>(kotlinx.datetime/Instant, kotlinx.datetime/Instant, com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type, kotlin/Int = ...) // com.viktormykhailiv.kmp.health.records/ExerciseSegment.<init>|<init>(kotlinx.datetime.Instant;kotlinx.datetime.Instant;com.viktormykhailiv.kmp.health.records.ExerciseSegment.Type;kotlin.Int){}[0]
+
+    final val endTime // com.viktormykhailiv.kmp.health.records/ExerciseSegment.endTime|{}endTime[0]
+        final fun <get-endTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/ExerciseSegment.endTime.<get-endTime>|<get-endTime>(){}[0]
+    final val repetitions // com.viktormykhailiv.kmp.health.records/ExerciseSegment.repetitions|{}repetitions[0]
+        final fun <get-repetitions>(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.repetitions.<get-repetitions>|<get-repetitions>(){}[0]
+    final val segmentType // com.viktormykhailiv.kmp.health.records/ExerciseSegment.segmentType|{}segmentType[0]
+        final fun <get-segmentType>(): com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type // com.viktormykhailiv.kmp.health.records/ExerciseSegment.segmentType.<get-segmentType>|<get-segmentType>(){}[0]
+    final val startTime // com.viktormykhailiv.kmp.health.records/ExerciseSegment.startTime|{}startTime[0]
+        final fun <get-startTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/ExerciseSegment.startTime.<get-startTime>|<get-startTime>(){}[0]
+
+    final fun component1(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/ExerciseSegment.component1|component1(){}[0]
+    final fun component2(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/ExerciseSegment.component2|component2(){}[0]
+    final fun component3(): com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type // com.viktormykhailiv.kmp.health.records/ExerciseSegment.component3|component3(){}[0]
+    final fun component4(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.component4|component4(){}[0]
+    final fun copy(kotlinx.datetime/Instant = ..., kotlinx.datetime/Instant = ..., com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type = ..., kotlin/Int = ...): com.viktormykhailiv.kmp.health.records/ExerciseSegment // com.viktormykhailiv.kmp.health.records/ExerciseSegment.copy|copy(kotlinx.datetime.Instant;kotlinx.datetime.Instant;com.viktormykhailiv.kmp.health.records.ExerciseSegment.Type;kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.toString|toString(){}[0]
+
+    sealed interface Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type|null[0]
+        final object ArmCurl : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.ArmCurl|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.ArmCurl.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.ArmCurl.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.ArmCurl.toString|toString(){}[0]
+        }
+
+        final object BackExtension : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BackExtension|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BackExtension.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BackExtension.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BackExtension.toString|toString(){}[0]
+        }
+
+        final object BallSlam : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BallSlam|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BallSlam.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BallSlam.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BallSlam.toString|toString(){}[0]
+        }
+
+        final object BarbellShoulderPress : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BarbellShoulderPress|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BarbellShoulderPress.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BarbellShoulderPress.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BarbellShoulderPress.toString|toString(){}[0]
+        }
+
+        final object BenchPress : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BenchPress|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BenchPress.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BenchPress.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BenchPress.toString|toString(){}[0]
+        }
+
+        final object BenchSitUp : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BenchSitUp|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BenchSitUp.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BenchSitUp.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BenchSitUp.toString|toString(){}[0]
+        }
+
+        final object Biking : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Biking|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Biking.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Biking.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Biking.toString|toString(){}[0]
+        }
+
+        final object BikingStationary : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BikingStationary|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BikingStationary.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BikingStationary.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.BikingStationary.toString|toString(){}[0]
+        }
+
+        final object Burpee : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Burpee|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Burpee.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Burpee.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Burpee.toString|toString(){}[0]
+        }
+
+        final object Crunch : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Crunch|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Crunch.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Crunch.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Crunch.toString|toString(){}[0]
+        }
+
+        final object Deadlift : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Deadlift|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Deadlift.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Deadlift.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Deadlift.toString|toString(){}[0]
+        }
+
+        final object DoubleArmTricepsExtension : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DoubleArmTricepsExtension|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DoubleArmTricepsExtension.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DoubleArmTricepsExtension.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DoubleArmTricepsExtension.toString|toString(){}[0]
+        }
+
+        final object DumbbellCurlLeftArm : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellCurlLeftArm|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellCurlLeftArm.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellCurlLeftArm.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellCurlLeftArm.toString|toString(){}[0]
+        }
+
+        final object DumbbellCurlRightArm : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellCurlRightArm|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellCurlRightArm.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellCurlRightArm.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellCurlRightArm.toString|toString(){}[0]
+        }
+
+        final object DumbbellFrontRaise : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellFrontRaise|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellFrontRaise.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellFrontRaise.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellFrontRaise.toString|toString(){}[0]
+        }
+
+        final object DumbbellLateralRaise : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellLateralRaise|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellLateralRaise.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellLateralRaise.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellLateralRaise.toString|toString(){}[0]
+        }
+
+        final object DumbbellRow : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellRow|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellRow.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellRow.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellRow.toString|toString(){}[0]
+        }
+
+        final object DumbbellTricepsExtensionLeftArm : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellTricepsExtensionLeftArm|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellTricepsExtensionLeftArm.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellTricepsExtensionLeftArm.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellTricepsExtensionLeftArm.toString|toString(){}[0]
+        }
+
+        final object DumbbellTricepsExtensionRightArm : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellTricepsExtensionRightArm|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellTricepsExtensionRightArm.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellTricepsExtensionRightArm.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellTricepsExtensionRightArm.toString|toString(){}[0]
+        }
+
+        final object DumbbellTricepsExtensionTwoArm : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellTricepsExtensionTwoArm|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellTricepsExtensionTwoArm.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellTricepsExtensionTwoArm.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.DumbbellTricepsExtensionTwoArm.toString|toString(){}[0]
+        }
+
+        final object Elliptical : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Elliptical|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Elliptical.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Elliptical.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Elliptical.toString|toString(){}[0]
+        }
+
+        final object ForwardTwist : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.ForwardTwist|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.ForwardTwist.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.ForwardTwist.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.ForwardTwist.toString|toString(){}[0]
+        }
+
+        final object FrontRaise : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.FrontRaise|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.FrontRaise.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.FrontRaise.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.FrontRaise.toString|toString(){}[0]
+        }
+
+        final object HighIntensityIntervalTraining : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.HighIntensityIntervalTraining|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.HighIntensityIntervalTraining.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.HighIntensityIntervalTraining.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.HighIntensityIntervalTraining.toString|toString(){}[0]
+        }
+
+        final object HipThrust : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.HipThrust|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.HipThrust.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.HipThrust.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.HipThrust.toString|toString(){}[0]
+        }
+
+        final object HulaHoop : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.HulaHoop|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.HulaHoop.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.HulaHoop.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.HulaHoop.toString|toString(){}[0]
+        }
+
+        final object JumpRope : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.JumpRope|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.JumpRope.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.JumpRope.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.JumpRope.toString|toString(){}[0]
+        }
+
+        final object JumpingJack : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.JumpingJack|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.JumpingJack.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.JumpingJack.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.JumpingJack.toString|toString(){}[0]
+        }
+
+        final object KettlebellSwing : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.KettlebellSwing|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.KettlebellSwing.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.KettlebellSwing.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.KettlebellSwing.toString|toString(){}[0]
+        }
+
+        final object LatPullDown : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LatPullDown|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LatPullDown.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LatPullDown.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LatPullDown.toString|toString(){}[0]
+        }
+
+        final object LateralRaise : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LateralRaise|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LateralRaise.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LateralRaise.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LateralRaise.toString|toString(){}[0]
+        }
+
+        final object LegCurl : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegCurl|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegCurl.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegCurl.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegCurl.toString|toString(){}[0]
+        }
+
+        final object LegExtension : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegExtension|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegExtension.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegExtension.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegExtension.toString|toString(){}[0]
+        }
+
+        final object LegPress : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegPress|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegPress.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegPress.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegPress.toString|toString(){}[0]
+        }
+
+        final object LegRaise : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegRaise|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegRaise.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegRaise.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.LegRaise.toString|toString(){}[0]
+        }
+
+        final object Lunge : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Lunge|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Lunge.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Lunge.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Lunge.toString|toString(){}[0]
+        }
+
+        final object MountainClimber : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.MountainClimber|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.MountainClimber.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.MountainClimber.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.MountainClimber.toString|toString(){}[0]
+        }
+
+        final object OtherWorkout : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.OtherWorkout|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.OtherWorkout.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.OtherWorkout.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.OtherWorkout.toString|toString(){}[0]
+        }
+
+        final object Pause : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Pause|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Pause.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Pause.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Pause.toString|toString(){}[0]
+        }
+
+        final object Pilates : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Pilates|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Pilates.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Pilates.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Pilates.toString|toString(){}[0]
+        }
+
+        final object Plank : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Plank|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Plank.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Plank.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Plank.toString|toString(){}[0]
+        }
+
+        final object PullUp : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.PullUp|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.PullUp.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.PullUp.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.PullUp.toString|toString(){}[0]
+        }
+
+        final object Punch : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Punch|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Punch.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Punch.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Punch.toString|toString(){}[0]
+        }
+
+        final object Rest : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Rest|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Rest.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Rest.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Rest.toString|toString(){}[0]
+        }
+
+        final object RowingMachine : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.RowingMachine|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.RowingMachine.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.RowingMachine.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.RowingMachine.toString|toString(){}[0]
+        }
+
+        final object Running : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Running|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Running.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Running.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Running.toString|toString(){}[0]
+        }
+
+        final object RunningTreadmill : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.RunningTreadmill|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.RunningTreadmill.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.RunningTreadmill.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.RunningTreadmill.toString|toString(){}[0]
+        }
+
+        final object ShoulderPress : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.ShoulderPress|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.ShoulderPress.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.ShoulderPress.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.ShoulderPress.toString|toString(){}[0]
+        }
+
+        final object SingleArmTricepsExtension : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SingleArmTricepsExtension|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SingleArmTricepsExtension.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SingleArmTricepsExtension.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SingleArmTricepsExtension.toString|toString(){}[0]
+        }
+
+        final object SitUp : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SitUp|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SitUp.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SitUp.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SitUp.toString|toString(){}[0]
+        }
+
+        final object Squat : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Squat|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Squat.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Squat.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Squat.toString|toString(){}[0]
+        }
+
+        final object StairClimbing : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.StairClimbing|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.StairClimbing.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.StairClimbing.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.StairClimbing.toString|toString(){}[0]
+        }
+
+        final object StairClimbingMachine : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.StairClimbingMachine|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.StairClimbingMachine.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.StairClimbingMachine.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.StairClimbingMachine.toString|toString(){}[0]
+        }
+
+        final object Stretching : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Stretching|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Stretching.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Stretching.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Stretching.toString|toString(){}[0]
+        }
+
+        final object SwimmingBackstroke : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingBackstroke|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingBackstroke.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingBackstroke.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingBackstroke.toString|toString(){}[0]
+        }
+
+        final object SwimmingBreaststroke : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingBreaststroke|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingBreaststroke.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingBreaststroke.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingBreaststroke.toString|toString(){}[0]
+        }
+
+        final object SwimmingButterfly : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingButterfly|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingButterfly.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingButterfly.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingButterfly.toString|toString(){}[0]
+        }
+
+        final object SwimmingFreestyle : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingFreestyle|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingFreestyle.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingFreestyle.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingFreestyle.toString|toString(){}[0]
+        }
+
+        final object SwimmingMixed : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingMixed|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingMixed.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingMixed.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingMixed.toString|toString(){}[0]
+        }
+
+        final object SwimmingOpenWater : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingOpenWater|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingOpenWater.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingOpenWater.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingOpenWater.toString|toString(){}[0]
+        }
+
+        final object SwimmingOther : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingOther|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingOther.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingOther.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingOther.toString|toString(){}[0]
+        }
+
+        final object SwimmingPool : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingPool|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingPool.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingPool.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.SwimmingPool.toString|toString(){}[0]
+        }
+
+        final object Unknown : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Unknown|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Unknown.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Unknown.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Unknown.toString|toString(){}[0]
+        }
+
+        final object UpperTwist : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.UpperTwist|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.UpperTwist.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.UpperTwist.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.UpperTwist.toString|toString(){}[0]
+        }
+
+        final object Walking : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Walking|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Walking.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Walking.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Walking.toString|toString(){}[0]
+        }
+
+        final object Weightlifting : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Weightlifting|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Weightlifting.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Weightlifting.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Weightlifting.toString|toString(){}[0]
+        }
+
+        final object Wheelchair : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Wheelchair|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Wheelchair.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Wheelchair.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Wheelchair.toString|toString(){}[0]
+        }
+
+        final object Yoga : com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type { // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Yoga|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Yoga.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Yoga.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSegment.Type.Yoga.toString|toString(){}[0]
+        }
+    }
+}
+
+final class com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord : com.viktormykhailiv.kmp.health/IntervalRecord { // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord|null[0]
+    constructor <init>(kotlinx.datetime/Instant, kotlinx.datetime/Instant, com.viktormykhailiv.kmp.health.records/ExerciseType, kotlin/String? = ..., kotlin/String? = ..., kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseSegment> = ..., kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseLap> = ..., com.viktormykhailiv.kmp.health.records/ExerciseRoute?, kotlin/String? = ..., com.viktormykhailiv.kmp.health.records.metadata/Metadata) // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.<init>|<init>(kotlinx.datetime.Instant;kotlinx.datetime.Instant;com.viktormykhailiv.kmp.health.records.ExerciseType;kotlin.String?;kotlin.String?;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.ExerciseSegment>;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.ExerciseLap>;com.viktormykhailiv.kmp.health.records.ExerciseRoute?;kotlin.String?;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
+
+    final val dataType // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.dataType|{}dataType[0]
+        final fun <get-dataType>(): com.viktormykhailiv.kmp.health/HealthDataType // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.dataType.<get-dataType>|<get-dataType>(){}[0]
+    final val endTime // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.endTime|{}endTime[0]
+        final fun <get-endTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.endTime.<get-endTime>|<get-endTime>(){}[0]
+    final val exerciseRoute // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.exerciseRoute|{}exerciseRoute[0]
+        final fun <get-exerciseRoute>(): com.viktormykhailiv.kmp.health.records/ExerciseRoute? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.exerciseRoute.<get-exerciseRoute>|<get-exerciseRoute>(){}[0]
+    final val exerciseType // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.exerciseType|{}exerciseType[0]
+        final fun <get-exerciseType>(): com.viktormykhailiv.kmp.health.records/ExerciseType // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.exerciseType.<get-exerciseType>|<get-exerciseType>(){}[0]
+    final val laps // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.laps|{}laps[0]
+        final fun <get-laps>(): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseLap> // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.laps.<get-laps>|<get-laps>(){}[0]
+    final val metadata // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.metadata|{}metadata[0]
+        final fun <get-metadata>(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.metadata.<get-metadata>|<get-metadata>(){}[0]
+    final val notes // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.notes|{}notes[0]
+        final fun <get-notes>(): kotlin/String? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.notes.<get-notes>|<get-notes>(){}[0]
+    final val plannedExerciseSessionId // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.plannedExerciseSessionId|{}plannedExerciseSessionId[0]
+        final fun <get-plannedExerciseSessionId>(): kotlin/String? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.plannedExerciseSessionId.<get-plannedExerciseSessionId>|<get-plannedExerciseSessionId>(){}[0]
+    final val segments // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.segments|{}segments[0]
+        final fun <get-segments>(): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseSegment> // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.segments.<get-segments>|<get-segments>(){}[0]
+    final val startTime // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.startTime|{}startTime[0]
+        final fun <get-startTime>(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.startTime.<get-startTime>|<get-startTime>(){}[0]
+    final val title // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.title|{}title[0]
+        final fun <get-title>(): kotlin/String? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.title.<get-title>|<get-title>(){}[0]
+
+    final fun component1(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component1|component1(){}[0]
+    final fun component10(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component10|component10(){}[0]
+    final fun component2(): kotlinx.datetime/Instant // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component2|component2(){}[0]
+    final fun component3(): com.viktormykhailiv.kmp.health.records/ExerciseType // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component3|component3(){}[0]
+    final fun component4(): kotlin/String? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component4|component4(){}[0]
+    final fun component5(): kotlin/String? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component5|component5(){}[0]
+    final fun component6(): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseSegment> // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component6|component6(){}[0]
+    final fun component7(): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseLap> // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component7|component7(){}[0]
+    final fun component8(): com.viktormykhailiv.kmp.health.records/ExerciseRoute? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component8|component8(){}[0]
+    final fun component9(): kotlin/String? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component9|component9(){}[0]
+    final fun copy(kotlinx.datetime/Instant = ..., kotlinx.datetime/Instant = ..., com.viktormykhailiv.kmp.health.records/ExerciseType = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseSegment> = ..., kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseLap> = ..., com.viktormykhailiv.kmp.health.records/ExerciseRoute? = ..., kotlin/String? = ..., com.viktormykhailiv.kmp.health.records.metadata/Metadata = ...): com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.copy|copy(kotlinx.datetime.Instant;kotlinx.datetime.Instant;com.viktormykhailiv.kmp.health.records.ExerciseType;kotlin.String?;kotlin.String?;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.ExerciseSegment>;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.ExerciseLap>;com.viktormykhailiv.kmp.health.records.ExerciseRoute?;kotlin.String?;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.toString|toString(){}[0]
+}
+
 final class com.viktormykhailiv.kmp.health.records/HeartRateRecord : com.viktormykhailiv.kmp.health/SeriesRecord<com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample> { // com.viktormykhailiv.kmp.health.records/HeartRateRecord|null[0]
     constructor <init>(kotlinx.datetime/Instant, kotlinx.datetime/Instant, kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeartRateRecord.Sample>, com.viktormykhailiv.kmp.health.records.metadata/Metadata) // com.viktormykhailiv.kmp.health.records/HeartRateRecord.<init>|<init>(kotlinx.datetime.Instant;kotlinx.datetime.Instant;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.HeartRateRecord.Sample>;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
 
@@ -1216,6 +2146,7 @@ final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykha
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readBloodPressure(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/BloodPressureRecord>> // com.viktormykhailiv.kmp.health/readBloodPressure|readBloodPressure@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readBodyFat(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/BodyFatRecord>> // com.viktormykhailiv.kmp.health/readBodyFat|readBodyFat@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readBodyTemperature(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord>> // com.viktormykhailiv.kmp.health/readBodyTemperature|readBodyTemperature@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readExercise(kotlinx.datetime/Instant, kotlinx.datetime/Instant, com.viktormykhailiv.kmp.health/HealthDataType.Exercise = ...): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord>> // com.viktormykhailiv.kmp.health/readExercise|readExercise@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant;com.viktormykhailiv.kmp.health.HealthDataType.Exercise){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readHeartRate(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeartRateRecord>> // com.viktormykhailiv.kmp.health/readHeartRate|readHeartRate@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readHeight(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeightRecord>> // com.viktormykhailiv.kmp.health/readHeight|readHeight@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readLeanBodyMass(kotlinx.datetime/Instant, kotlinx.datetime/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/LeanBodyMassRecord>> // com.viktormykhailiv.kmp.health/readLeanBodyMass|readLeanBodyMass@com.viktormykhailiv.kmp.health.HealthManager(kotlinx.datetime.Instant;kotlinx.datetime.Instant){}[0]
@@ -1236,6 +2167,7 @@ final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktor
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readBloodPressure(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/BloodPressureRecord> // com.viktormykhailiv.kmp.health/readBloodPressure|readBloodPressure@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readBodyFat(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/BodyFatRecord> // com.viktormykhailiv.kmp.health/readBodyFat|readBodyFat@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readBodyTemperature(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/BodyTemperatureRecord> // com.viktormykhailiv.kmp.health/readBodyTemperature|readBodyTemperature@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readExercise(platform.Foundation/NSDate, platform.Foundation/NSDate, com.viktormykhailiv.kmp.health/HealthDataType.Exercise = ...): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord> // com.viktormykhailiv.kmp.health/readExercise|readExercise@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate;com.viktormykhailiv.kmp.health.HealthDataType.Exercise){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readHeartRage(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeartRateRecord> // com.viktormykhailiv.kmp.health/readHeartRage|readHeartRage@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readHeight(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeightRecord> // com.viktormykhailiv.kmp.health/readHeight|readHeight@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readLeanBodyMass(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/LeanBodyMassRecord> // com.viktormykhailiv.kmp.health/readLeanBodyMass|readLeanBodyMass@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]

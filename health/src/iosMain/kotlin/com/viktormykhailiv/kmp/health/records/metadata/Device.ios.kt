@@ -1,9 +1,12 @@
 package com.viktormykhailiv.kmp.health.records.metadata
 
-import platform.UIKit.UIDevice
+import platform.HealthKit.HKDevice
 
-actual fun Device.Companion.getLocalDevice(): Device = Device(
-    type = DeviceType.Phone,
-    manufacturer = "Apple",
-    model = UIDevice.currentDevice().localizedModel,
-)
+actual fun Device.Companion.getLocalDevice(): Device {
+    val device = HKDevice.localDevice()
+    return Device(
+        type = DeviceType.Phone,
+        manufacturer = device.manufacturer,
+        model = device.model,
+    )
+}

@@ -6,6 +6,7 @@ import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
+import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
@@ -26,6 +27,7 @@ import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
 import com.viktormykhailiv.kmp.health.records.BodyFatRecord
 import com.viktormykhailiv.kmp.health.records.BodyTemperatureRecord
+import com.viktormykhailiv.kmp.health.records.ExerciseSessionRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.LeanBodyMassRecord
@@ -91,6 +93,18 @@ suspend fun SwiftHealthManager.readBodyTemperature(
         endTime = endTime,
         type = BodyTemperature,
     ).filterIsInstance<BodyTemperatureRecord>()
+
+@Throws(Throwable::class)
+suspend fun SwiftHealthManager.readExercise(
+    startTime: NSDate,
+    endTime: NSDate,
+    exercise: Exercise = Exercise(),
+): List<ExerciseSessionRecord> =
+    readData(
+        startTime = startTime,
+        endTime = endTime,
+        type = exercise,
+    ).filterIsInstance<ExerciseSessionRecord>()
 
 @Throws(Throwable::class)
 suspend fun SwiftHealthManager.readHeartRage(

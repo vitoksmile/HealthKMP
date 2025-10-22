@@ -4,17 +4,22 @@ package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
+import com.viktormykhailiv.kmp.health.records.ExerciseSessionRecord
 import com.viktormykhailiv.kmp.health.region.RegionalPreferences
 import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
 import kotlinx.cinterop.UnsafeNumber
+import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toNSDate
 import platform.Foundation.NSSortDescriptor
 import platform.HealthKit.HKAuthorizationRequestStatusUnnecessary
 import platform.HealthKit.HKCategorySample
+import platform.HealthKit.HKDevice
 import platform.HealthKit.HKHealthStore
+import platform.HealthKit.HKObject
 import platform.HealthKit.HKObjectQueryNoLimit
 import platform.HealthKit.HKQuantitySample
 import platform.HealthKit.HKQuantityType
@@ -27,15 +32,20 @@ import platform.HealthKit.HKStatistics
 import platform.HealthKit.HKStatisticsOptions
 import platform.HealthKit.HKStatisticsQuery
 import platform.HealthKit.HKUnit
+import platform.HealthKit.HKWorkout
+import platform.HealthKit.HKWorkoutRoute
+import platform.HealthKit.HKWorkoutRouteBuilder
 import platform.HealthKit.degreeCelsiusUnit
 import platform.HealthKit.degreeFahrenheitUnit
 import platform.HealthKit.predicateForSamplesWithStartDate
 import platform.HealthKit.preferredUnitsForQuantityTypes
+import kotlin.collections.map
+import kotlin.collections.orEmpty
 import kotlin.coroutines.resumeWithException
 
 internal class HealthKitManager : HealthManager {
 
-    private val healthKit by lazy { HKHealthStore() }
+    private val healthStore by lazy { HKHealthStore() }
 
     override fun isAvailable(): Result<Boolean> = runCatching {
         HKHealthStore.isHealthDataAvailable()
@@ -45,7 +55,7 @@ internal class HealthKitManager : HealthManager {
         readTypes: List<HealthDataType>,
         writeTypes: List<HealthDataType>,
     ): Result<Boolean> = suspendCancellableCoroutine { continuation ->
-        healthKit.getRequestStatusForAuthorizationToShareTypes(
+        healthStore.getRequestStatusForAuthorizationToShareTypes(
             typesToShare = writeTypes.map { it.toHKSampleType() }.flatten().filterNotNull().toSet(),
             readTypes = readTypes.map { it.toHKSampleType() }.flatten().filterNotNull().toSet(),
         ) { status, error ->
@@ -63,18 +73,17 @@ internal class HealthKitManager : HealthManager {
         readTypes: List<HealthDataType>,
         writeTypes: List<HealthDataType>,
     ): Result<Boolean> = suspendCancellableCoroutine { continuation ->
-        healthKit.requestAuthorizationToShareTypes(
+        healthStore.requestAuthorizationToShareTypes(
             typesToShare = writeTypes.map { it.toHKSampleType() }.flatten().filterNotNull().toSet(),
             readTypes = readTypes.map { it.toHKSampleType() }.flatten().filterNotNull().toSet(),
         ) { _, error ->
             if (continuation.isCancelled) return@requestAuthorizationToShareTypes
 
-            if (error != null) {
-                @Suppress("RemoveExplicitTypeArguments")
-                continuation.resume(Result.failure<Unit>(Throwable(error.toString())))
-            } else {
+            if (error == null) {
                 // We don't case about result here, it will be mapped to isAuthorized
                 continuation.resume(Result.success(Unit))
+            } else {
+                continuation.resume(Result.failure(Throwable(error.toString())))
             }
         }
     }.mapCatching {
@@ -87,6 +96,7 @@ internal class HealthKitManager : HealthManager {
     override suspend fun revokeAuthorization(): Result<Unit> =
         Result.failure(NotImplementedError())
 
+    @Suppress("UNCHECKED_CAST")
     override suspend fun readData(
         startTime: Instant,
         endTime: Instant,
@@ -102,8 +112,7 @@ internal class HealthKitManager : HealthManager {
                             return Result.failure(NotImplementedError("$type is not supported"))
                         },
                 )
-                    .onFailure { return Result.failure(it) }
-                    .getOrThrow()
+                    .getOrElse { return Result.failure(it) }
             }
             .flatten()
 
@@ -115,13 +124,15 @@ internal class HealthKitManager : HealthManager {
             result.firstOrNull() is HKQuantitySample -> {
                 val temperaturePreference = suspend { getTemperaturePreference() }
 
-                @Suppress("UNCHECKED_CAST")
                 (result as List<HKQuantitySample>).toHealthRecord(temperaturePreference)
             }
 
             result.firstOrNull() is HKCategorySample -> {
-                @Suppress("UNCHECKED_CAST")
                 (result as List<HKCategorySample>).toHealthRecords()
+            }
+
+            result.firstOrNull() is HKWorkout -> {
+                (result as List<HKWorkout>).toHealthRecords(healthStore)
             }
 
             else -> {
@@ -132,17 +143,25 @@ internal class HealthKitManager : HealthManager {
 
     override suspend fun writeData(
         records: List<HealthRecord>,
-    ): Result<Unit> = suspendCancellableCoroutine { continuation ->
-        healthKit.saveObjects(records.mapNotNull { it.toHKObjects() }.flatten()) { _, error ->
-            if (continuation.isCancelled) return@saveObjects
-
-            if (error != null) {
-                continuation.resume(Result.failure(Throwable(error.toString())))
-                return@saveObjects
-            }
-
-            continuation.resume(Result.success(Unit))
+    ): Result<Unit> {
+        val data = withContext(Dispatchers.Default) {
+            records.associateWith { it.toHKObjects() }
         }
+        val objects = withContext(Dispatchers.Default) {
+            data.values.filterNotNull().flatten()
+        }
+
+        return suspendCancellableCoroutine { continuation ->
+            healthStore.saveObjects(objects) { _, error ->
+                if (continuation.isCancelled) return@saveObjects
+
+                if (error == null) {
+                    continuation.resume(Result.success(Unit))
+                } else {
+                    continuation.resume(Result.failure(Throwable(error.toString())))
+                }
+            }
+        }.flatMap { postWriteData(data) }
     }
 
     override suspend fun aggregate(
@@ -158,7 +177,8 @@ internal class HealthKitManager : HealthManager {
 
         val temperaturePreference = suspend { getTemperaturePreference() }
 
-        return type.toHKQuantityType()
+        return runCatching { type.toHKQuantityType() }
+            .getOrElse { return Result.failure(it) }
             .map { quantityType ->
                 aggregate(
                     startTime = startTime,
@@ -169,8 +189,7 @@ internal class HealthKitManager : HealthManager {
                         },
                     options = type.toHKStatisticOptions(),
                 )
-                    .onFailure { return Result.failure(it) }
-                    .getOrThrow()
+                    .getOrElse { return Result.failure(it) }
             }
             .toHealthAggregatedRecord(temperaturePreference)
             .let { aggregatedRecord ->
@@ -192,7 +211,7 @@ internal class HealthKitManager : HealthManager {
         val quantityType = BodyTemperature.toHKQuantityType().first()
             ?: throw IllegalArgumentException("HKQuantityType is not provided")
         return suspendCancellableCoroutine { continuation ->
-            healthKit.preferredUnitsForQuantityTypes(setOf(quantityType)) { result, error ->
+            healthStore.preferredUnitsForQuantityTypes(setOf(quantityType)) { result, error ->
                 if (continuation.isCancelled) return@preferredUnitsForQuantityTypes
 
                 if (error != null) {
@@ -218,6 +237,7 @@ internal class HealthKitManager : HealthManager {
         }
     }.getOrElse { TemperatureRegionalPreference.Fahrenheit }
 
+    @Suppress("UNCHECKED_CAST")
     private suspend fun readData(
         startTime: Instant,
         endTime: Instant,
@@ -248,14 +268,22 @@ internal class HealthKitManager : HealthManager {
                 }
 
                 result.firstOrNull() is HKQuantitySample -> {
-                    @Suppress("UNCHECKED_CAST")
                     val records = result as List<HKQuantitySample>
                     continuation.resume(Result.success(records))
                 }
 
                 result.firstOrNull() is HKCategorySample -> {
-                    @Suppress("UNCHECKED_CAST")
                     val records = result as List<HKCategorySample>
+                    continuation.resume(Result.success(records))
+                }
+
+                result.firstOrNull() is HKWorkout -> {
+                    val records = result as List<HKWorkout>
+                    continuation.resume(Result.success(records))
+                }
+
+                result.firstOrNull() is HKWorkoutRoute -> {
+                    val records = result as List<HKWorkoutRoute>
                     continuation.resume(Result.success(records))
                 }
 
@@ -265,7 +293,96 @@ internal class HealthKitManager : HealthManager {
             }
         }
 
-        healthKit.executeQuery(query)
+        healthStore.executeQuery(query)
+    }
+
+    private suspend fun postWriteData(
+        data: Map<HealthRecord, List<HKObject>?>,
+    ): Result<Unit> {
+        val results = writeWorkoutMetadata(data)
+
+        val failed = results.mapNotNull { it.exceptionOrNull() }
+        return if (failed.isNotEmpty()) {
+            Result.failure(
+                Throwable(
+                    "Failed to write workout metadata",
+                    Throwable(failed.joinToString()),
+                )
+            )
+        } else {
+            Result.success(Unit)
+        }
+    }
+
+    private suspend fun writeWorkoutMetadata(
+        data: Map<HealthRecord, List<HKObject>?>,
+    ): List<Result<Unit>> {
+        val workouts = withContext(Dispatchers.Default) {
+            data
+                .asSequence()
+                .filter { entry ->
+                    entry.key is ExerciseSessionRecord
+                }
+                .filterNot { entry ->
+                    (entry.key as ExerciseSessionRecord).exerciseRoute?.route.isNullOrEmpty()
+                }
+                .mapNotNull { entry ->
+                    val record = entry.key as ExerciseSessionRecord
+                    val workout = entry.value.orEmpty().firstOrNull() as? HKWorkout
+                        ?: return@mapNotNull null
+                    record to workout
+                }
+        }
+
+        return workouts.toList()
+            .map { (exercise, workout) ->
+                writeWorkoutLocations(exercise, workout)
+            }
+    }
+
+    private suspend fun writeWorkoutLocations(
+        exercise: ExerciseSessionRecord,
+        workout: HKWorkout,
+    ): Result<Unit> {
+        if (exercise.exerciseRoute?.route.isNullOrEmpty()) {
+            return Result.success(Unit)
+        }
+
+        val builder = HKWorkoutRouteBuilder(
+            healthStore = healthStore,
+            device = HKDevice.localDevice(),
+        )
+
+        suspendCancellableCoroutine { continuation ->
+            builder.insertRouteData(
+                exercise.exerciseRoute.route.map { it.toCLLocation() },
+            ) { _, error ->
+                if (continuation.isCancelled) return@insertRouteData
+
+                if (error == null) {
+                    continuation.resume(Result.success(Unit))
+                } else {
+                    continuation.resume(Result.failure(Throwable(error.toString())))
+                }
+            }
+        }.onFailure {
+            return Result.failure(it)
+        }
+
+        return suspendCancellableCoroutine { continuation ->
+            builder.finishRouteWithWorkout(
+                workout = workout,
+                metadata = null,
+            ) { _, error ->
+                if (continuation.isCancelled) return@finishRouteWithWorkout
+
+                if (error == null) {
+                    continuation.resume(Result.success(Unit))
+                } else {
+                    continuation.resume(Result.failure(Throwable(error.toString())))
+                }
+            }
+        }
     }
 
     private suspend fun aggregate(
@@ -301,7 +418,7 @@ internal class HealthKitManager : HealthManager {
             }
         }
 
-        healthKit.executeQuery(query)
+        healthStore.executeQuery(query)
     }
 
 }

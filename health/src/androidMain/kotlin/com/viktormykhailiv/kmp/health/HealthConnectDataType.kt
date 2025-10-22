@@ -5,6 +5,7 @@ import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.BodyTemperatureRecord
+import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
@@ -16,6 +17,7 @@ import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
+import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
@@ -33,6 +35,8 @@ internal fun HealthDataType.toRecordType(): KClass<out Record> = when (this) {
 
     BodyTemperature -> BodyTemperatureRecord::class
 
+    is Exercise -> ExerciseSessionRecord::class
+
     HeartRate -> HeartRateRecord::class
 
     Height -> HeightRecord::class
@@ -47,17 +51,25 @@ internal fun HealthDataType.toRecordType(): KClass<out Record> = when (this) {
 }
 
 /**
- * Returns a permission defined in [HealthPermission] to read provided [HealthDataType].
+ * Returns permissions defined in [HealthPermission] to access [HealthDataType].
  */
-internal fun HealthDataType.toHealthPermission(
+internal fun HealthDataType.toHealthPermissions(
     isRead: Boolean = false,
     isWrite: Boolean = false,
-): String {
+): Set<String> {
     require(isRead != isWrite)
 
-    return if (isRead) {
-        HealthPermission.getReadPermission(recordType = toRecordType())
-    } else {
-        HealthPermission.getWritePermission(recordType = toRecordType())
+    val permissions = mutableSetOf(
+        if (isRead) {
+            HealthPermission.getReadPermission(toRecordType())
+        } else {
+            HealthPermission.getWritePermission(recordType = toRecordType())
+        }
+    )
+
+    if (this is Exercise) {
+        permissions.add(HealthPermission.PERMISSION_WRITE_EXERCISE_ROUTE)
     }
+
+    return permissions
 }

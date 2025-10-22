@@ -6,6 +6,7 @@ import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
+import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
@@ -62,6 +63,9 @@ internal fun HealthDataType.toHKQuantityType(): List<HKQuantityType?> = when (th
     BodyTemperature ->
         listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyTemperature))
 
+    is Exercise ->
+        throw IllegalArgumentException("Exercise is not supported for aggregation")
+
     HeartRate ->
         listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate))
 
@@ -95,6 +99,9 @@ internal fun HealthDataType.toHKStatisticOptions(): HKStatisticsOptions = when (
         discreteStatisticsOptions()
 
     BodyTemperature ->
+        discreteStatisticsOptions()
+
+    is Exercise ->
         discreteStatisticsOptions()
 
     HeartRate ->

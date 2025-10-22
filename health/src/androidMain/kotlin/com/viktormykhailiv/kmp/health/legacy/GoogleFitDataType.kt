@@ -7,6 +7,7 @@ import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
+import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
@@ -42,6 +43,8 @@ internal fun HealthDataType.toDataType(): DataType = when (this) {
     BodyFat -> DataType.TYPE_BODY_FAT_PERCENTAGE
 
     BodyTemperature -> throw IllegalArgumentException("BodyTemperature is not supported")
+
+    is Exercise -> throw IllegalArgumentException("Exercise is not supported")
 
     HeartRate -> DataType.TYPE_HEART_RATE_BPM
 

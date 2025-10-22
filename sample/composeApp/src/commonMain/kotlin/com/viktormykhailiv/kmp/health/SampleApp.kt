@@ -36,6 +36,7 @@ import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
+import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
@@ -52,10 +53,16 @@ import com.viktormykhailiv.kmp.health.aggregate.LeanBodyMassAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
+import com.viktormykhailiv.kmp.health.exercise.ExerciseTypePicker
 import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
 import com.viktormykhailiv.kmp.health.records.BodyFatRecord
 import com.viktormykhailiv.kmp.health.records.BodyTemperatureRecord
+import com.viktormykhailiv.kmp.health.records.ExerciseLap
+import com.viktormykhailiv.kmp.health.records.ExerciseRoute
+import com.viktormykhailiv.kmp.health.records.ExerciseSegment
+import com.viktormykhailiv.kmp.health.records.ExerciseSessionRecord
+import com.viktormykhailiv.kmp.health.records.ExerciseType
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.LeanBodyMassRecord
@@ -72,6 +79,7 @@ import com.viktormykhailiv.kmp.health.units.BloodGlucose as BloodGlucoseUnit
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
 import com.viktormykhailiv.kmp.health.units.Temperature
+import com.viktormykhailiv.kmp.health.units.meters
 import com.viktormykhailiv.kmp.health.units.millimetersOfMercury
 import com.viktormykhailiv.kmp.health.units.percent
 import kotlinx.coroutines.launch
@@ -92,6 +100,7 @@ fun SampleApp() {
             BloodPressure,
             BodyFat,
             BodyTemperature,
+            Exercise(),
             HeartRate,
             Height,
             LeanBodyMass,
@@ -106,6 +115,7 @@ fun SampleApp() {
             BloodPressure,
             BodyFat,
             BodyTemperature,
+            Exercise(),
             HeartRate,
             Height,
             LeanBodyMass,
@@ -215,7 +225,7 @@ fun SampleApp() {
                                 }
                             },
                         ) {
-                            Text("Read $type")
+                            Text("Read ${type::class.simpleName}")
                         }
                         Button(
                             onClick = {
@@ -229,12 +239,15 @@ fun SampleApp() {
                                 }
                             },
                         ) {
-                            Text("Aggregate $type")
+                            Text("Aggregate ${type::class.simpleName}")
                         }
 
                         records[type]
                             ?.onSuccess { records ->
-                                Text("$type records count ${records.size}")
+                                Text(
+                                    modifier = Modifier.padding(bottom = 8.dp),
+                                    text = "${type::class.simpleName} records count ${records.size}",
+                                )
 
                                 when (type) {
                                     is BloodGlucose -> {
@@ -305,6 +318,18 @@ fun SampleApp() {
                                         Text("Average $average")
                                         Text("Min $min")
                                         Text("Max $max")
+                                    }
+
+                                    is Exercise -> {
+                                        val records =
+                                            records.filterIsInstance<ExerciseSessionRecord>()
+
+                                        records.forEach { record ->
+                                            Text(
+                                                "${record.exerciseType::class.simpleName}, " +
+                                                        "duration ${record.endTime - record.startTime}"
+                                            )
+                                        }
                                     }
 
                                     is HeartRate -> {
@@ -382,7 +407,7 @@ fun SampleApp() {
                                 }
                             }
                             ?.onFailure {
-                                Text("Failed to read $type records $it")
+                                Text("Failed to read ${type::class.simpleName} records $it")
                             }
 
                         aggregatedRecords[type]
@@ -450,7 +475,7 @@ fun SampleApp() {
                             }
                             ?.onFailure {
                                 Spacer(Modifier.size(16.dp))
-                                Text("Failed to read $type records $it")
+                                Text("Failed to read ${type::class.simpleName} records $it")
                             }
 
                         Divider()
@@ -615,6 +640,95 @@ fun SampleApp() {
                         }
                         ?.onFailure {
                             Text("Failed to write body temperature $it")
+                        }
+
+                    Divider()
+                    Spacer(modifier = Modifier.height(16.dp))
+                    val exerciseTypes = remember {
+                        listOf(
+                            ExerciseType.Biking,
+                            ExerciseType.Dancing,
+                            ExerciseType.Golf,
+                            ExerciseType.Hiking,
+                            ExerciseType.Running,
+                            ExerciseType.Tennis,
+                            ExerciseType.Yoga,
+                        )
+                    }
+                    var exerciseType by remember { mutableStateOf(exerciseTypes.random()) }
+                    ExerciseTypePicker(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 8.dp),
+                        exerciseType = exerciseType,
+                        onChanged = { exerciseType = it },
+                    )
+                    var writeExercise by remember { mutableStateOf<Result<Unit>?>(null) }
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                val segmentsCount = 5
+                                val sampleInterval = 10.minutes
+                                val endTime = Clock.System.now()
+                                val startTime = endTime.minus(sampleInterval * segmentsCount)
+                                writeExercise = health.writeData(
+                                    listOf(
+                                        ExerciseSessionRecord(
+                                            startTime = startTime,
+                                            endTime = endTime,
+                                            exerciseType = exerciseType,
+                                            title = "Title ${Random.nextInt()}",
+                                            notes = "Notes ${Random.nextInt()}",
+                                            segments = List(segmentsCount - 1) {
+                                                ExerciseSegment(
+                                                    startTime = startTime.plus((it * sampleInterval.inWholeMinutes).minutes),
+                                                    endTime = startTime.plus((it * sampleInterval.inWholeMinutes + sampleInterval.inWholeMinutes).minutes),
+                                                    segmentType = ExerciseSegment.Type.OtherWorkout,
+                                                    repetitions = Random.nextInt(1, 10),
+                                                )
+                                            },
+                                            laps = List(segmentsCount - 1) {
+                                                ExerciseLap(
+                                                    startTime = startTime.plus((it * sampleInterval.inWholeMinutes).minutes),
+                                                    endTime = startTime.plus((it * sampleInterval.inWholeMinutes + sampleInterval.inWholeMinutes).minutes),
+                                                    length = Random.nextInt(1, 100).meters,
+                                                )
+                                            },
+                                            exerciseRoute = run {
+                                                val latitude = Random.nextDouble(-90.0, 90.0)
+                                                val longitude = Random.nextDouble(-180.0, 180.0)
+
+                                                ExerciseRoute(
+                                                    route = List(segmentsCount - 1) {
+                                                        ExerciseRoute.Location(
+                                                            time = startTime.plus((it * sampleInterval.inWholeMinutes).minutes),
+                                                            latitude = latitude + it.toDouble() / 100 * (it + 1),
+                                                            longitude = longitude + it.toDouble() / 100 * (it - 1),
+                                                            horizontalAccuracy =
+                                                                Random.nextInt(1, 100).meters,
+                                                            verticalAccuracy =
+                                                                Random.nextInt(1, 100).meters,
+                                                            altitude =
+                                                                Random.nextInt(1, 100).meters,
+                                                        )
+                                                    }
+                                                )
+                                            },
+                                            metadata = generateManualEntryMetadata(),
+                                        ),
+                                    )
+                                )
+                            }
+                        },
+                    ) {
+                        Text("Write ${exerciseType::class.simpleName} exercise")
+                    }
+                    writeExercise
+                        ?.onSuccess {
+                            Text("Successfully wrote exercise")
+                        }
+                        ?.onFailure {
+                            Text("Failed to write exercise $it")
                         }
 
                     Divider()

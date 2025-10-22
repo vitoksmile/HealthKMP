@@ -12,6 +12,7 @@ import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
+import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
@@ -63,6 +64,9 @@ internal fun HealthDataType.toAggregateMetrics(): Set<AggregateMetric<Any>> = wh
 
     BodyTemperature ->
         throw IllegalArgumentException("Aggregated BodyTemperature is not supported and must be aggregated manually")
+
+    is Exercise ->
+        throw IllegalArgumentException("Aggregated Exercise is not supported and must be aggregated manually")
 
     HeartRate ->
         setOf(HeartRateRecord.BPM_AVG, HeartRateRecord.BPM_MIN, HeartRateRecord.BPM_MAX)
@@ -124,6 +128,9 @@ internal fun AggregationResult.toHealthAggregatedRecord(
 
     is BodyTemperature ->
         throw IllegalArgumentException("Aggregated BodyTemperature is not supported and must be aggregated manually")
+
+    is Exercise ->
+        throw IllegalArgumentException("Aggregated Exercise is not supported and must be aggregated manually")
 
     is HeartRate -> {
         HeartRateAggregatedRecord(
