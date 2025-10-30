@@ -78,7 +78,7 @@ build.gradle:
 sourceSets {
     val commonMain by getting {
         dependencies {
-            implementation("com.viktormykhailiv:health-kmp:0.0.14")
+            implementation("com.viktormykhailiv:health-kmp:0.0.15")
         }
     }
 }
@@ -87,7 +87,7 @@ sourceSets {
 or use version catalog:
 ```
 [versions]
-health = "0.0.14"
+health = "0.0.15"
 
 [libraries]
 health = { module = "com.viktormykhailiv:health-kmp", version.ref = "health" }

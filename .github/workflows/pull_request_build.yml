@@ -1,10 +1,6 @@
-name: CI
-
+name: Pull request build
 on:
-  push:
-    branches: [main]
   pull_request:
-
 permissions:
   contents: read
 

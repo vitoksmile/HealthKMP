@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.0.15](https://github.com/vitoksmile/HealthKMP/releases/tag/0.0.15)
+
+Breaking change:
+- Update kotlinx-datetime to 0.7.1
+
 ## [0.0.14](https://github.com/vitoksmile/HealthKMP/releases/tag/0.0.14)
 
 - Added **exercise** data type
