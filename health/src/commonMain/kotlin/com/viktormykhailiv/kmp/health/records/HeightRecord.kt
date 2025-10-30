@@ -8,7 +8,7 @@ import com.viktormykhailiv.kmp.health.requireNotLess
 import com.viktormykhailiv.kmp.health.requireNotMore
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.meters
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Captures the user's height.

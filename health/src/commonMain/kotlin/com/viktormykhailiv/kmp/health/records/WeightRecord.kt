@@ -8,7 +8,7 @@ import com.viktormykhailiv.kmp.health.requireNotLess
 import com.viktormykhailiv.kmp.health.requireNotMore
 import com.viktormykhailiv.kmp.health.units.Mass
 import com.viktormykhailiv.kmp.health.units.kilograms
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Captures the user's weight.

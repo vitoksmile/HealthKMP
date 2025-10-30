@@ -13,8 +13,8 @@ import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
 import com.viktormykhailiv.kmp.health.region.RegionalPreferences
 import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
 import kotlinx.coroutines.CancellationException
-import kotlinx.datetime.Instant
-import kotlinx.datetime.toJavaInstant
+import kotlin.time.Instant
+import kotlin.time.toJavaInstant
 
 class HealthConnectManager(
     private val context: Context,

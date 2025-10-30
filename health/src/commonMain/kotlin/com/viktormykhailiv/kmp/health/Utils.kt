@@ -2,7 +2,7 @@ package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlin.time.Duration.Companion.seconds
 
 internal inline fun <T, R> Result<T>.flatMap(transform: (value: T) -> Result<R>): Result<R> {

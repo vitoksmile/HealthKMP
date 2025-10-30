@@ -3,8 +3,7 @@ package com.viktormykhailiv.kmp.health.aggregate
 import com.viktormykhailiv.kmp.health.HealthAggregatedRecord
 import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
-import com.viktormykhailiv.kmp.health.IntervalRecord
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Captures the aggregated number of steps.

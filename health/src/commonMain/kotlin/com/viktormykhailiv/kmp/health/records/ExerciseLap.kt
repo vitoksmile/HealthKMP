@@ -1,7 +1,7 @@
 package com.viktormykhailiv.kmp.health.records
 
 import com.viktormykhailiv.kmp.health.units.Length
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Captures the time of a lap within an exercise session.

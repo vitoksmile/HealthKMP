@@ -7,7 +7,7 @@ import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import com.viktormykhailiv.kmp.health.requireNotLess
 import com.viktormykhailiv.kmp.health.requireNotMore
 import com.viktormykhailiv.kmp.health.units.BloodGlucose as BloodGlucoseUnit
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Captures the concentration of glucose in the blood. Each record represents a single instantaneous

@@ -35,7 +35,7 @@ import com.viktormykhailiv.kmp.health.records.metadata.getLocalDevice
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
 import com.viktormykhailiv.kmp.health.units.percent
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import java.util.concurrent.TimeUnit
 
 internal fun List<DataPoint>.toHealthRecords(type: HealthDataType): List<HealthRecord> {

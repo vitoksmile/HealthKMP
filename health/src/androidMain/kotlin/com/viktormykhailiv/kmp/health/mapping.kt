@@ -27,8 +27,8 @@ import com.viktormykhailiv.kmp.health.units.Mass
 import com.viktormykhailiv.kmp.health.units.Percentage
 import com.viktormykhailiv.kmp.health.units.Pressure
 import com.viktormykhailiv.kmp.health.units.Temperature
-import kotlinx.datetime.toJavaInstant
-import kotlinx.datetime.toKotlinInstant
+import kotlin.time.toJavaInstant
+import kotlin.time.toKotlinInstant
 import androidx.health.connect.client.records.metadata.Device as HCDevice
 import androidx.health.connect.client.records.metadata.Metadata as HCMetadata
 import androidx.health.connect.client.records.Record as HCRecord

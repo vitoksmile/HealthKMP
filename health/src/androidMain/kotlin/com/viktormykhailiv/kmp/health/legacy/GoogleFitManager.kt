@@ -17,7 +17,7 @@ import com.viktormykhailiv.kmp.health.HealthManager
 import com.viktormykhailiv.kmp.health.HealthRecord
 import com.viktormykhailiv.kmp.health.region.RegionalPreferences
 import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import java.util.concurrent.CancellationException
 import java.util.concurrent.TimeUnit
 

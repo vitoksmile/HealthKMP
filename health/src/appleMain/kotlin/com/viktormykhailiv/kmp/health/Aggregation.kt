@@ -26,7 +26,7 @@ import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
 import kotlinx.cinterop.UnsafeNumber
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.datetime.toKotlinInstant
 import platform.HealthKit.HKQuantityType
 import platform.HealthKit.HKQuantityTypeIdentifierBloodGlucose

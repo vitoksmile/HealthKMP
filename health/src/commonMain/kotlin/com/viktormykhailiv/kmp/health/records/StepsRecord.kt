@@ -6,7 +6,7 @@ import com.viktormykhailiv.kmp.health.IntervalRecord
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import com.viktormykhailiv.kmp.health.requireNotLess
 import com.viktormykhailiv.kmp.health.requireNotMore
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Captures the number of steps taken since the last reading. Each step is only reported once so
