@@ -36,7 +36,7 @@ import com.viktormykhailiv.kmp.health.units.kilograms
 import com.viktormykhailiv.kmp.health.units.meters
 import com.viktormykhailiv.kmp.health.units.millimetersOfMercury
 import com.viktormykhailiv.kmp.health.units.percent
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.toKotlinDuration
 

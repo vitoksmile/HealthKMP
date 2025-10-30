@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.datetime.toNSDate
 import platform.Foundation.NSSortDescriptor
 import platform.HealthKit.HKAuthorizationRequestStatusUnnecessary

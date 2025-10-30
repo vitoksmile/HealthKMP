@@ -4,7 +4,7 @@ import com.viktormykhailiv.kmp.health.HealthAggregatedRecord
 import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.units.Length
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Captures the aggregated user's height.

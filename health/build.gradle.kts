@@ -58,6 +58,7 @@ kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
         freeCompilerArgs.add("-Xconsistent-data-class-copy-visibility")
+        optIn.add("kotlin.time.ExperimentalTime")
     }
 }
 

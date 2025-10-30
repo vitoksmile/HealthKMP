@@ -8,7 +8,7 @@ import com.viktormykhailiv.kmp.health.requireNotLess
 import com.viktormykhailiv.kmp.health.requireNotMore
 import com.viktormykhailiv.kmp.health.units.Pressure
 import com.viktormykhailiv.kmp.health.units.millimetersOfMercury
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Captures the blood pressure of a user. Each record represents a single instantaneous blood

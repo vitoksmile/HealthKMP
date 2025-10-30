@@ -13,30 +13,30 @@ public final class com/viktormykhailiv/kmp/health/ApplicationContextHolderInitia
 }
 
 public final class com/viktormykhailiv/kmp/health/ExtensionsKt {
-	public static final fun aggregateBloodGlucose (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun aggregateBloodPressure (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun aggregateBodyFat (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun aggregateBodyTemperature (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun aggregateHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun aggregateHeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun aggregateLeanBodyMass (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun aggregateSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun aggregateSteps (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun aggregateWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun aggregateBloodGlucose (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun aggregateBloodPressure (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun aggregateBodyFat (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun aggregateBodyTemperature (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun aggregateHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun aggregateHeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun aggregateLeanBodyMass (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun aggregateSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun aggregateSteps (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun aggregateWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun generateManualEntryMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
 	public static final fun getDuration (Lcom/viktormykhailiv/kmp/health/IntervalRecord;)J
-	public static final fun readBloodGlucose (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun readBloodPressure (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun readBodyFat (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun readBodyTemperature (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun readExercise (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType$Exercise;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun readExercise$default (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType$Exercise;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static final fun readHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun readHeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun readLeanBodyMass (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun readSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun readSteps (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun readWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readBloodGlucose (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readBloodPressure (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readBodyFat (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readBodyTemperature (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readExercise (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType$Exercise;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readExercise$default (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType$Exercise;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun readHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readHeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readLeanBodyMass (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readSteps (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public abstract interface class com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
@@ -45,12 +45,12 @@ public abstract interface class com/viktormykhailiv/kmp/health/HealthAggregatedR
 
 public final class com/viktormykhailiv/kmp/health/HealthConnectManager : com/viktormykhailiv/kmp/health/HealthManager {
 	public fun <init> (Landroid/content/Context;)V
-	public fun aggregate-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun aggregate-BWLJW6A (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun getRegionalPreferences-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun isAuthorized-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun isAvailable-d1pmJ48 ()Ljava/lang/Object;
 	public fun isRevokeAuthorizationSupported-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun readData-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun readData-BWLJW6A (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun requestAuthorization-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun revokeAuthorization-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun writeData-gIAlu-s (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -153,12 +153,12 @@ public final class com/viktormykhailiv/kmp/health/HealthDataType$Weight : com/vi
 }
 
 public abstract interface class com/viktormykhailiv/kmp/health/HealthManager {
-	public abstract fun aggregate-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun aggregate-BWLJW6A (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getRegionalPreferences-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun isAuthorized-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun isAvailable-d1pmJ48 ()Ljava/lang/Object;
 	public abstract fun isRevokeAuthorizationSupported-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun readData-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun readData-BWLJW6A (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun requestAuthorization-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun revokeAuthorization-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun writeData-gIAlu-s (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -175,12 +175,12 @@ public abstract interface class com/viktormykhailiv/kmp/health/HealthRecord {
 }
 
 public abstract interface class com/viktormykhailiv/kmp/health/InstantaneousRecord : com/viktormykhailiv/kmp/health/HealthRecord {
-	public abstract fun getTime ()Lkotlinx/datetime/Instant;
+	public abstract fun getTime ()Lkotlin/time/Instant;
 }
 
 public abstract interface class com/viktormykhailiv/kmp/health/IntervalRecord : com/viktormykhailiv/kmp/health/HealthRecord {
-	public abstract fun getEndTime ()Lkotlinx/datetime/Instant;
-	public abstract fun getStartTime ()Lkotlinx/datetime/Instant;
+	public abstract fun getEndTime ()Lkotlin/time/Instant;
+	public abstract fun getStartTime ()Lkotlin/time/Instant;
 }
 
 public abstract interface class com/viktormykhailiv/kmp/health/SeriesRecord : com/viktormykhailiv/kmp/health/IntervalRecord {
@@ -188,38 +188,38 @@ public abstract interface class com/viktormykhailiv/kmp/health/SeriesRecord : co
 }
 
 public final class com/viktormykhailiv/kmp/health/aggregate/BloodGlucoseAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
 	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
 	public final fun component5 ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;)Lcom/viktormykhailiv/kmp/health/aggregate/BloodGlucoseAggregatedRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/BloodGlucoseAggregatedRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/BloodGlucoseAggregatedRecord;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;)Lcom/viktormykhailiv/kmp/health/aggregate/BloodGlucoseAggregatedRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/BloodGlucoseAggregatedRecord;Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/BloodGlucoseAggregatedRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAvg ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
-	public final fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getEndTime ()Lkotlin/time/Instant;
 	public final fun getMax ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
 	public final fun getMin ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getStartTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;
 	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;)Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;)Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord;Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
 	public final fun getDiastolic ()Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;
-	public final fun getEndTime ()Lkotlinx/datetime/Instant;
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getEndTime ()Lkotlin/time/Instant;
+	public final fun getStartTime ()Lkotlin/time/Instant;
 	public final fun getSystolic ()Lcom/viktormykhailiv/kmp/health/aggregate/BloodPressureAggregatedRecord$AggregatedRecord;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -241,180 +241,180 @@ public final class com/viktormykhailiv/kmp/health/aggregate/BloodPressureAggrega
 }
 
 public final class com/viktormykhailiv/kmp/health/aggregate/BodyFatAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/units/Percentage;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/units/Percentage;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/units/Percentage;
 	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/units/Percentage;
 	public final fun component5 ()Lcom/viktormykhailiv/kmp/health/units/Percentage;
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/units/Percentage;)Lcom/viktormykhailiv/kmp/health/aggregate/BodyFatAggregatedRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/BodyFatAggregatedRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/units/Percentage;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/BodyFatAggregatedRecord;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/units/Percentage;)Lcom/viktormykhailiv/kmp/health/aggregate/BodyFatAggregatedRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/BodyFatAggregatedRecord;Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/units/Percentage;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/BodyFatAggregatedRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAvg ()Lcom/viktormykhailiv/kmp/health/units/Percentage;
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
-	public final fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getEndTime ()Lkotlin/time/Instant;
 	public final fun getMax ()Lcom/viktormykhailiv/kmp/health/units/Percentage;
 	public final fun getMin ()Lcom/viktormykhailiv/kmp/health/units/Percentage;
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getStartTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/aggregate/BodyTemperatureAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
 	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
 	public final fun component5 ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;)Lcom/viktormykhailiv/kmp/health/aggregate/BodyTemperatureAggregatedRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/BodyTemperatureAggregatedRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/BodyTemperatureAggregatedRecord;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;)Lcom/viktormykhailiv/kmp/health/aggregate/BodyTemperatureAggregatedRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/BodyTemperatureAggregatedRecord;Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/units/Temperature;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/BodyTemperatureAggregatedRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAvg ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
-	public final fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getEndTime ()Lkotlin/time/Instant;
 	public final fun getMax ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
 	public final fun getMin ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getStartTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/aggregate/HeartRateAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;JJJ)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;JJJ)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()J
 	public final fun component4 ()J
 	public final fun component5 ()J
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;JJJ)Lcom/viktormykhailiv/kmp/health/aggregate/HeartRateAggregatedRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/HeartRateAggregatedRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;JJJILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/HeartRateAggregatedRecord;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;JJJ)Lcom/viktormykhailiv/kmp/health/aggregate/HeartRateAggregatedRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/HeartRateAggregatedRecord;Lkotlin/time/Instant;Lkotlin/time/Instant;JJJILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/HeartRateAggregatedRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAvg ()J
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
-	public final fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getEndTime ()Lkotlin/time/Instant;
 	public final fun getMax ()J
 	public final fun getMin ()J
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getStartTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/aggregate/HeightAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/units/Length;
 	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/units/Length;
 	public final fun component5 ()Lcom/viktormykhailiv/kmp/health/units/Length;
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;)Lcom/viktormykhailiv/kmp/health/aggregate/HeightAggregatedRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/HeightAggregatedRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/HeightAggregatedRecord;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;)Lcom/viktormykhailiv/kmp/health/aggregate/HeightAggregatedRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/HeightAggregatedRecord;Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/HeightAggregatedRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAvg ()Lcom/viktormykhailiv/kmp/health/units/Length;
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
-	public final fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getEndTime ()Lkotlin/time/Instant;
 	public final fun getMax ()Lcom/viktormykhailiv/kmp/health/units/Length;
 	public final fun getMin ()Lcom/viktormykhailiv/kmp/health/units/Length;
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getStartTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/aggregate/LeanBodyMassAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/units/Mass;
 	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/units/Mass;
 	public final fun component5 ()Lcom/viktormykhailiv/kmp/health/units/Mass;
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;)Lcom/viktormykhailiv/kmp/health/aggregate/LeanBodyMassAggregatedRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/LeanBodyMassAggregatedRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/LeanBodyMassAggregatedRecord;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;)Lcom/viktormykhailiv/kmp/health/aggregate/LeanBodyMassAggregatedRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/LeanBodyMassAggregatedRecord;Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/LeanBodyMassAggregatedRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAvg ()Lcom/viktormykhailiv/kmp/health/units/Mass;
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
-	public final fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getEndTime ()Lkotlin/time/Instant;
 	public final fun getMax ()Lcom/viktormykhailiv/kmp/health/units/Mass;
 	public final fun getMin ()Lcom/viktormykhailiv/kmp/health/units/Mass;
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getStartTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/aggregate/SleepAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
-	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;JLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public synthetic fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3-UwyO8pc ()J
-	public final fun copy-SxA4cEA (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;J)Lcom/viktormykhailiv/kmp/health/aggregate/SleepAggregatedRecord;
-	public static synthetic fun copy-SxA4cEA$default (Lcom/viktormykhailiv/kmp/health/aggregate/SleepAggregatedRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;JILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/SleepAggregatedRecord;
+	public final fun copy-SxA4cEA (Lkotlin/time/Instant;Lkotlin/time/Instant;J)Lcom/viktormykhailiv/kmp/health/aggregate/SleepAggregatedRecord;
+	public static synthetic fun copy-SxA4cEA$default (Lcom/viktormykhailiv/kmp/health/aggregate/SleepAggregatedRecord;Lkotlin/time/Instant;Lkotlin/time/Instant;JILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/SleepAggregatedRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
-	public final fun getEndTime ()Lkotlinx/datetime/Instant;
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getEndTime ()Lkotlin/time/Instant;
+	public final fun getStartTime ()Lkotlin/time/Instant;
 	public final fun getTotalDuration-UwyO8pc ()J
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/aggregate/StepsAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;J)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;J)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()J
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;J)Lcom/viktormykhailiv/kmp/health/aggregate/StepsAggregatedRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/StepsAggregatedRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;JILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/StepsAggregatedRecord;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;J)Lcom/viktormykhailiv/kmp/health/aggregate/StepsAggregatedRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/StepsAggregatedRecord;Lkotlin/time/Instant;Lkotlin/time/Instant;JILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/StepsAggregatedRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCount ()J
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
-	public final fun getEndTime ()Lkotlinx/datetime/Instant;
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getEndTime ()Lkotlin/time/Instant;
+	public final fun getStartTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/aggregate/WeightAggregatedRecord : com/viktormykhailiv/kmp/health/HealthAggregatedRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/units/Mass;
 	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/units/Mass;
 	public final fun component5 ()Lcom/viktormykhailiv/kmp/health/units/Mass;
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;)Lcom/viktormykhailiv/kmp/health/aggregate/WeightAggregatedRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/WeightAggregatedRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/WeightAggregatedRecord;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;)Lcom/viktormykhailiv/kmp/health/aggregate/WeightAggregatedRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/aggregate/WeightAggregatedRecord;Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/units/Mass;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/aggregate/WeightAggregatedRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAvg ()Lcom/viktormykhailiv/kmp/health/units/Mass;
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
-	public final fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getEndTime ()Lkotlin/time/Instant;
 	public final fun getMax ()Lcom/viktormykhailiv/kmp/health/units/Mass;
 	public final fun getMin ()Lcom/viktormykhailiv/kmp/health/units/Mass;
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getStartTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/legacy/GoogleFitManager : com/viktormykhailiv/kmp/health/HealthManager {
 	public fun <init> (Landroid/content/Context;)V
-	public fun aggregate-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun aggregate-BWLJW6A (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun getRegionalPreferences-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun isAuthorized-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun isAvailable-d1pmJ48 ()Ljava/lang/Object;
 	public fun isRevokeAuthorizationSupported-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun readData-BWLJW6A (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun readData-BWLJW6A (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/HealthDataType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun requestAuthorization-0E7RQCE (Ljava/util/List;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun revokeAuthorization-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun writeData-gIAlu-s (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/viktormykhailiv/kmp/health/records/BloodGlucoseRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;Lcom/viktormykhailiv/kmp/health/records/MealType;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;Lcom/viktormykhailiv/kmp/health/records/MealType;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlin/time/Instant;
 	public final fun component2 ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;
 	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/records/MealType;
 	public final fun component5 ()Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;
 	public final fun component6 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public final fun copy (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;Lcom/viktormykhailiv/kmp/health/records/MealType;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;Lcom/viktormykhailiv/kmp/health/records/MealType;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord;
+	public final fun copy (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;Lcom/viktormykhailiv/kmp/health/records/MealType;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;Lcom/viktormykhailiv/kmp/health/records/MealType;Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
 	public final fun getLevel ()Lcom/viktormykhailiv/kmp/health/units/BloodGlucose;
@@ -422,7 +422,7 @@ public final class com/viktormykhailiv/kmp/health/records/BloodGlucoseRecord : c
 	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
 	public final fun getRelationToMeal ()Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$RelationToMeal;
 	public final fun getSpecimenSource ()Lcom/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$SpecimenSource;
-	public fun getTime ()Lkotlinx/datetime/Instant;
+	public fun getTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -450,15 +450,15 @@ public final class com/viktormykhailiv/kmp/health/records/BloodGlucoseRecord$Spe
 }
 
 public final class com/viktormykhailiv/kmp/health/records/BloodPressureRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Pressure;Lcom/viktormykhailiv/kmp/health/units/Pressure;Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$BodyPosition;Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Pressure;Lcom/viktormykhailiv/kmp/health/units/Pressure;Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$BodyPosition;Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlin/time/Instant;
 	public final fun component2 ()Lcom/viktormykhailiv/kmp/health/units/Pressure;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/units/Pressure;
 	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$BodyPosition;
 	public final fun component5 ()Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$MeasurementLocation;
 	public final fun component6 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public final fun copy (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Pressure;Lcom/viktormykhailiv/kmp/health/units/Pressure;Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$BodyPosition;Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Pressure;Lcom/viktormykhailiv/kmp/health/units/Pressure;Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$BodyPosition;Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord;
+	public final fun copy (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Pressure;Lcom/viktormykhailiv/kmp/health/units/Pressure;Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$BodyPosition;Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Pressure;Lcom/viktormykhailiv/kmp/health/units/Pressure;Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$BodyPosition;Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBodyPosition ()Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$BodyPosition;
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
@@ -466,7 +466,7 @@ public final class com/viktormykhailiv/kmp/health/records/BloodPressureRecord : 
 	public final fun getMeasurementLocation ()Lcom/viktormykhailiv/kmp/health/records/BloodPressureRecord$MeasurementLocation;
 	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
 	public final fun getSystolic ()Lcom/viktormykhailiv/kmp/health/units/Pressure;
-	public fun getTime ()Lkotlinx/datetime/Instant;
+	public fun getTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -492,35 +492,35 @@ public final class com/viktormykhailiv/kmp/health/records/BloodPressureRecord$Me
 }
 
 public final class com/viktormykhailiv/kmp/health/records/BodyFatRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlin/time/Instant;
 	public final fun component2 ()Lcom/viktormykhailiv/kmp/health/units/Percentage;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public final fun copy (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/BodyFatRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/BodyFatRecord;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/BodyFatRecord;
+	public final fun copy (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/BodyFatRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/BodyFatRecord;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Percentage;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/BodyFatRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
 	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
 	public final fun getPercentage ()Lcom/viktormykhailiv/kmp/health/units/Percentage;
-	public fun getTime ()Lkotlinx/datetime/Instant;
+	public fun getTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/records/BodyTemperatureRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlin/time/Instant;
 	public final fun component2 ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
 	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public final fun copy (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord;
+	public final fun copy (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Temperature;Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
 	public final fun getMeasurementLocation ()Lcom/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$MeasurementLocation;
 	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
 	public final fun getTemperature ()Lcom/viktormykhailiv/kmp/health/units/Temperature;
-	public fun getTime ()Lkotlinx/datetime/Instant;
+	public fun getTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -542,17 +542,17 @@ public final class com/viktormykhailiv/kmp/health/records/BodyTemperatureRecord$
 }
 
 public final class com/viktormykhailiv/kmp/health/records/ExerciseLap {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;)V
-	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;)V
+	public synthetic fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/units/Length;
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;)Lcom/viktormykhailiv/kmp/health/records/ExerciseLap;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/ExerciseLap;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/ExerciseLap;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;)Lcom/viktormykhailiv/kmp/health/records/ExerciseLap;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/ExerciseLap;Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/ExerciseLap;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getEndTime ()Lkotlin/time/Instant;
 	public final fun getLength ()Lcom/viktormykhailiv/kmp/health/units/Length;
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getStartTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -573,41 +573,41 @@ public final class com/viktormykhailiv/kmp/health/records/ExerciseRoute$Location
 	public static final field MAX_LONGITUDE D
 	public static final field MIN_LATITUDE D
 	public static final field MIN_LONGITUDE D
-	public fun <init> (Lkotlinx/datetime/Instant;DDLcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;)V
-	public synthetic fun <init> (Lkotlinx/datetime/Instant;DDLcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;DDLcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;)V
+	public synthetic fun <init> (Lkotlin/time/Instant;DDLcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkotlin/time/Instant;
 	public final fun component2 ()D
 	public final fun component3 ()D
 	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/units/Length;
 	public final fun component5 ()Lcom/viktormykhailiv/kmp/health/units/Length;
 	public final fun component6 ()Lcom/viktormykhailiv/kmp/health/units/Length;
-	public final fun copy (Lkotlinx/datetime/Instant;DDLcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;)Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute$Location;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute$Location;Lkotlinx/datetime/Instant;DDLcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute$Location;
+	public final fun copy (Lkotlin/time/Instant;DDLcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;)Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute$Location;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute$Location;Lkotlin/time/Instant;DDLcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/units/Length;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute$Location;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAltitude ()Lcom/viktormykhailiv/kmp/health/units/Length;
 	public final fun getHorizontalAccuracy ()Lcom/viktormykhailiv/kmp/health/units/Length;
 	public final fun getLatitude ()D
 	public final fun getLongitude ()D
-	public final fun getTime ()Lkotlinx/datetime/Instant;
+	public final fun getTime ()Lkotlin/time/Instant;
 	public final fun getVerticalAccuracy ()Lcom/viktormykhailiv/kmp/health/units/Length;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;I)V
-	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;I)V
+	public synthetic fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;
 	public final fun component4 ()I
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;I)Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;IILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;I)Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment;Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;IILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getEndTime ()Lkotlinx/datetime/Instant;
+	public final fun getEndTime ()Lkotlin/time/Instant;
 	public final fun getRepetitions ()I
 	public final fun getSegmentType ()Lcom/viktormykhailiv/kmp/health/records/ExerciseSegment$Type;
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getStartTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -1092,11 +1092,11 @@ public final class com/viktormykhailiv/kmp/health/records/ExerciseSegment$Type$Y
 }
 
 public final class com/viktormykhailiv/kmp/health/records/ExerciseSessionRecord : com/viktormykhailiv/kmp/health/IntervalRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseType;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;Ljava/lang/String;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
-	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseType;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;Ljava/lang/String;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseType;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;Ljava/lang/String;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public synthetic fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseType;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;Ljava/lang/String;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkotlin/time/Instant;
 	public final fun component10 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/ExerciseType;
 	public final fun component4 ()Ljava/lang/String;
 	public final fun component5 ()Ljava/lang/String;
@@ -1104,11 +1104,11 @@ public final class com/viktormykhailiv/kmp/health/records/ExerciseSessionRecord 
 	public final fun component7 ()Ljava/util/List;
 	public final fun component8 ()Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;
 	public final fun component9 ()Ljava/lang/String;
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseType;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;Ljava/lang/String;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/ExerciseSessionRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/ExerciseSessionRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseType;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;Ljava/lang/String;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/ExerciseSessionRecord;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseType;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;Ljava/lang/String;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/ExerciseSessionRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/ExerciseSessionRecord;Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/ExerciseType;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;Ljava/lang/String;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/ExerciseSessionRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
-	public fun getEndTime ()Lkotlinx/datetime/Instant;
+	public fun getEndTime ()Lkotlin/time/Instant;
 	public final fun getExerciseRoute ()Lcom/viktormykhailiv/kmp/health/records/ExerciseRoute;
 	public final fun getExerciseType ()Lcom/viktormykhailiv/kmp/health/records/ExerciseType;
 	public final fun getLaps ()Ljava/util/List;
@@ -1116,7 +1116,7 @@ public final class com/viktormykhailiv/kmp/health/records/ExerciseSessionRecord 
 	public final fun getNotes ()Ljava/lang/String;
 	public final fun getPlannedExerciseSessionId ()Ljava/lang/String;
 	public final fun getSegments ()Ljava/util/List;
-	public fun getStartTime ()Lkotlinx/datetime/Instant;
+	public fun getStartTime ()Lkotlin/time/Instant;
 	public final fun getTitle ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -1553,64 +1553,64 @@ public final class com/viktormykhailiv/kmp/health/records/ExerciseType$Yoga : co
 }
 
 public final class com/viktormykhailiv/kmp/health/records/HeartRateRecord : com/viktormykhailiv/kmp/health/SeriesRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()Ljava/util/List;
 	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/HeartRateRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/HeartRateRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/HeartRateRecord;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/HeartRateRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/HeartRateRecord;Lkotlin/time/Instant;Lkotlin/time/Instant;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/HeartRateRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
-	public fun getEndTime ()Lkotlinx/datetime/Instant;
+	public fun getEndTime ()Lkotlin/time/Instant;
 	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
 	public fun getSamples ()Ljava/util/List;
-	public fun getStartTime ()Lkotlinx/datetime/Instant;
+	public fun getStartTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/records/HeartRateRecord$Sample {
-	public fun <init> (Lkotlinx/datetime/Instant;I)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;I)V
+	public final fun component1 ()Lkotlin/time/Instant;
 	public final fun component2 ()I
-	public final fun copy (Lkotlinx/datetime/Instant;I)Lcom/viktormykhailiv/kmp/health/records/HeartRateRecord$Sample;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/HeartRateRecord$Sample;Lkotlinx/datetime/Instant;IILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/HeartRateRecord$Sample;
+	public final fun copy (Lkotlin/time/Instant;I)Lcom/viktormykhailiv/kmp/health/records/HeartRateRecord$Sample;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/HeartRateRecord$Sample;Lkotlin/time/Instant;IILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/HeartRateRecord$Sample;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBeatsPerMinute ()I
-	public final fun getTime ()Lkotlinx/datetime/Instant;
+	public final fun getTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/records/HeightRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlin/time/Instant;
 	public final fun component2 ()Lcom/viktormykhailiv/kmp/health/units/Length;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public final fun copy (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/HeightRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/HeightRecord;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/HeightRecord;
+	public final fun copy (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/HeightRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/HeightRecord;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Length;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/HeightRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
 	public final fun getHeight ()Lcom/viktormykhailiv/kmp/health/units/Length;
 	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public fun getTime ()Lkotlinx/datetime/Instant;
+	public fun getTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/records/LeanBodyMassRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlin/time/Instant;
 	public final fun component2 ()Lcom/viktormykhailiv/kmp/health/units/Mass;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public final fun copy (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/LeanBodyMassRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/LeanBodyMassRecord;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/LeanBodyMassRecord;
+	public final fun copy (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/LeanBodyMassRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/LeanBodyMassRecord;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/LeanBodyMassRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
 	public final fun getMass ()Lcom/viktormykhailiv/kmp/health/units/Mass;
 	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public fun getTime ()Lkotlinx/datetime/Instant;
+	public fun getTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -1626,33 +1626,33 @@ public final class com/viktormykhailiv/kmp/health/records/MealType : java/lang/E
 }
 
 public final class com/viktormykhailiv/kmp/health/records/SleepSessionRecord : com/viktormykhailiv/kmp/health/IntervalRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()Ljava/util/List;
 	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord;Lkotlin/time/Instant;Lkotlin/time/Instant;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
-	public fun getEndTime ()Lkotlinx/datetime/Instant;
+	public fun getEndTime ()Lkotlin/time/Instant;
 	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
 	public final fun getStages ()Ljava/util/List;
-	public fun getStartTime ()Lkotlinx/datetime/Instant;
+	public fun getStartTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/records/SleepSessionRecord$Stage {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/SleepStageType;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/SleepStageType;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/SleepStageType;
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/SleepStageType;)Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord$Stage;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord$Stage;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/records/SleepStageType;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord$Stage;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/SleepStageType;)Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord$Stage;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord$Stage;Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/SleepStageType;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/SleepSessionRecord$Stage;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getEndTime ()Lkotlinx/datetime/Instant;
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getEndTime ()Lkotlin/time/Instant;
+	public final fun getStartTime ()Lkotlin/time/Instant;
 	public final fun getType ()Lcom/viktormykhailiv/kmp/health/records/SleepStageType;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -1718,34 +1718,34 @@ public final class com/viktormykhailiv/kmp/health/records/SleepStageType$Unknown
 }
 
 public final class com/viktormykhailiv/kmp/health/records/StepsRecord : com/viktormykhailiv/kmp/health/IntervalRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;ILcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;ILcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()I
 	public final fun component4 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;ILcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/StepsRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/StepsRecord;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;ILcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/StepsRecord;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;ILcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/StepsRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/StepsRecord;Lkotlin/time/Instant;Lkotlin/time/Instant;ILcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/StepsRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCount ()I
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
-	public fun getEndTime ()Lkotlinx/datetime/Instant;
+	public fun getEndTime ()Lkotlin/time/Instant;
 	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public fun getStartTime ()Lkotlinx/datetime/Instant;
+	public fun getStartTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/viktormykhailiv/kmp/health/records/WeightRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
-	public fun <init> (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlin/time/Instant;
 	public final fun component2 ()Lcom/viktormykhailiv/kmp/health/units/Mass;
 	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public final fun copy (Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/WeightRecord;
-	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/WeightRecord;Lkotlinx/datetime/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/WeightRecord;
+	public final fun copy (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/WeightRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/WeightRecord;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/units/Mass;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/WeightRecord;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
 	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
-	public fun getTime ()Lkotlinx/datetime/Instant;
+	public fun getTime ()Lkotlin/time/Instant;
 	public final fun getWeight ()Lcom/viktormykhailiv/kmp/health/units/Mass;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;

@@ -3,7 +3,7 @@ package com.viktormykhailiv.kmp.health.records
 import com.viktormykhailiv.kmp.health.requireNotLess
 import com.viktormykhailiv.kmp.health.requireNotMore
 import com.viktormykhailiv.kmp.health.units.Length
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Captures a route associated with an exercise session a user does.

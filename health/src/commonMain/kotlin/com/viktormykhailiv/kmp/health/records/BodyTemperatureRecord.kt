@@ -8,7 +8,7 @@ import com.viktormykhailiv.kmp.health.requireNotLess
 import com.viktormykhailiv.kmp.health.requireNotMore
 import com.viktormykhailiv.kmp.health.units.Temperature
 import com.viktormykhailiv.kmp.health.units.celsius
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Captures the body temperature of a user. Each record represents a single instantaneous body

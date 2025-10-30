@@ -34,7 +34,7 @@ import com.viktormykhailiv.kmp.health.records.LeanBodyMassRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.StepsRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.datetime.toNSDate
 import kotlinx.datetime.toKotlinInstant
 import platform.Foundation.NSDate

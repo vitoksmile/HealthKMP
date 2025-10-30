@@ -1,6 +1,6 @@
 package com.viktormykhailiv.kmp.health.records
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Represents particular exercise within an exercise session.

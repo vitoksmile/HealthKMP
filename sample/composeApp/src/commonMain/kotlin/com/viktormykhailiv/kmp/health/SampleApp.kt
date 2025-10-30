@@ -83,7 +83,7 @@ import com.viktormykhailiv.kmp.health.units.meters
 import com.viktormykhailiv.kmp.health.units.millimetersOfMercury
 import com.viktormykhailiv.kmp.health.units.percent
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.hours

@@ -1,7 +1,7 @@
 package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.region.RegionalPreferences
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 interface HealthManager {
 

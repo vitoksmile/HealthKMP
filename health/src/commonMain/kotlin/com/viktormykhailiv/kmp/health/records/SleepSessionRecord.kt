@@ -4,7 +4,7 @@ import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.IntervalRecord
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Captures the user's sleep length and its stages. Each record represents a time interval for a

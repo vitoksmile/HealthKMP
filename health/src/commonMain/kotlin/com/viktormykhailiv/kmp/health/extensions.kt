@@ -37,7 +37,7 @@ import com.viktormykhailiv.kmp.health.records.WeightRecord
 import com.viktormykhailiv.kmp.health.records.metadata.Device
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import com.viktormykhailiv.kmp.health.records.metadata.getLocalDevice
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlin.time.Duration
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid

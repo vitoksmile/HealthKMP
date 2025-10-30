@@ -40,6 +40,10 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
     }
+
+    compilerOptions {
+        optIn.add("kotlin.time.ExperimentalTime")
+    }
 }
 
 android {

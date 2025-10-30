@@ -2,7 +2,7 @@ package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlin.time.Duration.Companion.minutes
 
 internal data class HeartRateSampleInternal(

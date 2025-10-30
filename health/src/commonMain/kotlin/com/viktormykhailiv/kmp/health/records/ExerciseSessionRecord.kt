@@ -4,7 +4,7 @@ import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.IntervalRecord
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Captures any exercise a user does. This can be common fitness exercise like running or different

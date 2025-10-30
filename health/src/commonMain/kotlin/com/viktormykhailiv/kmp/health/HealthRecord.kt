@@ -1,7 +1,7 @@
 package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Common interface shared by readable or writable records.

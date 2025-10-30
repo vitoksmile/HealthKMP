@@ -8,7 +8,7 @@ import com.viktormykhailiv.kmp.health.requireNonNegative
 import com.viktormykhailiv.kmp.health.requireNotMore
 import com.viktormykhailiv.kmp.health.units.Percentage
 import com.viktormykhailiv.kmp.health.units.percent
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Captures the body fat percentage of a user. Each record represents a person's total body fat as a
