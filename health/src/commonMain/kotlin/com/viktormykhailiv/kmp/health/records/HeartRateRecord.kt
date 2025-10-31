@@ -2,7 +2,6 @@ package com.viktormykhailiv.kmp.health.records
 
 import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
-import com.viktormykhailiv.kmp.health.InstantaneousRecord
 import com.viktormykhailiv.kmp.health.SeriesRecord
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import com.viktormykhailiv.kmp.health.requireNotLess

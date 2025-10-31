@@ -13,6 +13,8 @@ import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.LeanBodyMassRecord
 import com.viktormykhailiv.kmp.health.records.MealType
+import com.viktormykhailiv.kmp.health.records.CyclingPedalingCadenceRecord
+import com.viktormykhailiv.kmp.health.records.PowerRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
@@ -25,18 +27,17 @@ import com.viktormykhailiv.kmp.health.units.BloodGlucose
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
 import com.viktormykhailiv.kmp.health.units.Percentage
+import com.viktormykhailiv.kmp.health.units.Power
 import com.viktormykhailiv.kmp.health.units.Pressure
 import com.viktormykhailiv.kmp.health.units.Temperature
 import kotlin.time.toJavaInstant
 import kotlin.time.toKotlinInstant
-import androidx.health.connect.client.records.metadata.Device as HCDevice
-import androidx.health.connect.client.records.metadata.Metadata as HCMetadata
-import androidx.health.connect.client.records.Record as HCRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord as HCBloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord as HCBloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord as HCBodyFatRecord
-import androidx.health.connect.client.records.BodyTemperatureRecord as HCBodyTemperatureRecord
 import androidx.health.connect.client.records.BodyTemperatureMeasurementLocation as HCBodyTemperatureMeasurementLocation
+import androidx.health.connect.client.records.BodyTemperatureRecord as HCBodyTemperatureRecord
+import androidx.health.connect.client.records.CyclingPedalingCadenceRecord as HCPedalingCadenceRecord
 import androidx.health.connect.client.records.ExerciseLap as HCExerciseLap
 import androidx.health.connect.client.records.ExerciseRoute as HCExerciseRoute
 import androidx.health.connect.client.records.ExerciseRouteResult as HCExerciseRouteResult
@@ -46,13 +47,18 @@ import androidx.health.connect.client.records.HeartRateRecord as HCHeartRateReco
 import androidx.health.connect.client.records.HeightRecord as HCHeightRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord as HCLeanBodyMassRecord
 import androidx.health.connect.client.records.MealType as HCMealType
+import androidx.health.connect.client.records.PowerRecord as HCPowerRecord
+import androidx.health.connect.client.records.Record as HCRecord
 import androidx.health.connect.client.records.SleepSessionRecord as HCSleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord as HCStepsRecord
 import androidx.health.connect.client.records.WeightRecord as HCWeightRecord
+import androidx.health.connect.client.records.metadata.Device as HCDevice
+import androidx.health.connect.client.records.metadata.Metadata as HCMetadata
 import androidx.health.connect.client.units.BloodGlucose as HCBloodGlucose
 import androidx.health.connect.client.units.Length as HCLength
 import androidx.health.connect.client.units.Mass as HCMass
 import androidx.health.connect.client.units.Percentage as HCPercentage
+import androidx.health.connect.client.units.Power as HCPower
 import androidx.health.connect.client.units.Pressure as HCPressure
 import androidx.health.connect.client.units.Temperature as HCTemperature
 
@@ -367,6 +373,34 @@ internal fun HealthRecord.toHCRecord(
         metadata = record.metadata.toHCMetadata(),
     )
 
+    is PowerRecord -> HCPowerRecord(
+        startTime = record.startTime.toJavaInstant(),
+        endTime = record.endTime.toJavaInstant(),
+        startZoneOffset = null,
+        endZoneOffset = null,
+        samples = record.samples.map { sample ->
+            HCPowerRecord.Sample(
+                time = sample.time.toJavaInstant(),
+                power = sample.power.toHCPower(),
+            )
+        },
+        metadata = record.metadata.toHCMetadata(),
+    )
+
+    is CyclingPedalingCadenceRecord -> HCPedalingCadenceRecord(
+        startTime = record.startTime.toJavaInstant(),
+        endTime = record.endTime.toJavaInstant(),
+        startZoneOffset = null,
+        endZoneOffset = null,
+        samples = record.samples.map { sample ->
+            HCPedalingCadenceRecord.Sample(
+                time = sample.time.toJavaInstant(),
+                revolutionsPerMinute = sample.revolutionsPerMinute,
+            )
+        },
+        metadata = record.metadata.toHCMetadata(),
+    )
+
     else -> null
 }
 
@@ -448,6 +482,18 @@ internal fun HCRecord.toHealthRecord(
         metadata = record.metadata.toMetadata(),
     )
 
+    is HCPedalingCadenceRecord -> CyclingPedalingCadenceRecord(
+        startTime = record.startTime.toKotlinInstant(),
+        endTime = record.endTime.toKotlinInstant(),
+        samples = record.samples.map { sample ->
+            CyclingPedalingCadenceRecord.Sample(
+                time = sample.time.toKotlinInstant(),
+                revolutionsPerMinute = sample.revolutionsPerMinute,
+            )
+        },
+        metadata = record.metadata.toMetadata(),
+    )
+    
     is HCExerciseSessionRecord -> ExerciseSessionRecord(
         startTime = record.startTime.toKotlinInstant(),
         endTime = record.endTime.toKotlinInstant(),
@@ -646,6 +692,18 @@ internal fun HCRecord.toHealthRecord(
         metadata = record.metadata.toMetadata(),
     )
 
+    is HCPowerRecord -> PowerRecord(
+        startTime = record.startTime.toKotlinInstant(),
+        endTime = record.endTime.toKotlinInstant(),
+        samples = record.samples.map { sample ->
+            PowerRecord.Sample(
+                time = sample.time.toKotlinInstant(),
+                power = sample.power.toPower(),
+            )
+        },
+        metadata = record.metadata.toMetadata(),
+    )
+
     is HCSleepSessionRecord -> SleepSessionRecord(
         startTime = record.startTime.toKotlinInstant(),
         endTime = record.endTime.toKotlinInstant(),
@@ -760,6 +818,12 @@ private fun Length.toHCLength(): HCLength =
 
 internal fun HCLength.toLength(): Length =
     Length.meters(inMeters)
+
+internal fun Power.toHCPower(): HCPower =
+    HCPower.watts(inWatts)
+
+internal fun HCPower.toPower(): Power =
+    Power.watts(inWatts)
 
 private fun Pressure.toHCPressure(): HCPressure =
     HCPressure.millimetersOfMercury(inMillimetersOfMercury)

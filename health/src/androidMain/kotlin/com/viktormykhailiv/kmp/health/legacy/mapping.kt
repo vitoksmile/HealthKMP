@@ -4,7 +4,6 @@ import android.content.Context
 import com.google.android.gms.fitness.data.DataPoint
 import com.google.android.gms.fitness.data.DataSet
 import com.google.android.gms.fitness.data.DataSource
-import com.google.android.gms.fitness.data.Device as FitnessDevice
 import com.google.android.gms.fitness.data.Field
 import com.google.android.gms.fitness.data.SleepStages
 import com.viktormykhailiv.kmp.health.HealthDataType
@@ -16,6 +15,8 @@ import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
+import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
+import com.viktormykhailiv.kmp.health.HealthDataType.Power
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
@@ -35,8 +36,9 @@ import com.viktormykhailiv.kmp.health.records.metadata.getLocalDevice
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
 import com.viktormykhailiv.kmp.health.units.percent
-import kotlin.time.Instant
 import java.util.concurrent.TimeUnit
+import kotlin.time.Instant
+import com.google.android.gms.fitness.data.Device as FitnessDevice
 
 internal fun List<DataPoint>.toHealthRecords(type: HealthDataType): List<HealthRecord> {
     return when (type) {
@@ -58,6 +60,9 @@ internal fun List<DataPoint>.toHealthRecords(type: HealthDataType): List<HealthR
 
         is BodyTemperature ->
             throw IllegalArgumentException("BodyTemperature is not supported")
+
+        is CyclingPedalingCadence ->
+            throw IllegalArgumentException("PedalingCadence is not supported")
 
         is Exercise ->
             throw IllegalArgumentException("Exercise is not supported")
@@ -92,6 +97,9 @@ internal fun List<DataPoint>.toHealthRecords(type: HealthDataType): List<HealthR
 
         is LeanBodyMass ->
             throw IllegalArgumentException("LeanBodyMass is not supported")
+
+        is Power ->
+            throw IllegalArgumentException("Power is not supported")
 
         is Sleep -> {
             val metadata = firstOrNull().toMetadata()

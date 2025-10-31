@@ -10,6 +10,8 @@ sealed interface HealthDataType {
 
     data object BodyTemperature : HealthDataType
 
+    data object CyclingPedalingCadence : HealthDataType
+
     data class Exercise(
         val activeEnergyBurned: Boolean = true,
         val cyclingPower: Boolean = true,
@@ -25,9 +27,12 @@ sealed interface HealthDataType {
 
     data object LeanBodyMass : HealthDataType
 
+    data object Power : HealthDataType
+
     data object Sleep : HealthDataType
 
     data object Steps : HealthDataType
 
     data object Weight : HealthDataType
+
 }

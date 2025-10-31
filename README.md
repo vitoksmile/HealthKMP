@@ -23,27 +23,33 @@ HealthKMP supports:
 Note that for Android, the target device **needs** to have [Google Fit](https://www.google.com/fit/) or [Health Connect](https://health.google/health-connect-android/) installed.
 
 ## Supported data types (iOS, watchOS, Android)
+
 - Blood glucose
 - Blood pressure
 - Body fat
 - Body temperature
+- Cycling pedaling cadence
 - Exercise (segments, laps, routes)
 - Heart rate
 - Height
 - Lean body mass
+- Power
 - Sleep
 - Steps
 - Weight
 
 ## Supported units
+
 - Blood glucose: mmol/L, mg/dL
 - Length: meters, kilometers, miles, inches, feet
 - Mass: grams, kilograms, milligrams, micrograms, ounces, pounds
+- Power: watts, kilocalories per day
 - Percentage: e.g. 100%, 89.62%
 - Pressure: millimeters of Mercury (mmHg)
 - Temperature: Celsius, Fahrenheit
 
 ## Supported regional preferences
+
 - Temperature: Celsius, Fahrenheit
 
 ## Requesting permission
@@ -65,6 +71,7 @@ SwiftUI is used for watchOS app.
 First add the dependency to your project:
 
 settings.gradle.kts:
+
 ```kotlin
 dependencyResolutionManagement {
     repositories {
@@ -74,6 +81,7 @@ dependencyResolutionManagement {
 ```
 
 build.gradle:
+
 ```kotlin
 sourceSets {
     val commonMain by getting {
@@ -85,6 +93,7 @@ sourceSets {
 ```
 
 or use version catalog:
+
 ```
 [versions]
 health = "0.0.15"
@@ -96,6 +105,7 @@ health = { module = "com.viktormykhailiv:health-kmp", version.ref = "health" }
 ```
 
 build.gradle:
+
 ```
 implementation(libs.health)
 ```
@@ -403,7 +413,7 @@ health.writeData(
 recorded, unique identifier of data, and device information associated with the data.
 
 ```kotlin
-fun generateMetadata() : Metadata {
+fun generateMetadata(): Metadata {
     return Metadata.manualEntry(
         id = Uuid.random().toString(),
         device = Device.getLocalDevice(),
@@ -418,7 +428,7 @@ HealthKMP is Swift compatible and can be added as package dependency to Xcode pr
 ### Add the package dependency
 
 1. In Xcode, choose **File | Add Package Dependencies**.
- 
+
 2. In the search field, enter `https://github.com/vitoksmile/HealthKMP-SPM`:
 
    <img src=readme/swift-package-manager.png width=640 />

@@ -3,8 +3,10 @@ package com.viktormykhailiv.kmp.health
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.aggregate.AggregationResult
 import androidx.health.connect.client.records.BloodPressureRecord
+import androidx.health.connect.client.records.CyclingPedalingCadenceRecord
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
+import androidx.health.connect.client.records.PowerRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
@@ -12,10 +14,12 @@ import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
+import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
 import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
+import com.viktormykhailiv.kmp.health.HealthDataType.Power
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
@@ -23,21 +27,24 @@ import com.viktormykhailiv.kmp.health.aggregate.BloodGlucoseAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BodyFatAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BodyTemperatureAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.CyclingPedalingCadenceAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.LeanBodyMassAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.PowerAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
+import com.viktormykhailiv.kmp.health.units.BloodGlucose as BloodGlucoseUnit
 import com.viktormykhailiv.kmp.health.units.Mass
 import com.viktormykhailiv.kmp.health.units.Temperature
-import com.viktormykhailiv.kmp.health.units.BloodGlucose as BloodGlucoseUnit
 import com.viktormykhailiv.kmp.health.units.kilograms
 import com.viktormykhailiv.kmp.health.units.meters
 import com.viktormykhailiv.kmp.health.units.millimetersOfMercury
 import com.viktormykhailiv.kmp.health.units.percent
-import kotlin.time.Instant
+import com.viktormykhailiv.kmp.health.units.watts
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Instant
 import kotlin.time.toKotlinDuration
 
 /**
@@ -65,6 +72,13 @@ internal fun HealthDataType.toAggregateMetrics(): Set<AggregateMetric<Any>> = wh
     BodyTemperature ->
         throw IllegalArgumentException("Aggregated BodyTemperature is not supported and must be aggregated manually")
 
+    CyclingPedalingCadence ->
+        setOf(
+            CyclingPedalingCadenceRecord.RPM_AVG,
+            CyclingPedalingCadenceRecord.RPM_MIN,
+            CyclingPedalingCadenceRecord.RPM_MAX
+        )
+
     is Exercise ->
         throw IllegalArgumentException("Aggregated Exercise is not supported and must be aggregated manually")
 
@@ -76,6 +90,9 @@ internal fun HealthDataType.toAggregateMetrics(): Set<AggregateMetric<Any>> = wh
 
     LeanBodyMass ->
         throw IllegalArgumentException("Aggregated LeanBodyMass is not supported and must be aggregated manually")
+
+    Power ->
+        setOf(PowerRecord.POWER_AVG, PowerRecord.POWER_MIN, PowerRecord.POWER_MAX)
 
     Sleep ->
         setOf(SleepSessionRecord.SLEEP_DURATION_TOTAL)
@@ -129,6 +146,16 @@ internal fun AggregationResult.toHealthAggregatedRecord(
     is BodyTemperature ->
         throw IllegalArgumentException("Aggregated BodyTemperature is not supported and must be aggregated manually")
 
+    is CyclingPedalingCadence -> {
+        CyclingPedalingCadenceAggregatedRecord(
+            startTime = startTime,
+            endTime = endTime,
+            avg = get(CyclingPedalingCadenceRecord.RPM_AVG) ?: 0.0,
+            min = get(CyclingPedalingCadenceRecord.RPM_MIN) ?: 0.0,
+            max = get(CyclingPedalingCadenceRecord.RPM_MAX) ?: 0.0,
+        )
+    }
+
     is Exercise ->
         throw IllegalArgumentException("Aggregated Exercise is not supported and must be aggregated manually")
 
@@ -154,6 +181,16 @@ internal fun AggregationResult.toHealthAggregatedRecord(
 
     is LeanBodyMass ->
         throw IllegalArgumentException("Aggregated LeanBodyMass is not supported and must be aggregated manually")
+
+    is Power -> {
+        PowerAggregatedRecord(
+            startTime = startTime,
+            endTime = endTime,
+            avg = get(PowerRecord.POWER_AVG)?.toPower() ?: 0.watts,
+            min = get(PowerRecord.POWER_MIN)?.toPower() ?: 0.watts,
+            max = get(PowerRecord.POWER_MAX)?.toPower() ?: 0.watts,
+        )
+    }
 
     is Sleep -> {
         SleepAggregatedRecord(

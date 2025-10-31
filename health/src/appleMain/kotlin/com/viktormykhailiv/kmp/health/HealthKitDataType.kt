@@ -22,6 +22,7 @@ import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureSystolic
 import platform.HealthKit.HKQuantityTypeIdentifierBodyFatPercentage
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
 import platform.HealthKit.HKQuantityTypeIdentifierBodyTemperature
+import platform.HealthKit.HKQuantityTypeIdentifierCyclingCadence
 import platform.HealthKit.HKQuantityTypeIdentifierCyclingPower
 import platform.HealthKit.HKQuantityTypeIdentifierCyclingSpeed
 import platform.HealthKit.HKQuantityTypeIdentifierDistanceWalkingRunning
@@ -49,6 +50,9 @@ internal fun HealthDataType.toHKSampleType(): List<HKSampleType?> = when (this) 
 
     BodyTemperature ->
         listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyTemperature))
+
+    HealthDataType.CyclingPedalingCadence ->
+        listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierCyclingCadence))
 
     is Exercise -> {
         buildList {
@@ -78,6 +82,9 @@ internal fun HealthDataType.toHKSampleType(): List<HKSampleType?> = when (this) 
 
     LeanBodyMass ->
         listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierLeanBodyMass))
+
+    HealthDataType.Power ->
+        listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierCyclingPower))
 
     Sleep ->
         listOf(HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSleepAnalysis))
