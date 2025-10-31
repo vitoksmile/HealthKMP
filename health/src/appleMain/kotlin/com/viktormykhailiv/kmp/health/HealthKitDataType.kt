@@ -4,10 +4,12 @@ import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
+import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
 import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
+import com.viktormykhailiv.kmp.health.HealthDataType.Power
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
@@ -22,6 +24,7 @@ import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureSystolic
 import platform.HealthKit.HKQuantityTypeIdentifierBodyFatPercentage
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
 import platform.HealthKit.HKQuantityTypeIdentifierBodyTemperature
+import platform.HealthKit.HKQuantityTypeIdentifierCyclingCadence
 import platform.HealthKit.HKQuantityTypeIdentifierCyclingPower
 import platform.HealthKit.HKQuantityTypeIdentifierCyclingSpeed
 import platform.HealthKit.HKQuantityTypeIdentifierDistanceWalkingRunning
@@ -49,6 +52,9 @@ internal fun HealthDataType.toHKSampleType(): List<HKSampleType?> = when (this) 
 
     BodyTemperature ->
         listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyTemperature))
+
+    CyclingPedalingCadence ->
+        listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierCyclingCadence))
 
     is Exercise -> {
         buildList {
@@ -78,6 +84,9 @@ internal fun HealthDataType.toHKSampleType(): List<HKSampleType?> = when (this) 
 
     LeanBodyMass ->
         listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierLeanBodyMass))
+
+    Power ->
+        listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierCyclingPower))
 
     Sleep ->
         listOf(HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSleepAnalysis))

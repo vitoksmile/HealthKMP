@@ -14,6 +14,8 @@ import com.viktormykhailiv.kmp.health.records.ExerciseType
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.LeanBodyMassRecord
+import com.viktormykhailiv.kmp.health.records.CyclingPedalingCadenceRecord
+import com.viktormykhailiv.kmp.health.records.PowerRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
@@ -29,6 +31,7 @@ import com.viktormykhailiv.kmp.health.units.Percentage
 import com.viktormykhailiv.kmp.health.units.Pressure
 import com.viktormykhailiv.kmp.health.units.Temperature
 import com.viktormykhailiv.kmp.health.units.percent
+import com.viktormykhailiv.kmp.health.units.watts
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.UnsafeNumber
 import kotlinx.cinterop.useContents
@@ -62,6 +65,8 @@ import platform.HealthKit.HKQuantityTypeIdentifierBloodPressureSystolic
 import platform.HealthKit.HKQuantityTypeIdentifierBodyFatPercentage
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
 import platform.HealthKit.HKQuantityTypeIdentifierBodyTemperature
+import platform.HealthKit.HKQuantityTypeIdentifierCyclingCadence
+import platform.HealthKit.HKQuantityTypeIdentifierCyclingPower
 import platform.HealthKit.HKQuantityTypeIdentifierHeartRate
 import platform.HealthKit.HKQuantityTypeIdentifierHeight
 import platform.HealthKit.HKQuantityTypeIdentifierLeanBodyMass
@@ -132,7 +137,7 @@ import platform.HealthKit.moleUnitWithMolarMass
 import platform.HealthKit.percentUnit
 import platform.HealthKit.poundUnit
 import platform.HealthKit.unitDividedByUnit
-import kotlin.collections.orEmpty
+import platform.HealthKit.wattUnit
 import kotlin.coroutines.resume
 
 // region Write
@@ -222,6 +227,24 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
             endDate = record.time.toNSDate()
         }
 
+        is CyclingPedalingCadenceRecord -> {
+            quantityTypeIdentifier = HKQuantityTypeIdentifierCyclingCadence
+
+            return record.samples.map { sample ->
+                HKQuantitySample.quantitySampleWithType(
+                    quantityType = HKQuantityType.quantityTypeForIdentifier(quantityTypeIdentifier)
+                        ?: return null,
+                    quantity = HKQuantity.quantityWithUnit(
+                        unit = rpmUnit,
+                        doubleValue = sample.revolutionsPerMinute,
+                    ),
+                    startDate = sample.time.toNSDate(),
+                    endDate = sample.time.toNSDate(),
+                    metadata = metadata,
+                )
+            }
+        }
+
         is ExerciseSessionRecord -> {
             return listOf(
                 HKWorkout.workoutWithActivityType(
@@ -275,6 +298,24 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
             )
             startDate = record.time.toNSDate()
             endDate = record.time.toNSDate()
+        }
+
+        is PowerRecord -> {
+            quantityTypeIdentifier = HKQuantityTypeIdentifierCyclingPower
+
+            return record.samples.map { sample ->
+                HKQuantitySample.quantitySampleWithType(
+                    quantityType = HKQuantityType.quantityTypeForIdentifier(quantityTypeIdentifier)
+                        ?: return null,
+                    quantity = HKQuantity.quantityWithUnit(
+                        unit = wattUnit,
+                        doubleValue = sample.power.inWatts,
+                    ),
+                    startDate = sample.time.toNSDate(),
+                    endDate = sample.time.toNSDate(),
+                    metadata = metadata,
+                )
+            }
         }
 
         is SleepSessionRecord -> {
@@ -445,6 +486,26 @@ internal suspend fun List<HKQuantitySample>.toHealthRecord(
             }
         }
 
+        HKQuantityTypeIdentifierCyclingCadence -> {
+            val metadata = firstOrNull()?.metadata.toMetadata()
+            map { sample ->
+                CyclingPedalingCadenceRecord.Sample(
+                    time = sample.startDate.toKotlinInstant(),
+                    revolutionsPerMinute = sample.quantity.rpmValue,
+                )
+            }.sortedBy { it.time }
+                .let { samples ->
+                    listOf(
+                        CyclingPedalingCadenceRecord(
+                            startTime = samples.first().time,
+                            endTime = samples.last().time,
+                            samples = samples,
+                            metadata = metadata,
+                        )
+                    )
+                }
+        }
+
         HKQuantityTypeIdentifierHeartRate -> {
             val metadata = firstOrNull()?.metadata.toMetadata()
             map { sample ->
@@ -485,6 +546,26 @@ internal suspend fun List<HKQuantitySample>.toHealthRecord(
                     metadata = sample.toMetadata(),
                 )
             }
+        }
+
+        HKQuantityTypeIdentifierCyclingPower -> {
+            val metadata = firstOrNull()?.metadata.toMetadata()
+            map { sample ->
+                PowerRecord.Sample(
+                    time = sample.startDate.toKotlinInstant(),
+                    power = sample.quantity.wattValue.watts,
+                )
+            }.sortedBy { it.time }
+                .let { samples ->
+                    listOf(
+                        PowerRecord(
+                            startTime = samples.first().time,
+                            endTime = samples.last().time,
+                            samples = samples,
+                            metadata = metadata,
+                        )
+                    )
+                }
         }
 
         else -> emptyList()
@@ -619,6 +700,18 @@ private val massPoundUnit: HKUnit
 
 internal val HKQuantity?.stepsValue: Long
     get() = this?.doubleValueForUnit(stepsUnit)?.toLong() ?: 0L
+
+private val wattUnit: HKUnit
+    get() = HKUnit.wattUnit()
+
+internal val HKQuantity?.wattValue: Double
+    get() = this?.doubleValueForUnit(wattUnit) ?: 0.0
+
+private val rpmUnit: HKUnit
+    get() = HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit())
+
+internal val HKQuantity?.rpmValue: Double
+    get() = this?.doubleValueForUnit(rpmUnit) ?: 0.0
 
 private val stepsUnit: HKUnit
     get() = HKUnit.countUnit()

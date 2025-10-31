@@ -11,6 +11,8 @@ import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
+import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
+import com.viktormykhailiv.kmp.health.HealthDataType.Power
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
@@ -44,6 +46,8 @@ internal fun HealthDataType.toDataType(): DataType = when (this) {
 
     BodyTemperature -> throw IllegalArgumentException("BodyTemperature is not supported")
 
+    CyclingPedalingCadence -> throw IllegalArgumentException("PedalingCadence is not supported")
+
     is Exercise -> throw IllegalArgumentException("Exercise is not supported")
 
     HeartRate -> DataType.TYPE_HEART_RATE_BPM
@@ -51,6 +55,8 @@ internal fun HealthDataType.toDataType(): DataType = when (this) {
     Height -> DataType.TYPE_HEIGHT
 
     LeanBodyMass -> throw IllegalArgumentException("LeanBodyMass is not supported")
+
+    Power -> throw IllegalArgumentException("Power is not supported")
 
     Sleep -> DataType.TYPE_SLEEP_SEGMENT
 
