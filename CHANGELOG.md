@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.0.16](https://github.com/vitoksmile/HealthKMP/releases/tag/0.0.16)
+
+- Added **cycling pedaling cadence** data type
+- Added **power** data type
+
 ## [0.0.15](https://github.com/vitoksmile/HealthKMP/releases/tag/0.0.15)
 
 Breaking change:
