@@ -10,8 +10,12 @@ import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
+import androidx.health.connect.client.records.MenstruationFlowRecord
+import androidx.health.connect.client.records.MenstruationPeriodRecord
+import androidx.health.connect.client.records.OvulationTestRecord
 import androidx.health.connect.client.records.PowerRecord
 import androidx.health.connect.client.records.Record
+import androidx.health.connect.client.records.SexualActivityRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
@@ -19,12 +23,16 @@ import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
+import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
 import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
-import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationFlow
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationPeriod
+import com.viktormykhailiv.kmp.health.HealthDataType.OvulationTest
 import com.viktormykhailiv.kmp.health.HealthDataType.Power
+import com.viktormykhailiv.kmp.health.HealthDataType.SexualActivity
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
@@ -49,7 +57,15 @@ internal fun HealthDataType.toRecordType(): KClass<out Record> = when (this) {
 
     LeanBodyMass -> LeanBodyMassRecord::class
 
+    MenstruationFlow -> MenstruationFlowRecord::class
+
+    MenstruationPeriod -> MenstruationPeriodRecord::class
+
+    OvulationTest -> OvulationTestRecord::class
+
     Power -> PowerRecord::class
+
+    SexualActivity -> SexualActivityRecord::class
 
     Sleep -> SleepSessionRecord::class
 

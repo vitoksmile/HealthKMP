@@ -6,6 +6,7 @@ import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
 import com.viktormykhailiv.kmp.health.records.BodyFatRecord
 import com.viktormykhailiv.kmp.health.records.BodyTemperatureRecord
+import com.viktormykhailiv.kmp.health.records.CyclingPedalingCadenceRecord
 import com.viktormykhailiv.kmp.health.records.ExerciseLap
 import com.viktormykhailiv.kmp.health.records.ExerciseRoute
 import com.viktormykhailiv.kmp.health.records.ExerciseSegment
@@ -14,8 +15,11 @@ import com.viktormykhailiv.kmp.health.records.ExerciseType
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.LeanBodyMassRecord
-import com.viktormykhailiv.kmp.health.records.CyclingPedalingCadenceRecord
+import com.viktormykhailiv.kmp.health.records.OvulationTestRecord
+import com.viktormykhailiv.kmp.health.records.MenstruationFlowRecord
+import com.viktormykhailiv.kmp.health.records.MenstruationPeriodRecord
 import com.viktormykhailiv.kmp.health.records.PowerRecord
+import com.viktormykhailiv.kmp.health.records.SexualActivityRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
@@ -38,14 +42,29 @@ import kotlinx.cinterop.useContents
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.daysUntil
 import kotlinx.datetime.toKotlinInstant
 import kotlinx.datetime.toNSDate
 import platform.CoreLocation.CLLocation
 import platform.CoreLocation.CLLocationCoordinate2DMake
 import platform.Foundation.NSDate
 import platform.Foundation.NSDateInterval
+import platform.Foundation.compare
 import platform.HealthKit.HKCategorySample
+import platform.HealthKit.HKCategoryTypeIdentifierMenstrualFlow
+import platform.HealthKit.HKCategoryTypeIdentifierOvulationTestResult
+import platform.HealthKit.HKCategoryTypeIdentifierSexualActivity
 import platform.HealthKit.HKCategoryTypeIdentifierSleepAnalysis
+import platform.HealthKit.HKCategoryValueMenstrualFlowHeavy
+import platform.HealthKit.HKCategoryValueMenstrualFlowLight
+import platform.HealthKit.HKCategoryValueMenstrualFlowMedium
+import platform.HealthKit.HKCategoryValueMenstrualFlowUnspecified
+import platform.HealthKit.HKCategoryValueNotApplicable
+import platform.HealthKit.HKCategoryValueOvulationTestResultEstrogenSurge
+import platform.HealthKit.HKCategoryValueOvulationTestResultIndeterminate
+import platform.HealthKit.HKCategoryValueOvulationTestResultLuteinizingHormoneSurge
+import platform.HealthKit.HKCategoryValueOvulationTestResultNegative
 import platform.HealthKit.HKCategoryValueSleepAnalysisAsleepCore
 import platform.HealthKit.HKCategoryValueSleepAnalysisAsleepDeep
 import platform.HealthKit.HKCategoryValueSleepAnalysisAsleepREM
@@ -53,6 +72,7 @@ import platform.HealthKit.HKCategoryValueSleepAnalysisAsleepUnspecified
 import platform.HealthKit.HKCategoryValueSleepAnalysisAwake
 import platform.HealthKit.HKHealthStore
 import platform.HealthKit.HKMetadataKeyLapLength
+import platform.HealthKit.HKMetadataKeyMenstrualCycleStart
 import platform.HealthKit.HKObject
 import platform.HealthKit.HKObjectType
 import platform.HealthKit.HKQuantity
@@ -139,6 +159,7 @@ import platform.HealthKit.poundUnit
 import platform.HealthKit.unitDividedByUnit
 import platform.HealthKit.wattUnit
 import kotlin.coroutines.resume
+import kotlin.time.Duration.Companion.days
 
 // region Write
 @OptIn(ExperimentalForeignApi::class)
@@ -300,6 +321,69 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
             endDate = record.time.toNSDate()
         }
 
+        is MenstruationFlowRecord -> {
+            val typeIdentifier = HKObjectType
+                .categoryTypeForIdentifier(HKCategoryTypeIdentifierMenstrualFlow)!!
+
+            metadata[HKMetadataKeyMenstrualCycleStart] = false
+
+            return listOf(
+                HKCategorySample.categorySampleWithType(
+                    type = typeIdentifier,
+                    value = when (record.flow) {
+                        MenstruationFlowRecord.Flow.Unknown -> HKCategoryValueMenstrualFlowUnspecified
+                        MenstruationFlowRecord.Flow.Light -> HKCategoryValueMenstrualFlowLight
+                        MenstruationFlowRecord.Flow.Medium -> HKCategoryValueMenstrualFlowMedium
+                        MenstruationFlowRecord.Flow.Heavy -> HKCategoryValueMenstrualFlowHeavy
+                    },
+                    startDate = record.time.toNSDate(),
+                    endDate = record.time.toNSDate(),
+                    metadata = metadata,
+                ),
+            )
+        }
+
+        is MenstruationPeriodRecord -> {
+            val typeIdentifier = HKObjectType
+                .categoryTypeForIdentifier(HKCategoryTypeIdentifierMenstrualFlow)!!
+
+            return List(
+                record.startTime.daysUntil(record.endTime, TimeZone.currentSystemDefault()) + 1
+            ) { index ->
+                val metadata = metadata.toMutableMap()
+                metadata[HKMetadataKeyMenstrualCycleStart] = index == 0
+
+                HKCategorySample.categorySampleWithType(
+                    type = typeIdentifier,
+                    value = HKCategoryValueMenstrualFlowUnspecified,
+                    startDate = record.startTime.plus(index.days).toNSDate(),
+                    endDate = record.endTime.plus(index.days).toNSDate(),
+                    metadata = metadata,
+                )
+            }
+        }
+
+        is OvulationTestRecord -> {
+            val typeIdentifier = HKObjectType
+                .categoryTypeForIdentifier(HKCategoryTypeIdentifierOvulationTestResult)!!
+
+            return listOf(
+                HKCategorySample.categorySampleWithType(
+                    type = typeIdentifier,
+                    value = when (record.result) {
+                        OvulationTestRecord.Result.Inconclusive -> HKCategoryValueOvulationTestResultIndeterminate
+                        OvulationTestRecord.Result.Positive -> HKCategoryValueOvulationTestResultLuteinizingHormoneSurge
+                        OvulationTestRecord.Result.High -> HKCategoryValueOvulationTestResultEstrogenSurge
+                        OvulationTestRecord.Result.Negative -> HKCategoryValueOvulationTestResultNegative
+                        null -> HKCategoryValueOvulationTestResultIndeterminate
+                    },
+                    startDate = record.time.toNSDate(),
+                    endDate = record.time.toNSDate(),
+                    metadata = metadata,
+                ),
+            )
+        }
+
         is PowerRecord -> {
             quantityTypeIdentifier = HKQuantityTypeIdentifierCyclingPower
 
@@ -316,6 +400,24 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
                     metadata = metadata,
                 )
             }
+        }
+
+        is SexualActivityRecord -> {
+            val typeIdentifier = HKObjectType
+                .categoryTypeForIdentifier(HKCategoryTypeIdentifierSexualActivity)!!
+
+            metadata[HKMetadataKeySexualActivityProtectionUsed] =
+                record.protection is SexualActivityRecord.Protection.Protected
+
+            return listOf(
+                HKCategorySample.categorySampleWithType(
+                    type = typeIdentifier,
+                    value = HKCategoryValueNotApplicable,
+                    startDate = record.time.toNSDate(),
+                    endDate = record.time.toNSDate(),
+                    metadata = metadata,
+                ),
+            )
         }
 
         is SleepSessionRecord -> {
@@ -384,6 +486,94 @@ internal fun List<HKCategorySample>.toHealthRecords(): List<HealthRecord> {
     if (isEmpty()) return emptyList()
 
     return when (first().categoryType.identifier) {
+        HKCategoryTypeIdentifierMenstrualFlow -> {
+            @Suppress("RemoveRedundantCallsOfConversionMethods")
+            val samples = sortedWith { a, b -> a.startDate.compare(b.startDate).toInt() }
+
+            val flowRecords = samples.map { sample ->
+                MenstruationFlowRecord(
+                    time = sample.startDate.toKotlinInstant(),
+                    flow = when (sample.value) {
+                        HKCategoryValueMenstrualFlowLight -> MenstruationFlowRecord.Flow.Light
+                        HKCategoryValueMenstrualFlowMedium -> MenstruationFlowRecord.Flow.Medium
+                        HKCategoryValueMenstrualFlowHeavy -> MenstruationFlowRecord.Flow.Heavy
+                        else -> MenstruationFlowRecord.Flow.Unknown
+                    },
+                    metadata = sample.metadata.toMetadata(),
+                )
+            }
+
+            val periodRecords = mutableListOf<MenstruationPeriodRecord>()
+            var periodStartedAt = samples.first().startDate.toKotlinInstant()
+            val timeZone = TimeZone.currentSystemDefault()
+            for (i in 1 until samples.size) {
+                val sample = samples[i]
+
+                val previousDate = samples[i - 1].startDate.toKotlinInstant().midnight()
+                val currentDate = sample.startDate.toKotlinInstant().midnight()
+                val days = previousDate.daysUntil(currentDate, timeZone)
+                if (days > 1) {
+                    periodRecords += MenstruationPeriodRecord(
+                        startTime = periodStartedAt,
+                        endTime = samples[i - 1].endDate.toKotlinInstant(),
+                        metadata = sample.metadata.toMetadata(),
+                    )
+                    periodStartedAt = sample.startDate.toKotlinInstant()
+                    continue
+                }
+
+                if (i == samples.size - 1) {
+                    periodRecords += MenstruationPeriodRecord(
+                        startTime = periodStartedAt,
+                        endTime = sample.endDate.toKotlinInstant(),
+                        metadata = sample.metadata.toMetadata(),
+                    )
+                }
+            }
+
+            flowRecords + periodRecords
+        }
+
+        HKCategoryTypeIdentifierOvulationTestResult -> {
+            map { sample ->
+                val time = sample.startDate.toKotlinInstant()
+                val result = when (sample.value) {
+                    HKCategoryValueOvulationTestResultIndeterminate -> OvulationTestRecord.Result.Inconclusive
+                    HKCategoryValueOvulationTestResultLuteinizingHormoneSurge -> OvulationTestRecord.Result.Positive
+                    HKCategoryValueOvulationTestResultEstrogenSurge -> OvulationTestRecord.Result.High
+                    HKCategoryValueOvulationTestResultNegative -> OvulationTestRecord.Result.Negative
+                    else -> OvulationTestRecord.Result.Inconclusive
+                }
+                OvulationTestRecord(
+                    time = time,
+                    result = result,
+                    metadata = sample.metadata.toMetadata(),
+                )
+            }
+        }
+
+        HKCategoryTypeIdentifierSexualActivity -> {
+            map { sample ->
+                val time = sample.startDate.toKotlinInstant()
+                val metadata = sample.metadata.orEmpty()
+                val protection = when {
+                    !metadata.containsKey(HKMetadataKeySexualActivityProtectionUsed) ->
+                        SexualActivityRecord.Protection.Unknown
+
+                    metadata.metadataBooleanTrue(HKMetadataKeySexualActivityProtectionUsed) ->
+                        SexualActivityRecord.Protection.Protected
+
+                    else ->
+                        SexualActivityRecord.Protection.Unprotected
+                }
+                SexualActivityRecord(
+                    time = time,
+                    protection = protection,
+                    metadata = sample.metadata.toMetadata(),
+                )
+            }
+        }
+
         HKCategoryTypeIdentifierSleepAnalysis -> {
             val metadata = firstOrNull()?.metadata.toMetadata()
             map { sample ->
@@ -940,8 +1130,7 @@ private fun Map<Any?, *>?.toMetadata(): Metadata {
     }
 
     return when {
-        metadata[HKMetadataKeyWasUserEntered] == true || metadata[HKMetadataKeyWasUserEntered] == 1.0
-            -> {
+        metadata.metadataBooleanTrue(HKMetadataKeyWasUserEntered) -> {
             Metadata.manualEntry(id = id, device = device)
         }
 
@@ -964,14 +1153,17 @@ private fun Metadata.toHKMetadata(): MutableMap<Any?, Any> {
     }.toMutableMap()
 }
 
+private fun Map<Any?, Any?>.metadataBooleanTrue(key: String): Boolean =
+    this[key] == true || this[key] == "true" || this[key] == 1.0
+
 /**
  * https://developer.apple.com/documentation/healthkit/metadata-keys
  */
-// General Keys
+// General keys
 private const val HKMetadataKeyExternalUUID = "HKExternalUUID"
 private const val HKMetadataKeyWasUserEntered = "HKWasUserEntered"
 
-// Device Information Keys
+// Device information keys
 private const val HKMetadataKeyDeviceManufacturerName = "HKDeviceManufacturerName"
 private const val HKMetadataKeyDeviceName = "HKDeviceName"
 
@@ -979,4 +1171,7 @@ private const val HKMetadataKeyDeviceName = "HKDeviceName"
 private const val HKMetadataKeyBloodGlucoseMealTime = "HKBloodGlucoseMealTime"
 private const val HKBloodGlucoseMealTimePreprandial = 1.0
 private const val HKBloodGlucoseMealTimePostprandial = 2.0
+
+// Sexual activity
+private const val HKMetadataKeySexualActivityProtectionUsed = "HKSexualActivityProtectionUsed"
 // endregion

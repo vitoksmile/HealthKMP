@@ -1,9 +1,11 @@
 package com.viktormykhailiv.kmp.health
 
+import android.annotation.SuppressLint
 import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
 import com.viktormykhailiv.kmp.health.records.BodyFatRecord
 import com.viktormykhailiv.kmp.health.records.BodyTemperatureRecord
+import com.viktormykhailiv.kmp.health.records.CyclingPedalingCadenceRecord
 import com.viktormykhailiv.kmp.health.records.ExerciseLap
 import com.viktormykhailiv.kmp.health.records.ExerciseRoute
 import com.viktormykhailiv.kmp.health.records.ExerciseSegment
@@ -13,8 +15,11 @@ import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.LeanBodyMassRecord
 import com.viktormykhailiv.kmp.health.records.MealType
-import com.viktormykhailiv.kmp.health.records.CyclingPedalingCadenceRecord
+import com.viktormykhailiv.kmp.health.records.MenstruationFlowRecord
+import com.viktormykhailiv.kmp.health.records.MenstruationPeriodRecord
+import com.viktormykhailiv.kmp.health.records.OvulationTestRecord
 import com.viktormykhailiv.kmp.health.records.PowerRecord
+import com.viktormykhailiv.kmp.health.records.SexualActivityRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
@@ -47,8 +52,12 @@ import androidx.health.connect.client.records.HeartRateRecord as HCHeartRateReco
 import androidx.health.connect.client.records.HeightRecord as HCHeightRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord as HCLeanBodyMassRecord
 import androidx.health.connect.client.records.MealType as HCMealType
+import androidx.health.connect.client.records.MenstruationPeriodRecord as HCMenstruationPeriodRecord
+import androidx.health.connect.client.records.MenstruationFlowRecord as HCMenstruationFlowRecord
+import androidx.health.connect.client.records.OvulationTestRecord as HCOvulationTestRecord
 import androidx.health.connect.client.records.PowerRecord as HCPowerRecord
 import androidx.health.connect.client.records.Record as HCRecord
+import androidx.health.connect.client.records.SexualActivityRecord as HCSexualActivityRecord
 import androidx.health.connect.client.records.SleepSessionRecord as HCSleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord as HCStepsRecord
 import androidx.health.connect.client.records.WeightRecord as HCWeightRecord
@@ -62,6 +71,8 @@ import androidx.health.connect.client.units.Power as HCPower
 import androidx.health.connect.client.units.Pressure as HCPressure
 import androidx.health.connect.client.units.Temperature as HCTemperature
 
+// region Write
+@SuppressLint("RestrictedApi")
 internal fun HealthRecord.toHCRecord(
     temperaturePreference: () -> TemperatureRegionalPreference,
 ): HCRecord? = when (val record = this) {
@@ -333,6 +344,51 @@ internal fun HealthRecord.toHCRecord(
         metadata = record.metadata.toHCMetadata(),
     )
 
+    is MenstruationFlowRecord -> HCMenstruationFlowRecord(
+        time = record.time.toJavaInstant(),
+        zoneOffset = null,
+        flow = when (flow) {
+            MenstruationFlowRecord.Flow.Unknown -> HCMenstruationFlowRecord.FLOW_UNKNOWN
+            MenstruationFlowRecord.Flow.Light -> HCMenstruationFlowRecord.FLOW_LIGHT
+            MenstruationFlowRecord.Flow.Medium -> HCMenstruationFlowRecord.FLOW_MEDIUM
+            MenstruationFlowRecord.Flow.Heavy -> HCMenstruationFlowRecord.FLOW_HEAVY
+        },
+        metadata = record.metadata.toHCMetadata(),
+    )
+
+    is MenstruationPeriodRecord -> HCMenstruationPeriodRecord(
+        startTime = record.startTime.toJavaInstant(),
+        endTime = record.endTime.toJavaInstant(),
+        startZoneOffset = null,
+        endZoneOffset = null,
+        metadata = record.metadata.toHCMetadata(),
+    )
+
+    is OvulationTestRecord -> HCOvulationTestRecord(
+        time = record.time.toJavaInstant(),
+        zoneOffset = null,
+        result = when (record.result) {
+            OvulationTestRecord.Result.Inconclusive -> HCOvulationTestRecord.RESULT_INCONCLUSIVE
+            OvulationTestRecord.Result.Positive -> HCOvulationTestRecord.RESULT_POSITIVE
+            OvulationTestRecord.Result.High -> HCOvulationTestRecord.RESULT_HIGH
+            OvulationTestRecord.Result.Negative -> HCOvulationTestRecord.RESULT_NEGATIVE
+            null -> HCOvulationTestRecord.RESULT_INCONCLUSIVE
+        },
+        metadata = record.metadata.toHCMetadata(),
+    )
+
+    is SexualActivityRecord -> HCSexualActivityRecord(
+        time = record.time.toJavaInstant(),
+        zoneOffset = null,
+        protectionUsed = when (record.protection) {
+            SexualActivityRecord.Protection.Protected -> HCSexualActivityRecord.PROTECTION_USED_PROTECTED
+            SexualActivityRecord.Protection.Unprotected -> HCSexualActivityRecord.PROTECTION_USED_UNPROTECTED
+            SexualActivityRecord.Protection.Unknown -> HCSexualActivityRecord.PROTECTION_USED_UNKNOWN
+            null -> HCSexualActivityRecord.PROTECTION_USED_UNKNOWN
+        },
+        metadata = record.metadata.toHCMetadata(),
+    )
+
     is SleepSessionRecord -> HCSleepSessionRecord(
         startTime = record.startTime.toJavaInstant(),
         endTime = record.endTime.toJavaInstant(),
@@ -403,7 +459,9 @@ internal fun HealthRecord.toHCRecord(
 
     else -> null
 }
+// endregion
 
+// region Read
 internal fun HCRecord.toHealthRecord(
     temperaturePreference: () -> TemperatureRegionalPreference,
 ): HealthRecord? = when (val record = this) {
@@ -493,7 +551,7 @@ internal fun HCRecord.toHealthRecord(
         },
         metadata = record.metadata.toMetadata(),
     )
-    
+
     is HCExerciseSessionRecord -> ExerciseSessionRecord(
         startTime = record.startTime.toKotlinInstant(),
         endTime = record.endTime.toKotlinInstant(),
@@ -692,6 +750,35 @@ internal fun HCRecord.toHealthRecord(
         metadata = record.metadata.toMetadata(),
     )
 
+    is HCMenstruationFlowRecord -> MenstruationFlowRecord(
+        time = record.time.toKotlinInstant(),
+        flow = when (record.flow) {
+            HCMenstruationFlowRecord.FLOW_LIGHT -> MenstruationFlowRecord.Flow.Light
+            HCMenstruationFlowRecord.FLOW_MEDIUM -> MenstruationFlowRecord.Flow.Medium
+            HCMenstruationFlowRecord.FLOW_HEAVY -> MenstruationFlowRecord.Flow.Heavy
+            else -> MenstruationFlowRecord.Flow.Unknown
+        },
+        metadata = record.metadata.toMetadata(),
+    )
+
+    is HCMenstruationPeriodRecord -> MenstruationPeriodRecord(
+        startTime = record.startTime.toKotlinInstant(),
+        endTime = record.endTime.toKotlinInstant(),
+        metadata = record.metadata.toMetadata(),
+    )
+
+    is HCOvulationTestRecord -> OvulationTestRecord(
+        time = record.time.toKotlinInstant(),
+        result = when (record.result) {
+            HCOvulationTestRecord.RESULT_INCONCLUSIVE -> OvulationTestRecord.Result.Inconclusive
+            HCOvulationTestRecord.RESULT_POSITIVE -> OvulationTestRecord.Result.Positive
+            HCOvulationTestRecord.RESULT_HIGH -> OvulationTestRecord.Result.High
+            HCOvulationTestRecord.RESULT_NEGATIVE -> OvulationTestRecord.Result.Negative
+            else -> OvulationTestRecord.Result.Inconclusive
+        },
+        metadata = record.metadata.toMetadata(),
+    )
+
     is HCPowerRecord -> PowerRecord(
         startTime = record.startTime.toKotlinInstant(),
         endTime = record.endTime.toKotlinInstant(),
@@ -700,6 +787,16 @@ internal fun HCRecord.toHealthRecord(
                 time = sample.time.toKotlinInstant(),
                 power = sample.power.toPower(),
             )
+        },
+        metadata = record.metadata.toMetadata(),
+    )
+
+    is HCSexualActivityRecord -> SexualActivityRecord(
+        time = record.time.toKotlinInstant(),
+        protection = when (record.protectionUsed) {
+            HCSexualActivityRecord.PROTECTION_USED_PROTECTED -> SexualActivityRecord.Protection.Protected
+            HCSexualActivityRecord.PROTECTION_USED_UNPROTECTED -> SexualActivityRecord.Protection.Unprotected
+            else -> SexualActivityRecord.Protection.Unknown
         },
         metadata = record.metadata.toMetadata(),
     )
@@ -741,6 +838,7 @@ internal fun HCRecord.toHealthRecord(
 
     else -> null
 }
+// endregion
 
 private fun Metadata.toHCMetadata(): HCMetadata = when (recordingMethod) {
     is Metadata.RecordingMethod.Unknown -> HCMetadata.unknownRecordingMethod(

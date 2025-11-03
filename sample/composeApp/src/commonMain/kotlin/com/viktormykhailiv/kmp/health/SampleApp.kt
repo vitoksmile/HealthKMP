@@ -41,7 +41,11 @@ import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
 import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationFlow
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationPeriod
+import com.viktormykhailiv.kmp.health.HealthDataType.OvulationTest
 import com.viktormykhailiv.kmp.health.HealthDataType.Power
+import com.viktormykhailiv.kmp.health.HealthDataType.SexualActivity
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
@@ -62,6 +66,7 @@ import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
 import com.viktormykhailiv.kmp.health.records.BodyFatRecord
 import com.viktormykhailiv.kmp.health.records.BodyTemperatureRecord
+import com.viktormykhailiv.kmp.health.records.CyclingPedalingCadenceRecord
 import com.viktormykhailiv.kmp.health.records.ExerciseLap
 import com.viktormykhailiv.kmp.health.records.ExerciseRoute
 import com.viktormykhailiv.kmp.health.records.ExerciseSegment
@@ -71,8 +76,11 @@ import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.LeanBodyMassRecord
 import com.viktormykhailiv.kmp.health.records.MealType
-import com.viktormykhailiv.kmp.health.records.CyclingPedalingCadenceRecord
+import com.viktormykhailiv.kmp.health.records.MenstruationFlowRecord
+import com.viktormykhailiv.kmp.health.records.MenstruationPeriodRecord
+import com.viktormykhailiv.kmp.health.records.OvulationTestRecord
 import com.viktormykhailiv.kmp.health.records.PowerRecord
+import com.viktormykhailiv.kmp.health.records.SexualActivityRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
 import com.viktormykhailiv.kmp.health.records.StepsRecord
@@ -112,7 +120,11 @@ fun SampleApp() {
             HeartRate,
             Height,
             LeanBodyMass,
+            MenstruationFlow,
+            MenstruationPeriod,
+            OvulationTest,
             Power,
+            SexualActivity,
             Sleep,
             Steps,
             Weight,
@@ -129,7 +141,11 @@ fun SampleApp() {
             HeartRate,
             Height,
             LeanBodyMass,
+            MenstruationFlow,
+            MenstruationPeriod,
+            OvulationTest,
             Power,
+            SexualActivity,
             Sleep,
             Steps,
             Weight,
@@ -393,6 +409,30 @@ fun SampleApp() {
                                         Text("Max $max")
                                     }
 
+                                    MenstruationFlow -> {
+                                        records
+                                            .filterIsInstance<MenstruationFlowRecord>()
+                                            .forEach {
+                                                Text("Menstruation flow ${it.flow}")
+                                            }
+                                    }
+
+                                    MenstruationPeriod -> {
+                                        records
+                                            .filterIsInstance<MenstruationPeriodRecord>()
+                                            .forEach {
+                                                Text("Menstruation period ${it.duration}")
+                                            }
+                                    }
+
+                                    OvulationTest -> {
+                                        records
+                                            .filterIsInstance<OvulationTestRecord>()
+                                            .forEach {
+                                                Text("Ovulation result ${it.result}")
+                                            }
+                                    }
+
                                     Power -> {
                                         val weight = records.filterIsInstance<PowerRecord>()
                                             .flatMap { it.samples }
@@ -402,6 +442,14 @@ fun SampleApp() {
                                         Text("Average $average")
                                         Text("Min $min")
                                         Text("Max $max")
+                                    }
+
+                                    SexualActivity -> {
+                                        records
+                                            .filterIsInstance<SexualActivityRecord>()
+                                            .forEach {
+                                                Text("Sexual activity ${it.protection}")
+                                            }
                                     }
 
                                     Sleep -> {
@@ -930,6 +978,116 @@ fun SampleApp() {
                         ?.onFailure {
                             Text("Failed to write power $it")
                         }
+
+                    Divider()
+                    Spacer(modifier = Modifier.height(16.dp))
+                    var writeMenstruationFlow by remember { mutableStateOf<Result<Unit>?>(null) }
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                writeMenstruationFlow = health.writeData(
+                                    listOf(
+                                        MenstruationFlowRecord(
+                                            time = Clock.System.now(),
+                                            flow = listOf(
+                                                MenstruationFlowRecord.Flow.Unknown,
+                                                MenstruationFlowRecord.Flow.Light,
+                                                MenstruationFlowRecord.Flow.Medium,
+                                                MenstruationFlowRecord.Flow.Heavy,
+                                            ).random(),
+                                            metadata = generateManualEntryMetadata(),
+                                        )
+                                    )
+                                )
+                            }
+                        },
+                    ) {
+                        Text("Write menstruation flow")
+                    }
+                    writeMenstruationFlow
+                        ?.onSuccess { Text("Successfully wrote menstruation flow") }
+                        ?.onFailure { Text("Failed to write menstruation flow $it") }
+
+                    Divider()
+                    Spacer(modifier = Modifier.height(16.dp))
+                    var writeMenstruationPeriod by remember { mutableStateOf<Result<Unit>?>(null) }
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                writeMenstruationPeriod = health.writeData(
+                                    listOf(
+                                        MenstruationPeriodRecord(
+                                            startTime = Clock.System.now().minus(5.days),
+                                            endTime = Clock.System.now().minus(1.days),
+                                            metadata = generateManualEntryMetadata(),
+                                        )
+                                    )
+                                )
+                            }
+                        },
+                    ) {
+                        Text("Write menstruation period")
+                    }
+                    writeMenstruationPeriod
+                        ?.onSuccess { Text("Successfully wrote menstruation period") }
+                        ?.onFailure { Text("Failed to write menstruation period $it") }
+
+                    Divider()
+                    Spacer(modifier = Modifier.height(16.dp))
+                    var writeOvulationTest by remember { mutableStateOf<Result<Unit>?>(null) }
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                writeOvulationTest = health.writeData(
+                                    listOf(
+                                        OvulationTestRecord(
+                                            time = Clock.System.now(),
+                                            result = listOf(
+                                                OvulationTestRecord.Result.Inconclusive,
+                                                OvulationTestRecord.Result.Positive,
+                                                OvulationTestRecord.Result.High,
+                                                OvulationTestRecord.Result.Negative,
+                                            ).random(),
+                                            metadata = generateManualEntryMetadata(),
+                                        )
+                                    )
+                                )
+                            }
+                        },
+                    ) {
+                        Text("Write ovulation test")
+                    }
+                    writeOvulationTest
+                        ?.onSuccess { Text("Successfully wrote ovulation test") }
+                        ?.onFailure { Text("Failed to write ovulation test $it") }
+
+                    Divider()
+                    Spacer(modifier = Modifier.height(16.dp))
+                    var writeSexualActivity by remember { mutableStateOf<Result<Unit>?>(null) }
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                writeSexualActivity = health.writeData(
+                                    listOf(
+                                        SexualActivityRecord(
+                                            time = Clock.System.now(),
+                                            protection = listOf(
+                                                SexualActivityRecord.Protection.Unknown,
+                                                SexualActivityRecord.Protection.Protected,
+                                                SexualActivityRecord.Protection.Unprotected,
+                                            ).random(),
+                                            metadata = generateManualEntryMetadata(),
+                                        )
+                                    )
+                                )
+                            }
+                        },
+                    ) {
+                        Text("Write sexual activity")
+                    }
+                    writeSexualActivity
+                        ?.onSuccess { Text("Successfully wrote sexual activity") }
+                        ?.onFailure { Text("Failed to write sexual activity $it") }
 
                     Divider()
                     Spacer(modifier = Modifier.height(16.dp))

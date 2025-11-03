@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.17](https://github.com/vitoksmile/HealthKMP/releases/tag/0.0.17)
+
+- Added **menstruation** data type
+- Added **ovulation test** data type
+- Added **sexual activity** data type
+
 ## [0.0.16](https://github.com/vitoksmile/HealthKMP/releases/tag/0.0.16)
 
 - Added **cycling pedaling cadence** data type

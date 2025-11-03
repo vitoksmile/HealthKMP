@@ -4,6 +4,10 @@ import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
 import kotlin.time.Instant
 import kotlin.time.Duration.Companion.minutes
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atTime
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 
 internal data class HeartRateSampleInternal(
     val startTime: Instant,
@@ -62,4 +66,10 @@ internal fun List<HeartRateSampleInternal>.group(metadata: Metadata): List<Heart
     }
 
     return records
+}
+
+internal fun Instant.midnight(): Instant {
+    val timeZone = TimeZone.currentSystemDefault()
+    val midnightDateTime = toLocalDateTime(timeZone).date.atTime(hour = 0, minute = 0)
+    return midnightDateTime.toInstant(timeZone)
 }

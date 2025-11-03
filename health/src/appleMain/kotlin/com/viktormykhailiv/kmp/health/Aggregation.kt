@@ -6,23 +6,27 @@ import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
+import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
 import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationFlow
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationPeriod
+import com.viktormykhailiv.kmp.health.HealthDataType.OvulationTest
+import com.viktormykhailiv.kmp.health.HealthDataType.Power
+import com.viktormykhailiv.kmp.health.HealthDataType.SexualActivity
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
-import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
-import com.viktormykhailiv.kmp.health.HealthDataType.Power
 import com.viktormykhailiv.kmp.health.aggregate.BloodGlucoseAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BodyFatAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BodyTemperatureAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.CyclingPedalingCadenceAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.LeanBodyMassAggregatedRecord
-import com.viktormykhailiv.kmp.health.aggregate.CyclingPedalingCadenceAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.PowerAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
@@ -85,8 +89,20 @@ internal fun HealthDataType.toHKQuantityType(): List<HKQuantityType?> = when (th
     LeanBodyMass ->
         listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierLeanBodyMass))
 
+    MenstruationFlow ->
+        throw IllegalArgumentException("MenstruationFlow is not supported for aggregation")
+
+    MenstruationPeriod ->
+        throw IllegalArgumentException("MenstruationPeriod is not supported for aggregation")
+
+    OvulationTest ->
+        throw IllegalArgumentException("OvulationTest is not supported for aggregation")
+
     Power ->
         listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierCyclingPower))
+
+    SexualActivity ->
+        throw IllegalArgumentException("SexualActivity is not supported for aggregation")
 
     Sleep ->
         throw IllegalArgumentException("Sleep is not supported for aggregation")
@@ -129,8 +145,20 @@ internal fun HealthDataType.toHKStatisticOptions(): HKStatisticsOptions = when (
     LeanBodyMass ->
         discreteStatisticsOptions()
 
+    MenstruationFlow ->
+        throw IllegalArgumentException("MenstruationFlow is not supported for aggregation")
+
+    MenstruationPeriod ->
+        throw IllegalArgumentException("MenstruationPeriod is not supported for aggregation")
+
+    OvulationTest ->
+        throw IllegalArgumentException("OvulationTest is not supported for aggregation")
+
     Power ->
         discreteStatisticsOptions()
+
+    SexualActivity ->
+        throw IllegalArgumentException("SexualActivity is not supported for aggregation")
 
     Sleep ->
         throw IllegalArgumentException("Sleep is not supported for aggregation")

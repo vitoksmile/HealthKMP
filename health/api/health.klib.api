@@ -622,10 +622,34 @@ sealed interface com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormy
         final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health/HealthDataType.LeanBodyMass.toString|toString(){}[0]
     }
 
+    final object MenstruationFlow : com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType.MenstruationFlow|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.MenstruationFlow.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health/HealthDataType.MenstruationFlow.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health/HealthDataType.MenstruationFlow.toString|toString(){}[0]
+    }
+
+    final object MenstruationPeriod : com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType.MenstruationPeriod|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.MenstruationPeriod.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health/HealthDataType.MenstruationPeriod.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health/HealthDataType.MenstruationPeriod.toString|toString(){}[0]
+    }
+
+    final object OvulationTest : com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType.OvulationTest|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.OvulationTest.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health/HealthDataType.OvulationTest.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health/HealthDataType.OvulationTest.toString|toString(){}[0]
+    }
+
     final object Power : com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType.Power|null[0]
         final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.Power.equals|equals(kotlin.Any?){}[0]
         final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health/HealthDataType.Power.hashCode|hashCode(){}[0]
         final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health/HealthDataType.Power.toString|toString(){}[0]
+    }
+
+    final object SexualActivity : com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType.SexualActivity|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health/HealthDataType.SexualActivity.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health/HealthDataType.SexualActivity.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health/HealthDataType.SexualActivity.toString|toString(){}[0]
     }
 
     final object Sleep : com.viktormykhailiv.kmp.health/HealthDataType { // com.viktormykhailiv.kmp.health/HealthDataType.Sleep|null[0]
@@ -1872,6 +1896,121 @@ final class com.viktormykhailiv.kmp.health.records/LeanBodyMassRecord : com.vikt
     final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/LeanBodyMassRecord.toString|toString(){}[0]
 }
 
+final class com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord : com.viktormykhailiv.kmp.health/InstantaneousRecord { // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord|null[0]
+    constructor <init>(kotlin.time/Instant, com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow, com.viktormykhailiv.kmp.health.records.metadata/Metadata) // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.<init>|<init>(kotlin.time.Instant;com.viktormykhailiv.kmp.health.records.MenstruationFlowRecord.Flow;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
+
+    final val dataType // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.dataType|{}dataType[0]
+        final fun <get-dataType>(): com.viktormykhailiv.kmp.health/HealthDataType // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.dataType.<get-dataType>|<get-dataType>(){}[0]
+    final val flow // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.flow|{}flow[0]
+        final fun <get-flow>(): com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.flow.<get-flow>|<get-flow>(){}[0]
+    final val metadata // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.metadata|{}metadata[0]
+        final fun <get-metadata>(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.metadata.<get-metadata>|<get-metadata>(){}[0]
+    final val time // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.time|{}time[0]
+        final fun <get-time>(): kotlin.time/Instant // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.time.<get-time>|<get-time>(){}[0]
+
+    final fun component1(): kotlin.time/Instant // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.component1|component1(){}[0]
+    final fun component2(): com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.component2|component2(){}[0]
+    final fun component3(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.component3|component3(){}[0]
+    final fun copy(kotlin.time/Instant = ..., com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow = ..., com.viktormykhailiv.kmp.health.records.metadata/Metadata = ...): com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.copy|copy(kotlin.time.Instant;com.viktormykhailiv.kmp.health.records.MenstruationFlowRecord.Flow;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.toString|toString(){}[0]
+
+    sealed interface Flow { // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow|null[0]
+        final object Heavy : com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow { // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Heavy|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Heavy.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Heavy.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Heavy.toString|toString(){}[0]
+        }
+
+        final object Light : com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow { // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Light|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Light.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Light.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Light.toString|toString(){}[0]
+        }
+
+        final object Medium : com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow { // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Medium|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Medium.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Medium.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Medium.toString|toString(){}[0]
+        }
+
+        final object Unknown : com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow { // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Unknown|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Unknown.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Unknown.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord.Flow.Unknown.toString|toString(){}[0]
+        }
+    }
+}
+
+final class com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord : com.viktormykhailiv.kmp.health/IntervalRecord { // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord|null[0]
+    constructor <init>(kotlin.time/Instant, kotlin.time/Instant, com.viktormykhailiv.kmp.health.records.metadata/Metadata) // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.<init>|<init>(kotlin.time.Instant;kotlin.time.Instant;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
+
+    final val dataType // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.dataType|{}dataType[0]
+        final fun <get-dataType>(): com.viktormykhailiv.kmp.health/HealthDataType // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.dataType.<get-dataType>|<get-dataType>(){}[0]
+    final val endTime // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.endTime|{}endTime[0]
+        final fun <get-endTime>(): kotlin.time/Instant // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.endTime.<get-endTime>|<get-endTime>(){}[0]
+    final val metadata // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.metadata|{}metadata[0]
+        final fun <get-metadata>(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.metadata.<get-metadata>|<get-metadata>(){}[0]
+    final val startTime // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.startTime|{}startTime[0]
+        final fun <get-startTime>(): kotlin.time/Instant // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.startTime.<get-startTime>|<get-startTime>(){}[0]
+
+    final fun component1(): kotlin.time/Instant // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.component1|component1(){}[0]
+    final fun component2(): kotlin.time/Instant // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.component2|component2(){}[0]
+    final fun component3(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.component3|component3(){}[0]
+    final fun copy(kotlin.time/Instant = ..., kotlin.time/Instant = ..., com.viktormykhailiv.kmp.health.records.metadata/Metadata = ...): com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.copy|copy(kotlin.time.Instant;kotlin.time.Instant;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord.toString|toString(){}[0]
+}
+
+final class com.viktormykhailiv.kmp.health.records/OvulationTestRecord : com.viktormykhailiv.kmp.health/InstantaneousRecord { // com.viktormykhailiv.kmp.health.records/OvulationTestRecord|null[0]
+    constructor <init>(kotlin.time/Instant, com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result?, com.viktormykhailiv.kmp.health.records.metadata/Metadata) // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.<init>|<init>(kotlin.time.Instant;com.viktormykhailiv.kmp.health.records.OvulationTestRecord.Result?;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
+
+    final val dataType // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.dataType|{}dataType[0]
+        final fun <get-dataType>(): com.viktormykhailiv.kmp.health/HealthDataType // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.dataType.<get-dataType>|<get-dataType>(){}[0]
+    final val metadata // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.metadata|{}metadata[0]
+        final fun <get-metadata>(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.metadata.<get-metadata>|<get-metadata>(){}[0]
+    final val result // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.result|{}result[0]
+        final fun <get-result>(): com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result? // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.result.<get-result>|<get-result>(){}[0]
+    final val time // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.time|{}time[0]
+        final fun <get-time>(): kotlin.time/Instant // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.time.<get-time>|<get-time>(){}[0]
+
+    final fun component1(): kotlin.time/Instant // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.component1|component1(){}[0]
+    final fun component2(): com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result? // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.component2|component2(){}[0]
+    final fun component3(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.component3|component3(){}[0]
+    final fun copy(kotlin.time/Instant = ..., com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result? = ..., com.viktormykhailiv.kmp.health.records.metadata/Metadata = ...): com.viktormykhailiv.kmp.health.records/OvulationTestRecord // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.copy|copy(kotlin.time.Instant;com.viktormykhailiv.kmp.health.records.OvulationTestRecord.Result?;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.toString|toString(){}[0]
+
+    sealed interface Result { // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result|null[0]
+        final object High : com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result { // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.High|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.High.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.High.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.High.toString|toString(){}[0]
+        }
+
+        final object Inconclusive : com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result { // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.Inconclusive|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.Inconclusive.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.Inconclusive.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.Inconclusive.toString|toString(){}[0]
+        }
+
+        final object Negative : com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result { // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.Negative|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.Negative.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.Negative.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.Negative.toString|toString(){}[0]
+        }
+
+        final object Positive : com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result { // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.Positive|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.Positive.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.Positive.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/OvulationTestRecord.Result.Positive.toString|toString(){}[0]
+        }
+    }
+}
+
 final class com.viktormykhailiv.kmp.health.records/PowerRecord : com.viktormykhailiv.kmp.health/SeriesRecord<com.viktormykhailiv.kmp.health.records/PowerRecord.Sample> { // com.viktormykhailiv.kmp.health.records/PowerRecord|null[0]
     constructor <init>(kotlin.time/Instant, kotlin.time/Instant, kotlin.collections/List<com.viktormykhailiv.kmp.health.records/PowerRecord.Sample>, com.viktormykhailiv.kmp.health.records.metadata/Metadata) // com.viktormykhailiv.kmp.health.records/PowerRecord.<init>|<init>(kotlin.time.Instant;kotlin.time.Instant;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.PowerRecord.Sample>;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
 
@@ -1909,6 +2048,47 @@ final class com.viktormykhailiv.kmp.health.records/PowerRecord : com.viktormykha
         final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/PowerRecord.Sample.equals|equals(kotlin.Any?){}[0]
         final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/PowerRecord.Sample.hashCode|hashCode(){}[0]
         final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/PowerRecord.Sample.toString|toString(){}[0]
+    }
+}
+
+final class com.viktormykhailiv.kmp.health.records/SexualActivityRecord : com.viktormykhailiv.kmp.health/InstantaneousRecord { // com.viktormykhailiv.kmp.health.records/SexualActivityRecord|null[0]
+    constructor <init>(kotlin.time/Instant, com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection?, com.viktormykhailiv.kmp.health.records.metadata/Metadata) // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.<init>|<init>(kotlin.time.Instant;com.viktormykhailiv.kmp.health.records.SexualActivityRecord.Protection?;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
+
+    final val dataType // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.dataType|{}dataType[0]
+        final fun <get-dataType>(): com.viktormykhailiv.kmp.health/HealthDataType // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.dataType.<get-dataType>|<get-dataType>(){}[0]
+    final val metadata // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.metadata|{}metadata[0]
+        final fun <get-metadata>(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.metadata.<get-metadata>|<get-metadata>(){}[0]
+    final val protection // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.protection|{}protection[0]
+        final fun <get-protection>(): com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection? // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.protection.<get-protection>|<get-protection>(){}[0]
+    final val time // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.time|{}time[0]
+        final fun <get-time>(): kotlin.time/Instant // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.time.<get-time>|<get-time>(){}[0]
+
+    final fun component1(): kotlin.time/Instant // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.component1|component1(){}[0]
+    final fun component2(): com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection? // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.component2|component2(){}[0]
+    final fun component3(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.component3|component3(){}[0]
+    final fun copy(kotlin.time/Instant = ..., com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection? = ..., com.viktormykhailiv.kmp.health.records.metadata/Metadata = ...): com.viktormykhailiv.kmp.health.records/SexualActivityRecord // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.copy|copy(kotlin.time.Instant;com.viktormykhailiv.kmp.health.records.SexualActivityRecord.Protection?;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.toString|toString(){}[0]
+
+    sealed interface Protection { // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection|null[0]
+        final object Protected : com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection { // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection.Protected|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection.Protected.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection.Protected.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection.Protected.toString|toString(){}[0]
+        }
+
+        final object Unknown : com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection { // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection.Unknown|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection.Unknown.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection.Unknown.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection.Unknown.toString|toString(){}[0]
+        }
+
+        final object Unprotected : com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection { // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection.Unprotected|null[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection.Unprotected.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection.Unprotected.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/SexualActivityRecord.Protection.Unprotected.toString|toString(){}[0]
+        }
     }
 }
 
@@ -2332,7 +2512,11 @@ final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykha
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readHeartRate(kotlin.time/Instant, kotlin.time/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeartRateRecord>> // com.viktormykhailiv.kmp.health/readHeartRate|readHeartRate@com.viktormykhailiv.kmp.health.HealthManager(kotlin.time.Instant;kotlin.time.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readHeight(kotlin.time/Instant, kotlin.time/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeightRecord>> // com.viktormykhailiv.kmp.health/readHeight|readHeight@com.viktormykhailiv.kmp.health.HealthManager(kotlin.time.Instant;kotlin.time.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readLeanBodyMass(kotlin.time/Instant, kotlin.time/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/LeanBodyMassRecord>> // com.viktormykhailiv.kmp.health/readLeanBodyMass|readLeanBodyMass@com.viktormykhailiv.kmp.health.HealthManager(kotlin.time.Instant;kotlin.time.Instant){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readMenstruationFlow(kotlin.time/Instant, kotlin.time/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord>> // com.viktormykhailiv.kmp.health/readMenstruationFlow|readMenstruationFlow@com.viktormykhailiv.kmp.health.HealthManager(kotlin.time.Instant;kotlin.time.Instant){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readMenstruationPeriod(kotlin.time/Instant, kotlin.time/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord>> // com.viktormykhailiv.kmp.health/readMenstruationPeriod|readMenstruationPeriod@com.viktormykhailiv.kmp.health.HealthManager(kotlin.time.Instant;kotlin.time.Instant){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readOvulationTest(kotlin.time/Instant, kotlin.time/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/OvulationTestRecord>> // com.viktormykhailiv.kmp.health/readOvulationTest|readOvulationTest@com.viktormykhailiv.kmp.health.HealthManager(kotlin.time.Instant;kotlin.time.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readPower(kotlin.time/Instant, kotlin.time/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/PowerRecord>> // com.viktormykhailiv.kmp.health/readPower|readPower@com.viktormykhailiv.kmp.health.HealthManager(kotlin.time.Instant;kotlin.time.Instant){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readSexualActivity(kotlin.time/Instant, kotlin.time/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/SexualActivityRecord>> // com.viktormykhailiv.kmp.health/readSexualActivity|readSexualActivity@com.viktormykhailiv.kmp.health.HealthManager(kotlin.time.Instant;kotlin.time.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readSleep(kotlin.time/Instant, kotlin.time/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/SleepSessionRecord>> // com.viktormykhailiv.kmp.health/readSleep|readSleep@com.viktormykhailiv.kmp.health.HealthManager(kotlin.time.Instant;kotlin.time.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readSteps(kotlin.time/Instant, kotlin.time/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/StepsRecord>> // com.viktormykhailiv.kmp.health/readSteps|readSteps@com.viktormykhailiv.kmp.health.HealthManager(kotlin.time.Instant;kotlin.time.Instant){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/HealthManager).com.viktormykhailiv.kmp.health/readWeight(kotlin.time/Instant, kotlin.time/Instant): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health.records/WeightRecord>> // com.viktormykhailiv.kmp.health/readWeight|readWeight@com.viktormykhailiv.kmp.health.HealthManager(kotlin.time.Instant;kotlin.time.Instant){}[0]
@@ -2357,7 +2541,11 @@ final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktor
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readHeartRage(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeartRateRecord> // com.viktormykhailiv.kmp.health/readHeartRage|readHeartRage@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readHeight(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/HeightRecord> // com.viktormykhailiv.kmp.health/readHeight|readHeight@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readLeanBodyMass(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/LeanBodyMassRecord> // com.viktormykhailiv.kmp.health/readLeanBodyMass|readLeanBodyMass@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readMenstruationFlow(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/MenstruationFlowRecord> // com.viktormykhailiv.kmp.health/readMenstruationFlow|readMenstruationFlow@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readMenstruationPeriod(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/MenstruationPeriodRecord> // com.viktormykhailiv.kmp.health/readMenstruationPeriod|readMenstruationPeriod@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readOvulationTest(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/OvulationTestRecord> // com.viktormykhailiv.kmp.health/readOvulationTest|readOvulationTest@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readPower(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/PowerRecord> // com.viktormykhailiv.kmp.health/readPower|readPower@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
+final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readSexualActivity(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/SexualActivityRecord> // com.viktormykhailiv.kmp.health/readSexualActivity|readSexualActivity@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readSleep(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/SleepSessionRecord> // com.viktormykhailiv.kmp.health/readSleep|readSleep@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readSteps(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/StepsRecord> // com.viktormykhailiv.kmp.health/readSteps|readSteps@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]
 final suspend fun (com.viktormykhailiv.kmp.health/SwiftHealthManager).com.viktormykhailiv.kmp.health/readWeight(platform.Foundation/NSDate, platform.Foundation/NSDate): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/WeightRecord> // com.viktormykhailiv.kmp.health/readWeight|readWeight@com.viktormykhailiv.kmp.health.SwiftHealthManager(platform.Foundation.NSDate;platform.Foundation.NSDate){}[0]

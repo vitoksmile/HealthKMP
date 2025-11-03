@@ -18,8 +18,14 @@
     <uses-permission android:name="android.permission.health.WRITE_HEIGHT" />
     <uses-permission android:name="android.permission.health.READ_LEAN_BODY_MASS" />
     <uses-permission android:name="android.permission.health.WRITE_LEAN_BODY_MASS" />
+    <uses-permission android:name="android.permission.health.READ_MENSTRUATION" />
+    <uses-permission android:name="android.permission.health.WRITE_MENSTRUATION" />
+    <uses-permission android:name="android.permission.health.READ_OVULATION_TEST" />
+    <uses-permission android:name="android.permission.health.WRITE_OVULATION_TEST" />
     <uses-permission android:name="android.permission.health.READ_POWER" />
     <uses-permission android:name="android.permission.health.WRITE_POWER" />
+    <uses-permission android:name="android.permission.health.READ_SEXUAL_ACTIVITY" />
+    <uses-permission android:name="android.permission.health.WRITE_SEXUAL_ACTIVITY" />
     <uses-permission android:name="android.permission.health.READ_SLEEP" />
     <uses-permission android:name="android.permission.health.WRITE_SLEEP" />
     <uses-permission android:name="android.permission.health.READ_STEPS" />

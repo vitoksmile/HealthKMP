@@ -7,12 +7,16 @@ import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
+import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
 import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
-import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationFlow
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationPeriod
+import com.viktormykhailiv.kmp.health.HealthDataType.OvulationTest
 import com.viktormykhailiv.kmp.health.HealthDataType.Power
+import com.viktormykhailiv.kmp.health.HealthDataType.SexualActivity
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
@@ -38,31 +42,39 @@ internal fun fitnessOptions(
 }
 
 internal fun HealthDataType.toDataType(): DataType = when (this) {
-    BloodGlucose -> throw IllegalArgumentException("BloodGlucose is not supported")
+    is BloodGlucose -> throw IllegalArgumentException("BloodGlucose is not supported")
 
-    BloodPressure -> throw IllegalArgumentException("BloodPressure is not supported")
+    is BloodPressure -> throw IllegalArgumentException("BloodPressure is not supported")
 
-    BodyFat -> DataType.TYPE_BODY_FAT_PERCENTAGE
+    is BodyFat -> DataType.TYPE_BODY_FAT_PERCENTAGE
 
-    BodyTemperature -> throw IllegalArgumentException("BodyTemperature is not supported")
+    is BodyTemperature -> throw IllegalArgumentException("BodyTemperature is not supported")
 
-    CyclingPedalingCadence -> throw IllegalArgumentException("PedalingCadence is not supported")
+    is CyclingPedalingCadence -> throw IllegalArgumentException("PedalingCadence is not supported")
 
     is Exercise -> throw IllegalArgumentException("Exercise is not supported")
 
-    HeartRate -> DataType.TYPE_HEART_RATE_BPM
+    is HeartRate -> DataType.TYPE_HEART_RATE_BPM
 
-    Height -> DataType.TYPE_HEIGHT
+    is Height -> DataType.TYPE_HEIGHT
 
-    LeanBodyMass -> throw IllegalArgumentException("LeanBodyMass is not supported")
+    is LeanBodyMass -> throw IllegalArgumentException("LeanBodyMass is not supported")
 
-    Power -> throw IllegalArgumentException("Power is not supported")
+    is MenstruationFlow -> throw IllegalArgumentException("MenstruationFlow is not supported")
 
-    Sleep -> DataType.TYPE_SLEEP_SEGMENT
+    is MenstruationPeriod -> throw IllegalArgumentException("MenstruationPeriod is not supported")
 
-    Steps -> DataType.TYPE_STEP_COUNT_DELTA
+    is OvulationTest -> throw IllegalArgumentException("OvulationTest is not supported")
 
-    Weight -> DataType.TYPE_WEIGHT
+    is Power -> throw IllegalArgumentException("Power is not supported")
+
+    is SexualActivity -> throw IllegalArgumentException("SexualActivity is not supported")
+
+    is Sleep -> DataType.TYPE_SLEEP_SEGMENT
+
+    is Steps -> DataType.TYPE_STEP_COUNT_DELTA
+
+    is Weight -> DataType.TYPE_WEIGHT
 }
 
 /**

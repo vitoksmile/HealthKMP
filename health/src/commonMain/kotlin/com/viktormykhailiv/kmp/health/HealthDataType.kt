@@ -27,7 +27,15 @@ sealed interface HealthDataType {
 
     data object LeanBodyMass : HealthDataType
 
+    data object MenstruationFlow : HealthDataType
+
+    data object MenstruationPeriod : HealthDataType
+
+    data object OvulationTest : HealthDataType
+
     data object Power : HealthDataType
+
+    data object SexualActivity : HealthDataType
 
     data object Sleep : HealthDataType
 

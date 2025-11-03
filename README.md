@@ -33,7 +33,10 @@ Note that for Android, the target device **needs** to have [Google Fit](https://
 - Heart rate
 - Height
 - Lean body mass
+- Menstruation
+- Ovulation test
 - Power
+- Sexual activity
 - Sleep
 - Steps
 - Weight
@@ -86,7 +89,7 @@ build.gradle:
 sourceSets {
     val commonMain by getting {
         dependencies {
-            implementation("com.viktormykhailiv:health-kmp:0.0.16")
+            implementation("com.viktormykhailiv:health-kmp:0.0.17")
         }
     }
 }
@@ -96,7 +99,7 @@ or use version catalog:
 
 ```
 [versions]
-health = "0.0.16"
+health = "0.0.17"
 
 [libraries]
 health = { module = "com.viktormykhailiv:health-kmp", version.ref = "health" }

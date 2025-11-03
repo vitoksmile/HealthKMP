@@ -19,7 +19,11 @@ import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationFlow
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationPeriod
+import com.viktormykhailiv.kmp.health.HealthDataType.OvulationTest
 import com.viktormykhailiv.kmp.health.HealthDataType.Power
+import com.viktormykhailiv.kmp.health.HealthDataType.SexualActivity
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
@@ -91,8 +95,20 @@ internal fun HealthDataType.toAggregateMetrics(): Set<AggregateMetric<Any>> = wh
     LeanBodyMass ->
         throw IllegalArgumentException("Aggregated LeanBodyMass is not supported and must be aggregated manually")
 
+    MenstruationFlow ->
+        throw IllegalArgumentException("Aggregated MenstruationFlow is not supported and must be aggregated manually")
+
+    MenstruationPeriod ->
+        throw IllegalArgumentException("Aggregated MenstruationPeriod is not supported and must be aggregated manually")
+
+    OvulationTest ->
+        throw IllegalArgumentException("Aggregated OvulationTest is not supported and must be aggregated manually")
+
     Power ->
         setOf(PowerRecord.POWER_AVG, PowerRecord.POWER_MIN, PowerRecord.POWER_MAX)
+
+    SexualActivity ->
+        throw IllegalArgumentException("Aggregated SexualActivity is not supported and must be aggregated manually")
 
     Sleep ->
         setOf(SleepSessionRecord.SLEEP_DURATION_TOTAL)
@@ -182,6 +198,15 @@ internal fun AggregationResult.toHealthAggregatedRecord(
     is LeanBodyMass ->
         throw IllegalArgumentException("Aggregated LeanBodyMass is not supported and must be aggregated manually")
 
+    is MenstruationFlow ->
+        throw IllegalArgumentException("Aggregated MenstruationFlow is not supported and must be aggregated manually")
+
+    is MenstruationPeriod ->
+        throw IllegalArgumentException("Aggregated MenstruationPeriod is not supported and must be aggregated manually")
+
+    is OvulationTest ->
+        throw IllegalArgumentException("Aggregated OvulationTest is not supported and must be aggregated manually")
+
     is Power -> {
         PowerAggregatedRecord(
             startTime = startTime,
@@ -191,6 +216,9 @@ internal fun AggregationResult.toHealthAggregatedRecord(
             max = get(PowerRecord.POWER_MAX)?.toPower() ?: 0.watts,
         )
     }
+
+    is SexualActivity ->
+        throw IllegalArgumentException("Aggregated SexualActivity is not supported and must be aggregated manually")
 
     is Sleep -> {
         SleepAggregatedRecord(

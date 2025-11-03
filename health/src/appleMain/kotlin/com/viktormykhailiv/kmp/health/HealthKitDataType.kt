@@ -9,11 +9,18 @@ import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationFlow
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationPeriod
+import com.viktormykhailiv.kmp.health.HealthDataType.OvulationTest
 import com.viktormykhailiv.kmp.health.HealthDataType.Power
+import com.viktormykhailiv.kmp.health.HealthDataType.SexualActivity
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import platform.HealthKit.HKCategoryType
+import platform.HealthKit.HKCategoryTypeIdentifierMenstrualFlow
+import platform.HealthKit.HKCategoryTypeIdentifierOvulationTestResult
+import platform.HealthKit.HKCategoryTypeIdentifierSexualActivity
 import platform.HealthKit.HKCategoryTypeIdentifierSleepAnalysis
 import platform.HealthKit.HKObjectType
 import platform.HealthKit.HKQuantityType
@@ -85,8 +92,20 @@ internal fun HealthDataType.toHKSampleType(): List<HKSampleType?> = when (this) 
     LeanBodyMass ->
         listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierLeanBodyMass))
 
+    MenstruationFlow ->
+        listOf(HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierMenstrualFlow))
+
+    MenstruationPeriod ->
+        listOf(HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierMenstrualFlow))
+
+    OvulationTest ->
+        listOf(HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierOvulationTestResult))
+
     Power ->
         listOf(HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierCyclingPower))
+
+    SexualActivity ->
+        listOf(HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSexualActivity))
 
     Sleep ->
         listOf(HKCategoryType.categoryTypeForIdentifier(HKCategoryTypeIdentifierSleepAnalysis))

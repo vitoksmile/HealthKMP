@@ -37,7 +37,11 @@ public final class com/viktormykhailiv/kmp/health/ExtensionsKt {
 	public static final fun readHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readHeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readLeanBodyMass (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readMenstruationFlow (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readMenstruationPeriod (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readOvulationTest (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readPower (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readSexualActivity (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readSteps (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun readWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -142,8 +146,36 @@ public final class com/viktormykhailiv/kmp/health/HealthDataType$LeanBodyMass : 
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/viktormykhailiv/kmp/health/HealthDataType$MenstruationFlow : com/viktormykhailiv/kmp/health/HealthDataType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$MenstruationFlow;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/HealthDataType$MenstruationPeriod : com/viktormykhailiv/kmp/health/HealthDataType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$MenstruationPeriod;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/HealthDataType$OvulationTest : com/viktormykhailiv/kmp/health/HealthDataType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$OvulationTest;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/viktormykhailiv/kmp/health/HealthDataType$Power : com/viktormykhailiv/kmp/health/HealthDataType {
 	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$Power;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/HealthDataType$SexualActivity : com/viktormykhailiv/kmp/health/HealthDataType {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/HealthDataType$SexualActivity;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -1714,6 +1746,116 @@ public final class com/viktormykhailiv/kmp/health/records/MealType : java/lang/E
 	public static fun values ()[Lcom/viktormykhailiv/kmp/health/records/MealType;
 }
 
+public final class com/viktormykhailiv/kmp/health/records/MenstruationFlowRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
+	public fun <init> (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lcom/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow;
+	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public final fun copy (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/MenstruationFlowRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/MenstruationFlowRecord;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/MenstruationFlowRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public final fun getFlow ()Lcom/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow;
+	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public fun getTime ()Lkotlin/time/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow {
+}
+
+public final class com/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow$Heavy : com/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow$Heavy;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow$Light : com/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow$Light;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow$Medium : com/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow$Medium;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow$Unknown : com/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/MenstruationFlowRecord$Flow$Unknown;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/MenstruationPeriodRecord : com/viktormykhailiv/kmp/health/IntervalRecord {
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
+	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/MenstruationPeriodRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/MenstruationPeriodRecord;Lkotlin/time/Instant;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/MenstruationPeriodRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public fun getEndTime ()Lkotlin/time/Instant;
+	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public fun getStartTime ()Lkotlin/time/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/OvulationTestRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
+	public fun <init> (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lcom/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result;
+	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public final fun copy (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/OvulationTestRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/OvulationTestRecord;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/OvulationTestRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public final fun getResult ()Lcom/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result;
+	public fun getTime ()Lkotlin/time/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result {
+}
+
+public final class com/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result$High : com/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result$High;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result$Inconclusive : com/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result$Inconclusive;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result$Negative : com/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result$Negative;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result$Positive : com/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/OvulationTestRecord$Result$Positive;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/viktormykhailiv/kmp/health/records/PowerRecord : com/viktormykhailiv/kmp/health/SeriesRecord {
 	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Ljava/util/List;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
 	public final fun component1 ()Lkotlin/time/Instant;
@@ -1741,6 +1883,46 @@ public final class com/viktormykhailiv/kmp/health/records/PowerRecord$Sample {
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getPower ()Lcom/viktormykhailiv/kmp/health/units/Power;
 	public final fun getTime ()Lkotlin/time/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/SexualActivityRecord : com/viktormykhailiv/kmp/health/InstantaneousRecord {
+	public fun <init> (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/SexualActivityRecord$Protection;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lcom/viktormykhailiv/kmp/health/records/SexualActivityRecord$Protection;
+	public final fun component3 ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public final fun copy (Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/SexualActivityRecord$Protection;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;)Lcom/viktormykhailiv/kmp/health/records/SexualActivityRecord;
+	public static synthetic fun copy$default (Lcom/viktormykhailiv/kmp/health/records/SexualActivityRecord;Lkotlin/time/Instant;Lcom/viktormykhailiv/kmp/health/records/SexualActivityRecord$Protection;Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;ILjava/lang/Object;)Lcom/viktormykhailiv/kmp/health/records/SexualActivityRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDataType ()Lcom/viktormykhailiv/kmp/health/HealthDataType;
+	public fun getMetadata ()Lcom/viktormykhailiv/kmp/health/records/metadata/Metadata;
+	public final fun getProtection ()Lcom/viktormykhailiv/kmp/health/records/SexualActivityRecord$Protection;
+	public fun getTime ()Lkotlin/time/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/viktormykhailiv/kmp/health/records/SexualActivityRecord$Protection {
+}
+
+public final class com/viktormykhailiv/kmp/health/records/SexualActivityRecord$Protection$Protected : com/viktormykhailiv/kmp/health/records/SexualActivityRecord$Protection {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SexualActivityRecord$Protection$Protected;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/SexualActivityRecord$Protection$Unknown : com/viktormykhailiv/kmp/health/records/SexualActivityRecord$Protection {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SexualActivityRecord$Protection$Unknown;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/viktormykhailiv/kmp/health/records/SexualActivityRecord$Protection$Unprotected : com/viktormykhailiv/kmp/health/records/SexualActivityRecord$Protection {
+	public static final field INSTANCE Lcom/viktormykhailiv/kmp/health/records/SexualActivityRecord$Protection$Unprotected;
+	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }

@@ -11,12 +11,16 @@ import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
+import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
 import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
-import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationFlow
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationPeriod
+import com.viktormykhailiv.kmp.health.HealthDataType.OvulationTest
 import com.viktormykhailiv.kmp.health.HealthDataType.Power
+import com.viktormykhailiv.kmp.health.HealthDataType.SexualActivity
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
@@ -98,8 +102,20 @@ internal fun List<DataPoint>.toHealthRecords(type: HealthDataType): List<HealthR
         is LeanBodyMass ->
             throw IllegalArgumentException("LeanBodyMass is not supported")
 
+        is MenstruationFlow ->
+            throw IllegalArgumentException("MenstruationFlow is not supported")
+
+        is MenstruationPeriod ->
+            throw IllegalArgumentException("MenstruationPeriod is not supported")
+
+        is OvulationTest ->
+            throw IllegalArgumentException("OvulationTest is not supported")
+
         is Power ->
             throw IllegalArgumentException("Power is not supported")
+
+        is SexualActivity ->
+            throw IllegalArgumentException("SexualActivity is not supported")
 
         is Sleep -> {
             val metadata = firstOrNull().toMetadata()

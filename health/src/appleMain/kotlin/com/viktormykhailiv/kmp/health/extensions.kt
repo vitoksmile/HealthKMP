@@ -6,15 +6,19 @@ import com.viktormykhailiv.kmp.health.HealthDataType.BloodGlucose
 import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyFat
 import com.viktormykhailiv.kmp.health.HealthDataType.BodyTemperature
+import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
 import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationFlow
+import com.viktormykhailiv.kmp.health.HealthDataType.MenstruationPeriod
+import com.viktormykhailiv.kmp.health.HealthDataType.OvulationTest
+import com.viktormykhailiv.kmp.health.HealthDataType.Power
+import com.viktormykhailiv.kmp.health.HealthDataType.SexualActivity
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
-import com.viktormykhailiv.kmp.health.HealthDataType.Power
-import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
 import com.viktormykhailiv.kmp.health.aggregate.BloodGlucoseAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BodyFatAggregatedRecord
@@ -31,12 +35,16 @@ import com.viktormykhailiv.kmp.health.records.BloodGlucoseRecord
 import com.viktormykhailiv.kmp.health.records.BloodPressureRecord
 import com.viktormykhailiv.kmp.health.records.BodyFatRecord
 import com.viktormykhailiv.kmp.health.records.BodyTemperatureRecord
+import com.viktormykhailiv.kmp.health.records.CyclingPedalingCadenceRecord
 import com.viktormykhailiv.kmp.health.records.ExerciseSessionRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.LeanBodyMassRecord
-import com.viktormykhailiv.kmp.health.records.CyclingPedalingCadenceRecord
+import com.viktormykhailiv.kmp.health.records.MenstruationFlowRecord
+import com.viktormykhailiv.kmp.health.records.MenstruationPeriodRecord
+import com.viktormykhailiv.kmp.health.records.OvulationTestRecord
 import com.viktormykhailiv.kmp.health.records.PowerRecord
+import com.viktormykhailiv.kmp.health.records.SexualActivityRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.StepsRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
@@ -157,6 +165,39 @@ suspend fun SwiftHealthManager.readLeanBodyMass(
     ).filterIsInstance<LeanBodyMassRecord>()
 
 @Throws(Throwable::class)
+suspend fun SwiftHealthManager.readMenstruationFlow(
+    startTime: NSDate,
+    endTime: NSDate,
+): List<MenstruationFlowRecord> =
+    readData(
+        startTime = startTime,
+        endTime = endTime,
+        type = MenstruationFlow,
+    ).filterIsInstance<MenstruationFlowRecord>()
+
+@Throws(Throwable::class)
+suspend fun SwiftHealthManager.readMenstruationPeriod(
+    startTime: NSDate,
+    endTime: NSDate,
+): List<MenstruationPeriodRecord> =
+    readData(
+        startTime = startTime,
+        endTime = endTime,
+        type = MenstruationPeriod,
+    ).filterIsInstance<MenstruationPeriodRecord>()
+
+@Throws(Throwable::class)
+suspend fun SwiftHealthManager.readOvulationTest(
+    startTime: NSDate,
+    endTime: NSDate,
+): List<OvulationTestRecord> =
+    readData(
+        startTime = startTime,
+        endTime = endTime,
+        type = OvulationTest,
+    ).filterIsInstance<OvulationTestRecord>()
+
+@Throws(Throwable::class)
 suspend fun SwiftHealthManager.readPower(
     startTime: NSDate,
     endTime: NSDate,
@@ -166,6 +207,17 @@ suspend fun SwiftHealthManager.readPower(
         endTime = endTime,
         type = Power,
     ).filterIsInstance<PowerRecord>()
+
+@Throws(Throwable::class)
+suspend fun SwiftHealthManager.readSexualActivity(
+    startTime: NSDate,
+    endTime: NSDate,
+): List<SexualActivityRecord> =
+    readData(
+        startTime = startTime,
+        endTime = endTime,
+        type = SexualActivity,
+    ).filterIsInstance<SexualActivityRecord>()
 
 @Throws(Throwable::class)
 suspend fun SwiftHealthManager.readSleep(
