@@ -13,6 +13,8 @@ import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.HealthDataType.Power
+import com.viktormykhailiv.kmp.health.HealthDataType.CyclingPedalingCadence
 import com.viktormykhailiv.kmp.health.aggregate.BloodGlucoseAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BloodPressureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.BodyFatAggregatedRecord
@@ -20,6 +22,8 @@ import com.viktormykhailiv.kmp.health.aggregate.BodyTemperatureAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeightAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.LeanBodyMassAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.CyclingPedalingCadenceAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.PowerAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
@@ -31,6 +35,8 @@ import com.viktormykhailiv.kmp.health.records.ExerciseSessionRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.LeanBodyMassRecord
+import com.viktormykhailiv.kmp.health.records.CyclingPedalingCadenceRecord
+import com.viktormykhailiv.kmp.health.records.PowerRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.StepsRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
@@ -95,6 +101,17 @@ suspend fun SwiftHealthManager.readBodyTemperature(
     ).filterIsInstance<BodyTemperatureRecord>()
 
 @Throws(Throwable::class)
+suspend fun SwiftHealthManager.readCyclingPedalingCadence(
+    startTime: NSDate,
+    endTime: NSDate,
+): List<CyclingPedalingCadenceRecord> =
+    readData(
+        startTime = startTime,
+        endTime = endTime,
+        type = CyclingPedalingCadence,
+    ).filterIsInstance<CyclingPedalingCadenceRecord>()
+
+@Throws(Throwable::class)
 suspend fun SwiftHealthManager.readExercise(
     startTime: NSDate,
     endTime: NSDate,
@@ -138,6 +155,17 @@ suspend fun SwiftHealthManager.readLeanBodyMass(
         endTime = endTime,
         type = LeanBodyMass,
     ).filterIsInstance<LeanBodyMassRecord>()
+
+@Throws(Throwable::class)
+suspend fun SwiftHealthManager.readPower(
+    startTime: NSDate,
+    endTime: NSDate,
+): List<PowerRecord> =
+    readData(
+        startTime = startTime,
+        endTime = endTime,
+        type = Power,
+    ).filterIsInstance<PowerRecord>()
 
 @Throws(Throwable::class)
 suspend fun SwiftHealthManager.readSleep(
@@ -219,6 +247,17 @@ suspend fun SwiftHealthManager.aggregateBodyTemperature(
     ) as BodyTemperatureAggregatedRecord
 
 @Throws(Throwable::class)
+suspend fun SwiftHealthManager.aggregateCyclingPedalingCadence(
+    startTime: NSDate,
+    endTime: NSDate,
+): CyclingPedalingCadenceAggregatedRecord =
+    aggregate(
+        startTime = startTime,
+        endTime = endTime,
+        type = CyclingPedalingCadence,
+    ) as CyclingPedalingCadenceAggregatedRecord
+
+@Throws(Throwable::class)
 suspend fun SwiftHealthManager.aggregateHeartRate(
     startTime: NSDate,
     endTime: NSDate,
@@ -250,6 +289,17 @@ suspend fun SwiftHealthManager.aggregateLeanBodyMass(
         endTime = endTime,
         type = LeanBodyMass,
     ) as LeanBodyMassAggregatedRecord
+
+@Throws(Throwable::class)
+suspend fun SwiftHealthManager.aggregatePower(
+    startTime: NSDate,
+    endTime: NSDate,
+): PowerAggregatedRecord =
+    aggregate(
+        startTime = startTime,
+        endTime = endTime,
+        type = Power,
+    ) as PowerAggregatedRecord
 
 @Throws(Throwable::class)
 suspend fun SwiftHealthManager.aggregateSleep(
