@@ -690,7 +690,7 @@ fun SampleApp() {
 
                     Divider()
                     Spacer(modifier = Modifier.height(16.dp))
-                    var writePedalingCadence by remember { mutableStateOf<Result<Unit>?>(null) }
+                    var writeCyclingPedalingCadence by remember { mutableStateOf<Result<Unit>?>(null) }
                     Button(
                         onClick = {
                             coroutineScope.launch {
@@ -698,7 +698,7 @@ fun SampleApp() {
                                 val sampleInterval = 10.minutes
                                 val endTime = Clock.System.now()
                                 val startTime = endTime.minus(sampleInterval * samplesCount)
-                                writePedalingCadence = health.writeData(
+                                writeCyclingPedalingCadence = health.writeData(
                                     listOf(
                                         CyclingPedalingCadenceRecord(
                                             startTime = startTime,
@@ -719,14 +719,14 @@ fun SampleApp() {
                             }
                         },
                     ) {
-                        Text("Write pedaling cadence")
+                        Text("Write cycling pedaling cadence")
                     }
-                    writePedalingCadence
+                    writeCyclingPedalingCadence
                         ?.onSuccess {
-                            Text("Successfully wrote pedaling cadence")
+                            Text("Successfully wrote cycling pedaling cadence")
                         }
                         ?.onFailure {
-                            Text("Failed to write pedaling cadence $it")
+                            Text("Failed to write cycling pedaling cadence $it")
                         }
 
                     Divider()
