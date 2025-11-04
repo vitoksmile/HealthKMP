@@ -707,6 +707,16 @@ internal suspend fun List<HKQuantitySample>.toHealthRecord(
             }.group(metadata)
         }
 
+        HKQuantityTypeIdentifierHeight -> {
+            map { sample ->
+                HeightRecord(
+                    time = sample.startDate.toKotlinInstant(),
+                    height = sample.quantity.heightValue,
+                    metadata = sample.toMetadata(),
+                )
+            }
+        }
+
         HKQuantityTypeIdentifierLeanBodyMass -> {
             map { sample ->
                 LeanBodyMassRecord(

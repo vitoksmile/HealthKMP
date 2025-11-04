@@ -1,4 +1,4 @@
-package com.viktormykhailiv.kmp.health.exercise
+package com.viktormykhailiv.kmp.health.dataType.base
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.FlowRow
@@ -7,45 +7,36 @@ import androidx.compose.material.FilterChip
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.viktormykhailiv.kmp.health.records.ExerciseType
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ExerciseTypePicker(
+fun <T> ValuesPicker(
     modifier: Modifier = Modifier,
-    types: List<ExerciseType> = listOf(
-        ExerciseType.Biking,
-        ExerciseType.Dancing,
-        ExerciseType.Golf,
-        ExerciseType.Hiking,
-        ExerciseType.Running,
-        ExerciseType.Tennis,
-        ExerciseType.Yoga,
-    ),
-    exerciseType: ExerciseType,
-    onChanged: (ExerciseType) -> Unit,
+    values: List<T>,
+    currentValue: T,
+    onChanged: (T) -> Unit,
+    mapper: (T) -> String,
 ) {
     FlowRow(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        types.forEach { type ->
-            val isSelected = type == exerciseType
+        values.forEach { value ->
+            val isSelected = value == currentValue
 
             FilterChip(
                 selected = isSelected,
-                onClick = { onChanged(type) },
+                onClick = { onChanged(value) },
             ) {
                 Text(
-                    text = type::class.simpleName.orEmpty(),
+                    text = mapper(value),
                     style = LocalTextStyle.current
-                        .copy(
-                            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                        ),
+                        .copy(fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal),
                 )
             }
         }
