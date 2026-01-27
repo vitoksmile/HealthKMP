@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.0](https://github.com/vitoksmile/HealthKMP/releases/tag/1.0.0)
+
+- Kotlin 2.3.0
+
 ## [0.0.17](https://github.com/vitoksmile/HealthKMP/releases/tag/0.0.17)
 
 - Added **menstruation** data type

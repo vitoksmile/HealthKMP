@@ -786,7 +786,7 @@ internal suspend fun List<HKWorkout>.toHealthRecords(
 
         val exerciseRoute = if (route != null) {
             val locations = suspendCancellableCoroutine { continuation ->
-                val query = HKWorkoutRouteQuery(route) { _, result, _, error ->
+                val query = HKWorkoutRouteQuery(route) { _, result, _, _ ->
                     if (continuation.isCancelled) return@HKWorkoutRouteQuery
 
                     when {
