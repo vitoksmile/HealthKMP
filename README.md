@@ -3,7 +3,7 @@
 # HealthKMP
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.viktormykhailiv/health-kmp)](https://central.sonatype.com/search?namespace=com.viktormykhailiv&name=health-kmp)
-[![Kotlin](https://img.shields.io/badge/kotlin-2.2.10-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.3.0-blue.svg?logo=kotlin)](http://kotlinlang.org)
 [![](https://img.shields.io/badge/Kotlin-Multiplatform-%237f52ff?logo=kotlin)](https://kotlinlang.org/docs/multiplatform.html)
 [![](http://img.shields.io/badge/platform-android-6EDB8D?style=flat)](https://kotlinlang.org/docs/multiplatform.html)
 [![](http://img.shields.io/badge/platform-ios-CDCDCD?style=flat)](https://kotlinlang.org/docs/multiplatform.html)
