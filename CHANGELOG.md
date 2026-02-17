@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.1](https://github.com/vitoksmile/HealthKMP/releases/tag/1.0.1)
+
+- fix: typo in aggegratePower → aggregatePower
+
 ## [1.0.0](https://github.com/vitoksmile/HealthKMP/releases/tag/1.0.0)
 
 - Kotlin 2.3.0
