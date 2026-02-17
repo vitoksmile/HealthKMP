@@ -319,7 +319,7 @@ suspend fun HealthManager.aggregateLeanBodyMass(
         type = LeanBodyMass,
     ).mapCatching { it as LeanBodyMassAggregatedRecord }
 
-suspend fun HealthManager.aggegratePower(
+suspend fun HealthManager.aggregatePower(
     startTime: Instant,
     endTime: Instant,
 ): Result<PowerAggregatedRecord> =

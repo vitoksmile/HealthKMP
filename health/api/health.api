@@ -13,7 +13,6 @@ public final class com/viktormykhailiv/kmp/health/ApplicationContextHolderInitia
 }
 
 public final class com/viktormykhailiv/kmp/health/ExtensionsKt {
-	public static final fun aggegratePower (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateBloodGlucose (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateBloodPressure (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateBodyFat (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -22,6 +21,7 @@ public final class com/viktormykhailiv/kmp/health/ExtensionsKt {
 	public static final fun aggregateHeartRate (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateHeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateLeanBodyMass (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun aggregatePower (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateSleep (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateSteps (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun aggregateWeight (Lcom/viktormykhailiv/kmp/health/HealthManager;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
