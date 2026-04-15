@@ -45,6 +45,7 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.startup.runtime)
+            implementation(libs.androidx.core)
 
             // Google Fit
             implementation(libs.playservices.auth)

@@ -1,5 +1,6 @@
 [versions]
 agp = "9.1.1"
+androidx-core = "1.16.0"
 android-compileSdk = "36"
 android-minSdk = "26"
 android-targetSdk = "36"
@@ -21,6 +22,7 @@ startupRuntime = "1.2.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-healthconnect-client = { module = "androidx.health.connect:connect-client", version.ref = "connectClient" }
 androidx-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startupRuntime" }
