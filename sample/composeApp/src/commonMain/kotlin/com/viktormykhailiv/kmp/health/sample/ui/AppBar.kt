@@ -7,6 +7,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -24,7 +25,7 @@ fun AppBar(
     }
 
     TopAppBar(
-        modifier = Modifier.appGradient(),
+        modifier = Modifier.appGradient().statusBarsPadding(),
         backgroundColor = Color.Transparent,
         elevation = 0.dp,
         title = { Text(title, color = Color.White) },
