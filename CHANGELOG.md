@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.0](https://github.com/vitoksmile/HealthKMP/releases/tag/1.1.0)
+
+- AGP 9
+
 ## [1.0.1](https://github.com/vitoksmile/HealthKMP/releases/tag/1.0.1)
 
 - fix: typo in aggegratePower → aggregatePower
