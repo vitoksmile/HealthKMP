@@ -30,3 +30,4 @@ dependencyResolutionManagement {
 
 include(":health")
 include(":sample:composeApp")
+include(":sample:androidApp")

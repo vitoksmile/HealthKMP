@@ -2,19 +2,23 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidKmpLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
-    androidTarget {
+    android {
+        namespace = "com.viktormykhailiv.kmp.health.sample"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+
         compilerOptions {
             jvmTarget.set(JvmTarget.fromTarget(libs.versions.java.get()))
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -25,7 +29,7 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
         commonMain.dependencies {
             implementation(projects.health)
@@ -48,37 +52,5 @@ kotlin {
     compilerOptions {
         optIn.add("kotlin.time.ExperimentalTime")
     }
-}
-
-android {
-    namespace = "com.viktormykhailiv.kmp.health.sample"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    defaultConfig {
-        applicationId = "com.viktormykhailiv.kmp.health"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
-    }
-    compileOptions {
-        val javaVersion = JavaVersion.toVersion(libs.versions.java.get())
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
-    }
-}
-
-dependencies {
-    debugImplementation(compose.uiTooling)
 }
 
