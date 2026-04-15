@@ -33,24 +33,21 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.health)
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.materialIconsExtended)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.material)
+            implementation(libs.compose.materialIconsExtended)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.components.resources)
+            implementation(libs.compose.components.uiToolingPreview)
             implementation(libs.androidx.navigation)
             implementation(libs.kotlinx.serialization)
         }
         androidMain.dependencies {
-            implementation(compose.preview)
+            implementation(libs.compose.preview)
             implementation(libs.androidx.activity.compose)
         }
-    }
-
-    compilerOptions {
-        optIn.add("kotlin.time.ExperimentalTime")
     }
 }
 

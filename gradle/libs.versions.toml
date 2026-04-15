@@ -4,20 +4,21 @@ androidx-core = "1.18.0"
 android-compileSdk = "36"
 android-minSdk = "26"
 android-targetSdk = "36"
-androidx-activityCompose = "1.12.2"
-androidx-navigation = "2.9.1"
+androidx-activityCompose = "1.13.0"
+androidx-navigation = "2.9.2"
 binary-compatibility-validator = "0.18.1"
-compose-multiplatform = "1.10.0"
+compose-multiplatform = "1.10.3"
 connectClient = "1.1.0"
 java = "21"
-kotlin = "2.3.0"
+kotlin = "2.3.20"
 kotlinxCoroutines = "1.10.2"
-kotlinxSerialization = "1.9.0"
+kotlinxSerialization = "1.11.0"
 kotlinxDatetime = "0.7.1"
+material-icons-extended = "1.7.3"
 maven-publish = "0.36.0"
 playServicesAuth = "21.5.1"
 playServicesFitness = "21.3.0"
-skie = "0.10.9"
+skie = "0.10.11"
 startupRuntime = "1.2.0"
 
 [libraries]
@@ -26,6 +27,14 @@ androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-cor
 androidx-healthconnect-client = { module = "androidx.health.connect:connect-client", version.ref = "connectClient" }
 androidx-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startupRuntime" }
+compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose-multiplatform" }
+compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose-multiplatform" }
+compose-material = { module = "org.jetbrains.compose.material:material", version.ref = "compose-multiplatform" }
+compose-materialIconsExtended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "material-icons-extended" }
+compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose-multiplatform" }
+compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose-multiplatform" }
+compose-components-uiToolingPreview = { module = "org.jetbrains.compose.components:components-ui-tooling-preview", version.ref = "compose-multiplatform" }
+compose-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "compose-multiplatform" }
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }

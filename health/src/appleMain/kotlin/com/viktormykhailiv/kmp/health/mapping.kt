@@ -487,7 +487,7 @@ internal fun List<HKCategorySample>.toHealthRecords(): List<HealthRecord> {
 
     return when (first().categoryType.identifier) {
         HKCategoryTypeIdentifierMenstrualFlow -> {
-            @Suppress("RemoveRedundantCallsOfConversionMethods")
+            @Suppress("REDUNDANT_CALL_OF_CONVERSION_METHOD")
             val samples = sortedWith { a, b -> a.startDate.compare(b.startDate).toInt() }
 
             val flowRecords = samples.map { sample ->

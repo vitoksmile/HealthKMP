@@ -34,7 +34,6 @@ kotlin {
         watchosArm64(),
         watchosDeviceArm64(),
         watchosSimulatorArm64(),
-        watchosX64(),
     ).forEach {
         val bundleId = "${providers.gradleProperty("GROUP").get()}.$xcframeworkName"
         it.binaries.framework {
@@ -67,7 +66,6 @@ kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
         freeCompilerArgs.add("-Xconsistent-data-class-copy-visibility")
-        optIn.add("kotlin.time.ExperimentalTime")
     }
 }
 

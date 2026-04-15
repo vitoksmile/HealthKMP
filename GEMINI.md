@@ -1,4 +1,4 @@
-# HealthKMP - Multiplatform Health Wrapper Project Rules & Context
+# HealthKMP - Project Rules & Context
 
 ## 1. Core Architecture
 - **Common-First Policy:** All business logic, health data interfaces, and models reside in the `health` module's `commonMain` source set.
@@ -19,7 +19,7 @@
 - **Language Style:** Standard software engineering English (American English) is used for all code, comments, and documentation (e.g., `isAuthorized`, `initialization`).
 
 ## 3. Tooling & Libraries
-- **Kotlin:** Version 2.3.0.
+- **Kotlin:** Version 2.3.20.
 - **Swift Interop:** Use **SKIE** for enhanced Swift interop, especially for `suspend` functions and `Flow`. Configuration is in `health/build.gradle.kts`.
 - **API Stability:** The project uses the **Binary Compatibility Validator** to ensure public API stability.
 - **Dependencies:** Always check `gradle/libs.versions.toml` before adding new dependencies. Use the version catalog for all declarations.
