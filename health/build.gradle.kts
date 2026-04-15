@@ -3,17 +3,25 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
-    alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.binaryCompatibilityValidator)
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidKmpLibrary)
+    alias(libs.plugins.binaryCompatibilityValidator)
     alias(libs.plugins.mavenPublish)
     alias(libs.plugins.skie)
 }
 
 kotlin {
-    androidTarget {
+    android {
+        namespace = "com.viktormykhailiv.kmp.health"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+
         compilerOptions {
             jvmTarget.set(JvmTarget.fromTarget(libs.versions.java.get()))
+        }
+
+        androidResources {
+            enable = true
         }
     }
 
@@ -45,6 +53,7 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.startup.runtime)
+            implementation(libs.androidx.core)
 
             // Google Fit
             implementation(libs.playservices.auth)
@@ -59,30 +68,6 @@ kotlin {
         freeCompilerArgs.add("-Xexpect-actual-classes")
         freeCompilerArgs.add("-Xconsistent-data-class-copy-visibility")
         optIn.add("kotlin.time.ExperimentalTime")
-    }
-}
-
-android {
-    namespace = "com.viktormykhailiv.kmp.health"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
-    }
-    compileOptions {
-        val javaVersion = JavaVersion.toVersion(libs.versions.java.get())
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
     }
 }
 

@@ -1,5 +1,6 @@
 [versions]
-agp = "8.13.0"
+agp = "9.1.1"
+androidx-core = "1.18.0"
 android-compileSdk = "36"
 android-minSdk = "26"
 android-targetSdk = "36"
@@ -14,13 +15,14 @@ kotlinxCoroutines = "1.10.2"
 kotlinxSerialization = "1.9.0"
 kotlinxDatetime = "0.7.1"
 maven-publish = "0.36.0"
-playServicesAuth = "21.5.0"
+playServicesAuth = "21.5.1"
 playServicesFitness = "21.3.0"
 skie = "0.10.9"
 startupRuntime = "1.2.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-healthconnect-client = { module = "androidx.health.connect:connect-client", version.ref = "connectClient" }
 androidx-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startupRuntime" }
@@ -33,6 +35,7 @@ playservices-fitness = { module = "com.google.android.gms:play-services-fitness"
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
+androidKmpLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-compatibility-validator" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
