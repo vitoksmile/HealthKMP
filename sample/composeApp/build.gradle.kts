@@ -51,7 +51,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.viktormykhailiv.kmp.health"
+    namespace = "com.viktormykhailiv.kmp.health.sample"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
