@@ -14,6 +14,7 @@ import com.viktormykhailiv.kmp.health.records.ExerciseRoute
 import com.viktormykhailiv.kmp.health.records.ExerciseSegment
 import com.viktormykhailiv.kmp.health.records.ExerciseSessionRecord
 import com.viktormykhailiv.kmp.health.records.ExerciseType
+import com.viktormykhailiv.kmp.health.units.kilocalories
 import com.viktormykhailiv.kmp.health.units.meters
 import kotlin.random.Random
 import kotlin.time.Clock
@@ -68,6 +69,8 @@ fun ExerciseScreen() {
                             ).meters,
                         )
                     },
+                    totalDistance = Random.nextInt(1, 10_000).meters,
+                    totalEnergyBurned = Random.nextInt(1, 500).kilocalories,
                     exerciseRoute = run {
                         val latitude =
                             Random.nextDouble(-90.0, 90.0)
@@ -106,10 +109,19 @@ fun ExerciseScreen() {
             }
 
             exercise.forEach { exercise ->
-                Text(
-                    "${exercise.exerciseType::class.simpleName}, " +
-                            "duration ${exercise.endTime - exercise.startTime}"
-                )
+                val text = buildString {
+                    append(exercise.exerciseType::class.simpleName.orEmpty())
+                    append(", duration ${exercise.endTime - exercise.startTime}")
+
+                    exercise.totalDistance?.let {
+                        append(", distance $it")
+                    }
+                    exercise.totalEnergyBurned?.let {
+                        append(", energy $it")
+                    }
+                }
+
+                Text(text)
             }
         },
     )

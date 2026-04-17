@@ -118,6 +118,8 @@ struct ExerciseView : View {
                             length: LengthKt.meters(Double(Int.random(in: 1..<100))),
                         )
                     },
+                    totalDistance: LengthKt.meters(Double(Int.random(in: 1..<10000))),
+                    totalEnergyBurned: EnergyKt.kilocalories(Double(Int.random(in: 1..<500))),
                     exerciseRoute: nil,
                     metadata: generateManualEntryMetadata(),
                 )])

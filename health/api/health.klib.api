@@ -1,5 +1,5 @@
 // Klib ABI Dump
-// Targets: [iosArm64, iosSimulatorArm64, iosX64, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
 // Rendering settings:
 // - Signature version: 2
 // - Show manifest properties: true
@@ -1773,7 +1773,7 @@ final class com.viktormykhailiv.kmp.health.records/ExerciseSegment { // com.vikt
 }
 
 final class com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord : com.viktormykhailiv.kmp.health/IntervalRecord { // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord|null[0]
-    constructor <init>(kotlin.time/Instant, kotlin.time/Instant, com.viktormykhailiv.kmp.health.records/ExerciseType, kotlin/String? = ..., kotlin/String? = ..., kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseSegment> = ..., kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseLap> = ..., com.viktormykhailiv.kmp.health.records/ExerciseRoute?, kotlin/String? = ..., com.viktormykhailiv.kmp.health.records.metadata/Metadata) // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.<init>|<init>(kotlin.time.Instant;kotlin.time.Instant;com.viktormykhailiv.kmp.health.records.ExerciseType;kotlin.String?;kotlin.String?;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.ExerciseSegment>;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.ExerciseLap>;com.viktormykhailiv.kmp.health.records.ExerciseRoute?;kotlin.String?;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
+    constructor <init>(kotlin.time/Instant, kotlin.time/Instant, com.viktormykhailiv.kmp.health.records/ExerciseType, kotlin/String? = ..., kotlin/String? = ..., kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseSegment> = ..., kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseLap> = ..., com.viktormykhailiv.kmp.health.units/Length? = ..., com.viktormykhailiv.kmp.health.units/Energy? = ..., com.viktormykhailiv.kmp.health.records/ExerciseRoute?, kotlin/String? = ..., com.viktormykhailiv.kmp.health.records.metadata/Metadata) // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.<init>|<init>(kotlin.time.Instant;kotlin.time.Instant;com.viktormykhailiv.kmp.health.records.ExerciseType;kotlin.String?;kotlin.String?;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.ExerciseSegment>;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.ExerciseLap>;com.viktormykhailiv.kmp.health.units.Length?;com.viktormykhailiv.kmp.health.units.Energy?;com.viktormykhailiv.kmp.health.records.ExerciseRoute?;kotlin.String?;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
 
     final val dataType // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.dataType|{}dataType[0]
         final fun <get-dataType>(): com.viktormykhailiv.kmp.health/HealthDataType // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.dataType.<get-dataType>|<get-dataType>(){}[0]
@@ -1797,18 +1797,24 @@ final class com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord : com.v
         final fun <get-startTime>(): kotlin.time/Instant // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.startTime.<get-startTime>|<get-startTime>(){}[0]
     final val title // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.title|{}title[0]
         final fun <get-title>(): kotlin/String? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.title.<get-title>|<get-title>(){}[0]
+    final val totalDistance // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.totalDistance|{}totalDistance[0]
+        final fun <get-totalDistance>(): com.viktormykhailiv.kmp.health.units/Length? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.totalDistance.<get-totalDistance>|<get-totalDistance>(){}[0]
+    final val totalEnergyBurned // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.totalEnergyBurned|{}totalEnergyBurned[0]
+        final fun <get-totalEnergyBurned>(): com.viktormykhailiv.kmp.health.units/Energy? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.totalEnergyBurned.<get-totalEnergyBurned>|<get-totalEnergyBurned>(){}[0]
 
     final fun component1(): kotlin.time/Instant // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component1|component1(){}[0]
-    final fun component10(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component10|component10(){}[0]
+    final fun component10(): com.viktormykhailiv.kmp.health.records/ExerciseRoute? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component10|component10(){}[0]
+    final fun component11(): kotlin/String? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component11|component11(){}[0]
+    final fun component12(): com.viktormykhailiv.kmp.health.records.metadata/Metadata // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component12|component12(){}[0]
     final fun component2(): kotlin.time/Instant // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component2|component2(){}[0]
     final fun component3(): com.viktormykhailiv.kmp.health.records/ExerciseType // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component3|component3(){}[0]
     final fun component4(): kotlin/String? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component4|component4(){}[0]
     final fun component5(): kotlin/String? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component5|component5(){}[0]
     final fun component6(): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseSegment> // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component6|component6(){}[0]
     final fun component7(): kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseLap> // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component7|component7(){}[0]
-    final fun component8(): com.viktormykhailiv.kmp.health.records/ExerciseRoute? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component8|component8(){}[0]
-    final fun component9(): kotlin/String? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component9|component9(){}[0]
-    final fun copy(kotlin.time/Instant = ..., kotlin.time/Instant = ..., com.viktormykhailiv.kmp.health.records/ExerciseType = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseSegment> = ..., kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseLap> = ..., com.viktormykhailiv.kmp.health.records/ExerciseRoute? = ..., kotlin/String? = ..., com.viktormykhailiv.kmp.health.records.metadata/Metadata = ...): com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.copy|copy(kotlin.time.Instant;kotlin.time.Instant;com.viktormykhailiv.kmp.health.records.ExerciseType;kotlin.String?;kotlin.String?;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.ExerciseSegment>;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.ExerciseLap>;com.viktormykhailiv.kmp.health.records.ExerciseRoute?;kotlin.String?;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
+    final fun component8(): com.viktormykhailiv.kmp.health.units/Length? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component8|component8(){}[0]
+    final fun component9(): com.viktormykhailiv.kmp.health.units/Energy? // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.component9|component9(){}[0]
+    final fun copy(kotlin.time/Instant = ..., kotlin.time/Instant = ..., com.viktormykhailiv.kmp.health.records/ExerciseType = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseSegment> = ..., kotlin.collections/List<com.viktormykhailiv.kmp.health.records/ExerciseLap> = ..., com.viktormykhailiv.kmp.health.units/Length? = ..., com.viktormykhailiv.kmp.health.units/Energy? = ..., com.viktormykhailiv.kmp.health.records/ExerciseRoute? = ..., kotlin/String? = ..., com.viktormykhailiv.kmp.health.records.metadata/Metadata = ...): com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.copy|copy(kotlin.time.Instant;kotlin.time.Instant;com.viktormykhailiv.kmp.health.records.ExerciseType;kotlin.String?;kotlin.String?;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.ExerciseSegment>;kotlin.collections.List<com.viktormykhailiv.kmp.health.records.ExerciseLap>;com.viktormykhailiv.kmp.health.units.Length?;com.viktormykhailiv.kmp.health.units.Energy?;com.viktormykhailiv.kmp.health.records.ExerciseRoute?;kotlin.String?;com.viktormykhailiv.kmp.health.records.metadata.Metadata){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.records/ExerciseSessionRecord.toString|toString(){}[0]
@@ -2210,6 +2216,29 @@ final class com.viktormykhailiv.kmp.health.units/BloodGlucose : kotlin/Comparabl
     }
 }
 
+final class com.viktormykhailiv.kmp.health.units/Energy : kotlin/Comparable<com.viktormykhailiv.kmp.health.units/Energy> { // com.viktormykhailiv.kmp.health.units/Energy|null[0]
+    final val inCalories // com.viktormykhailiv.kmp.health.units/Energy.inCalories|{}inCalories[0]
+        final fun <get-inCalories>(): kotlin/Double // com.viktormykhailiv.kmp.health.units/Energy.inCalories.<get-inCalories>|<get-inCalories>(){}[0]
+    final val inJoules // com.viktormykhailiv.kmp.health.units/Energy.inJoules|{}inJoules[0]
+        final fun <get-inJoules>(): kotlin/Double // com.viktormykhailiv.kmp.health.units/Energy.inJoules.<get-inJoules>|<get-inJoules>(){}[0]
+    final val inKilocalories // com.viktormykhailiv.kmp.health.units/Energy.inKilocalories|{}inKilocalories[0]
+        final fun <get-inKilocalories>(): kotlin/Double // com.viktormykhailiv.kmp.health.units/Energy.inKilocalories.<get-inKilocalories>|<get-inKilocalories>(){}[0]
+    final val inKilojoules // com.viktormykhailiv.kmp.health.units/Energy.inKilojoules|{}inKilojoules[0]
+        final fun <get-inKilojoules>(): kotlin/Double // com.viktormykhailiv.kmp.health.units/Energy.inKilojoules.<get-inKilojoules>|<get-inKilojoules>(){}[0]
+
+    final fun compareTo(com.viktormykhailiv.kmp.health.units/Energy): kotlin/Int // com.viktormykhailiv.kmp.health.units/Energy.compareTo|compareTo(com.viktormykhailiv.kmp.health.units.Energy){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.units/Energy.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.units/Energy.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.units/Energy.toString|toString(){}[0]
+
+    final object Companion { // com.viktormykhailiv.kmp.health.units/Energy.Companion|null[0]
+        final fun calories(kotlin/Double): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/Energy.Companion.calories|calories(kotlin.Double){}[0]
+        final fun joules(kotlin/Double): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/Energy.Companion.joules|joules(kotlin.Double){}[0]
+        final fun kilocalories(kotlin/Double): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/Energy.Companion.kilocalories|kilocalories(kotlin.Double){}[0]
+        final fun kilojoules(kotlin/Double): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/Energy.Companion.kilojoules|kilojoules(kotlin.Double){}[0]
+    }
+}
+
 final class com.viktormykhailiv.kmp.health.units/Length : kotlin/Comparable<com.viktormykhailiv.kmp.health.units/Length> { // com.viktormykhailiv.kmp.health.units/Length|null[0]
     final val inFeet // com.viktormykhailiv.kmp.health.units/Length.inFeet|{}inFeet[0]
         final fun <get-inFeet>(): kotlin/Double // com.viktormykhailiv.kmp.health.units/Length.inFeet.<get-inFeet>|<get-inFeet>(){}[0]
@@ -2347,6 +2376,14 @@ final class com.viktormykhailiv.kmp.health/SwiftHealthManager { // com.viktormyk
     final suspend fun writeData(kotlin.collections/List<com.viktormykhailiv.kmp.health/HealthRecord>) // com.viktormykhailiv.kmp.health/SwiftHealthManager.writeData|writeData(kotlin.collections.List<com.viktormykhailiv.kmp.health.HealthRecord>){}[0]
 }
 
+final val com.viktormykhailiv.kmp.health.units/calories // com.viktormykhailiv.kmp.health.units/calories|@kotlin.Double{}calories[0]
+    final fun (kotlin/Double).<get-calories>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/calories.<get-calories>|<get-calories>@kotlin.Double(){}[0]
+final val com.viktormykhailiv.kmp.health.units/calories // com.viktormykhailiv.kmp.health.units/calories|@kotlin.Float{}calories[0]
+    final fun (kotlin/Float).<get-calories>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/calories.<get-calories>|<get-calories>@kotlin.Float(){}[0]
+final val com.viktormykhailiv.kmp.health.units/calories // com.viktormykhailiv.kmp.health.units/calories|@kotlin.Int{}calories[0]
+    final fun (kotlin/Int).<get-calories>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/calories.<get-calories>|<get-calories>@kotlin.Int(){}[0]
+final val com.viktormykhailiv.kmp.health.units/calories // com.viktormykhailiv.kmp.health.units/calories|@kotlin.Long{}calories[0]
+    final fun (kotlin/Long).<get-calories>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/calories.<get-calories>|<get-calories>@kotlin.Long(){}[0]
 final val com.viktormykhailiv.kmp.health.units/celsius // com.viktormykhailiv.kmp.health.units/celsius|@kotlin.Double{}celsius[0]
     final fun (kotlin/Double).<get-celsius>(): com.viktormykhailiv.kmp.health.units/Temperature // com.viktormykhailiv.kmp.health.units/celsius.<get-celsius>|<get-celsius>@kotlin.Double(){}[0]
 final val com.viktormykhailiv.kmp.health.units/celsius // com.viktormykhailiv.kmp.health.units/celsius|@kotlin.Float{}celsius[0]
@@ -2387,6 +2424,22 @@ final val com.viktormykhailiv.kmp.health.units/inches // com.viktormykhailiv.kmp
     final fun (kotlin/Int).<get-inches>(): com.viktormykhailiv.kmp.health.units/Length // com.viktormykhailiv.kmp.health.units/inches.<get-inches>|<get-inches>@kotlin.Int(){}[0]
 final val com.viktormykhailiv.kmp.health.units/inches // com.viktormykhailiv.kmp.health.units/inches|@kotlin.Long{}inches[0]
     final fun (kotlin/Long).<get-inches>(): com.viktormykhailiv.kmp.health.units/Length // com.viktormykhailiv.kmp.health.units/inches.<get-inches>|<get-inches>@kotlin.Long(){}[0]
+final val com.viktormykhailiv.kmp.health.units/joules // com.viktormykhailiv.kmp.health.units/joules|@kotlin.Double{}joules[0]
+    final fun (kotlin/Double).<get-joules>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/joules.<get-joules>|<get-joules>@kotlin.Double(){}[0]
+final val com.viktormykhailiv.kmp.health.units/joules // com.viktormykhailiv.kmp.health.units/joules|@kotlin.Float{}joules[0]
+    final fun (kotlin/Float).<get-joules>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/joules.<get-joules>|<get-joules>@kotlin.Float(){}[0]
+final val com.viktormykhailiv.kmp.health.units/joules // com.viktormykhailiv.kmp.health.units/joules|@kotlin.Int{}joules[0]
+    final fun (kotlin/Int).<get-joules>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/joules.<get-joules>|<get-joules>@kotlin.Int(){}[0]
+final val com.viktormykhailiv.kmp.health.units/joules // com.viktormykhailiv.kmp.health.units/joules|@kotlin.Long{}joules[0]
+    final fun (kotlin/Long).<get-joules>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/joules.<get-joules>|<get-joules>@kotlin.Long(){}[0]
+final val com.viktormykhailiv.kmp.health.units/kilocalories // com.viktormykhailiv.kmp.health.units/kilocalories|@kotlin.Double{}kilocalories[0]
+    final fun (kotlin/Double).<get-kilocalories>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/kilocalories.<get-kilocalories>|<get-kilocalories>@kotlin.Double(){}[0]
+final val com.viktormykhailiv.kmp.health.units/kilocalories // com.viktormykhailiv.kmp.health.units/kilocalories|@kotlin.Float{}kilocalories[0]
+    final fun (kotlin/Float).<get-kilocalories>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/kilocalories.<get-kilocalories>|<get-kilocalories>@kotlin.Float(){}[0]
+final val com.viktormykhailiv.kmp.health.units/kilocalories // com.viktormykhailiv.kmp.health.units/kilocalories|@kotlin.Int{}kilocalories[0]
+    final fun (kotlin/Int).<get-kilocalories>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/kilocalories.<get-kilocalories>|<get-kilocalories>@kotlin.Int(){}[0]
+final val com.viktormykhailiv.kmp.health.units/kilocalories // com.viktormykhailiv.kmp.health.units/kilocalories|@kotlin.Long{}kilocalories[0]
+    final fun (kotlin/Long).<get-kilocalories>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/kilocalories.<get-kilocalories>|<get-kilocalories>@kotlin.Long(){}[0]
 final val com.viktormykhailiv.kmp.health.units/kilocaloriesPerDay // com.viktormykhailiv.kmp.health.units/kilocaloriesPerDay|@kotlin.Double{}kilocaloriesPerDay[0]
     final fun (kotlin/Double).<get-kilocaloriesPerDay>(): com.viktormykhailiv.kmp.health.units/Power // com.viktormykhailiv.kmp.health.units/kilocaloriesPerDay.<get-kilocaloriesPerDay>|<get-kilocaloriesPerDay>@kotlin.Double(){}[0]
 final val com.viktormykhailiv.kmp.health.units/kilocaloriesPerDay // com.viktormykhailiv.kmp.health.units/kilocaloriesPerDay|@kotlin.Float{}kilocaloriesPerDay[0]
@@ -2403,6 +2456,14 @@ final val com.viktormykhailiv.kmp.health.units/kilograms // com.viktormykhailiv.
     final fun (kotlin/Int).<get-kilograms>(): com.viktormykhailiv.kmp.health.units/Mass // com.viktormykhailiv.kmp.health.units/kilograms.<get-kilograms>|<get-kilograms>@kotlin.Int(){}[0]
 final val com.viktormykhailiv.kmp.health.units/kilograms // com.viktormykhailiv.kmp.health.units/kilograms|@kotlin.Long{}kilograms[0]
     final fun (kotlin/Long).<get-kilograms>(): com.viktormykhailiv.kmp.health.units/Mass // com.viktormykhailiv.kmp.health.units/kilograms.<get-kilograms>|<get-kilograms>@kotlin.Long(){}[0]
+final val com.viktormykhailiv.kmp.health.units/kilojoules // com.viktormykhailiv.kmp.health.units/kilojoules|@kotlin.Double{}kilojoules[0]
+    final fun (kotlin/Double).<get-kilojoules>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/kilojoules.<get-kilojoules>|<get-kilojoules>@kotlin.Double(){}[0]
+final val com.viktormykhailiv.kmp.health.units/kilojoules // com.viktormykhailiv.kmp.health.units/kilojoules|@kotlin.Float{}kilojoules[0]
+    final fun (kotlin/Float).<get-kilojoules>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/kilojoules.<get-kilojoules>|<get-kilojoules>@kotlin.Float(){}[0]
+final val com.viktormykhailiv.kmp.health.units/kilojoules // com.viktormykhailiv.kmp.health.units/kilojoules|@kotlin.Int{}kilojoules[0]
+    final fun (kotlin/Int).<get-kilojoules>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/kilojoules.<get-kilojoules>|<get-kilojoules>@kotlin.Int(){}[0]
+final val com.viktormykhailiv.kmp.health.units/kilojoules // com.viktormykhailiv.kmp.health.units/kilojoules|@kotlin.Long{}kilojoules[0]
+    final fun (kotlin/Long).<get-kilojoules>(): com.viktormykhailiv.kmp.health.units/Energy // com.viktormykhailiv.kmp.health.units/kilojoules.<get-kilojoules>|<get-kilojoules>@kotlin.Long(){}[0]
 final val com.viktormykhailiv.kmp.health.units/kilometers // com.viktormykhailiv.kmp.health.units/kilometers|@kotlin.Double{}kilometers[0]
     final fun (kotlin/Double).<get-kilometers>(): com.viktormykhailiv.kmp.health.units/Length // com.viktormykhailiv.kmp.health.units/kilometers.<get-kilometers>|<get-kilometers>@kotlin.Double(){}[0]
 final val com.viktormykhailiv.kmp.health.units/kilometers // com.viktormykhailiv.kmp.health.units/kilometers|@kotlin.Float{}kilometers[0]

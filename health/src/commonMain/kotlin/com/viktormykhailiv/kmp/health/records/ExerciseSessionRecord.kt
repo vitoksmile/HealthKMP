@@ -4,6 +4,8 @@ import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthDataType.Exercise
 import com.viktormykhailiv.kmp.health.IntervalRecord
 import com.viktormykhailiv.kmp.health.records.metadata.Metadata
+import com.viktormykhailiv.kmp.health.units.Energy
+import com.viktormykhailiv.kmp.health.units.Length
 import kotlin.time.Instant
 
 /**
@@ -20,6 +22,8 @@ import kotlin.time.Instant
  * within the parent session, and should not overlap with each other.
  * @param laps [ExerciseLap]s of the session. Optional field. Time in laps should be within the
  * parent session, and should not overlap with each other.
+ * @param totalDistance Total distance of the session. Optional field.
+ * @param totalEnergyBurned Total energy burned of the session. Optional field.
  * @param exerciseRoute Location data points of [ExerciseRoute] should be within the parent session,
  * and should be before the end time of the session.
  * @param plannedExerciseSessionId The planned exercise session this workout was based upon.
@@ -32,6 +36,8 @@ data class ExerciseSessionRecord(
     val notes: String? = null,
     val segments: List<ExerciseSegment> = emptyList(),
     val laps: List<ExerciseLap> = emptyList(),
+    val totalDistance: Length? = null,
+    val totalEnergyBurned: Energy? = null,
     val exerciseRoute: ExerciseRoute?,
     val plannedExerciseSessionId: String? = null,
     override val metadata: Metadata

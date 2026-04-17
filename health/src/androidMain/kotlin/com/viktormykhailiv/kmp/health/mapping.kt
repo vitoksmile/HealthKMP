@@ -61,8 +61,8 @@ import androidx.health.connect.client.records.SexualActivityRecord as HCSexualAc
 import androidx.health.connect.client.records.SleepSessionRecord as HCSleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord as HCStepsRecord
 import androidx.health.connect.client.records.WeightRecord as HCWeightRecord
-import androidx.health.connect.client.records.metadata.Device as HCDevice
 import androidx.health.connect.client.records.metadata.Metadata as HCMetadata
+import androidx.health.connect.client.records.metadata.Device as HCDevice
 import androidx.health.connect.client.units.BloodGlucose as HCBloodGlucose
 import androidx.health.connect.client.units.Length as HCLength
 import androidx.health.connect.client.units.Mass as HCMass

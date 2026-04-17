@@ -31,6 +31,7 @@ kotlin {
         iosX64(),
         iosArm64(),
         iosSimulatorArm64(),
+        watchosX64(),
         watchosArm64(),
         watchosDeviceArm64(),
         watchosSimulatorArm64(),
@@ -77,8 +78,8 @@ skie {
     features {
         group {
             DefaultArgumentInterop.Enabled(true)
-            // Set same value as number of arguments for HealthDataType.Exercise
-            DefaultArgumentInterop.MaximumDefaultArgumentCount(6)
+            // Set same value as number of arguments for ExerciseSessionRecord
+            DefaultArgumentInterop.MaximumDefaultArgumentCount(12)
         }
     }
 }

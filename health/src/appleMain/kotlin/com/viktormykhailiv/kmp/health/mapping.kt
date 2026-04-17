@@ -12,6 +12,7 @@ import com.viktormykhailiv.kmp.health.records.ExerciseRoute
 import com.viktormykhailiv.kmp.health.records.ExerciseSegment
 import com.viktormykhailiv.kmp.health.records.ExerciseSessionRecord
 import com.viktormykhailiv.kmp.health.records.ExerciseType
+import com.viktormykhailiv.kmp.health.units.Energy
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.HeightRecord
 import com.viktormykhailiv.kmp.health.records.LeanBodyMassRecord
@@ -149,6 +150,7 @@ import platform.HealthKit.HKWorkoutRoute
 import platform.HealthKit.HKWorkoutRouteQuery
 import platform.HealthKit.countUnit
 import platform.HealthKit.degreeFahrenheitUnit
+import platform.HealthKit.kilocalorieUnit
 import platform.HealthKit.literUnit
 import platform.HealthKit.meterUnit
 import platform.HealthKit.millimeterOfMercuryUnit
@@ -277,8 +279,18 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
                         record.segments.forEach { add(it.toHKWorkoutEvent()) }
                         record.laps.forEach { add(it.toKHWorkoutEvent()) }
                     },
-                    totalDistance = null,
-                    totalEnergyBurned = null,
+                    totalDistance = record.totalDistance?.let {
+                        HKQuantity.quantityWithUnit(
+                            unit = lengthUnit,
+                            doubleValue = it.inMeters,
+                        )
+                    },
+                    totalEnergyBurned = record.totalEnergyBurned?.let {
+                        HKQuantity.quantityWithUnit(
+                            unit = energyUnit,
+                            doubleValue = it.inKilocalories,
+                        )
+                    },
                 )
             )
         }
@@ -824,6 +836,8 @@ internal suspend fun List<HKWorkout>.toHealthRecords(
             laps = workoutEvents
                 .filter { it.type == HKWorkoutEventTypeLap }
                 .map { it.toExerciseLap() },
+            totalDistance = workout.totalDistance?.lengthValue,
+            totalEnergyBurned = workout.totalEnergyBurned?.energyValue,
             exerciseRoute = exerciseRoute,
         )
     }
@@ -835,6 +849,14 @@ internal val HKQuantity?.bloodGlucoseValue: BloodGlucoseUnit
     get() = BloodGlucoseUnit.millimolesPerLiter(
         this?.doubleValueForUnit(bloodGlucoseUnit)?.times(1_000) ?: 0.0
     )
+
+internal val HKQuantity?.energyValue: Energy
+    get() = Energy.kilocalories(
+        this?.doubleValueForUnit(energyUnit) ?: 0.0
+    )
+
+private val energyUnit: HKUnit
+    get() = HKUnit.kilocalorieUnit()
 
 private val bloodGlucoseUnit: HKUnit
     get() = HKUnit.moleUnitWithMolarMass(HKUnitMolarMassBloodGlucose)

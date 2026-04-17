@@ -44,6 +44,7 @@ Note that for Android, the target device **needs** to have [Google Fit](https://
 ## Supported units
 
 - Blood glucose: mmol/L, mg/dL
+- Energy: calories, kilocalories, joules, kilojoules
 - Length: meters, kilometers, miles, inches, feet
 - Mass: grams, kilograms, milligrams, micrograms, ounces, pounds
 - Power: watts, kilocalories per day
@@ -89,7 +90,7 @@ build.gradle:
 sourceSets {
     val commonMain by getting {
         dependencies {
-            implementation("com.viktormykhailiv:health-kmp:1.1.0")
+            implementation("com.viktormykhailiv:health-kmp:1.2.0")
         }
     }
 }
@@ -99,7 +100,7 @@ or use version catalog:
 
 ```
 [versions]
-health = "1.1.0"
+health = "1.2.0"
 
 [libraries]
 health = { module = "com.viktormykhailiv:health-kmp", version.ref = "health" }

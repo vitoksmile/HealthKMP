@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.0](https://github.com/vitoksmile/HealthKMP/releases/tag/1.2.0)
+
+- Added **energy** unit (calories, kilocalories, joules, kilojoules)
+- Added **totalDistance** and **totalEnergyBurned** to **exercise** record
+- Kotlin 2.3.20 & SKIE 0.10.11
+
 ## [1.1.0](https://github.com/vitoksmile/HealthKMP/releases/tag/1.1.0)
 
 - AGP 9
