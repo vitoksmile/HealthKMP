@@ -14,6 +14,7 @@ kotlin = "2.3.20"
 kotlinxCoroutines = "1.10.2"
 kotlinxSerialization = "1.11.0"
 kotlinxDatetime = "0.7.1"
+kotlin-test = "2.3.20"
 material-icons-extended = "1.7.3"
 maven-publish = "0.36.0"
 playServicesAuth = "21.5.1"
@@ -36,8 +37,10 @@ compose-components-resources = { module = "org.jetbrains.compose.components:comp
 compose-components-uiToolingPreview = { module = "org.jetbrains.compose.components:components-ui-tooling-preview", version.ref = "compose-multiplatform" }
 compose-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "compose-multiplatform" }
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 playservices-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 playservices-fitness = { module = "com.google.android.gms:play-services-fitness", version.ref = "playServicesFitness" }
 

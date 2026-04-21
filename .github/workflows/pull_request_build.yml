@@ -10,19 +10,21 @@ jobs:
       matrix:
         include:
           - runner: ubuntu-latest
-            task: build
+            task: :health:testAndroidHostTest
           - runner: macos-latest
-            task: iosSimulatorArm64Test
+            task: :health:iosSimulatorArm64Test
+          - runner: macos-latest
+            task: :health:watchosSimulatorArm64Test
 
     runs-on: ${{ matrix.runner }}
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          fetch-tags: true
-          persist-credentials: false
-      - uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 21
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
       - run: ./gradlew ${{ matrix.task }}
