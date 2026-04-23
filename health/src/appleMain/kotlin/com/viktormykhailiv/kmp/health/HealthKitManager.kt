@@ -72,6 +72,7 @@ internal class HealthKitManager : HealthManager {
     override suspend fun requestAuthorization(
         readTypes: List<HealthDataType>,
         writeTypes: List<HealthDataType>,
+        requestReadHealthDataInBackground: Boolean
     ): Result<Boolean> = suspendCancellableCoroutine { continuation ->
         healthStore.requestAuthorizationToShareTypes(
             typesToShare = writeTypes.map { it.toHKSampleType() }.flatten().filterNotNull().toSet(),
@@ -95,6 +96,14 @@ internal class HealthKitManager : HealthManager {
 
     override suspend fun revokeAuthorization(): Result<Unit> =
         Result.failure(NotImplementedError())
+
+    override suspend fun hasReadHealthDataInBackgroundPermission(): Result<Boolean> {
+        return Result.success(true)
+    }
+
+    override suspend fun requestReadHealthDataInBackground(): Result<Boolean> {
+        return Result.failure(NotImplementedError())
+    }
 
     @Suppress("UNCHECKED_CAST")
     override suspend fun readData(

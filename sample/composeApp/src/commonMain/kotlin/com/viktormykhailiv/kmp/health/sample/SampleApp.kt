@@ -120,6 +120,7 @@ fun SampleApp() {
 
     var isAvailableResult by remember { mutableStateOf(Result.success(false)) }
     var isAuthorizedResult by remember { mutableStateOf<Result<Boolean>?>(null) }
+    var hasBackgroundReadPermissionResult by remember { mutableStateOf<Result<Boolean>?>(null) }
     var isRevokeSupported by remember { mutableStateOf(false) }
     var regionalPreferencesResult by remember { mutableStateOf<Result<RegionalPreferences>?>(null) }
 
@@ -133,6 +134,7 @@ fun SampleApp() {
         )
         isRevokeSupported = health.isRevokeAuthorizationSupported().getOrNull() == true
         regionalPreferencesResult = health.getRegionalPreferences()
+        hasBackgroundReadPermissionResult = health.hasReadHealthDataInBackgroundPermission()
     }
 
     val navController = rememberNavController()
@@ -182,6 +184,7 @@ fun SampleApp() {
                                                 readTypes = readTypes,
                                                 writeTypes = writeTypes,
                                             )
+                                            hasBackgroundReadPermissionResult = health.hasReadHealthDataInBackgroundPermission()
                                         }
                                     },
                                 )
@@ -195,6 +198,7 @@ fun SampleApp() {
                                                 readTypes = readTypes,
                                                 writeTypes = writeTypes,
                                             )
+                                            hasBackgroundReadPermissionResult = health.hasReadHealthDataInBackgroundPermission()
                                         }
                                     },
                                     colors = ButtonDefaults.buttonColors(
@@ -204,6 +208,20 @@ fun SampleApp() {
                                 ) {
                                     Text("Revoke authorization")
                                 }
+
+                            if (isAvailableResult.getOrNull() == true &&
+                                isAuthorizedResult?.getOrNull() == true &&
+                                hasBackgroundReadPermissionResult?.getOrNull() != true
+                            ) {
+                                AppButton(
+                                    text = "Request background read permission",
+                                    onClick = {
+                                        coroutineScope.launch {
+                                            hasBackgroundReadPermissionResult = health.requestReadHealthDataInBackground()
+                                        }
+                                    },
+                                )
+                            }
 
                             regionalPreferencesResult
                                 ?.onSuccess {

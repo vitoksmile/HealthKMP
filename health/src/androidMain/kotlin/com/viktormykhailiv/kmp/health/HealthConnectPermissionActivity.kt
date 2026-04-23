@@ -19,6 +19,7 @@ internal class HealthConnectPermissionActivity : ComponentActivity() {
     companion object {
         private const val KEY_READ_PERMISSIONS = "KEY_READ_PERMISSIONS"
         private const val KEY_WRITE_PERMISSIONS = "KEY_WRITE_PERMISSIONS"
+        private const val KEY_OTHER_PERMISSIONS = "KEY_OTHER_PERMISSIONS"
 
         private var continuation: CancellableContinuation<Result<Boolean>>? = null
 
@@ -26,6 +27,7 @@ internal class HealthConnectPermissionActivity : ComponentActivity() {
             context: Context,
             readPermissions: Set<String>,
             writePermissions: Set<String>,
+            otherPermission: Set<String>
         ): Result<Boolean> = suspendCancellableCoroutine {
             continuation?.cancel()
             continuation = it
@@ -34,6 +36,7 @@ internal class HealthConnectPermissionActivity : ComponentActivity() {
                 Intent(context, HealthConnectPermissionActivity::class.java)
                     .putExtra(KEY_READ_PERMISSIONS, readPermissions.toTypedArray())
                     .putExtra(KEY_WRITE_PERMISSIONS, writePermissions.toTypedArray())
+                    .putExtra(KEY_OTHER_PERMISSIONS, otherPermission.toTypedArray())
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
             )
         }
@@ -45,7 +48,9 @@ internal class HealthConnectPermissionActivity : ComponentActivity() {
                 intent.getStringArrayExtra(KEY_READ_PERMISSIONS).orEmpty().toSet()
             val writePermissions =
                 intent.getStringArrayExtra(KEY_WRITE_PERMISSIONS).orEmpty().toSet()
-            return readPermissions + writePermissions
+            val otherPermission =
+                intent.getStringArrayExtra(KEY_OTHER_PERMISSIONS).orEmpty().toSet()
+            return readPermissions + writePermissions + otherPermission
         }
 
     private val contract = PermissionController.createRequestPermissionResultContract()

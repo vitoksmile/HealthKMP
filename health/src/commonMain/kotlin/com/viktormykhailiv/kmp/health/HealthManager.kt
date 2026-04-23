@@ -15,11 +15,16 @@ interface HealthManager {
     suspend fun requestAuthorization(
         readTypes: List<HealthDataType>,
         writeTypes: List<HealthDataType>,
+        requestReadHealthDataInBackground: Boolean = false
     ): Result<Boolean>
 
     suspend fun isRevokeAuthorizationSupported(): Result<Boolean>
 
     suspend fun revokeAuthorization(): Result<Unit>
+
+    suspend fun hasReadHealthDataInBackgroundPermission(): Result<Boolean>
+
+    suspend fun requestReadHealthDataInBackground(): Result<Boolean>
 
     suspend fun readData(
         startTime: Instant,

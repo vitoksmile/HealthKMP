@@ -31,6 +31,7 @@ internal class NoHealthManager: HealthManager {
     override suspend fun requestAuthorization(
         readTypes: List<HealthDataType>,
         writeTypes: List<HealthDataType>,
+        requestReadHealthDataInBackground: Boolean
     ): Result<Boolean> {
         return Result.failure(unavailableException)
     }
@@ -40,6 +41,14 @@ internal class NoHealthManager: HealthManager {
     }
 
     override suspend fun revokeAuthorization(): Result<Unit> {
+        return Result.failure(unavailableException)
+    }
+
+    override suspend fun hasReadHealthDataInBackgroundPermission(): Result<Boolean> {
+        return Result.failure(unavailableException)
+    }
+
+    override suspend fun requestReadHealthDataInBackground(): Result<Boolean> {
         return Result.failure(unavailableException)
     }
 
