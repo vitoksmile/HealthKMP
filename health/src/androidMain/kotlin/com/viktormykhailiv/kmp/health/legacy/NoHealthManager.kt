@@ -1,5 +1,9 @@
-package com.viktormykhailiv.kmp.health
+package com.viktormykhailiv.kmp.health.legacy
 
+import com.viktormykhailiv.kmp.health.HealthAggregatedRecord
+import com.viktormykhailiv.kmp.health.HealthDataType
+import com.viktormykhailiv.kmp.health.HealthManager
+import com.viktormykhailiv.kmp.health.HealthRecord
 import com.viktormykhailiv.kmp.health.region.RegionalPreferences
 import kotlin.time.Instant
 

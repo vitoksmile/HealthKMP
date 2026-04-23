@@ -3,6 +3,7 @@
 package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.legacy.GoogleFitManager
+import com.viktormykhailiv.kmp.health.legacy.NoHealthManager
 
 actual class HealthManagerFactory {
 
@@ -16,7 +17,7 @@ actual class HealthManagerFactory {
         }
     }
 
-    actual fun createManager(options: Options): HealthManager {
+    fun createManager(options: Options): HealthManager {
         val healthConnectManager = HealthConnectManager(ApplicationContextHolder.applicationContext)
 
         return if (healthConnectManager.isAvailable().getOrNull() == true) {
@@ -28,7 +29,7 @@ actual class HealthManagerFactory {
         }
     }
 
-    actual data class Options(
+    data class Options(
         val useGoogleFit: Boolean
     )
 }
