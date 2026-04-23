@@ -182,7 +182,7 @@ fun SampleApp() {
                                         coroutineScope.launch {
                                             isAuthorizedResult = health.requestAuthorization(
                                                 readTypes = readTypes,
-                                                writeTypes = writeTypes,
+                                                writeTypes = writeTypes
                                             )
                                             hasBackgroundReadPermissionResult = health.hasReadHealthDataInBackgroundPermission()
                                         }
