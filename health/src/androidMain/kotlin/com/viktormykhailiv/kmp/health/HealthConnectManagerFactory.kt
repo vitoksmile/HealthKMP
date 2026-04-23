@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION", "unused")
 
 package com.viktormykhailiv.kmp.health
 
@@ -16,4 +16,19 @@ actual class HealthManagerFactory {
         }
     }
 
+    actual fun createManager(options: Options): HealthManager {
+        val healthConnectManager = HealthConnectManager(ApplicationContextHolder.applicationContext)
+
+        return if (healthConnectManager.isAvailable().getOrNull() == true) {
+            healthConnectManager
+        } else if (options.useGoogleFit) {
+            GoogleFitManager(ApplicationContextHolder.applicationContext)
+        } else {
+            NoHealthManager()
+        }
+    }
+
+    actual data class Options(
+        val useGoogleFit: Boolean
+    )
 }

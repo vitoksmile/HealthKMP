@@ -2360,6 +2360,9 @@ final class com.viktormykhailiv.kmp.health/HealthManagerFactory { // com.viktorm
     constructor <init>() // com.viktormykhailiv.kmp.health/HealthManagerFactory.<init>|<init>(){}[0]
 
     final fun createManager(): com.viktormykhailiv.kmp.health/HealthManager // com.viktormykhailiv.kmp.health/HealthManagerFactory.createManager|createManager(){}[0]
+    final fun createManager(com.viktormykhailiv.kmp.health/HealthManagerFactory.Options): com.viktormykhailiv.kmp.health/HealthManager // com.viktormykhailiv.kmp.health/HealthManagerFactory.createManager|createManager(com.viktormykhailiv.kmp.health.HealthManagerFactory.Options){}[0]
+
+    final object Options // com.viktormykhailiv.kmp.health/HealthManagerFactory.Options|null[0]
 }
 
 final class com.viktormykhailiv.kmp.health/SwiftHealthManager { // com.viktormykhailiv.kmp.health/SwiftHealthManager|null[0]
