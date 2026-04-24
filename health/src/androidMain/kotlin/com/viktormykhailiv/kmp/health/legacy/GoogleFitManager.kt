@@ -58,6 +58,7 @@ class GoogleFitManager(
     override suspend fun requestAuthorization(
         readTypes: List<HealthDataType>,
         writeTypes: List<HealthDataType>,
+        requestReadHealthDataInBackground: Boolean,
     ): Result<Boolean> =
         isAuthorized(readTypes = readTypes, writeTypes = writeTypes)
             .mapCatching { isAuthorized ->
@@ -85,6 +86,12 @@ class GoogleFitManager(
         val options = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
         GoogleSignIn.getClient(context, options).signOut().await()
     }
+
+    override suspend fun hasReadHealthDataInBackgroundPermission(): Result<Boolean> =
+        Result.success(true)
+
+    override suspend fun requestReadHealthDataInBackgroundPermission(): Result<Boolean> =
+        Result.failure(NotImplementedError())
 
     override suspend fun readData(
         startTime: Instant,

@@ -59,8 +59,8 @@ internal class HealthKitManager : HealthManager {
         writeTypes: List<HealthDataType>,
     ): Result<Boolean> = suspendCancellableCoroutine { continuation ->
         healthStore.getRequestStatusForAuthorizationToShareTypes(
-            typesToShare = writeTypes.map { it.toHKSampleType() }.flatten().filterNotNull().toSet(),
-            readTypes = readTypes.map { it.toHKSampleType() }.flatten().filterNotNull().toSet(),
+            typesToShare = writeTypes.flatMap { it.toHKSampleType() }.filterNotNull().toSet(),
+            readTypes = readTypes.flatMap { it.toHKSampleType() }.filterNotNull().toSet(),
         ) { status, error ->
             if (continuation.isCancelled) return@getRequestStatusForAuthorizationToShareTypes
 
@@ -75,10 +75,11 @@ internal class HealthKitManager : HealthManager {
     override suspend fun requestAuthorization(
         readTypes: List<HealthDataType>,
         writeTypes: List<HealthDataType>,
+        requestReadHealthDataInBackground: Boolean,
     ): Result<Boolean> = suspendCancellableCoroutine { continuation ->
         healthStore.requestAuthorizationToShareTypes(
-            typesToShare = writeTypes.map { it.toHKSampleType() }.flatten().filterNotNull().toSet(),
-            readTypes = readTypes.map { it.toHKSampleType() }.flatten().filterNotNull().toSet(),
+            typesToShare = writeTypes.flatMap { it.toHKSampleType() }.filterNotNull().toSet(),
+            readTypes = readTypes.flatMap { it.toHKSampleType() }.filterNotNull().toSet(),
         ) { _, error ->
             if (continuation.isCancelled) return@requestAuthorizationToShareTypes
 
@@ -97,6 +98,12 @@ internal class HealthKitManager : HealthManager {
         Result.success(false)
 
     override suspend fun revokeAuthorization(): Result<Unit> =
+        Result.failure(NotImplementedError())
+
+    override suspend fun hasReadHealthDataInBackgroundPermission(): Result<Boolean> =
+        Result.success(true)
+
+    override suspend fun requestReadHealthDataInBackgroundPermission(): Result<Boolean> =
         Result.failure(NotImplementedError())
 
     @Suppress("UNCHECKED_CAST")
@@ -222,7 +229,7 @@ internal class HealthKitManager : HealthManager {
                     return@preferredUnitsForQuantityTypes
                 }
 
-                if (result == null || result.isEmpty()) {
+                if (result.isNullOrEmpty()) {
                     continuation.resumeWithException(IllegalStateException("Regional preferences data not found"))
                     return@preferredUnitsForQuantityTypes
                 }
@@ -266,7 +273,7 @@ internal class HealthKitManager : HealthManager {
             }
 
             when {
-                result == null || result.isEmpty() -> {
+                result.isNullOrEmpty() -> {
                     continuation.resume(Result.success(emptyList<Any>()))
                 }
 
