@@ -56,16 +56,29 @@ import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+/**
+ * Generates [Metadata] for a manual entry with a random UUID and the local device information.
+ */
 @OptIn(ExperimentalUuidApi::class)
 fun generateManualEntryMetadata(): Metadata = Metadata.manualEntry(
     id = Uuid.random().toString(),
     device = Device.getLocalDevice(),
 )
 
+/**
+ * Returns the duration of the [IntervalRecord].
+ */
 val IntervalRecord.duration: Duration
     get() = endTime - startTime
 
 // region Read extensions
+/**
+ * Reads [BloodGlucoseRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [BloodGlucoseRecord]s.
+ */
 suspend fun HealthManager.readBloodGlucose(
     startTime: Instant,
     endTime: Instant,
@@ -76,6 +89,13 @@ suspend fun HealthManager.readBloodGlucose(
         type = BloodGlucose,
     ).map { it.filterIsInstance<BloodGlucoseRecord>() }
 
+/**
+ * Reads [BloodPressureRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [BloodPressureRecord]s.
+ */
 suspend fun HealthManager.readBloodPressure(
     startTime: Instant,
     endTime: Instant,
@@ -86,6 +106,13 @@ suspend fun HealthManager.readBloodPressure(
         type = BloodPressure,
     ).map { it.filterIsInstance<BloodPressureRecord>() }
 
+/**
+ * Reads [BodyFatRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [BodyFatRecord]s.
+ */
 suspend fun HealthManager.readBodyFat(
     startTime: Instant,
     endTime: Instant,
@@ -96,6 +123,13 @@ suspend fun HealthManager.readBodyFat(
         type = BodyFat,
     ).map { it.filterIsInstance<BodyFatRecord>() }
 
+/**
+ * Reads [BodyTemperatureRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [BodyTemperatureRecord]s.
+ */
 suspend fun HealthManager.readBodyTemperature(
     startTime: Instant,
     endTime: Instant,
@@ -106,6 +140,13 @@ suspend fun HealthManager.readBodyTemperature(
         type = BodyTemperature,
     ).map { it.filterIsInstance<BodyTemperatureRecord>() }
 
+/**
+ * Reads [CyclingPedalingCadenceRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [CyclingPedalingCadenceRecord]s.
+ */
 suspend fun HealthManager.readCyclingPedalingCadence(
     startTime: Instant,
     endTime: Instant,
@@ -116,6 +157,14 @@ suspend fun HealthManager.readCyclingPedalingCadence(
         type = CyclingPedalingCadence,
     ).map { it.filterIsInstance<CyclingPedalingCadenceRecord>() }
 
+/**
+ * Reads [ExerciseSessionRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @param exercise The [Exercise] data type configuration.
+ * @return A [Result] containing a list of [ExerciseSessionRecord]s.
+ */
 suspend fun HealthManager.readExercise(
     startTime: Instant,
     endTime: Instant,
@@ -127,6 +176,13 @@ suspend fun HealthManager.readExercise(
         type = exercise,
     ).map { it.filterIsInstance<ExerciseSessionRecord>() }
 
+/**
+ * Reads [HeartRateRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [HeartRateRecord]s.
+ */
 suspend fun HealthManager.readHeartRate(
     startTime: Instant,
     endTime: Instant,
@@ -137,6 +193,13 @@ suspend fun HealthManager.readHeartRate(
         type = HeartRate,
     ).map { it.filterIsInstance<HeartRateRecord>() }
 
+/**
+ * Reads [HeightRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [HeightRecord]s.
+ */
 suspend fun HealthManager.readHeight(
     startTime: Instant,
     endTime: Instant,
@@ -147,6 +210,13 @@ suspend fun HealthManager.readHeight(
         type = Height,
     ).map { it.filterIsInstance<HeightRecord>() }
 
+/**
+ * Reads [LeanBodyMassRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [LeanBodyMassRecord]s.
+ */
 suspend fun HealthManager.readLeanBodyMass(
     startTime: Instant,
     endTime: Instant,
@@ -157,6 +227,13 @@ suspend fun HealthManager.readLeanBodyMass(
         type = LeanBodyMass,
     ).map { it.filterIsInstance<LeanBodyMassRecord>() }
 
+/**
+ * Reads [MenstruationFlowRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [MenstruationFlowRecord]s.
+ */
 suspend fun HealthManager.readMenstruationFlow(
     startTime: Instant,
     endTime: Instant,
@@ -167,6 +244,13 @@ suspend fun HealthManager.readMenstruationFlow(
         type = MenstruationFlow,
     ).map { it.filterIsInstance<MenstruationFlowRecord>() }
 
+/**
+ * Reads [MenstruationPeriodRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [MenstruationPeriodRecord]s.
+ */
 suspend fun HealthManager.readMenstruationPeriod(
     startTime: Instant,
     endTime: Instant,
@@ -177,6 +261,13 @@ suspend fun HealthManager.readMenstruationPeriod(
         type = MenstruationPeriod,
     ).map { it.filterIsInstance<MenstruationPeriodRecord>() }
 
+/**
+ * Reads [OvulationTestRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [OvulationTestRecord]s.
+ */
 suspend fun HealthManager.readOvulationTest(
     startTime: Instant,
     endTime: Instant,
@@ -187,6 +278,13 @@ suspend fun HealthManager.readOvulationTest(
         type = OvulationTest,
     ).map { it.filterIsInstance<OvulationTestRecord>() }
 
+/**
+ * Reads [PowerRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [PowerRecord]s.
+ */
 suspend fun HealthManager.readPower(
     startTime: Instant,
     endTime: Instant,
@@ -197,6 +295,13 @@ suspend fun HealthManager.readPower(
         type = Power,
     ).map { it.filterIsInstance<PowerRecord>() }
 
+/**
+ * Reads [SexualActivityRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [SexualActivityRecord]s.
+ */
 suspend fun HealthManager.readSexualActivity(
     startTime: Instant,
     endTime: Instant,
@@ -207,6 +312,13 @@ suspend fun HealthManager.readSexualActivity(
         type = SexualActivity,
     ).map { it.filterIsInstance<SexualActivityRecord>() }
 
+/**
+ * Reads [SleepSessionRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [SleepSessionRecord]s.
+ */
 suspend fun HealthManager.readSleep(
     startTime: Instant,
     endTime: Instant,
@@ -217,6 +329,13 @@ suspend fun HealthManager.readSleep(
         type = Sleep,
     ).map { it.filterIsInstance<SleepSessionRecord>() }
 
+/**
+ * Reads [StepsRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [StepsRecord]s.
+ */
 suspend fun HealthManager.readSteps(
     startTime: Instant,
     endTime: Instant,
@@ -227,6 +346,13 @@ suspend fun HealthManager.readSteps(
         type = Steps,
     ).map { it.filterIsInstance<StepsRecord>() }
 
+/**
+ * Reads [WeightRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a list of [WeightRecord]s.
+ */
 suspend fun HealthManager.readWeight(
     startTime: Instant,
     endTime: Instant,
@@ -239,6 +365,13 @@ suspend fun HealthManager.readWeight(
 // endregion
 
 // region Aggregate extensions
+/**
+ * Aggregates [BloodGlucoseRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a [BloodGlucoseAggregatedRecord].
+ */
 suspend fun HealthManager.aggregateBloodGlucose(
     startTime: Instant,
     endTime: Instant,
@@ -249,6 +382,13 @@ suspend fun HealthManager.aggregateBloodGlucose(
         type = BloodGlucose,
     ).mapCatching { it as BloodGlucoseAggregatedRecord }
 
+/**
+ * Aggregates [BloodPressureRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a [BloodPressureAggregatedRecord].
+ */
 suspend fun HealthManager.aggregateBloodPressure(
     startTime: Instant,
     endTime: Instant,
@@ -259,6 +399,13 @@ suspend fun HealthManager.aggregateBloodPressure(
         type = BloodPressure,
     ).mapCatching { it as BloodPressureAggregatedRecord }
 
+/**
+ * Aggregates [BodyFatRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a [BodyFatAggregatedRecord].
+ */
 suspend fun HealthManager.aggregateBodyFat(
     startTime: Instant,
     endTime: Instant,
@@ -269,6 +416,13 @@ suspend fun HealthManager.aggregateBodyFat(
         type = BodyFat,
     ).mapCatching { it as BodyFatAggregatedRecord }
 
+/**
+ * Aggregates [BodyTemperatureRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a [BodyTemperatureAggregatedRecord].
+ */
 suspend fun HealthManager.aggregateBodyTemperature(
     startTime: Instant,
     endTime: Instant,
@@ -279,6 +433,13 @@ suspend fun HealthManager.aggregateBodyTemperature(
         type = BodyTemperature,
     ).mapCatching { it as BodyTemperatureAggregatedRecord }
 
+/**
+ * Aggregates [CyclingPedalingCadenceRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a [CyclingPedalingCadenceAggregatedRecord].
+ */
 suspend fun HealthManager.aggregateCyclingPedalingCadence(
     startTime: Instant,
     endTime: Instant,
@@ -289,6 +450,13 @@ suspend fun HealthManager.aggregateCyclingPedalingCadence(
         type = CyclingPedalingCadence,
     ).mapCatching { it as CyclingPedalingCadenceAggregatedRecord }
 
+/**
+ * Aggregates [HeartRateRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a [HeartRateAggregatedRecord].
+ */
 suspend fun HealthManager.aggregateHeartRate(
     startTime: Instant,
     endTime: Instant,
@@ -299,6 +467,13 @@ suspend fun HealthManager.aggregateHeartRate(
         type = HeartRate,
     ).mapCatching { it as HeartRateAggregatedRecord }
 
+/**
+ * Aggregates [HeightRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a [HeightAggregatedRecord].
+ */
 suspend fun HealthManager.aggregateHeight(
     startTime: Instant,
     endTime: Instant,
@@ -309,6 +484,13 @@ suspend fun HealthManager.aggregateHeight(
         type = Height,
     ).mapCatching { it as HeightAggregatedRecord }
 
+/**
+ * Aggregates [LeanBodyMassRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a [LeanBodyMassAggregatedRecord].
+ */
 suspend fun HealthManager.aggregateLeanBodyMass(
     startTime: Instant,
     endTime: Instant,
@@ -319,6 +501,13 @@ suspend fun HealthManager.aggregateLeanBodyMass(
         type = LeanBodyMass,
     ).mapCatching { it as LeanBodyMassAggregatedRecord }
 
+/**
+ * Aggregates [PowerRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a [PowerAggregatedRecord].
+ */
 suspend fun HealthManager.aggregatePower(
     startTime: Instant,
     endTime: Instant,
@@ -329,6 +518,13 @@ suspend fun HealthManager.aggregatePower(
         type = Power,
     ).mapCatching { it as PowerAggregatedRecord }
 
+/**
+ * Aggregates [SleepSessionRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a [SleepAggregatedRecord].
+ */
 suspend fun HealthManager.aggregateSleep(
     startTime: Instant,
     endTime: Instant,
@@ -339,6 +535,13 @@ suspend fun HealthManager.aggregateSleep(
         type = Sleep,
     ).mapCatching { it as SleepAggregatedRecord }
 
+/**
+ * Aggregates [StepsRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a [StepsAggregatedRecord].
+ */
 suspend fun HealthManager.aggregateSteps(
     startTime: Instant,
     endTime: Instant,
@@ -349,6 +552,13 @@ suspend fun HealthManager.aggregateSteps(
         type = Steps,
     ).mapCatching { it as StepsAggregatedRecord }
 
+/**
+ * Aggregates [WeightRecord]s within the specified time range.
+ *
+ * @param startTime The start time of the range (inclusive).
+ * @param endTime The end time of the range (exclusive).
+ * @return A [Result] containing a [WeightAggregatedRecord].
+ */
 suspend fun HealthManager.aggregateWeight(
     startTime: Instant,
     endTime: Instant,

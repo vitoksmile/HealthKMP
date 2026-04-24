@@ -39,3 +39,8 @@
 - **Cross-Platform Awareness:** When modifying `commonMain` interfaces, ensure that implementations in `androidMain` and `appleMain` (shared by `iosMain` and `watchosMain`) are updated accordingly.
 - **Build System:** If modifying the build configuration, be mindful of the custom XCFramework setup for Apple platforms and the specific dependencies for Android Health Connect/Google Fit.
 - **Testing Requirements:** Every feature or bug fix must include tests. Use `./gradlew :health:allTests` to verify changes across all supported platforms.
+
+## 6. Documentation
+- **KDoc Requirement:** All public interfaces, classes, and methods in the `health` module must have KDoc documentation.
+- **Content:** KDoc should explain the purpose, parameters, and return values of the component. For `HealthDataType` and `HealthRecord`, include unit information and valid ranges if applicable.
+- **Multiplatform Clarity:** When documenting platform-specific implementations (e.g., `HealthConnectManager`, `HealthKitManager`), clearly state the underlying platform API being used.

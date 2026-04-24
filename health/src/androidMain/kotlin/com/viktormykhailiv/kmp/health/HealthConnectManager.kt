@@ -16,6 +16,11 @@ import kotlinx.coroutines.CancellationException
 import kotlin.time.Instant
 import kotlin.time.toJavaInstant
 
+/**
+ * Android implementation of [HealthManager] using Health Connect.
+ *
+ * @param context The application context.
+ */
 class HealthConnectManager(
     private val context: Context,
 ) : HealthManager {

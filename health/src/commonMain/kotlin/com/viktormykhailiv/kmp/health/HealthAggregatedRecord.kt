@@ -5,5 +5,8 @@ package com.viktormykhailiv.kmp.health
  */
 interface HealthAggregatedRecord {
 
+    /**
+     * The [HealthDataType] of the aggregated data.
+     */
     val dataType: HealthDataType
 }

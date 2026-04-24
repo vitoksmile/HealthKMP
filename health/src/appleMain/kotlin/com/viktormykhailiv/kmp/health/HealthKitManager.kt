@@ -43,6 +43,9 @@ import kotlin.collections.map
 import kotlin.collections.orEmpty
 import kotlin.coroutines.resumeWithException
 
+/**
+ * Apple implementation of [HealthManager] using HealthKit.
+ */
 internal class HealthKitManager : HealthManager {
 
     private val healthStore by lazy { HKHealthStore() }
