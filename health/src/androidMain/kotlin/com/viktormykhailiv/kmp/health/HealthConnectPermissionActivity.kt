@@ -23,11 +23,24 @@ internal class HealthConnectPermissionActivity : ComponentActivity() {
 
         private var continuation: CancellableContinuation<Result<Boolean>>? = null
 
+        /**
+         * Requests the specified Health Connect permissions by launching the [HealthConnectPermissionActivity].
+         *
+         * This is a suspending function that waits for the user to interact with the permission dialog
+         * and returns a [Result] indicating whether all requested permissions were granted.
+         *
+         * @param context The context used to start the activity.
+         * @param readPermissions A set of Health Connect read permission strings to request.
+         * @param writePermissions A set of Health Connect write permission strings to request.
+         * @param otherPermission A set of additional permission strings to request.
+         * @return A [Result] wrapping a [Boolean]. Returns `true` if all requested permissions
+         * were granted, `false` otherwise.
+         */
         suspend fun request(
             context: Context,
             readPermissions: Set<String>,
             writePermissions: Set<String>,
-            otherPermission: Set<String>
+            otherPermission: Set<String>,
         ): Result<Boolean> = suspendCancellableCoroutine {
             continuation?.cancel()
             continuation = it

@@ -7,15 +7,12 @@ import com.viktormykhailiv.kmp.health.HealthRecord
 import com.viktormykhailiv.kmp.health.region.RegionalPreferences
 import kotlin.time.Instant
 
-internal class NoHealthManager: HealthManager {
+internal class NoHealthManager : HealthManager {
 
-    internal class HealthManagerUnavailableException: RuntimeException(
-        "Health manager is not available on this device"
-    )
+    internal class HealthManagerUnavailableException :
+        RuntimeException("Health manager is not available on this device")
 
-    private val unavailableException by lazy {
-        HealthManagerUnavailableException()
-    }
+    private val unavailableException by lazy { HealthManagerUnavailableException() }
 
     override fun isAvailable(): Result<Boolean> {
         return Result.success(false)
@@ -31,7 +28,7 @@ internal class NoHealthManager: HealthManager {
     override suspend fun requestAuthorization(
         readTypes: List<HealthDataType>,
         writeTypes: List<HealthDataType>,
-        requestReadHealthDataInBackground: Boolean
+        requestReadHealthDataInBackground: Boolean,
     ): Result<Boolean> {
         return Result.failure(unavailableException)
     }
@@ -48,7 +45,7 @@ internal class NoHealthManager: HealthManager {
         return Result.failure(unavailableException)
     }
 
-    override suspend fun requestReadHealthDataInBackground(): Result<Boolean> {
+    override suspend fun requestReadHealthDataInBackgroundPermission(): Result<Boolean> {
         return Result.failure(unavailableException)
     }
 

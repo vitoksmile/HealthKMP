@@ -58,31 +58,22 @@ class HealthConnectManager(
                     Result.success(isAuthorized)
                 }
             }
-            .mapCatching { isAuthorized ->
-                if (isAuthorized) return@mapCatching true
+            .flatMap { isAuthorized ->
+                if (isAuthorized) return@flatMap Result.success(true)
 
-                val otherPermission = if (requestReadHealthDataInBackground) {
-                    setOf(
-                        getReadHealthDataInBackgroundKey()
-                    )
-                } else {
-                    emptySet()
-                }
-                try {
-                    HealthConnectPermissionActivity.request(
-                        context,
-                        readPermissions = readTypes.readPermissions,
-                        writePermissions = writeTypes.writePermissions,
-                        otherPermission = otherPermission
-                    ).getOrThrow()
-                } catch (_: CancellationException) {
-                    false
-                } catch (ex: Throwable) {
-                    throw ex
-                }
+                requestPermissionWithActivity(
+                    readPermissions = readTypes.readPermissions,
+                    writePermissions = writeTypes.writePermissions,
+                    otherPermission = if (requestReadHealthDataInBackground) {
+                        setOf(getReadHealthDataInBackgroundKey())
+                    } else {
+                        emptySet()
+                    },
+                )
             }
 
-    override suspend fun isRevokeAuthorizationSupported(): Result<Boolean> = Result.success(true)
+    override suspend fun isRevokeAuthorizationSupported(): Result<Boolean> =
+        Result.success(true)
 
     override suspend fun revokeAuthorization(): Result<Unit> = runCatching {
         healthConnectClient.permissionController.revokeAllPermissions()
@@ -91,27 +82,20 @@ class HealthConnectManager(
     override suspend fun hasReadHealthDataInBackgroundPermission(): Result<Boolean> = runCatching {
         val grantedPermissions = healthConnectClient.permissionController.getGrantedPermissions()
         val key = getReadHealthDataInBackgroundKey()
-        grantedPermissions.contains(key)
+        key in grantedPermissions
     }
 
-    override suspend fun requestReadHealthDataInBackground(): Result<Boolean> {
+    override suspend fun requestReadHealthDataInBackgroundPermission(): Result<Boolean> {
         return hasReadHealthDataInBackgroundPermission()
-            .mapCatching { hasBackgroundPermission ->
-                if (hasBackgroundPermission) return@mapCatching true
-                try {
-                    val key = getReadHealthDataInBackgroundKey()
-                    HealthConnectPermissionActivity.request(
-                        context,
-                        readPermissions = emptySet(),
-                        writePermissions = emptySet(),
-                        otherPermission = setOf(key)
-                    ).getOrThrow()
-                } catch (_: CancellationException) {
-                    false
-                } catch (ex: Throwable) {
-                    throw ex
-                }
-        }
+            .flatMap { hasBackgroundPermission ->
+                if (hasBackgroundPermission) return Result.success(true)
+
+                requestPermissionWithActivity(
+                    readPermissions = emptySet(),
+                    writePermissions = emptySet(),
+                    otherPermission = setOf(getReadHealthDataInBackgroundKey()),
+                )
+            }
     }
 
     override suspend fun readData(
@@ -200,6 +184,25 @@ class HealthConnectManager(
         }
     }
 
+    private suspend fun requestPermissionWithActivity(
+        readPermissions: Set<String>,
+        writePermissions: Set<String>,
+        otherPermission: Set<String>,
+    ): Result<Boolean> {
+        return HealthConnectPermissionActivity.request(
+            context = context,
+            readPermissions = readPermissions,
+            writePermissions = writePermissions,
+            otherPermission = otherPermission,
+        ).recoverCatching { error ->
+            if (error is CancellationException) {
+                false
+            } else {
+                throw error
+            }
+        }
+    }
+
     private fun getReadHealthDataInBackgroundKey(): String {
         return if (
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.R &&
@@ -213,7 +216,7 @@ class HealthConnectManager(
 }
 
 private val List<HealthDataType>.readPermissions: Set<String>
-    get() = map { it.toHealthPermissions(isRead = true) }.flatten().toSet()
+    get() = flatMap { it.toHealthPermissions(isRead = true) }.toSet()
 
 private val List<HealthDataType>.writePermissions: Set<String>
-    get() = map { it.toHealthPermissions(isWrite = true) }.flatten().toSet()
+    get() = flatMap { it.toHealthPermissions(isWrite = true) }.toSet()

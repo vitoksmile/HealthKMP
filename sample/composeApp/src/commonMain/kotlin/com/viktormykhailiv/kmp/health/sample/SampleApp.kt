@@ -120,8 +120,8 @@ fun SampleApp() {
 
     var isAvailableResult by remember { mutableStateOf(Result.success(false)) }
     var isAuthorizedResult by remember { mutableStateOf<Result<Boolean>?>(null) }
-    var hasBackgroundReadPermissionResult by remember { mutableStateOf<Result<Boolean>?>(null) }
     var isRevokeSupported by remember { mutableStateOf(false) }
+    var hasBackgroundReadPermissionResult by remember { mutableStateOf<Result<Boolean>?>(null) }
     var regionalPreferencesResult by remember { mutableStateOf<Result<RegionalPreferences>?>(null) }
 
     LaunchedEffect(health) {
@@ -133,8 +133,8 @@ fun SampleApp() {
             writeTypes = writeTypes,
         )
         isRevokeSupported = health.isRevokeAuthorizationSupported().getOrNull() == true
-        regionalPreferencesResult = health.getRegionalPreferences()
         hasBackgroundReadPermissionResult = health.hasReadHealthDataInBackgroundPermission()
+        regionalPreferencesResult = health.getRegionalPreferences()
     }
 
     val navController = rememberNavController()
@@ -182,9 +182,10 @@ fun SampleApp() {
                                         coroutineScope.launch {
                                             isAuthorizedResult = health.requestAuthorization(
                                                 readTypes = readTypes,
-                                                writeTypes = writeTypes
+                                                writeTypes = writeTypes,
                                             )
-                                            hasBackgroundReadPermissionResult = health.hasReadHealthDataInBackgroundPermission()
+                                            hasBackgroundReadPermissionResult =
+                                                health.hasReadHealthDataInBackgroundPermission()
                                         }
                                     },
                                 )
@@ -198,7 +199,8 @@ fun SampleApp() {
                                                 readTypes = readTypes,
                                                 writeTypes = writeTypes,
                                             )
-                                            hasBackgroundReadPermissionResult = health.hasReadHealthDataInBackgroundPermission()
+                                            hasBackgroundReadPermissionResult =
+                                                health.hasReadHealthDataInBackgroundPermission()
                                         }
                                     },
                                     colors = ButtonDefaults.buttonColors(
@@ -209,7 +211,12 @@ fun SampleApp() {
                                     Text("Revoke authorization")
                                 }
 
-                            if (isAvailableResult.getOrNull() == true &&
+                            hasBackgroundReadPermissionResult
+                                ?.onSuccess {
+                                    Text("Has background read permission")
+                                }
+                            if (
+                                isAvailableResult.getOrNull() == true &&
                                 isAuthorizedResult?.getOrNull() == true &&
                                 hasBackgroundReadPermissionResult?.getOrNull() != true
                             ) {
@@ -217,7 +224,8 @@ fun SampleApp() {
                                     text = "Request background read permission",
                                     onClick = {
                                         coroutineScope.launch {
-                                            hasBackgroundReadPermissionResult = health.requestReadHealthDataInBackground()
+                                            hasBackgroundReadPermissionResult =
+                                                health.requestReadHealthDataInBackgroundPermission()
                                         }
                                     },
                                 )

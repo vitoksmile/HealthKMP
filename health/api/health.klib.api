@@ -49,7 +49,7 @@ abstract interface com.viktormykhailiv.kmp.health/HealthManager { // com.viktorm
     abstract suspend fun isRevokeAuthorizationSupported(): kotlin/Result<kotlin/Boolean> // com.viktormykhailiv.kmp.health/HealthManager.isRevokeAuthorizationSupported|isRevokeAuthorizationSupported(){}[0]
     abstract suspend fun readData(kotlin.time/Instant, kotlin.time/Instant, com.viktormykhailiv.kmp.health/HealthDataType): kotlin/Result<kotlin.collections/List<com.viktormykhailiv.kmp.health/HealthRecord>> // com.viktormykhailiv.kmp.health/HealthManager.readData|readData(kotlin.time.Instant;kotlin.time.Instant;com.viktormykhailiv.kmp.health.HealthDataType){}[0]
     abstract suspend fun requestAuthorization(kotlin.collections/List<com.viktormykhailiv.kmp.health/HealthDataType>, kotlin.collections/List<com.viktormykhailiv.kmp.health/HealthDataType>, kotlin/Boolean = ...): kotlin/Result<kotlin/Boolean> // com.viktormykhailiv.kmp.health/HealthManager.requestAuthorization|requestAuthorization(kotlin.collections.List<com.viktormykhailiv.kmp.health.HealthDataType>;kotlin.collections.List<com.viktormykhailiv.kmp.health.HealthDataType>;kotlin.Boolean){}[0]
-    abstract suspend fun requestReadHealthDataInBackground(): kotlin/Result<kotlin/Boolean> // com.viktormykhailiv.kmp.health/HealthManager.requestReadHealthDataInBackground|requestReadHealthDataInBackground(){}[0]
+    abstract suspend fun requestReadHealthDataInBackgroundPermission(): kotlin/Result<kotlin/Boolean> // com.viktormykhailiv.kmp.health/HealthManager.requestReadHealthDataInBackgroundPermission|requestReadHealthDataInBackgroundPermission(){}[0]
     abstract suspend fun revokeAuthorization(): kotlin/Result<kotlin/Unit> // com.viktormykhailiv.kmp.health/HealthManager.revokeAuthorization|revokeAuthorization(){}[0]
     abstract suspend fun writeData(kotlin.collections/List<com.viktormykhailiv.kmp.health/HealthRecord>): kotlin/Result<kotlin/Unit> // com.viktormykhailiv.kmp.health/HealthManager.writeData|writeData(kotlin.collections.List<com.viktormykhailiv.kmp.health.HealthRecord>){}[0]
 }
@@ -2362,6 +2362,15 @@ final class com.viktormykhailiv.kmp.health/HealthManagerFactory { // com.viktorm
     constructor <init>() // com.viktormykhailiv.kmp.health/HealthManagerFactory.<init>|<init>(){}[0]
 
     final fun createManager(): com.viktormykhailiv.kmp.health/HealthManager // com.viktormykhailiv.kmp.health/HealthManagerFactory.createManager|createManager(){}[0]
+    final fun createManager(com.viktormykhailiv.kmp.health/HealthManagerFactoryOptions = ...): com.viktormykhailiv.kmp.health/HealthManager // com.viktormykhailiv.kmp.health/HealthManagerFactory.createManager|createManager(com.viktormykhailiv.kmp.health.HealthManagerFactoryOptions){}[0]
+}
+
+final class com.viktormykhailiv.kmp.health/HealthManagerFactoryOptions { // com.viktormykhailiv.kmp.health/HealthManagerFactoryOptions|null[0]
+    constructor <init>() // com.viktormykhailiv.kmp.health/HealthManagerFactoryOptions.<init>|<init>(){}[0]
+
+    final object Companion { // com.viktormykhailiv.kmp.health/HealthManagerFactoryOptions.Companion|null[0]
+        final fun default(): com.viktormykhailiv.kmp.health/HealthManagerFactoryOptions // com.viktormykhailiv.kmp.health/HealthManagerFactoryOptions.Companion.default|default(){}[0]
+    }
 }
 
 final class com.viktormykhailiv.kmp.health/SwiftHealthManager { // com.viktormykhailiv.kmp.health/SwiftHealthManager|null[0]
