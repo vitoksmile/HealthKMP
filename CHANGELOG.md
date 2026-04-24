@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.0](https://github.com/vitoksmile/HealthKMP/releases/tag/1.3.0)
+
+- Added **background health data synchronization** support
+- Added support for **background permissions** on Android (Health Connect)
+- Decoupled **Google Fit** and added **HealthManagerFactoryOptions** to optionally disable it
+
 ## [1.2.0](https://github.com/vitoksmile/HealthKMP/releases/tag/1.2.0)
 
 - Added **energy** unit (calories, kilocalories, joules, kilojoules)
