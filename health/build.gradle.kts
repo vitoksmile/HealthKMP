@@ -23,6 +23,8 @@ kotlin {
         androidResources {
             enable = true
         }
+
+        withHostTest {}
     }
 
     val xcframeworkName = "HealthKMP"
@@ -51,6 +53,11 @@ kotlin {
             api(libs.kotlinx.datetime)
         }
 
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+        }
+
         androidMain.dependencies {
             implementation(libs.androidx.startup.runtime)
             implementation(libs.androidx.core)
@@ -61,6 +68,13 @@ kotlin {
 
             // Health Connect
             implementation(libs.androidx.healthconnect.client)
+        }
+
+        val androidHostTest by getting {
+            dependencies {
+                implementation(libs.kotlin.test)
+                implementation(libs.kotlinx.coroutines.test)
+            }
         }
     }
 
@@ -90,3 +104,5 @@ apiValidation {
         enabled = true
     }
 }
+
+tasks.named("allTests") { dependsOn("testAndroidHostTest") }
