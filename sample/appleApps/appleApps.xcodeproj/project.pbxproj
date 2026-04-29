@@ -13,7 +13,18 @@
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		7741B0EC2DF49F010052CFA3 /* HealthKMP.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7741B0EB2DF49F010052CFA3 /* HealthKMP.xcframework */; };
 		7741B0ED2DF49F010052CFA3 /* HealthKMP.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7741B0EB2DF49F010052CFA3 /* HealthKMP.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		776420522DF48AD900D1DA3D /* watchosApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 776420482DF48AD800D1DA3D /* watchosApp.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		776420502DF48AD900D1DA3D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7555FF73242A565900829871 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 776420472DF48AD800D1DA3D;
+			remoteInfo = watchosApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		7741B0EE2DF49F010052CFA3 /* Embed Frameworks */ = {
@@ -33,6 +44,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
+				776420522DF48AD900D1DA3D /* watchosApp.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,6 +160,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				776420512DF48AD900D1DA3D /* PBXTargetDependency */,
 			);
 			name = iosApp;
 			packageProductDependencies = (
@@ -296,6 +309,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		776420512DF48AD900D1DA3D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 776420472DF48AD800D1DA3D /* watchosApp */;
+			targetProxy = 776420502DF48AD900D1DA3D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		7555FFA3242A565B00829871 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -425,7 +446,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = SD96N82K8P;
+				DEVELOPMENT_TEAM = "${TEAM_ID}";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
