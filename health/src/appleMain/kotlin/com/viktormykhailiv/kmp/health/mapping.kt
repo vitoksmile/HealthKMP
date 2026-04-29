@@ -1192,9 +1192,7 @@ private fun Map<Any?, *>?.toMetadata(id: NSUUID?, device: HKDevice?): Metadata {
     } else {
         null
     }
-    val enteredByUser = metadata.metadataBooleanTrue(HKMetadataKeyWasUserEntered)
-    println("Metadata $metadata Device $device Name $deviceName Manufacturer $deviceManufacturer Entered by user $enteredByUser")
-    val finalResult = when {
+    return when {
         metadata.metadataBooleanTrue(HKMetadataKeyWasUserEntered) -> {
             Metadata.manualEntry(id = id, device = device)
         }
@@ -1207,8 +1205,6 @@ private fun Map<Any?, *>?.toMetadata(id: NSUUID?, device: HKDevice?): Metadata {
             Metadata.unknownRecordingMethod(id = id, device = device)
         }
     }
-    println("Final result $finalResult")
-    return finalResult
 }
 
 private fun Metadata.toHKMetadata(): MutableMap<Any?, Any> {
