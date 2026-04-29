@@ -513,10 +513,7 @@ internal fun List<HKCategorySample>.toHealthRecords(): List<HealthRecord> {
                         HKCategoryValueMenstrualFlowHeavy -> MenstruationFlowRecord.Flow.Heavy
                         else -> MenstruationFlowRecord.Flow.Unknown
                     },
-                    metadata = sample.metadata.toMetadata(
-                        id = sample.UUID,
-                        device = sample.device
-                    )
+                    metadata = sample.toMetadata(),
                 )
             }
 
@@ -533,10 +530,7 @@ internal fun List<HKCategorySample>.toHealthRecords(): List<HealthRecord> {
                     periodRecords += MenstruationPeriodRecord(
                         startTime = periodStartedAt,
                         endTime = samples[i - 1].endDate.toKotlinInstant(),
-                        metadata = sample.metadata.toMetadata(
-                            id = sample.UUID,
-                            device = sample.device
-                        )
+                        metadata = sample.toMetadata(),
                     )
                     periodStartedAt = sample.startDate.toKotlinInstant()
                     continue
@@ -546,10 +540,7 @@ internal fun List<HKCategorySample>.toHealthRecords(): List<HealthRecord> {
                     periodRecords += MenstruationPeriodRecord(
                         startTime = periodStartedAt,
                         endTime = sample.endDate.toKotlinInstant(),
-                        metadata = sample.metadata.toMetadata(
-                            id = sample.UUID,
-                            device = sample.device
-                        ),
+                        metadata = sample.toMetadata(),
                     )
                 }
             }
@@ -570,10 +561,7 @@ internal fun List<HKCategorySample>.toHealthRecords(): List<HealthRecord> {
                 OvulationTestRecord(
                     time = time,
                     result = result,
-                    metadata = sample.metadata.toMetadata(
-                        id = sample.UUID,
-                        device = sample.device
-                    ),
+                    metadata = sample.toMetadata(),
                 )
             }
         }
@@ -595,19 +583,14 @@ internal fun List<HKCategorySample>.toHealthRecords(): List<HealthRecord> {
                 SexualActivityRecord(
                     time = time,
                     protection = protection,
-                    metadata = sample.metadata.toMetadata(
-                        id = sample.UUID,
-                        device = sample.device
-                    ),
+                    metadata = sample.toMetadata(),
                 )
             }
         }
 
         HKCategoryTypeIdentifierSleepAnalysis -> {
             val first = firstOrNull()
-            val device = first?.device
-            val id = first?.UUID
-            val metadata = first?.metadata.toMetadata(id, device)
+            val metadata = first?.metadata.toHealthMetadata(id = first?.UUID, device = first?.device)
             map { sample ->
                 val startTime = sample.startDate.toKotlinInstant()
                 val endTime = sample.endDate.toKotlinInstant()
@@ -710,9 +693,7 @@ internal suspend fun List<HKQuantitySample>.toHealthRecord(
 
         HKQuantityTypeIdentifierCyclingCadence -> {
             val first = firstOrNull()
-            val device = first?.device
-            val id = first?.UUID
-            val metadata = first?.metadata.toMetadata(id, device)
+            val metadata = first?.metadata.toHealthMetadata(id = first?.UUID, device = first?.device)
             map { sample ->
                 CyclingPedalingCadenceRecord.Sample(
                     time = sample.startDate.toKotlinInstant(),
@@ -733,9 +714,7 @@ internal suspend fun List<HKQuantitySample>.toHealthRecord(
 
         HKQuantityTypeIdentifierHeartRate -> {
             val first = firstOrNull()
-            val device = first?.device
-            val id = first?.UUID
-            val metadata = first?.metadata.toMetadata(id, device)
+            val metadata = first?.metadata.toHealthMetadata(id = first?.UUID, device = first?.device)
             map { sample ->
                 HeartRateSampleInternal(
                     startTime = sample.startDate.toKotlinInstant(),
@@ -788,9 +767,7 @@ internal suspend fun List<HKQuantitySample>.toHealthRecord(
 
         HKQuantityTypeIdentifierCyclingPower -> {
             val first = firstOrNull()
-            val device = first?.device
-            val id = first?.UUID
-            val metadata = first?.metadata.toMetadata(id, device)
+            val metadata = first?.metadata.toHealthMetadata(id = first?.UUID, device = first?.device)
             map { sample ->
                 PowerRecord.Sample(
                     time = sample.startDate.toKotlinInstant(),
@@ -858,10 +835,7 @@ internal suspend fun List<HKWorkout>.toHealthRecords(
             startTime = workout.startDate.toKotlinInstant(),
             endTime = workout.endDate.toKotlinInstant(),
             exerciseType = workout.workoutActivityType.toExerciseType(),
-            metadata = workout.metadata.toMetadata(
-                id = workout.UUID,
-                device = workout.device
-            ),
+            metadata = workout.toMetadata(),
             segments = workoutEvents
                 .filter { it.type == HKWorkoutEventTypeSegment }
                 .map { it.toExerciseSegment() },
@@ -1162,10 +1136,18 @@ private fun HKWorkoutEvent.toExerciseSegment(): ExerciseSegment {
 
 // region Metadata
 private fun HKQuantitySample.toMetadata(): Metadata {
-    return metadata.toMetadata(UUID, device)
+    return metadata.toHealthMetadata(UUID, device)
 }
 
-private fun Map<Any?, *>?.toMetadata(id: NSUUID?, device: HKDevice?): Metadata {
+private fun HKCategorySample.toMetadata(): Metadata {
+    return metadata.toHealthMetadata(UUID, device)
+}
+
+private fun HKWorkout.toMetadata(): Metadata {
+    return metadata.toHealthMetadata(UUID, device)
+}
+
+internal fun Map<Any?, Any?>?.toHealthMetadata(id: NSUUID?, device: HKDevice?): Metadata {
     val metadata = this.orEmpty()
     val id = id?.UUIDString ?: Metadata.EMPTY_ID
 
@@ -1192,6 +1174,7 @@ private fun Map<Any?, *>?.toMetadata(id: NSUUID?, device: HKDevice?): Metadata {
     } else {
         null
     }
+
     return when {
         metadata.metadataBooleanTrue(HKMetadataKeyWasUserEntered) -> {
             Metadata.manualEntry(id = id, device = device)
@@ -1216,8 +1199,8 @@ private fun Metadata.toHKMetadata(): MutableMap<Any?, Any> {
     }.toMutableMap()
 }
 
-private fun Map<Any?, Any?>.metadataBooleanTrue(key: String): Boolean =
-    this[key] == true || this[key] == "true" || this[key] == 1.0
+private fun Map<Any?, Any?>?.metadataBooleanTrue(key: String): Boolean =
+    this?.get(key) == true || this?.get(key) == "true" || this?.get(key) == 1.0
 
 /**
  * https://developer.apple.com/documentation/healthkit/metadata-keys
