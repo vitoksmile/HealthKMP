@@ -5,6 +5,7 @@ import com.viktormykhailiv.kmp.health.HealthDataType
 import com.viktormykhailiv.kmp.health.HealthManager
 import com.viktormykhailiv.kmp.health.HealthRecord
 import com.viktormykhailiv.kmp.health.region.RegionalPreferences
+import kotlin.time.Duration
 import kotlin.time.Instant
 
 internal class NoHealthManager : HealthManager {
@@ -66,6 +67,15 @@ internal class NoHealthManager : HealthManager {
         endTime: Instant,
         type: HealthDataType,
     ): Result<HealthAggregatedRecord> {
+        return Result.failure(unavailableException)
+    }
+
+    override suspend fun groupByAggregate(
+        startTime: Instant,
+        endTime: Instant,
+        sliceWidth: Duration,
+        type: HealthDataType,
+    ): Result<List<HealthAggregatedRecord>> {
         return Result.failure(unavailableException)
     }
 

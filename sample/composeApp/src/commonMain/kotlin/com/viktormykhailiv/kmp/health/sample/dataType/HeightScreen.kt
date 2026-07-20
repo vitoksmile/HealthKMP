@@ -34,6 +34,14 @@ fun HeightScreen() {
             Text("Min ${record.min}")
             Text("Max ${record.max}")
         },
+        groupedAggregatedContent = { records ->
+            Text("Grouped Aggregate divided the aggregate data into ${records.size} slices")
+            Text("A slice has an average of: ${records.sumOf { it.avg.inMeters } / records.size} meters")
+            Text("The slices have a total average of: ${records.sumOf { it.avg.inMeters }} meters")
+
+            Text("Min ${records.minOfOrNull { it.min }}")
+            Text("Max ${records.maxOfOrNull { it.max }}")
+        },
         listContent = { height ->
             val average = height.map { it.height.inMeters }.average().meters
             val min = height.minOfOrNull { it.height.inMeters }?.meters

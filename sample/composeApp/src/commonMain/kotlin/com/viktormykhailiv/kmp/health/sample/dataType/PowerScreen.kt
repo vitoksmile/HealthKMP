@@ -44,6 +44,14 @@ fun PowerScreen() {
             Text("Min ${record.min}")
             Text("Max ${record.max}")
         },
+        groupedAggregatedContent = { records ->
+            Text("Grouped Aggregate divided the aggregate data into ${records.size} slices")
+            Text("A slice has an average of: ${records.sumOf { it.avg.inWatts } / records.size} Watts")
+            Text("The slices have a total average of: ${records.sumOf { it.avg.inWatts }} Watts")
+
+            Text("Min ${records.minOfOrNull { it.min }}")
+            Text("Max ${records.maxOfOrNull { it.max }}")
+        },
         listContent = { records ->
             val samples = records.flatMap { it.samples }
             val average = samples.map { it.power.inWatts }.average().watts

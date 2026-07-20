@@ -34,6 +34,14 @@ fun DistanceScreen() {
         aggregatedContent = { record: DistanceAggregatedRecord ->
             Text("Total ${record.distance}")
         },
+        groupedAggregatedContent = { records ->
+            Text("Grouped Aggregate divided the aggregate data into ${records.size} slices")
+            Text("A slice has an average of: ${records.sumOf { it.distance.inMeters } / records.size} meters")
+            Text("The slices have a total of: ${records.sumOf { it.distance.inMeters }} meters")
+
+            Text("Min ${records.minOfOrNull { it.distance.inMeters }} meters")
+            Text("Max ${records.maxOfOrNull { it.distance.inMeters }} meters")
+        },
         listContent = { distance ->
             val average = distance.map { it.distance.inMeters }.average().meters
             val total = distance.sumOf { it.distance.inMeters }.meters

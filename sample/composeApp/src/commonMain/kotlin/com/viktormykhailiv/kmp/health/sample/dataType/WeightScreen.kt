@@ -34,6 +34,14 @@ fun WeightScreen() {
             Text("Min ${record.min}")
             Text("Max ${record.max}")
         },
+        groupedAggregatedContent = { records ->
+            Text("Grouped Aggregate divided the aggregate data into ${records.size} slices")
+            Text("A slice has an average of: ${records.sumOf { it.avg.inKilograms } / records.size} kilograms")
+            Text("The slices have a total average of: ${records.sumOf { it.avg.inKilograms }} kilograms")
+
+            Text("Min ${records.minOfOrNull { it.min }}")
+            Text("Max ${records.maxOfOrNull { it.max }}")
+        },
         listContent = { weight ->
             val average = weight.map { it.weight.inKilograms }.average().kilograms
             val min = weight.minOfOrNull { it.weight.inKilograms }?.kilograms

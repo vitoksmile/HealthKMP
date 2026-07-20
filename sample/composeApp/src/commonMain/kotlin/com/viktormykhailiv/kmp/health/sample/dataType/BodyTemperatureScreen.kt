@@ -42,6 +42,14 @@ fun BodyTemperatureScreen() {
             Text("Min ${record.min}")
             Text("Max ${record.max}")
         },
+        groupedAggregatedContent = { records ->
+            Text("Grouped Aggregate divided the aggregate data into ${records.size} slices")
+            Text("A slice has an average of: ${records.sumOf { it.avg.inCelsius } / records.size} Celsius")
+            Text("The slices have a total average of: ${records.sumOf { it.avg.inCelsius }} Celsius")
+
+            Text("Min ${records.minOfOrNull { it.min }}")
+            Text("Max ${records.maxOfOrNull { it.max }}")
+        },
         listContent = { temperature ->
             val health = LocalHealthManager.current
             var unit by remember { mutableStateOf(TemperatureRegionalPreference.Celsius) }

@@ -33,6 +33,14 @@ fun StepsScreen() {
         aggregatedContent = { record: StepsAggregatedRecord ->
             Text("Total ${record.count}")
         },
+        groupedAggregatedContent = { records ->
+            Text("Grouped Aggregate divided the aggregate data into ${records.size} slices")
+            Text("A slice has an average of: ${records.sumOf { it.count } / records.size} steps")
+            Text("The slices have a total of: ${records.sumOf { it.count }} steps")
+
+            Text("Min ${records.minOfOrNull { it.count }}")
+            Text("Max ${records.maxOfOrNull { it.count }}")
+        },
         listContent = { steps ->
             val average = steps.map { it.count }.average()
             val total = steps.sumOf { it.count }

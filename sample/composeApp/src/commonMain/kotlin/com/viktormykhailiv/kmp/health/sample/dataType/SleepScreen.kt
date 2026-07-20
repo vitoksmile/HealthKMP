@@ -57,6 +57,14 @@ fun SleepScreen() {
         aggregatedContent = { record: SleepAggregatedRecord ->
             Text("Total ${record.totalDuration}")
         },
+        groupedAggregatedContent = { records ->
+            Text("Grouped Aggregate divided the aggregate data into ${records.size} slices")
+            Text("A slice has an average of: ${records.sumOf { it.totalDuration.inWholeMilliseconds } / records.size}  milliseconds")
+            Text("The slices have a total of: ${records.sumOf { it.totalDuration.inWholeMilliseconds }} milliseconds")
+
+            Text("Min ${records.minOfOrNull { it.totalDuration.inWholeMilliseconds }}")
+            Text("Max ${records.maxOfOrNull { it.totalDuration.inWholeMilliseconds }}")
+        },
         listContent = { records ->
             if (records.isEmpty()) {
                 Text("No sleep yet")

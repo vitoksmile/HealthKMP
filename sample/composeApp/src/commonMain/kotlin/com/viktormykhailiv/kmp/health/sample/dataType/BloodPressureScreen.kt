@@ -55,6 +55,14 @@ fun BloodPressureScreen() {
             Text("Min ${record.systolic.min}/${record.diastolic.min}")
             Text("Max ${record.systolic.max}/${record.diastolic.max}")
         },
+        groupedAggregatedContent = { records ->
+            Text("Grouped Aggregate divided the aggregate data into ${records.size} slices")
+            Text("A slice has an average of: ${records.sumOf { it.systolic.avg.inMillimetersOfMercury } / records.size} systolic")
+            Text("The slices have a total average of: ${records.sumOf { it.systolic.avg.inMillimetersOfMercury }} systolic")
+
+            Text("Min ${records.minOfOrNull { it.systolic.min }}/${records.minOfOrNull { it.diastolic.min }}")
+            Text("Max ${records.maxOfOrNull { it.systolic.max }}/${records.maxOfOrNull { it.diastolic.max }}")
+        },
         listContent = { bloodPressure ->
             val systolicAvg = bloodPressure.map { it.systolic.inMillimetersOfMercury }.average()
             val systolicMin = bloodPressure.minOfOrNull { it.systolic.inMillimetersOfMercury }

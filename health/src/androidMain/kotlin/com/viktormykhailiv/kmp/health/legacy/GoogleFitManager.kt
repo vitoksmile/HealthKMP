@@ -20,6 +20,7 @@ import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
 import kotlin.time.Instant
 import java.util.concurrent.CancellationException
 import java.util.concurrent.TimeUnit
+import kotlin.time.Duration
 
 @Deprecated("The Google Fit APIs will be deprecated in 2026")
 class GoogleFitManager(
@@ -139,6 +140,15 @@ class GoogleFitManager(
         endTime: Instant,
         type: HealthDataType,
     ): Result<HealthAggregatedRecord> = runCatching {
+        throw Throwable("The Google Fit APIs will no longer be available.")
+    }
+
+    override suspend fun groupByAggregate(
+        startTime: Instant,
+        endTime: Instant,
+        sliceWidth: Duration,
+        type: HealthDataType,
+    ): Result<List<HealthAggregatedRecord>> = runCatching {
         throw Throwable("The Google Fit APIs will no longer be available.")
     }
 

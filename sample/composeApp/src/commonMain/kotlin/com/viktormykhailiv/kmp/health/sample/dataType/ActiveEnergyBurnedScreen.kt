@@ -34,6 +34,11 @@ fun ActiveEnergyBurnedScreen() {
         aggregatedContent = { record: ActiveEnergyBurnedAggregatedRecord ->
             Text("Total ${record.energy}")
         },
+        groupedAggregatedContent = { records ->
+            Text("Grouped Aggregate divided the aggregate data into ${records.size} slices")
+            Text("A slice has an average of: ${records.sumOf { it.energy.inKilocalories } / records.size} kilocalories")
+            Text("The slices have a total of: ${records.sumOf { it.energy.inKilocalories }} kilocalories")
+        },
         listContent = { energyRecords ->
             val average = energyRecords.map { it.energy.inKilocalories }.average().kilocalories
             val total = energyRecords.sumOf { it.energy.inKilocalories }.kilocalories

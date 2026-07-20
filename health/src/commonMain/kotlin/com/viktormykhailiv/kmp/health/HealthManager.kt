@@ -1,6 +1,7 @@
 package com.viktormykhailiv.kmp.health
 
 import com.viktormykhailiv.kmp.health.region.RegionalPreferences
+import kotlin.time.Duration
 import kotlin.time.Instant
 
 /**
@@ -112,6 +113,24 @@ interface HealthManager {
         endTime: Instant,
         type: HealthDataType,
     ): Result<HealthAggregatedRecord>
+
+
+    /**
+     * Aggregates health data of the specified type within the given time range.
+     *
+     * @param startTime The start time of the range (inclusive).
+     * @param endTime The end time of the range (exclusive).
+     * @param sliceWidth The width of an individual slice of [startTime, endTime).
+     * @param type The [HealthDataType] to aggregate.
+     * @return A [Result] containing a [HealthAggregatedRecord].
+     */
+    suspend fun groupByAggregate(
+        startTime: Instant,
+        endTime: Instant,
+        sliceWidth: Duration,
+        type: HealthDataType,
+    ): Result<List<HealthAggregatedRecord>>
+
 
     /**
      * Retrieves the user's regional preferences (e.g., units).

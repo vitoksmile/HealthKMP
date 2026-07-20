@@ -12,8 +12,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.toDateTimePeriod
 import kotlin.time.Instant
 import kotlinx.datetime.toNSDate
+import platform.Foundation.NSDateComponents
 import platform.Foundation.NSSortDescriptor
 import platform.HealthKit.HKAuthorizationRequestStatusUnnecessary
 import platform.HealthKit.HKCategorySample
@@ -29,6 +31,7 @@ import platform.HealthKit.HKSampleQuery
 import platform.HealthKit.HKSampleSortIdentifierEndDate
 import platform.HealthKit.HKSampleType
 import platform.HealthKit.HKStatistics
+import platform.HealthKit.HKStatisticsCollectionQuery
 import platform.HealthKit.HKStatisticsOptions
 import platform.HealthKit.HKStatisticsQuery
 import platform.HealthKit.HKUnit
@@ -42,6 +45,8 @@ import platform.HealthKit.preferredUnitsForQuantityTypes
 import kotlin.collections.map
 import kotlin.collections.orEmpty
 import kotlin.coroutines.resumeWithException
+import kotlin.map
+import kotlin.time.Duration
 
 /**
  * Apple implementation of [HealthManager] using HealthKit.
@@ -210,6 +215,48 @@ internal class HealthKitManager : HealthManager {
                 }
             }
     }
+
+    override suspend fun groupByAggregate(
+        startTime: Instant,
+        endTime: Instant,
+        sliceWidth: Duration,
+        type: HealthDataType,
+    ): Result<List<HealthAggregatedRecord>> =
+        if (type == Sleep) {
+            // Sleep is not supported for aggregation, aggregate manually
+            readSleep(startTime = startTime, endTime = endTime)
+                .mapCatching { listOf(it.aggregate(startTime = startTime, endTime = endTime)) }
+        }
+        else {
+            val temperaturePreference = suspend { getTemperaturePreference() }
+
+            runCatching { type.toHKQuantityType() }
+                .map { quantityTypes ->
+                    quantityTypes.map { quantityType ->
+                        if (quantityType != null) {
+                            groupByAggregate(
+                                startTime = startTime,
+                                endTime = endTime,
+                                sliceWidth = sliceWidth,
+                                quantityType = quantityType,
+                                options = type.toHKStatisticOptions(),
+                            )
+                                .map { it.map { statistics -> listOf(statistics) } }
+                                .getOrElse { listOf() }
+                        } else {
+                            listOf()
+                        }
+                    }
+                }
+                .mapCatching { statistics ->
+                    statistics.flatMap {
+                        it.mapNotNull {
+                                singularStatisticsList -> singularStatisticsList.toHealthAggregatedRecord(temperaturePreference)
+                        }
+                    }
+                }
+        }
+
 
     override suspend fun getRegionalPreferences(): Result<RegionalPreferences> = runCatching {
         RegionalPreferences(
@@ -431,4 +478,51 @@ internal class HealthKitManager : HealthManager {
         healthStore.executeQuery(query)
     }
 
+    /**
+     * Gets the aggregate data in the range ```[startTime, endTime)```, which is
+     * divided into equal width slices of length ```sliceWidth```.
+     *
+     * In essence, a modified version of [private suspend fun aggregate()]
+     */
+    private suspend fun groupByAggregate(
+        startTime: Instant,
+        endTime: Instant,
+        sliceWidth: Duration,
+        quantityType: HKQuantityType,
+        options: HKStatisticsOptions,
+    ): Result<List<HKStatistics>> = suspendCancellableCoroutine { continuation ->
+        val dateTime = sliceWidth.toDateTimePeriod()
+        val durationInNSDate = NSDateComponents()
+
+        durationInNSDate.year = dateTime.years
+        durationInNSDate.month = dateTime.months
+        durationInNSDate.day = dateTime.days
+        durationInNSDate.hour = dateTime.hours
+        durationInNSDate.minute = dateTime.minutes
+        durationInNSDate.second = dateTime.seconds
+        durationInNSDate.nanosecond = dateTime.nanoseconds
+
+        val query = HKStatisticsCollectionQuery(
+            quantityType = quantityType,
+            quantitySamplePredicate = HKQuery.predicateForSamplesWithStartDate(
+                startDate = startTime.toNSDate(),
+                endDate = endTime.toNSDate(),
+                options = HKQueryOptionStrictStartDate,
+            ),
+            options = options,
+            anchorDate = startTime.toNSDate(),
+            intervalComponents = durationInNSDate
+        )
+
+        query.setInitialResultsHandler { _, result, error ->
+            when {
+                continuation.isCancelled -> Unit
+                error != null -> continuation.resume(Result.failure(Throwable(error.toString())))
+                result == null -> continuation.resume(Result.failure(Throwable("$quantityType data not found")))
+                else -> continuation.resume(runCatching { result.statistics() as List<HKStatistics> })
+            }
+        }
+
+        healthStore.executeQuery(query)
+    }
 }

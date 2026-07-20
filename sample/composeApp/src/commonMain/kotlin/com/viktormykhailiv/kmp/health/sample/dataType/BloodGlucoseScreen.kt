@@ -37,6 +37,14 @@ fun BloodGlucoseScreen() {
             Text("Min ${record.min}")
             Text("Max ${record.max}")
         },
+        groupedAggregatedContent = { records ->
+            Text("Grouped Aggregate divided the aggregate data into ${records.size} slices")
+            Text("A slice has an average of: ${records.sumOf { it.avg.inMillimolesPerLiter } / records.size} mmol/L")
+            Text("The slices have a total average of: ${records.sumOf { it.avg.inMillimolesPerLiter }} mmol/L")
+
+            Text("Min ${records.minOfOrNull { it.min }}")
+            Text("Max ${records.maxOfOrNull { it.max }}")
+        },
         listContent = { glucose ->
             val average = glucose.map { it.level.inMillimolesPerLiter }
                 .average()

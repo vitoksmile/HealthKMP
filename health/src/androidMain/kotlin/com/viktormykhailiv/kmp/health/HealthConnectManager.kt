@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.ext.SdkExtensions
 import androidx.core.text.util.LocalePreferences
 import androidx.health.connect.client.HealthConnectClient
+import androidx.health.connect.client.request.AggregateGroupByDurationRequest
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
@@ -16,8 +17,11 @@ import com.viktormykhailiv.kmp.health.HealthDataType.LeanBodyMass
 import com.viktormykhailiv.kmp.health.region.RegionalPreferences
 import com.viktormykhailiv.kmp.health.region.TemperatureRegionalPreference
 import kotlinx.coroutines.CancellationException
+import kotlin.time.Duration
 import kotlin.time.Instant
+import kotlin.time.toJavaDuration
 import kotlin.time.toJavaInstant
+import kotlin.time.toKotlinInstant
 
 /**
  * Android implementation of [HealthManager] using Health Connect.
@@ -170,6 +174,59 @@ class HealthConnectManager(
             }
         }
     }
+
+    override suspend fun groupByAggregate(
+        startTime: Instant,
+        endTime: Instant,
+        sliceWidth: Duration,
+        type: HealthDataType,
+    ): Result<List<HealthAggregatedRecord>> = runCatching {
+        when (type) {
+            BloodGlucose -> {
+                listOf(aggregateBloodGlucose(startTime = startTime, endTime = endTime))
+            }
+
+            BodyFat -> {
+                listOf(aggregateBodyFat(startTime = startTime, endTime = endTime))
+            }
+
+            BodyTemperature -> {
+                listOf(aggregateBodyTemperature(startTime = startTime, endTime = endTime))
+            }
+
+            LeanBodyMass -> {
+                listOf(aggregateLeanBodyMass(startTime = startTime, endTime = endTime))
+            }
+
+            else -> {
+                /**
+                 * Here, the biggest difference to the ```suspend fun aggregate()``` is that
+                 * this calls the GroupBy -methods for the aggregated data
+                 */
+                val request = AggregateGroupByDurationRequest(
+                    metrics = type.toAggregateMetrics(),
+                    timeRangeFilter = TimeRangeFilter.between(
+                        startTime = startTime.toJavaInstant(),
+                        endTime = endTime.toJavaInstant(),
+                    ),
+                    timeRangeSlicer = sliceWidth.toJavaDuration(),
+                )
+
+                val response = healthConnectClient.aggregateGroupByDuration(request)
+
+                response.map {
+                    it
+                        .result
+                        .toHealthAggregatedRecord(
+                            startTime = it.startTime.toKotlinInstant(),
+                            endTime = it.endTime.toKotlinInstant(),
+                            type = type
+                        )
+                }
+            }
+        }
+    }
+
 
     override suspend fun getRegionalPreferences(): Result<RegionalPreferences> = runCatching {
         RegionalPreferences(

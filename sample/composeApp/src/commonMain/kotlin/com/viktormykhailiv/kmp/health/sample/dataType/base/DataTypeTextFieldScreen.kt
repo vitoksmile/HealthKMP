@@ -52,6 +52,7 @@ inline fun <T, reified R : HealthRecord> DataTypeTextFieldScreen(
         deserializer = deserializer,
         writer = writer,
         aggregatedContent = null,
+        groupedAggregatedContent = null,
         listContent = listContent,
     )
 }
@@ -65,6 +66,7 @@ inline fun <T, reified R : HealthRecord, reified A : HealthAggregatedRecord> Dat
     noinline deserializer: (String) -> T,
     noinline writer: (T) -> List<R>,
     noinline aggregatedContent: (@Composable (A) -> Unit)?,
+    noinline groupedAggregatedContent: (@Composable (List<A>) -> Unit)?,
     noinline listContent: @Composable (List<R>) -> Unit,
 ) {
     DataTypeScreen(
@@ -83,6 +85,7 @@ inline fun <T, reified R : HealthRecord, reified A : HealthAggregatedRecord> Dat
             )
         },
         aggregatedContent = aggregatedContent,
+        groupedAggregateContent = groupedAggregatedContent,
         listContent = listContent,
     )
 }
@@ -103,6 +106,7 @@ inline fun <T, reified R : HealthRecord> DataTypeScreen(
         writer = writer,
         pickerContent = pickerContent,
         aggregatedContent = null,
+        groupedAggregatedContent = null,
         listContent = listContent,
     )
 }
@@ -115,6 +119,7 @@ inline fun <T, reified R : HealthRecord, reified A : HealthAggregatedRecord> Dat
     noinline writer: (T) -> List<R>,
     noinline pickerContent: @Composable ColumnScope.(DataTypeScreenPickerController<T>) -> Unit,
     noinline aggregatedContent: (@Composable (A) -> Unit)?,
+    noinline groupedAggregatedContent: (@Composable (List<A>) -> Unit)?,
     noinline listContent: @Composable (List<R>) -> Unit,
 ) {
     DataTypeScreen(
@@ -126,6 +131,7 @@ inline fun <T, reified R : HealthRecord, reified A : HealthAggregatedRecord> Dat
         writer = writer,
         pickerContent = pickerContent,
         aggregatedContent = aggregatedContent,
+        groupedAggregateContent = groupedAggregatedContent,
         listContent = listContent,
     )
 }
@@ -140,6 +146,7 @@ fun <T, R : HealthRecord, A : HealthAggregatedRecord> DataTypeScreen(
     writer: (T) -> List<R>,
     pickerContent: @Composable ColumnScope.(controller: DataTypeScreenPickerController<T>) -> Unit,
     aggregatedContent: (@Composable (A) -> Unit)?,
+    groupedAggregateContent: (@Composable (List<A>) -> Unit)?,
     listContent: @Composable (List<R>) -> Unit,
 ) {
     val healthManager = LocalHealthManager.current
@@ -148,6 +155,7 @@ fun <T, R : HealthRecord, A : HealthAggregatedRecord> DataTypeScreen(
     val pickerController = remember { DataTypeScreenPickerControllerImpl(initialValue) }
     var readResult by remember { mutableStateOf<Result<List<R>>?>(null) }
     var aggregatedResult by remember { mutableStateOf<Result<A>?>(null) }
+    var groupedAggregatedResult by remember { mutableStateOf<Result<List<A>>?>(null) }
     var writeResult by remember { mutableStateOf<Result<Unit>?>(null) }
 
     fun readData() {
@@ -184,9 +192,29 @@ fun <T, R : HealthRecord, A : HealthAggregatedRecord> DataTypeScreen(
         }
     }
 
+    fun groupByAggregateData() {
+        if (!isAggregateSupported) return
+        coroutineScope.launch {
+            groupedAggregatedResult = healthManager.groupByAggregate(
+                startTime = Clock.System.now()
+                    .minus(7.days),
+                endTime = Clock.System.now(),
+                sliceWidth = 1.days,
+                type = type,
+            )
+            .mapCatching { res ->
+                res.map {
+                    @Suppress("UNCHECKED_CAST")
+                    it as A
+                }
+            }
+        }
+    }
+
     LaunchedEffect(Unit) {
         readData()
         aggregateData()
+        groupByAggregateData()
     }
 
     Scaffold(
@@ -221,6 +249,18 @@ fun <T, R : HealthRecord, A : HealthAggregatedRecord> DataTypeScreen(
                 )
                 aggregatedResult
                     ?.onSuccess { aggregatedContent(it) }
+                    ?.onFailure { Text("Failed to aggregate $it") }
+
+                Divider()
+            }
+
+            if (isAggregateSupported) {
+                AppButton(
+                    text = "Grouped Aggregate",
+                    onClick = { groupByAggregateData() },
+                )
+                groupedAggregatedResult
+                    ?.onSuccess { groupedAggregateContent?.invoke(it) }
                     ?.onFailure { Text("Failed to aggregate $it") }
 
                 Divider()
