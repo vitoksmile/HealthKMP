@@ -2,7 +2,7 @@ package com.viktormykhailiv.kmp.health.aggregate
 
 import com.viktormykhailiv.kmp.health.HealthAggregatedRecord
 import com.viktormykhailiv.kmp.health.HealthDataType
-import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
+import com.viktormykhailiv.kmp.health.HealthDataType.Height
 import com.viktormykhailiv.kmp.health.units.Length
 import kotlin.time.Instant
 
@@ -21,5 +21,5 @@ data class HeightAggregatedRecord(
     val max: Length,
 ) : HealthAggregatedRecord {
 
-    override val dataType: HealthDataType = HeartRate
+    override val dataType: HealthDataType = Height
 }

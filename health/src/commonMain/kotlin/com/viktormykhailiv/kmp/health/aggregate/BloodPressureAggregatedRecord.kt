@@ -2,7 +2,7 @@ package com.viktormykhailiv.kmp.health.aggregate
 
 import com.viktormykhailiv.kmp.health.HealthAggregatedRecord
 import com.viktormykhailiv.kmp.health.HealthDataType
-import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
+import com.viktormykhailiv.kmp.health.HealthDataType.BloodPressure
 import com.viktormykhailiv.kmp.health.units.Pressure
 import kotlin.time.Instant
 
@@ -19,7 +19,7 @@ data class BloodPressureAggregatedRecord(
     val diastolic: AggregatedRecord,
 ) : HealthAggregatedRecord {
 
-    override val dataType: HealthDataType = HeartRate
+    override val dataType: HealthDataType = BloodPressure
 
     /**
      * Captures the aggregated user's blood pressure.
