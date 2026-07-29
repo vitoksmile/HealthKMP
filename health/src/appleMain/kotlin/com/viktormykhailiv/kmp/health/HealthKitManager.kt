@@ -494,13 +494,13 @@ internal class HealthKitManager : HealthManager {
         val dateTime = sliceWidth.toDateTimePeriod()
         val durationInNSDate = NSDateComponents()
 
-        durationInNSDate.year = dateTime.years
-        durationInNSDate.month = dateTime.months
-        durationInNSDate.day = dateTime.days
-        durationInNSDate.hour = dateTime.hours
-        durationInNSDate.minute = dateTime.minutes
-        durationInNSDate.second = dateTime.seconds
-        durationInNSDate.nanosecond = dateTime.nanoseconds
+        durationInNSDate.year = dateTime.years.toLong()
+        durationInNSDate.month = dateTime.months.toLong()
+        durationInNSDate.day = dateTime.days.toLong()
+        durationInNSDate.hour = dateTime.hours.toLong()
+        durationInNSDate.minute = dateTime.minutes.toLong()
+        durationInNSDate.second = dateTime.seconds.toLong()
+        durationInNSDate.nanosecond = dateTime.nanoseconds.toLong()
 
         val query = HKStatisticsCollectionQuery(
             quantityType = quantityType,
