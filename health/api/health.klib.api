@@ -2399,14 +2399,11 @@ final class com.viktormykhailiv.kmp.health.units/Mass : kotlin/Comparable<com.vi
 }
 
 final class com.viktormykhailiv.kmp.health.units/Percentage : kotlin/Comparable<com.viktormykhailiv.kmp.health.units/Percentage> { // com.viktormykhailiv.kmp.health.units/Percentage|null[0]
-    constructor <init>(kotlin/Double) // com.viktormykhailiv.kmp.health.units/Percentage.<init>|<init>(kotlin.Double){}[0]
-
     final val value // com.viktormykhailiv.kmp.health.units/Percentage.value|{}value[0]
         final fun <get-value>(): kotlin/Double // com.viktormykhailiv.kmp.health.units/Percentage.value.<get-value>|<get-value>(){}[0]
 
     final fun compareTo(com.viktormykhailiv.kmp.health.units/Percentage): kotlin/Int // com.viktormykhailiv.kmp.health.units/Percentage.compareTo|compareTo(com.viktormykhailiv.kmp.health.units.Percentage){}[0]
     final fun component1(): kotlin/Double // com.viktormykhailiv.kmp.health.units/Percentage.component1|component1(){}[0]
-    final fun copy(kotlin/Double = ...): com.viktormykhailiv.kmp.health.units/Percentage // com.viktormykhailiv.kmp.health.units/Percentage.copy|copy(kotlin.Double){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // com.viktormykhailiv.kmp.health.units/Percentage.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // com.viktormykhailiv.kmp.health.units/Percentage.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // com.viktormykhailiv.kmp.health.units/Percentage.toString|toString(){}[0]
