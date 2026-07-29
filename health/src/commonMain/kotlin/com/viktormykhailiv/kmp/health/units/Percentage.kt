@@ -5,7 +5,9 @@ import kotlin.jvm.JvmSynthetic
 /**
  * Represents a value as a percentage, not a fraction - for example 100%, 89.62%, etc.
  */
-data class Percentage(val value: Double) : Comparable<Percentage> {
+data class Percentage internal constructor(
+    val value: Double,
+) : Comparable<Percentage> {
 
     override fun compareTo(other: Percentage): Int = value.compareTo(other.value)
 

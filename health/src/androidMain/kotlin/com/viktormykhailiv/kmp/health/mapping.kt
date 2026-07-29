@@ -34,10 +34,10 @@ import com.viktormykhailiv.kmp.health.units.BloodGlucose
 import com.viktormykhailiv.kmp.health.units.Energy
 import com.viktormykhailiv.kmp.health.units.Length
 import com.viktormykhailiv.kmp.health.units.Mass
-import com.viktormykhailiv.kmp.health.units.Percentage
 import com.viktormykhailiv.kmp.health.units.Power
 import com.viktormykhailiv.kmp.health.units.Pressure
 import com.viktormykhailiv.kmp.health.units.Temperature
+import com.viktormykhailiv.kmp.health.units.percent
 import com.viktormykhailiv.kmp.health.units.kilocalories
 import kotlin.time.toJavaInstant
 import kotlin.time.toKotlinInstant
@@ -549,7 +549,7 @@ internal fun HCRecord.toHealthRecord(
 
     is HCBodyFatRecord -> BodyFatRecord(
         time = record.time.toKotlinInstant(),
-        percentage = Percentage(record.percentage.value),
+        percentage = record.percentage.value.percent,
         metadata = record.metadata.toMetadata(),
     )
 
