@@ -163,6 +163,11 @@ class HealthConnectManager(
         )
     }
 
+    /**
+     * Aggregates data by duration. For types requiring custom aggregation (e.g., [BloodGlucose],
+     * [BodyFat], [BodyTemperature], [LeanBodyMass]), Health Connect does not support native
+     * duration grouping. Thus, a single aggregate record spanning [startTime, endTime) is returned.
+     */
     override suspend fun aggregateGroupByDuration(
         startTime: Instant,
         endTime: Instant,
