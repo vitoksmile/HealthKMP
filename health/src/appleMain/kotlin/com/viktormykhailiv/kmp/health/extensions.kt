@@ -43,10 +43,16 @@ import com.viktormykhailiv.kmp.health.records.PowerRecord
 import com.viktormykhailiv.kmp.health.records.SexualActivityRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.WeightRecord
+import kotlin.time.Duration
 import kotlin.time.Instant
-import kotlinx.datetime.toNSDate
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.convert
+import kotlinx.datetime.toDateTimePeriod
 import kotlinx.datetime.toKotlinInstant
+import kotlinx.datetime.toNSDate
 import platform.Foundation.NSDate
+import platform.Foundation.NSDateComponents
 
 /**
  * Converts the [Instant] to an instance of [NSDate].
@@ -57,6 +63,23 @@ fun Instant.toNSDate(): NSDate = toNSDate()
  * Converts the [NSDate] to the corresponding [Instant].
  */
 fun NSDate.toKotlinInstant(): Instant = toKotlinInstant()
+
+/**
+ * Converts the [Duration] to an instance of [NSDateComponents].
+ */
+@OptIn(UnsafeNumber::class, ExperimentalForeignApi::class)
+fun Duration.toNSDateComponents(): NSDateComponents {
+    val dateTime = toDateTimePeriod()
+    return NSDateComponents().apply {
+        year = dateTime.years.convert()
+        month = dateTime.months.convert()
+        day = dateTime.days.convert()
+        hour = dateTime.hours.convert()
+        minute = dateTime.minutes.convert()
+        second = dateTime.seconds.convert()
+        nanosecond = dateTime.nanoseconds.convert()
+    }
+}
 
 // region Read extensions
 @Throws(Throwable::class)

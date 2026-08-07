@@ -14,6 +14,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -192,10 +193,10 @@ fun <T, R : HealthRecord, A : HealthAggregatedRecord> DataTypeScreen(
         }
     }
 
-    fun groupByAggregateData() {
+    fun aggregateGroupByDurationData() {
         if (!isAggregateSupported) return
         coroutineScope.launch {
-            groupedAggregatedResult = healthManager.groupByAggregate(
+            groupedAggregatedResult = healthManager.aggregateGroupByDuration(
                 startTime = Clock.System.now()
                     .minus(7.days),
                 endTime = Clock.System.now(),
@@ -214,7 +215,7 @@ fun <T, R : HealthRecord, A : HealthAggregatedRecord> DataTypeScreen(
     LaunchedEffect(Unit) {
         readData()
         aggregateData()
-        groupByAggregateData()
+        aggregateGroupByDurationData()
     }
 
     Scaffold(
@@ -257,7 +258,7 @@ fun <T, R : HealthRecord, A : HealthAggregatedRecord> DataTypeScreen(
             if (isAggregateSupported) {
                 AppButton(
                     text = "Grouped Aggregate",
-                    onClick = { groupByAggregateData() },
+                    onClick = { aggregateGroupByDurationData() },
                 )
                 groupedAggregatedResult
                     ?.onSuccess { groupedAggregateContent?.invoke(it) }
@@ -311,13 +312,14 @@ object DataTypeScreenDefaults {
     }
 }
 
+@Stable
 interface DataTypeScreenPickerController<T> {
 
     var value: T
 
 }
 
-class DataTypeScreenPickerControllerImpl<T>(
+private class DataTypeScreenPickerControllerImpl<T>(
     initialValue: () -> T,
 ) : DataTypeScreenPickerController<T> {
 

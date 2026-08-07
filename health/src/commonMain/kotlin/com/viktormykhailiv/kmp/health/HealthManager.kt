@@ -101,12 +101,12 @@ interface HealthManager {
     ): Result<Unit>
 
     /**
-     * Aggregates health data of the specified type within the given time range.
+     * Calculates aggregation for [HealthDataType] within the specified time range.
      *
      * @param startTime The start time of the range (inclusive).
      * @param endTime The end time of the range (exclusive).
      * @param type The [HealthDataType] to aggregate.
-     * @return A [Result] containing a [HealthAggregatedRecord].
+     * @return A [Result] containing a single [HealthAggregatedRecord] for the entire time range.
      */
     suspend fun aggregate(
         startTime: Instant,
@@ -114,23 +114,22 @@ interface HealthManager {
         type: HealthDataType,
     ): Result<HealthAggregatedRecord>
 
-
     /**
-     * Aggregates health data of the specified type within the given time range.
+     * Calculates aggregation for [HealthDataType] within the specified time range,
+     * grouped into equal-duration slices.
      *
      * @param startTime The start time of the range (inclusive).
      * @param endTime The end time of the range (exclusive).
-     * @param sliceWidth The width of an individual slice of [startTime, endTime).
+     * @param sliceWidth The duration of each time slice (bucket) within [startTime, endTime).
      * @param type The [HealthDataType] to aggregate.
-     * @return A [Result] containing a [HealthAggregatedRecord].
+     * @return A [Result] containing a list of [HealthAggregatedRecord]s for each time slice.
      */
-    suspend fun groupByAggregate(
+    suspend fun aggregateGroupByDuration(
         startTime: Instant,
         endTime: Instant,
         sliceWidth: Duration,
         type: HealthDataType,
     ): Result<List<HealthAggregatedRecord>>
-
 
     /**
      * Retrieves the user's regional preferences (e.g., units).

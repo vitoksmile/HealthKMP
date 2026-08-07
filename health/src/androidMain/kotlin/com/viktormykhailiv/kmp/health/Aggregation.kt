@@ -59,6 +59,23 @@ import kotlin.time.Instant
 import kotlin.time.toKotlinDuration
 
 /**
+ * Returns `true` if the [HealthDataType] requires custom manual aggregation.
+ *
+ * This is necessary because Health Connect does not support native aggregation metrics
+ * (such as [AggregateMetric]) or built-in aggregation requests for certain data types
+ * (e.g., [BloodGlucose], [BodyFat], [BodyTemperature], [LeanBodyMass]). For these types,
+ * raw records are fetched and aggregated manually.
+ */
+internal val HealthDataType.isCustomAggregate: Boolean
+    get() = when (this) {
+        BloodGlucose,
+        BodyFat,
+        BodyTemperature,
+        LeanBodyMass -> true
+        else -> false
+    }
+
+/**
  * Note: following `AggregateMetric` must be aligned with [toHealthAggregatedRecord].
  *
  * @throws IllegalArgumentException if `HealthDataType` can't be aggregated.

@@ -139,94 +139,78 @@ class HealthConnectManager(
         endTime: Instant,
         type: HealthDataType,
     ): Result<HealthAggregatedRecord> = runCatching {
-        when (type) {
-            BloodGlucose -> {
-                aggregateBloodGlucose(startTime = startTime, endTime = endTime)
-            }
-
-            BodyFat -> {
-                aggregateBodyFat(startTime = startTime, endTime = endTime)
-            }
-
-            BodyTemperature -> {
-                aggregateBodyTemperature(startTime = startTime, endTime = endTime)
-            }
-
-            LeanBodyMass -> {
-                aggregateLeanBodyMass(startTime = startTime, endTime = endTime)
-            }
-
-            else -> {
-                val request = AggregateRequest(
-                    metrics = type.toAggregateMetrics(),
-                    timeRangeFilter = TimeRangeFilter.between(
-                        startTime = startTime.toJavaInstant(),
-                        endTime = endTime.toJavaInstant(),
-                    ),
-                )
-                val response = healthConnectClient.aggregate(request)
-
-                response.toHealthAggregatedRecord(
-                    startTime = startTime,
-                    endTime = endTime,
-                    type = type,
-                )
-            }
+        if (type.isCustomAggregate) {
+            return@runCatching aggregateCustom(
+                startTime = startTime,
+                endTime = endTime,
+                type = type,
+            )
         }
+
+        val request = AggregateRequest(
+            metrics = type.toAggregateMetrics(),
+            timeRangeFilter = TimeRangeFilter.between(
+                startTime = startTime.toJavaInstant(),
+                endTime = endTime.toJavaInstant(),
+            ),
+        )
+        val response = healthConnectClient.aggregate(request)
+
+        response.toHealthAggregatedRecord(
+            startTime = startTime,
+            endTime = endTime,
+            type = type,
+        )
     }
 
-    override suspend fun groupByAggregate(
+    override suspend fun aggregateGroupByDuration(
         startTime: Instant,
         endTime: Instant,
         sliceWidth: Duration,
         type: HealthDataType,
     ): Result<List<HealthAggregatedRecord>> = runCatching {
-        when (type) {
-            BloodGlucose -> {
-                listOf(aggregateBloodGlucose(startTime = startTime, endTime = endTime))
-            }
-
-            BodyFat -> {
-                listOf(aggregateBodyFat(startTime = startTime, endTime = endTime))
-            }
-
-            BodyTemperature -> {
-                listOf(aggregateBodyTemperature(startTime = startTime, endTime = endTime))
-            }
-
-            LeanBodyMass -> {
-                listOf(aggregateLeanBodyMass(startTime = startTime, endTime = endTime))
-            }
-
-            else -> {
-                /**
-                 * Here, the biggest difference to the ```suspend fun aggregate()``` is that
-                 * this calls the GroupBy -methods for the aggregated data
-                 */
-                val request = AggregateGroupByDurationRequest(
-                    metrics = type.toAggregateMetrics(),
-                    timeRangeFilter = TimeRangeFilter.between(
-                        startTime = startTime.toJavaInstant(),
-                        endTime = endTime.toJavaInstant(),
-                    ),
-                    timeRangeSlicer = sliceWidth.toJavaDuration(),
-                )
-
-                val response = healthConnectClient.aggregateGroupByDuration(request)
-
-                response.map {
-                    it
-                        .result
-                        .toHealthAggregatedRecord(
-                            startTime = it.startTime.toKotlinInstant(),
-                            endTime = it.endTime.toKotlinInstant(),
-                            type = type
-                        )
-                }
-            }
+        if (type.isCustomAggregate) {
+            return@runCatching listOf(
+                aggregate(
+                    startTime = startTime,
+                    endTime = endTime,
+                    type = type,
+                ).getOrThrow()
+            )
         }
+
+        val request = AggregateGroupByDurationRequest(
+            metrics = type.toAggregateMetrics(),
+            timeRangeFilter = TimeRangeFilter.between(
+                startTime = startTime.toJavaInstant(),
+                endTime = endTime.toJavaInstant(),
+            ),
+            timeRangeSlicer = sliceWidth.toJavaDuration(),
+        )
+
+        healthConnectClient.aggregateGroupByDuration(request)
+            .map { response ->
+                response
+                    .result
+                    .toHealthAggregatedRecord(
+                        startTime = response.startTime.toKotlinInstant(),
+                        endTime = response.endTime.toKotlinInstant(),
+                        type = type,
+                    )
+            }
     }
 
+    private suspend fun aggregateCustom(
+        startTime: Instant,
+        endTime: Instant,
+        type: HealthDataType,
+    ): HealthAggregatedRecord = when (type) {
+        BloodGlucose -> aggregateBloodGlucose(startTime = startTime, endTime = endTime)
+        BodyFat -> aggregateBodyFat(startTime = startTime, endTime = endTime)
+        BodyTemperature -> aggregateBodyTemperature(startTime = startTime, endTime = endTime)
+        LeanBodyMass -> aggregateLeanBodyMass(startTime = startTime, endTime = endTime)
+        else -> throw IllegalArgumentException("Unsupported custom aggregate type: $type")
+    }
 
     override suspend fun getRegionalPreferences(): Result<RegionalPreferences> = runCatching {
         RegionalPreferences(

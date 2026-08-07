@@ -653,20 +653,17 @@ suspend fun HealthManager.aggregateWeight(
  * @param sliceWidth The width of an individual slice of [startTime, endTime).
  * @return A [Result] containing a [ActiveEnergyBurnedAggregatedRecord].
  */
-suspend fun HealthManager.groupByAggregateActiveEnergyBurned(
+suspend fun HealthManager.aggregateActiveEnergyBurnedGroupByDuration(
     startTime: Instant,
     endTime: Instant,
-    sliceWidth: Duration
+    sliceWidth: Duration,
 ): Result<List<ActiveEnergyBurnedAggregatedRecord>> =
-    groupByAggregate(
+    aggregateGroupByDuration(
         startTime = startTime,
         endTime = endTime,
         sliceWidth = sliceWidth,
         type = ActiveEnergyBurned,
-    )
-    .mapCatching { res ->
-        res.map { it as ActiveEnergyBurnedAggregatedRecord }
-    }
+    ).map { it.filterIsInstance<ActiveEnergyBurnedAggregatedRecord>() }
 
 /**
  * Slices [BloodGlucoseRecord]s aggregate data within the specified time range.
@@ -676,20 +673,17 @@ suspend fun HealthManager.groupByAggregateActiveEnergyBurned(
  * @param sliceWidth The width of an individual slice of [startTime, endTime).
  * @return A [Result] containing a [BloodGlucoseAggregatedRecord].
  */
-suspend fun HealthManager.groupByAggregateBloodGlucose(
+suspend fun HealthManager.aggregateBloodGlucoseGroupByDuration(
     startTime: Instant,
     endTime: Instant,
-    sliceWidth: Duration
+    sliceWidth: Duration,
 ): Result<List<BloodGlucoseAggregatedRecord>> =
-    groupByAggregate(
+    aggregateGroupByDuration(
         startTime = startTime,
         endTime = endTime,
         sliceWidth = sliceWidth,
         type = BloodGlucose,
-    )
-    .mapCatching { res ->
-        res.map { it as BloodGlucoseAggregatedRecord }
-    }
+    ).map { it.filterIsInstance<BloodGlucoseAggregatedRecord>() }
 
 /**
  * Slices [BloodPressureRecord]s aggregate data within the specified time range.
@@ -699,20 +693,17 @@ suspend fun HealthManager.groupByAggregateBloodGlucose(
  * @param sliceWidth The width of an individual slice of [startTime, endTime).
  * @return A [Result] containing a [BloodPressureAggregatedRecord].
  */
-suspend fun HealthManager.groupByAggregateBloodPressure(
+suspend fun HealthManager.aggregateBloodPressureGroupByDuration(
     startTime: Instant,
     endTime: Instant,
-    sliceWidth: Duration
+    sliceWidth: Duration,
 ): Result<List<BloodPressureAggregatedRecord>> =
-    groupByAggregate(
+    aggregateGroupByDuration(
         startTime = startTime,
         endTime = endTime,
         sliceWidth = sliceWidth,
         type = BloodPressure,
-    )
-    .mapCatching { res ->
-        res.map { it as BloodPressureAggregatedRecord }
-    }
+    ).map { it.filterIsInstance<BloodPressureAggregatedRecord>() }
 
 /**
  * Slices [BodyFatRecord]s aggregate data within the specified time range.
@@ -722,20 +713,17 @@ suspend fun HealthManager.groupByAggregateBloodPressure(
  * @param sliceWidth The width of an individual slice of [startTime, endTime).
  * @return A [Result] containing a [BodyFatAggregatedRecord].
  */
-suspend fun HealthManager.groupByAggregateBodyFat(
+suspend fun HealthManager.aggregateBodyFatGroupByDuration(
     startTime: Instant,
     endTime: Instant,
-    sliceWidth: Duration
+    sliceWidth: Duration,
 ): Result<List<BodyFatAggregatedRecord>> =
-    groupByAggregate(
+    aggregateGroupByDuration(
         startTime = startTime,
         endTime = endTime,
         sliceWidth = sliceWidth,
         type = BodyFat,
-    )
-    .mapCatching { res ->
-        res.map { it as BodyFatAggregatedRecord }
-    }
+    ).map { it.filterIsInstance<BodyFatAggregatedRecord>() }
 
 /**
  * Slices [BodyTemperatureRecord]s aggregate data within the specified time range.
@@ -745,20 +733,17 @@ suspend fun HealthManager.groupByAggregateBodyFat(
  * @param sliceWidth The width of an individual slice of [startTime, endTime).
  * @return A [Result] containing a [BodyTemperatureAggregatedRecord].
  */
-suspend fun HealthManager.groupByAggregateBodyTemperature(
+suspend fun HealthManager.aggregateBodyTemperatureGroupByDuration(
     startTime: Instant,
     endTime: Instant,
-    sliceWidth: Duration
+    sliceWidth: Duration,
 ): Result<List<BodyTemperatureAggregatedRecord>> =
-    groupByAggregate(
+    aggregateGroupByDuration(
         startTime = startTime,
         endTime = endTime,
         sliceWidth = sliceWidth,
         type = BodyTemperature,
-    )
-    .mapCatching { res ->
-        res.map { it as BodyTemperatureAggregatedRecord }
-    }
+    ).map { it.filterIsInstance<BodyTemperatureAggregatedRecord>() }
 
 /**
  * Slices [CyclingPedalingCadenceRecord]s aggregate data within the specified time range.
@@ -768,20 +753,17 @@ suspend fun HealthManager.groupByAggregateBodyTemperature(
  * @param sliceWidth The width of an individual slice of [startTime, endTime).
  * @return A [Result] containing a [CyclingPedalingCadenceAggregatedRecord].
  */
-suspend fun HealthManager.groupByAggregateCyclingPedalingCadence(
+suspend fun HealthManager.aggregateCyclingPedalingCadenceGroupByDuration(
     startTime: Instant,
     endTime: Instant,
-    sliceWidth: Duration
+    sliceWidth: Duration,
 ): Result<List<CyclingPedalingCadenceAggregatedRecord>> =
-    groupByAggregate(
+    aggregateGroupByDuration(
         startTime = startTime,
         endTime = endTime,
         sliceWidth = sliceWidth,
         type = CyclingPedalingCadence,
-    )
-    .mapCatching { res ->
-        res.map { it as CyclingPedalingCadenceAggregatedRecord }
-    }
+    ).map { it.filterIsInstance<CyclingPedalingCadenceAggregatedRecord>() }
 
 /**
  * Slices [DistanceRecord]s aggregate data within the specified time range.
@@ -791,20 +773,17 @@ suspend fun HealthManager.groupByAggregateCyclingPedalingCadence(
  * @param sliceWidth The width of an individual slice of [startTime, endTime).
  * @return A [Result] containing a [DistanceAggregatedRecord].
  */
-suspend fun HealthManager.groupByAggregateDistance(
+suspend fun HealthManager.aggregateDistanceGroupByDuration(
     startTime: Instant,
     endTime: Instant,
-    sliceWidth: Duration
+    sliceWidth: Duration,
 ): Result<List<DistanceAggregatedRecord>> =
-    groupByAggregate(
+    aggregateGroupByDuration(
         startTime = startTime,
         endTime = endTime,
         sliceWidth = sliceWidth,
         type = Distance,
-    )
-    .mapCatching { res ->
-        res.map { it as DistanceAggregatedRecord }
-    }
+    ).map { it.filterIsInstance<DistanceAggregatedRecord>() }
 
 /**
  * Slices [HeartRateRecord]s aggregate data within the specified time range.
@@ -814,20 +793,17 @@ suspend fun HealthManager.groupByAggregateDistance(
  * @param sliceWidth The width of an individual slice of [startTime, endTime).
  * @return A [Result] containing a [HeartRateAggregatedRecord].
  */
-suspend fun HealthManager.groupByAggregateHeartRate(
+suspend fun HealthManager.aggregateHeartRateGroupByDuration(
     startTime: Instant,
     endTime: Instant,
-    sliceWidth: Duration
+    sliceWidth: Duration,
 ): Result<List<HeartRateAggregatedRecord>> =
-    groupByAggregate(
+    aggregateGroupByDuration(
         startTime = startTime,
         endTime = endTime,
         sliceWidth = sliceWidth,
         type = HeartRate,
-    )
-    .mapCatching { res ->
-        res.map { it as HeartRateAggregatedRecord }
-    }
+    ).map { it.filterIsInstance<HeartRateAggregatedRecord>() }
 
 /**
  * Slices [HeightRecord]s aggregate data within the specified time range.
@@ -837,20 +813,17 @@ suspend fun HealthManager.groupByAggregateHeartRate(
  * @param sliceWidth The width of an individual slice of [startTime, endTime).
  * @return A [Result] containing a [HeightAggregatedRecord].
  */
-suspend fun HealthManager.groupByAggregateHeight(
+suspend fun HealthManager.aggregateHeightGroupByDuration(
     startTime: Instant,
     endTime: Instant,
-    sliceWidth: Duration
+    sliceWidth: Duration,
 ): Result<List<HeightAggregatedRecord>> =
-    groupByAggregate(
+    aggregateGroupByDuration(
         startTime = startTime,
         endTime = endTime,
         sliceWidth = sliceWidth,
         type = Height,
-    )
-    .mapCatching { res ->
-        res.map { it as HeightAggregatedRecord }
-    }
+    ).map { it.filterIsInstance<HeightAggregatedRecord>() }
 
 /**
  * Slices [LeanBodyMassRecord]s aggregate data within the specified time range.
@@ -860,20 +833,17 @@ suspend fun HealthManager.groupByAggregateHeight(
  * @param sliceWidth The width of an individual slice of [startTime, endTime).
  * @return A [Result] containing a [LeanBodyMassAggregatedRecord].
  */
-suspend fun HealthManager.groupByAggregateLeanBodyMass(
+suspend fun HealthManager.aggregateLeanBodyMassGroupByDuration(
     startTime: Instant,
     endTime: Instant,
-    sliceWidth: Duration
+    sliceWidth: Duration,
 ): Result<List<LeanBodyMassAggregatedRecord>> =
-    groupByAggregate(
+    aggregateGroupByDuration(
         startTime = startTime,
         endTime = endTime,
         sliceWidth = sliceWidth,
         type = LeanBodyMass,
-    )
-    .mapCatching { res ->
-        res.map { it as LeanBodyMassAggregatedRecord }
-    }
+    ).map { it.filterIsInstance<LeanBodyMassAggregatedRecord>() }
 
 /**
  * Slices [PowerRecord]s aggregate data within the specified time range.
@@ -883,20 +853,17 @@ suspend fun HealthManager.groupByAggregateLeanBodyMass(
  * @param sliceWidth The width of an individual slice of [startTime, endTime).
  * @return A [Result] containing a [PowerAggregatedRecord].
  */
-suspend fun HealthManager.groupByAggregatePower(
+suspend fun HealthManager.aggregatePowerGroupByDuration(
     startTime: Instant,
     endTime: Instant,
-    sliceWidth: Duration
+    sliceWidth: Duration,
 ): Result<List<PowerAggregatedRecord>> =
-    groupByAggregate(
+    aggregateGroupByDuration(
         startTime = startTime,
         endTime = endTime,
         sliceWidth = sliceWidth,
         type = Power,
-    )
-    .mapCatching { res ->
-        res.map { it as PowerAggregatedRecord }
-    }
+    ).map { it.filterIsInstance<PowerAggregatedRecord>() }
 
 /**
  * Slices [SleepSessionRecord]s aggregate data within the specified time range.
@@ -906,20 +873,17 @@ suspend fun HealthManager.groupByAggregatePower(
  * @param sliceWidth The width of an individual slice of [startTime, endTime).
  * @return A [Result] containing a [SleepAggregatedRecord].
  */
-suspend fun HealthManager.groupByAggregateSleep(
+suspend fun HealthManager.aggregateSleepGroupByDuration(
     startTime: Instant,
     endTime: Instant,
-    sliceWidth: Duration
+    sliceWidth: Duration,
 ): Result<List<SleepAggregatedRecord>> =
-    groupByAggregate(
+    aggregateGroupByDuration(
         startTime = startTime,
         endTime = endTime,
         sliceWidth = sliceWidth,
         type = Sleep,
-    )
-    .mapCatching { res ->
-        res.map { it as SleepAggregatedRecord }
-    }
+    ).map { it.filterIsInstance<SleepAggregatedRecord>() }
 
 /**
  * Slices [StepsRecord]s aggregate data within the specified time range.
@@ -929,20 +893,17 @@ suspend fun HealthManager.groupByAggregateSleep(
  * @param sliceWidth The width of an individual slice of [startTime, endTime).
  * @return A [Result] containing a [StepsAggregatedRecord].
  */
-suspend fun HealthManager.groupByAggregateSteps(
+suspend fun HealthManager.aggregateStepsGroupByDuration(
     startTime: Instant,
     endTime: Instant,
-    sliceWidth: Duration
+    sliceWidth: Duration,
 ): Result<List<StepsAggregatedRecord>> =
-    groupByAggregate(
+    aggregateGroupByDuration(
         startTime = startTime,
         endTime = endTime,
         sliceWidth = sliceWidth,
         type = Steps,
-    )
-    .mapCatching { res ->
-        res.map { it as StepsAggregatedRecord }
-    }
+    ).map { it.filterIsInstance<StepsAggregatedRecord>() }
 
 /**
  * Slices [WeightRecord]s aggregate data within the specified time range.
@@ -952,18 +913,15 @@ suspend fun HealthManager.groupByAggregateSteps(
  * @param sliceWidth The width of an individual slice of [startTime, endTime).
  * @return A [Result] containing a [WeightAggregatedRecord].
  */
-suspend fun HealthManager.groupByAggregateWeight(
+suspend fun HealthManager.aggregateWeightGroupByDuration(
     startTime: Instant,
     endTime: Instant,
-    sliceWidth: Duration
+    sliceWidth: Duration,
 ): Result<List<WeightAggregatedRecord>> =
-    groupByAggregate(
+    aggregateGroupByDuration(
         startTime = startTime,
         endTime = endTime,
         sliceWidth = sliceWidth,
         type = Weight,
-    )
-    .mapCatching { res ->
-        res.map { it as WeightAggregatedRecord }
-    }
+    ).map { it.filterIsInstance<WeightAggregatedRecord>() }
 // endregion

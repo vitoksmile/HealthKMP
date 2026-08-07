@@ -70,7 +70,7 @@ internal class NoHealthManager : HealthManager {
         return Result.failure(unavailableException)
     }
 
-    override suspend fun groupByAggregate(
+    override suspend fun aggregateGroupByDuration(
         startTime: Instant,
         endTime: Instant,
         sliceWidth: Duration,

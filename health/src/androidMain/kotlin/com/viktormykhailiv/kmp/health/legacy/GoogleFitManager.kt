@@ -143,7 +143,7 @@ class GoogleFitManager(
         throw Throwable("The Google Fit APIs will no longer be available.")
     }
 
-    override suspend fun groupByAggregate(
+    override suspend fun aggregateGroupByDuration(
         startTime: Instant,
         endTime: Instant,
         sliceWidth: Duration,
