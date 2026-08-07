@@ -238,7 +238,13 @@ fun <T, R : HealthRecord, A : HealthAggregatedRecord> DataTypeScreen(
                 onClick = { readData() },
             )
             readResult
-                ?.onSuccess { listContent(it) }
+                ?.onSuccess { records ->
+                    if (records.isEmpty()) {
+                        Text("No data")
+                    } else {
+                        listContent(records)
+                    }
+                }
                 ?.onFailure { Text("Failed to read $it") }
 
             Divider()
@@ -261,7 +267,13 @@ fun <T, R : HealthRecord, A : HealthAggregatedRecord> DataTypeScreen(
                     onClick = { aggregateGroupByDurationData() },
                 )
                 groupedAggregatedResult
-                    ?.onSuccess { groupedAggregateContent?.invoke(it) }
+                    ?.onSuccess { records ->
+                        if (records.isEmpty()) {
+                            Text("No grouped aggregate data")
+                        } else {
+                            groupedAggregateContent?.invoke(records)
+                        }
+                    }
                     ?.onFailure { Text("Failed to aggregate $it") }
 
                 Divider()
