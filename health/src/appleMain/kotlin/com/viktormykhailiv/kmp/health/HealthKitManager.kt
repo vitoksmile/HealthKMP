@@ -229,7 +229,7 @@ internal class HealthKitManager : HealthManager {
 
             runCatching { type.toHKQuantityType() }
                 .map { quantityTypes ->
-                    quantityTypes.map { quantityType ->
+                    quantityTypes.flatMap { quantityType ->
                         if (quantityType != null) {
                             aggregateGroupByDuration(
                                 startTime = startTime,
@@ -237,20 +237,19 @@ internal class HealthKitManager : HealthManager {
                                 sliceWidth = sliceWidth,
                                 quantityType = quantityType,
                                 options = type.toHKStatisticOptions(),
-                            )
-                                .map { it.map { statistics -> listOf(statistics) } }
-                                .getOrElse { listOf() }
+                            ).getOrDefault(emptyList())
                         } else {
-                            listOf()
+                            emptyList()
                         }
                     }
                 }
-                .mapCatching { statistics ->
-                    statistics.flatMap {
-                        it.mapNotNull { singularStatisticsList ->
-                            singularStatisticsList.toHealthAggregatedRecord(temperaturePreference)
+                .mapCatching { statisticsList ->
+                    statisticsList
+                        .groupBy { it.startDate }
+                        .values
+                        .mapNotNull { sliceStatistics ->
+                            sliceStatistics.toHealthAggregatedRecord(temperaturePreference)
                         }
-                    }
                 }
         }
 

@@ -221,9 +221,11 @@ internal suspend fun List<HKStatistics>.toHealthAggregatedRecord(
         HKQuantityTypeIdentifierBloodPressureSystolic,
         HKQuantityTypeIdentifierBloodPressureDiastolic -> {
             val systolic =
-                first { it.quantityType.identifier == HKQuantityTypeIdentifierBloodPressureSystolic }
+                firstOrNull { it.quantityType.identifier == HKQuantityTypeIdentifierBloodPressureSystolic }
             val diastolic =
-                first { it.quantityType.identifier == HKQuantityTypeIdentifierBloodPressureDiastolic }
+                firstOrNull { it.quantityType.identifier == HKQuantityTypeIdentifierBloodPressureDiastolic }
+
+            if (systolic == null || diastolic == null) return null
 
             BloodPressureAggregatedRecord(
                 startTime = record.startDate.toKotlinInstant(),
