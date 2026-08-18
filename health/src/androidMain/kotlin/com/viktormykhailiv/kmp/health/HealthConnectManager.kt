@@ -302,38 +302,26 @@ class HealthConnectManager(
         requestReadHealthDataInBackground: Boolean,
         requestReadHealthDataHistory: Boolean,
     ): Result<Set<String>> {
-        val backgroundPermissionKey = if (requestReadHealthDataInBackground) {
-            if (isAuthorized) {
-                hasReadHealthDataInBackgroundPermission()
-                    .map { if (it) null else getReadHealthDataInBackgroundKey() }
-            } else {
-                Result.success(getReadHealthDataInBackgroundKey())
-            }
-        } else {
-            Result.success(null)
+        val backgroundPermissionKey = when {
+            !requestReadHealthDataInBackground -> Result.success(null)
+            !isAuthorized -> Result.success(getReadHealthDataInBackgroundKey())
+            else -> hasReadHealthDataInBackgroundPermission()
+                .map { if (it) null else getReadHealthDataInBackgroundKey() }
         }
 
-        val historyPermissionKey = if (requestReadHealthDataHistory) {
-            if (isAuthorized) {
-                hasReadHealthDataHistoryPermission()
-                    .map { if (it) null else getReadHealthDataHistoryKey() }
-            } else {
-                Result.success(getReadHealthDataHistoryKey())
-            }
-        } else {
-            Result.success(null)
+        val historyPermissionKey = when {
+            !requestReadHealthDataHistory -> Result.success(null)
+            !isAuthorized -> Result.success(getReadHealthDataHistoryKey())
+            else -> hasReadHealthDataHistoryPermission()
+                .map { if (it) null else getReadHealthDataHistoryKey() }
         }
 
-        return backgroundPermissionKey
-            .flatMap { backgroundPermissionKey ->
-                historyPermissionKey
-                    .map { historyPermissionKey ->
-                        setOfNotNull(
-                            backgroundPermissionKey,
-                            historyPermissionKey,
-                        )
-                    }
-            }
+        return runCatching {
+            setOfNotNull(
+                backgroundPermissionKey.getOrThrow(),
+                historyPermissionKey.getOrThrow(),
+            )
+        }
     }
 }
 
