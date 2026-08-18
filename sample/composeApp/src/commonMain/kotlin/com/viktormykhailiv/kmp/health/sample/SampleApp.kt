@@ -130,6 +130,7 @@ fun SampleApp() {
     var isAuthorizedResult by remember { mutableStateOf<Result<Boolean>?>(null) }
     var isRevokeSupported by remember { mutableStateOf(false) }
     var hasBackgroundReadPermissionResult by remember { mutableStateOf<Result<Boolean>?>(null) }
+    var hasReadHistoryPermissionResult by remember { mutableStateOf<Result<Boolean>?>(null) }
     var regionalPreferencesResult by remember { mutableStateOf<Result<RegionalPreferences>?>(null) }
 
     LaunchedEffect(health) {
@@ -142,6 +143,7 @@ fun SampleApp() {
         )
         isRevokeSupported = health.isRevokeAuthorizationSupported().getOrNull() == true
         hasBackgroundReadPermissionResult = health.hasReadHealthDataInBackgroundPermission()
+        hasReadHistoryPermissionResult = health.hasReadHealthDataHistoryPermission()
         regionalPreferencesResult = health.getRegionalPreferences()
     }
 
@@ -194,6 +196,8 @@ fun SampleApp() {
                                             )
                                             hasBackgroundReadPermissionResult =
                                                 health.hasReadHealthDataInBackgroundPermission()
+                                            hasReadHistoryPermissionResult =
+                                                health.hasReadHealthDataHistoryPermission()
                                         }
                                     },
                                 )
@@ -209,6 +213,8 @@ fun SampleApp() {
                                             )
                                             hasBackgroundReadPermissionResult =
                                                 health.hasReadHealthDataInBackgroundPermission()
+                                            hasReadHistoryPermissionResult =
+                                                health.hasReadHealthDataHistoryPermission()
                                         }
                                     },
                                     colors = ButtonDefaults.buttonColors(
@@ -234,6 +240,26 @@ fun SampleApp() {
                                         coroutineScope.launch {
                                             hasBackgroundReadPermissionResult =
                                                 health.requestReadHealthDataInBackgroundPermission()
+                                        }
+                                    },
+                                )
+                            }
+
+                            hasReadHistoryPermissionResult
+                                ?.onSuccess {
+                                    Text("Read history permission - granted: $it")
+                                }
+                            if (
+                                isAvailableResult.getOrNull() == true &&
+                                isAuthorizedResult?.getOrNull() == true &&
+                                hasReadHistoryPermissionResult?.getOrNull() != true
+                            ) {
+                                AppButton(
+                                    text = "Request read history permission",
+                                    onClick = {
+                                        coroutineScope.launch {
+                                            hasReadHistoryPermissionResult =
+                                                health.requestReadHealthDataHistoryPermission()
                                         }
                                     },
                                 )
