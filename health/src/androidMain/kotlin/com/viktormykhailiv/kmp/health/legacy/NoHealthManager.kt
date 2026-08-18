@@ -30,6 +30,7 @@ internal class NoHealthManager : HealthManager {
         readTypes: List<HealthDataType>,
         writeTypes: List<HealthDataType>,
         requestReadHealthDataInBackground: Boolean,
+        requestReadHealthDataHistory: Boolean,
     ): Result<Boolean> {
         return Result.failure(unavailableException)
     }
@@ -47,6 +48,14 @@ internal class NoHealthManager : HealthManager {
     }
 
     override suspend fun requestReadHealthDataInBackgroundPermission(): Result<Boolean> {
+        return Result.failure(unavailableException)
+    }
+
+    override suspend fun hasReadHealthDataHistoryPermission(): Result<Boolean> {
+        return Result.failure(unavailableException)
+    }
+
+    override suspend fun requestReadHealthDataHistoryPermission(): Result<Boolean> {
         return Result.failure(unavailableException)
     }
 

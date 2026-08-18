@@ -60,6 +60,7 @@ class GoogleFitManager(
         readTypes: List<HealthDataType>,
         writeTypes: List<HealthDataType>,
         requestReadHealthDataInBackground: Boolean,
+        requestReadHealthDataHistory: Boolean,
     ): Result<Boolean> =
         isAuthorized(readTypes = readTypes, writeTypes = writeTypes)
             .mapCatching { isAuthorized ->
@@ -92,6 +93,12 @@ class GoogleFitManager(
         Result.success(true)
 
     override suspend fun requestReadHealthDataInBackgroundPermission(): Result<Boolean> =
+        Result.failure(NotImplementedError())
+
+    override suspend fun hasReadHealthDataHistoryPermission(): Result<Boolean> =
+        Result.success(true)
+
+    override suspend fun requestReadHealthDataHistoryPermission(): Result<Boolean> =
         Result.failure(NotImplementedError())
 
     override suspend fun readData(

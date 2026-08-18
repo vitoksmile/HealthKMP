@@ -37,12 +37,14 @@ interface HealthManager {
      * @param readTypes The list of [HealthDataType] to request read authorization for.
      * @param writeTypes The list of [HealthDataType] to request write authorization for.
      * @param requestReadHealthDataInBackground Whether to also request permission to read health data while the app is in the background.
+     * @param requestReadHealthDataHistory Whether to also request permission to read health data history.
      * @return A [Result] containing true if authorization was granted for the requested types, false otherwise.
      */
     suspend fun requestAuthorization(
         readTypes: List<HealthDataType>,
         writeTypes: List<HealthDataType>,
         requestReadHealthDataInBackground: Boolean = false,
+        requestReadHealthDataHistory: Boolean = false,
     ): Result<Boolean>
 
     /**
@@ -75,6 +77,23 @@ interface HealthManager {
      * @return A [Result] containing true if background read authorization was granted, false otherwise.
      */
     suspend fun requestReadHealthDataInBackgroundPermission(): Result<Boolean>
+
+    /**
+     * Checks if the app has permission to read health data history.
+     *
+     * @return A [Result] containing true if read history permission is granted, false otherwise.
+     */
+    suspend fun hasReadHealthDataHistoryPermission(): Result<Boolean>
+
+    /**
+     * Requests authorization from the user to read health data history.
+     *
+     * On some platforms (like Android with Health Connect), this may require a separate
+     * permission request from the standard authorization.
+     *
+     * @return A [Result] containing true if read history permission was granted, false otherwise.
+     */
+    suspend fun requestReadHealthDataHistoryPermission(): Result<Boolean>
 
     /**
      * Reads health data records of the specified type within the given time range.
