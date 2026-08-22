@@ -12,6 +12,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -148,6 +150,7 @@ fun SampleApp() {
     }
 
     val navController = rememberNavController()
+    val snackbarHostState = remember { SnackbarHostState() }
     MaterialTheme {
         CompositionLocalProvider(
             LocalHealthManager provides health,
@@ -164,6 +167,9 @@ fun SampleApp() {
                                 title = "HealthKMP",
                             )
                         },
+                        snackbarHost = {
+                            SnackbarHost(hostState = snackbarHostState)
+                        },
                     ) { paddingValues ->
                         Column(
                             modifier = Modifier
@@ -178,12 +184,12 @@ fun SampleApp() {
 
                             isAvailableResult
                                 .onFailure {
-                                    Text("HealthManager isAvailable=$it")
+                                    Text("HealthManager is not available $it")
                                 }
 
                             isAuthorizedResult
                                 ?.onFailure {
-                                    Text("HealthManager isAuthorized=$it")
+                                    Text("HealthManager is not authorized $it")
                                 }
                             if (isAvailableResult.getOrNull() == true && isAuthorizedResult?.getOrNull() != true)
                                 AppButton(
@@ -207,6 +213,12 @@ fun SampleApp() {
                                     onClick = {
                                         coroutineScope.launch {
                                             health.revokeAuthorization()
+                                                .onFailure {
+                                                    coroutineScope.launch {
+                                                        snackbarHostState.showSnackbar("Failed to revoke authorization $it")
+                                                    }
+                                                }
+
                                             isAuthorizedResult = health.isAuthorized(
                                                 readTypes = readTypes,
                                                 writeTypes = writeTypes,
@@ -227,7 +239,7 @@ fun SampleApp() {
 
                             hasBackgroundReadPermissionResult
                                 ?.onSuccess {
-                                    Text("Has background read permission")
+                                    Text("Background read permission - granted: $it")
                                 }
                             if (
                                 isAvailableResult.getOrNull() == true &&

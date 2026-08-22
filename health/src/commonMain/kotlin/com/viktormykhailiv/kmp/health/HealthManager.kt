@@ -138,7 +138,7 @@ interface HealthManager {
      * grouped into equal-duration slices.
      *
      * Note: On Android (Health Connect), metrics that require custom aggregation (such as
-     * [BloodGlucose], [BodyFat], [BodyTemperature], and [LeanBodyMass]) do not support native
+     * BloodGlucose, BodyFat, BodyTemperature, and LeanBodyMass) do not support native
      * duration slicing and will return a single aggregate record spanning [startTime, endTime).
      *
      * @param startTime The start time of the range (inclusive).
