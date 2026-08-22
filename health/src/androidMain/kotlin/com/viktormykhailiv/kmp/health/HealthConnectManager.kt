@@ -1,9 +1,12 @@
 package com.viktormykhailiv.kmp.health
 
 import android.content.Context
+import android.content.Intent
 import android.health.connect.HealthPermissions
+import android.net.Uri
 import android.os.Build
 import android.os.ext.SdkExtensions
+import android.provider.Settings
 import androidx.core.text.util.LocalePreferences
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.HealthConnectFeatures
@@ -81,8 +84,29 @@ class HealthConnectManager(
     override suspend fun isRevokeAuthorizationSupported(): Result<Boolean> =
         Result.success(true)
 
+    /**
+     * Revokes all granted Health Connect permissions.
+     *
+     * **Note:** Revoking permissions in Health Connect triggers Android runtime permission revocation,
+     * which causes process termination (process death) by the Android OS or requires the application to be
+     * killed and re-opened for permission changes to fully take effect across cached IPC states.
+     */
     override suspend fun revokeAuthorization(): Result<Unit> = runCatching {
         healthConnectClient.permissionController.revokeAllPermissions()
+    }
+
+    override fun openSystemHealthSettings(): Result<Unit> = runCatching {
+        val intent = Intent(HealthConnectClient.ACTION_HEALTH_CONNECT_SETTINGS)
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+        context.startActivity(intent)
+    }.recoverCatching {
+        val appSettingsIntent = Intent(
+            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+            Uri.fromParts("package", context.packageName, null)
+        ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+        context.startActivity(appSettingsIntent)
     }
 
     override suspend fun hasReadHealthDataInBackgroundPermission(): Result<Boolean> = runCatching {

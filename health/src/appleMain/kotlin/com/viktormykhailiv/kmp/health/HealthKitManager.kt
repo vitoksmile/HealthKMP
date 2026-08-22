@@ -104,6 +104,9 @@ internal class HealthKitManager : HealthManager {
     override suspend fun revokeAuthorization(): Result<Unit> =
         Result.failure(NotImplementedError())
 
+    override fun openSystemHealthSettings(): Result<Unit> =
+        openAppleHealthSettings()
+
     override suspend fun hasReadHealthDataInBackgroundPermission(): Result<Boolean> =
         Result.success(true)
 

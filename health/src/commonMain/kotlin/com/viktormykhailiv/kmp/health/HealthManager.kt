@@ -57,9 +57,29 @@ interface HealthManager {
     /**
      * Revokes all previously granted authorizations.
      *
+     * **Platform Behavior & Important Notes:**
+     * - **Android (Health Connect):** Calling this method revokes all permissions via Health Connect.
+     *   On Android, runtime permission revocation causes the system to terminate (kill) the application process
+     *   or requires the app process to be killed and re-opened for permission changes to fully take effect across
+     *   cached states.
+     * - **Android (Google Fit):** Revokes the Google Sign-In session.
+     * - **Apple (HealthKit):** Revoking authorization programmatically is not supported by Apple HealthKit.
+     *   Users must revoke access manually in System Settings.
+     *
      * @return A [Result] containing [Unit] if successful.
      */
     suspend fun revokeAuthorization(): Result<Unit>
+
+    /**
+     * Opens the system settings screen for health data permissions or privacy management.
+     *
+     * - **Android (Health Connect):** Opens the Health Connect settings screen (falls back to application details settings).
+     * - **Android (Google Fit):** Opens the application's system settings screen.
+     * - **Apple (iOS):** Opens the application's system settings screen.
+     *
+     * @return A [Result] containing [Unit] if the settings screen was successfully opened.
+     */
+    fun openSystemHealthSettings(): Result<Unit>
 
     /**
      * Checks if the app has permission to read health data while running in the background.

@@ -25,7 +25,7 @@ struct ContentView: View {
     @State private var isLoading: Bool = true
     @State private var isAvailable: Bool = false
     @State private var isAuthorized: Bool = false
-    @State private var temperaturePreference: TemperatureRegionalPreference? = nil
+    @State private var temperaturePreference: HealthKMP.TemperatureRegionalPreference? = nil
     @State private var error: String? = nil
     
     var body: some View {

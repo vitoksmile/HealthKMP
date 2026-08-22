@@ -3,8 +3,11 @@
 package com.viktormykhailiv.kmp.health.legacy
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import androidx.core.text.util.LocalePreferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -87,6 +90,14 @@ class GoogleFitManager(
     override suspend fun revokeAuthorization(): Result<Unit> = runCatching {
         val options = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
         GoogleSignIn.getClient(context, options).signOut().await()
+    }
+
+    override fun openSystemHealthSettings(): Result<Unit> = runCatching {
+        val intent = Intent(
+            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+            Uri.fromParts("package", context.packageName, null)
+        ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
     }
 
     override suspend fun hasReadHealthDataInBackgroundPermission(): Result<Boolean> =

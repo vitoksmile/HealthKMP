@@ -10,85 +10,73 @@ import kotlin.time.Instant
 
 internal class NoHealthManager : HealthManager {
 
-    internal class HealthManagerUnavailableException :
-        RuntimeException("Health manager is not available on this device")
-
-    private val unavailableException by lazy { HealthManagerUnavailableException() }
-
-    override fun isAvailable(): Result<Boolean> {
-        return Result.success(false)
-    }
+    override fun isAvailable(): Result<Boolean> =
+        Result.success(false)
 
     override suspend fun isAuthorized(
         readTypes: List<HealthDataType>,
         writeTypes: List<HealthDataType>,
-    ): Result<Boolean> {
-        return Result.failure(unavailableException)
-    }
+    ): Result<Boolean> =
+        notAvailable()
 
     override suspend fun requestAuthorization(
         readTypes: List<HealthDataType>,
         writeTypes: List<HealthDataType>,
         requestReadHealthDataInBackground: Boolean,
         requestReadHealthDataHistory: Boolean,
-    ): Result<Boolean> {
-        return Result.failure(unavailableException)
-    }
+    ): Result<Boolean> =
+        notAvailable()
 
-    override suspend fun isRevokeAuthorizationSupported(): Result<Boolean> {
-        return Result.failure(unavailableException)
-    }
+    override suspend fun isRevokeAuthorizationSupported(): Result<Boolean> =
+        notAvailable()
 
-    override suspend fun revokeAuthorization(): Result<Unit> {
-        return Result.failure(unavailableException)
-    }
+    override suspend fun revokeAuthorization(): Result<Unit> =
+        notAvailable()
 
-    override suspend fun hasReadHealthDataInBackgroundPermission(): Result<Boolean> {
-        return Result.failure(unavailableException)
-    }
+    override fun openSystemHealthSettings(): Result<Unit> =
+        notAvailable()
 
-    override suspend fun requestReadHealthDataInBackgroundPermission(): Result<Boolean> {
-        return Result.failure(unavailableException)
-    }
+    override suspend fun hasReadHealthDataInBackgroundPermission(): Result<Boolean> =
+        notAvailable()
 
-    override suspend fun hasReadHealthDataHistoryPermission(): Result<Boolean> {
-        return Result.failure(unavailableException)
-    }
+    override suspend fun requestReadHealthDataInBackgroundPermission(): Result<Boolean> =
+        notAvailable()
 
-    override suspend fun requestReadHealthDataHistoryPermission(): Result<Boolean> {
-        return Result.failure(unavailableException)
-    }
+    override suspend fun hasReadHealthDataHistoryPermission(): Result<Boolean> =
+        notAvailable()
+
+    override suspend fun requestReadHealthDataHistoryPermission(): Result<Boolean> =
+        notAvailable()
 
     override suspend fun readData(
         startTime: Instant,
         endTime: Instant,
         type: HealthDataType,
-    ): Result<List<HealthRecord>> {
-        return Result.failure(unavailableException)
-    }
+    ): Result<List<HealthRecord>> =
+        notAvailable()
 
-    override suspend fun writeData(records: List<HealthRecord>): Result<Unit> {
-        return Result.failure(unavailableException)
-    }
+    override suspend fun writeData(records: List<HealthRecord>): Result<Unit> =
+        notAvailable()
 
     override suspend fun aggregate(
         startTime: Instant,
         endTime: Instant,
         type: HealthDataType,
-    ): Result<HealthAggregatedRecord> {
-        return Result.failure(unavailableException)
-    }
+    ): Result<HealthAggregatedRecord> =
+        notAvailable()
 
     override suspend fun aggregateGroupByDuration(
         startTime: Instant,
         endTime: Instant,
         sliceWidth: Duration,
         type: HealthDataType,
-    ): Result<List<HealthAggregatedRecord>> {
-        return Result.failure(unavailableException)
-    }
+    ): Result<List<HealthAggregatedRecord>> =
+        notAvailable()
 
-    override suspend fun getRegionalPreferences(): Result<RegionalPreferences> {
-        return Result.failure(unavailableException)
-    }
+    override suspend fun getRegionalPreferences(): Result<RegionalPreferences> =
+        notAvailable()
+
+    private fun <T> notAvailable(): Result<T> =
+        Result.failure(RuntimeException("Health manager is not available on this device"))
+
 }

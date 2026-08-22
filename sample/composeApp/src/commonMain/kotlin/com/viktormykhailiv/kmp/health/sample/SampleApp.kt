@@ -208,15 +208,30 @@ fun SampleApp() {
                                     },
                                 )
 
+                            if (isAvailableResult.getOrNull() == true) {
+                                AppButton(
+                                    text = "Open system health settings",
+                                    onClick = {
+                                        health.openSystemHealthSettings()
+                                            .onFailure {
+                                                coroutineScope.launch {
+                                                    snackbarHostState.showSnackbar("Failed to open health settings $it")
+                                                }
+                                            }
+                                    },
+                                )
+                            }
+
                             if (isAvailableResult.getOrNull() == true && isRevokeSupported && isAuthorizedResult?.getOrNull() == true)
                                 Button(
                                     onClick = {
                                         coroutineScope.launch {
                                             health.revokeAuthorization()
+                                                .onSuccess {
+                                                    snackbarHostState.showSnackbar("Authorization revoked.\nNote: App restart might be required for permission changes.")
+                                                }
                                                 .onFailure {
-                                                    coroutineScope.launch {
-                                                        snackbarHostState.showSnackbar("Failed to revoke authorization $it")
-                                                    }
+                                                    snackbarHostState.showSnackbar("Failed to revoke authorization $it")
                                                 }
 
                                             isAuthorizedResult = health.isAuthorized(

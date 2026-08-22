@@ -62,6 +62,11 @@ class SwiftHealthManager(
     }
 
     @Throws(Throwable::class)
+    fun openSystemHealthSettings() {
+        manager.openSystemHealthSettings().getOrThrow()
+    }
+
+    @Throws(Throwable::class)
     suspend fun readData(
         startTime: NSDate,
         endTime: NSDate,
