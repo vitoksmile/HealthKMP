@@ -6,6 +6,8 @@ import android.os.Build
 import android.os.ext.SdkExtensions
 import androidx.core.text.util.LocalePreferences
 import androidx.health.connect.client.HealthConnectClient
+import androidx.health.connect.client.HealthConnectFeatures
+import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.request.AggregateGroupByDurationRequest
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
@@ -52,27 +54,27 @@ class HealthConnectManager(
     override suspend fun requestAuthorization(
         readTypes: List<HealthDataType>,
         writeTypes: List<HealthDataType>,
-        requestReadHealthDataInBackground: Boolean
+        requestReadHealthDataInBackground: Boolean,
+        requestReadHealthDataHistory: Boolean,
     ): Result<Boolean> =
         isAuthorized(readTypes = readTypes, writeTypes = writeTypes)
             .flatMap { isAuthorized ->
-                if (isAuthorized && requestReadHealthDataInBackground) {
-                    hasReadHealthDataInBackgroundPermission()
-                } else {
-                    Result.success(isAuthorized)
+                getRequestedOtherPermissionsKeys(
+                    requestReadHealthDataInBackground = requestReadHealthDataInBackground,
+                    requestReadHealthDataHistory = requestReadHealthDataHistory,
+                ).map { requestedOtherPermissionsKeys ->
+                    isAuthorized to requestedOtherPermissionsKeys
                 }
             }
-            .flatMap { isAuthorized ->
-                if (isAuthorized) return@flatMap Result.success(true)
+            .flatMap { (isAuthorized, requestedOtherPermissionsKeys) ->
+                if (isAuthorized && requestedOtherPermissionsKeys.isEmpty()) {
+                    return@flatMap Result.success(true)
+                }
 
                 requestPermissionWithActivity(
                     readPermissions = readTypes.readPermissions,
                     writePermissions = writeTypes.writePermissions,
-                    otherPermission = if (requestReadHealthDataInBackground) {
-                        setOf(getReadHealthDataInBackgroundKey())
-                    } else {
-                        emptySet()
-                    },
+                    otherPermission = requestedOtherPermissionsKeys,
                 )
             }
 
@@ -85,22 +87,31 @@ class HealthConnectManager(
 
     override suspend fun hasReadHealthDataInBackgroundPermission(): Result<Boolean> = runCatching {
         val grantedPermissions = healthConnectClient.permissionController.getGrantedPermissions()
-        val key = getReadHealthDataInBackgroundKey()
-        key in grantedPermissions
+        getReadHealthDataInBackgroundKey() in grantedPermissions
     }
 
-    override suspend fun requestReadHealthDataInBackgroundPermission(): Result<Boolean> {
-        return hasReadHealthDataInBackgroundPermission()
-            .flatMap { hasBackgroundPermission ->
-                if (hasBackgroundPermission) return Result.success(true)
+    override suspend fun requestReadHealthDataInBackgroundPermission(): Result<Boolean> =
+        requestAuthorization(
+            readTypes = emptyList(),
+            writeTypes = emptyList(),
+            requestReadHealthDataInBackground = true,
+            requestReadHealthDataHistory = false,
+        )
 
-                requestPermissionWithActivity(
-                    readPermissions = emptySet(),
-                    writePermissions = emptySet(),
-                    otherPermission = setOf(getReadHealthDataInBackgroundKey()),
-                )
-            }
+    override suspend fun hasReadHealthDataHistoryPermission(): Result<Boolean> = runCatching {
+        if (!isFeatureReadHealthDataHistoryAvailable()) return Result.success(true)
+
+        val grantedPermissions = healthConnectClient.permissionController.getGrantedPermissions()
+        getReadHealthDataHistoryKey() in grantedPermissions
     }
+
+    override suspend fun requestReadHealthDataHistoryPermission(): Result<Boolean> =
+        requestAuthorization(
+            readTypes = emptyList(),
+            writeTypes = emptyList(),
+            requestReadHealthDataInBackground = false,
+            requestReadHealthDataHistory = true,
+        )
 
     override suspend fun readData(
         startTime: Instant,
@@ -257,6 +268,42 @@ class HealthConnectManager(
             HealthPermissions.READ_HEALTH_DATA_IN_BACKGROUND
         } else {
             "android.permission.health.READ_HEALTH_DATA_IN_BACKGROUND"
+        }
+    }
+
+    private fun isFeatureReadHealthDataHistoryAvailable(): Boolean {
+        return healthConnectClient.features
+            .getFeatureStatus(HealthConnectFeatures.FEATURE_READ_HEALTH_DATA_HISTORY) ==
+                HealthConnectFeatures.FEATURE_STATUS_AVAILABLE
+    }
+
+    private fun getReadHealthDataHistoryKey(): String {
+        return HealthPermission.PERMISSION_READ_HEALTH_DATA_HISTORY
+    }
+
+    private suspend fun getRequestedOtherPermissionsKeys(
+        requestReadHealthDataInBackground: Boolean,
+        requestReadHealthDataHistory: Boolean,
+    ): Result<Set<String>> {
+        val backgroundPermissionKey = when {
+            !requestReadHealthDataInBackground -> Result.success(null)
+
+            else -> hasReadHealthDataInBackgroundPermission()
+                .map { if (it) null else getReadHealthDataInBackgroundKey() }
+        }
+
+        val historyPermissionKey = when {
+            !requestReadHealthDataHistory -> Result.success(null)
+
+            else -> hasReadHealthDataHistoryPermission()
+                .map { if (it) null else getReadHealthDataHistoryKey() }
+        }
+
+        return runCatching {
+            setOfNotNull(
+                backgroundPermissionKey.getOrThrow(),
+                historyPermissionKey.getOrThrow(),
+            )
         }
     }
 }

@@ -12,6 +12,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -130,6 +132,7 @@ fun SampleApp() {
     var isAuthorizedResult by remember { mutableStateOf<Result<Boolean>?>(null) }
     var isRevokeSupported by remember { mutableStateOf(false) }
     var hasBackgroundReadPermissionResult by remember { mutableStateOf<Result<Boolean>?>(null) }
+    var hasReadHistoryPermissionResult by remember { mutableStateOf<Result<Boolean>?>(null) }
     var regionalPreferencesResult by remember { mutableStateOf<Result<RegionalPreferences>?>(null) }
 
     LaunchedEffect(health) {
@@ -142,10 +145,12 @@ fun SampleApp() {
         )
         isRevokeSupported = health.isRevokeAuthorizationSupported().getOrNull() == true
         hasBackgroundReadPermissionResult = health.hasReadHealthDataInBackgroundPermission()
+        hasReadHistoryPermissionResult = health.hasReadHealthDataHistoryPermission()
         regionalPreferencesResult = health.getRegionalPreferences()
     }
 
     val navController = rememberNavController()
+    val snackbarHostState = remember { SnackbarHostState() }
     MaterialTheme {
         CompositionLocalProvider(
             LocalHealthManager provides health,
@@ -162,6 +167,9 @@ fun SampleApp() {
                                 title = "HealthKMP",
                             )
                         },
+                        snackbarHost = {
+                            SnackbarHost(hostState = snackbarHostState)
+                        },
                     ) { paddingValues ->
                         Column(
                             modifier = Modifier
@@ -176,12 +184,12 @@ fun SampleApp() {
 
                             isAvailableResult
                                 .onFailure {
-                                    Text("HealthManager isAvailable=$it")
+                                    Text("HealthManager is not available $it")
                                 }
 
                             isAuthorizedResult
                                 ?.onFailure {
-                                    Text("HealthManager isAuthorized=$it")
+                                    Text("HealthManager is not authorized $it")
                                 }
                             if (isAvailableResult.getOrNull() == true && isAuthorizedResult?.getOrNull() != true)
                                 AppButton(
@@ -194,6 +202,8 @@ fun SampleApp() {
                                             )
                                             hasBackgroundReadPermissionResult =
                                                 health.hasReadHealthDataInBackgroundPermission()
+                                            hasReadHistoryPermissionResult =
+                                                health.hasReadHealthDataHistoryPermission()
                                         }
                                     },
                                 )
@@ -203,12 +213,20 @@ fun SampleApp() {
                                     onClick = {
                                         coroutineScope.launch {
                                             health.revokeAuthorization()
+                                                .onFailure {
+                                                    coroutineScope.launch {
+                                                        snackbarHostState.showSnackbar("Failed to revoke authorization $it")
+                                                    }
+                                                }
+
                                             isAuthorizedResult = health.isAuthorized(
                                                 readTypes = readTypes,
                                                 writeTypes = writeTypes,
                                             )
                                             hasBackgroundReadPermissionResult =
                                                 health.hasReadHealthDataInBackgroundPermission()
+                                            hasReadHistoryPermissionResult =
+                                                health.hasReadHealthDataHistoryPermission()
                                         }
                                     },
                                     colors = ButtonDefaults.buttonColors(
@@ -221,7 +239,7 @@ fun SampleApp() {
 
                             hasBackgroundReadPermissionResult
                                 ?.onSuccess {
-                                    Text("Has background read permission")
+                                    Text("Background read permission - granted: $it")
                                 }
                             if (
                                 isAvailableResult.getOrNull() == true &&
@@ -234,6 +252,26 @@ fun SampleApp() {
                                         coroutineScope.launch {
                                             hasBackgroundReadPermissionResult =
                                                 health.requestReadHealthDataInBackgroundPermission()
+                                        }
+                                    },
+                                )
+                            }
+
+                            hasReadHistoryPermissionResult
+                                ?.onSuccess {
+                                    Text("Read history permission - granted: $it")
+                                }
+                            if (
+                                isAvailableResult.getOrNull() == true &&
+                                isAuthorizedResult?.getOrNull() == true &&
+                                hasReadHistoryPermissionResult?.getOrNull() != true
+                            ) {
+                                AppButton(
+                                    text = "Request read history permission",
+                                    onClick = {
+                                        coroutineScope.launch {
+                                            hasReadHistoryPermissionResult =
+                                                health.requestReadHealthDataHistoryPermission()
                                         }
                                     },
                                 )
