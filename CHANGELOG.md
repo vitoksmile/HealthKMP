@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.0](https://github.com/vitoksmile/HealthKMP/releases/tag/1.7.0)
+
+- Added support for Android Health Connect **`PERMISSION_READ_HEALTH_DATA_HISTORY`** permission (`hasReadHealthDataHistoryPermission` & `requestReadHealthDataHistoryPermission`) (#15)
+- Added **`openSystemHealthSettings`** to `HealthManager` for launching system health settings screens across Android (Health Connect & Google Fit) and iOS
+- Added detailed KDoc documentation & notes on **Health Connect permission revocation** (Android process death requirement)
+
 ## [1.6.0](https://github.com/vitoksmile/HealthKMP/releases/tag/1.6.0)
 
 - Added **duration-grouped aggregation** support (`aggregateGroupByDuration`) across Health Connect and HealthKit

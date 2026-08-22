@@ -92,7 +92,7 @@ build.gradle:
 sourceSets {
     val commonMain by getting {
         dependencies {
-            implementation("com.viktormykhailiv:health-kmp:1.6.0")
+            implementation("com.viktormykhailiv:health-kmp:1.7.0")
         }
     }
 }
@@ -102,7 +102,7 @@ or use version catalog:
 
 ```
 [versions]
-health = "1.6.0"
+health = "1.7.0"
 
 [libraries]
 health = { module = "com.viktormykhailiv:health-kmp", version.ref = "health" }
